@@ -12,6 +12,11 @@
 		CE2C43A62822D2E4000007A2 /* Offline in Frameworks */ = {isa = PBXBuildFile; productRef = CE2C43A52822D2E4000007A2 /* Offline */; };
 		CE2C43AA2822D494000007A2 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2C43A92822D494000007A2 /* Media.xcassets */; };
 		CE2C43AC2822D4CB000007A2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2C43AB2822D4CB000007A2 /* Launch Screen.storyboard */; };
+		CE2C43AE2822E071000007A2 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43AD2822E071000007A2 /* Map.swift */; };
+		CE2C43B22822E1E2000007A2 /* Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B12822E1E2000007A2 /* Create.swift */; };
+		CE2C43B42822E4A0000007A2 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B32822E4A0000007A2 /* Main.swift */; };
+		CE2C43B62822E4EC000007A2 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B52822E4EC000007A2 /* Session.swift */; };
+		CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B72822E9AF000007A2 /* UIApplication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +26,11 @@
 		CE2C43A72822D3EA000007A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CE2C43A92822D494000007A2 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CE2C43AB2822D4CB000007A2 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		CE2C43AD2822E071000007A2 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		CE2C43B12822E1E2000007A2 /* Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.swift; sourceTree = "<group>"; };
+		CE2C43B32822E4A0000007A2 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		CE2C43B52822E4EC000007A2 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CE2C43B72822E9AF000007A2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,11 @@
 				CE2C43A72822D3EA000007A2 /* Info.plist */,
 				CE2C43AB2822D4CB000007A2 /* Launch Screen.storyboard */,
 				CE2C43982822D2B0000007A2 /* App.swift */,
+				CE2C43B12822E1E2000007A2 /* Create.swift */,
+				CE2C43B32822E4A0000007A2 /* Main.swift */,
+				CE2C43AD2822E071000007A2 /* Map.swift */,
+				CE2C43B52822E4EC000007A2 /* Session.swift */,
+				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -148,6 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */,
+				CE2C43B62822E4EC000007A2 /* Session.swift in Sources */,
+				CE2C43B22822E1E2000007A2 /* Create.swift in Sources */,
+				CE2C43AE2822E071000007A2 /* Map.swift in Sources */,
+				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CE2C43992822D2B0000007A2 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +230,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Activate your location to get navigation";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -281,6 +303,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Activate your location to get navigation";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
