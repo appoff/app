@@ -3,7 +3,7 @@ import MapKit
 
 final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate, MKLocalSearchCompleterDelegate, ObservableObject {
     @Published private(set) var results = [MKLocalSearchCompletion]()
-    private weak var field: UITextField!
+    private(set) weak var field: UITextField!
     private var editable = true
     private let completer = MKLocalSearchCompleter()
     private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
@@ -12,6 +12,8 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     init() {
         super.init(frame: .zero)
         completer.delegate = self
+        completer.resultTypes = [.address, .pointOfInterest, .query]
+        completer.pointOfInterestFilter = .includingAll
         
         let background = UIView()
         background.backgroundColor = .init(named: "Input")
@@ -32,7 +34,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
         field.autocapitalizationType = .none
         field.spellCheckingType = .yes
         field.tintColor = .label
-        field.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize + 3, weight: .regular)
+        field.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize + 2, weight: .regular)
         field.allowsEditingTextAttributes = false
         field.returnKeyType = .search
         field.delegate = self
@@ -55,10 +57,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     
     func textFieldDidChangeSelection(_: UITextField) {
         completer.cancel()
-        if !field.text!.isEmpty {
-            completer.queryFragment = ""
-            completer.queryFragment = field.text!
-        }
+        completer.queryFragment = field.text!
     }
     
     var hasText: Bool {

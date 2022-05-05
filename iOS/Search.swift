@@ -6,10 +6,30 @@ struct Search: View {
     
     var body: some View {
         NavigationView {
-            List(field.results, id: \.self) {
-                Text($0.title)
+            List() {
+                if field.results.isEmpty {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(size: 24, weight: .light))
+                        Text("Search for an address\nor place of interest.")
+                        Spacer()
+                    }
+                    .foregroundStyle(.secondary)
+                    .font(.callout)
+                    .listSectionSeparator(.hidden)
+                    .padding(.top)
+                }
+                
+                ForEach(field.results, id: \.self) {
+                    Item(item: $0) {
+                        field.field.text = $0
+                    } action: {
+                        
+                    }
+                }
             }
-            .listStyle(.insetGrouped)
+            .animation(.easeInOut(duration: 0.25), value: field.results)
+            .listStyle(.plain)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 field
                     .equatable()

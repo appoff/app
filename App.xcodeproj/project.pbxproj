@@ -20,6 +20,7 @@
 		CE81D91F2823CEDB00364029 /* Create.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D91E2823CEDB00364029 /* Create.Action.swift */; };
 		CE81D9212823E0BE00364029 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D9202823E0BE00364029 /* Search.swift */; };
 		CE81D9232823E4B200364029 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D9222823E4B200364029 /* Field.swift */; };
+		CE81D92528242DA900364029 /* Search.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D92428242DA900364029 /* Search.Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		CE81D91E2823CEDB00364029 /* Create.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Action.swift; sourceTree = "<group>"; };
 		CE81D9202823E0BE00364029 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE81D9222823E4B200364029 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		CE81D92428242DA900364029 /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				CE81D9222823E4B200364029 /* Field.swift */,
 				CE2C43B32822E4A0000007A2 /* Main.swift */,
 				CE2C43AD2822E071000007A2 /* Map.swift */,
+				CE81D92428242DA900364029 /* Search.Item.swift */,
 				CE81D9202823E0BE00364029 /* Search.swift */,
 				CE2C43B52822E4EC000007A2 /* Session.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
@@ -179,6 +182,7 @@
 				CE2C43AE2822E071000007A2 /* Map.swift in Sources */,
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
 				CE81D9212823E0BE00364029 /* Search.swift in Sources */,
+				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CE2C43992822D2B0000007A2 /* App.swift in Sources */,
 			);
