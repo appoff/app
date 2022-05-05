@@ -11,7 +11,7 @@ extension Create {
                     .font(.system(size: 22, weight: .light))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.primary)
-                    .frame(width: 45, height: 45)
+                    .frame(width: 50, height: 45)
                     .contentShape(Rectangle())
             }
         }

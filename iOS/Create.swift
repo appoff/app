@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct Create: View {
+    @State private var search = false
+    
     var body: some View {
         Map()
             .edgesIgnoringSafeArea([.top, .leading, .trailing])
@@ -8,7 +10,7 @@ struct Create: View {
                 VStack(spacing: 0) {
                     Divider()
                         .edgesIgnoringSafeArea(.horizontal)
-                    HStack {
+                    HStack(spacing: 0) {
                         Action(symbol: "questionmark.circle") {
                             
                         }
@@ -18,13 +20,25 @@ struct Create: View {
                             
                         }
                         
-                        Action(symbol: "arrow.triangle.turn.up.right.circle") {
-                            
-                        }
-                        
                         Action(symbol: "location.viewfinder") {
                             
                         }
+                        
+                        Button {
+                            search = true
+                        } label: {
+                            ZStack(alignment: .leading) {
+                                Capsule()
+                                    .fill(.tertiary)
+                                Image(systemName: "magnifyingglass")
+                                    .font(.system(size: 14, weight: .light))
+                                    .foregroundColor(.primary)
+                                    .padding(.leading, 10)
+                            }
+                            .frame(width: 68, height: 34)
+                        }
+                        .padding(.leading, 10)
+                        .sheet(isPresented: $search, content: Search.init)
                         
                         Spacer()
                         
