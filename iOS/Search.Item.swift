@@ -4,7 +4,7 @@ import MapKit
 extension Search {
     struct Item: View {
         let item: MKLocalSearchCompletion
-        let complete: (String) -> Void
+        let complete: () -> Void
         let action: () -> Void
         
         var body: some View {
@@ -14,9 +14,7 @@ extension Search {
                     + Text("\n")
                     + Text(subtitle)
                     Spacer()
-                    Button {
-                        complete(item.title)
-                    } label: {
+                    Button(action: complete) {
                         Image(systemName: "character.cursor.ibeam")
                             .font(.system(size: 16, weight: .light))
                             .foregroundColor(.primary)

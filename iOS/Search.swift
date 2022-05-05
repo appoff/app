@@ -1,6 +1,8 @@
 import SwiftUI
+import MapKit
 
 struct Search: View {
+    let select: (MKLocalSearchCompletion) -> Void
     @StateObject private var field = Field()
     @Environment(\.dismiss) private var dismiss
     
@@ -20,11 +22,12 @@ struct Search: View {
                     .padding(.top)
                 }
                 
-                ForEach(field.results, id: \.self) {
-                    Item(item: $0) {
-                        field.field.text = $0
+                ForEach(field.results, id: \.self) { item in
+                    Item(item: item) {
+                        field.field.text = item.title
                     } action: {
-                        
+                        select(item)
+                        dismiss()
                     }
                 }
             }

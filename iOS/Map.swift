@@ -15,6 +15,11 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         pointOfInterestFilter = .excludingAll
         mapType = .standard
         delegate = self
+        print("map")
+    }
+    
+    deinit {
+        print("map gone")
     }
     
     func mapView(_: MKMapView, didUpdate: MKUserLocation) {
