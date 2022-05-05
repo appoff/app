@@ -20,7 +20,7 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
     func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard first else { return }
         first = false
-        setUserTrackingMode(.followWithHeading, animated: true)
+        setUserTrackingMode(.follow, animated: true)
     }
 //    
 //    func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
