@@ -74,6 +74,9 @@ struct Main: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $add, content: Create.init)
+        .fullScreenCover(isPresented: $add) {
+            Create()
+                .equatable()
+        }
     }
 }

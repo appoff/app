@@ -1,8 +1,14 @@
 import SwiftUI
 import MapKit
 
-struct Create: View {
+struct Create: View, Equatable {
+    static func == (lhs: Create, rhs: Create) -> Bool {
+        true
+    }
+    
     @State private var search = false
+    @State private var cancel = false
+    @Environment(\.dismiss) private var dismiss
     private let map = Map()
     
     var body: some View {
@@ -12,7 +18,7 @@ struct Create: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 HStack {
                     Button {
-                        
+                        cancel = true
                     } label: {
                         Text("Cancel")
                             .font(.callout)
@@ -21,6 +27,16 @@ struct Create: View {
                     .foregroundColor(.primary)
                     .buttonStyle(.bordered)
                     .padding(.leading)
+                    .confirmationDialog("Cancel new map", isPresented: $cancel) {
+                        Button("Cancel new map", role: .destructive) {
+                            dismiss()
+                        }
+                        
+                        Button("Continue", role: .cancel) {
+                            cancel = false
+                        }
+                    }
+                    
                     Spacer()
                     Button {
                         
