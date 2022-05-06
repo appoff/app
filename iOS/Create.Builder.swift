@@ -7,11 +7,12 @@ extension Create {
         @Published private(set) var points = [MKPointAnnotation]()
         let map = Map()
         private var route = Set<Item>()
-        private let tap = UITapGestureRecognizer()
+        private let long = UILongPressGestureRecognizer()
+        private let geocoder = CLGeocoder()
         
         init() {
-            map.addGestureRecognizer(tap)
-            tap.addTarget(self, action: #selector(tapped))
+            map.addGestureRecognizer(long)
+            long.addTarget(self, action: #selector(pressed))
         }
         
         func tracker() {
@@ -84,44 +85,49 @@ extension Create {
         private func add(point: MKPointAnnotation, center: Bool) {
             points.append(point)
             map.addAnnotation(point)
-            map.selectAnnotation(point, animated: true)
-            directions()
             
             if center {
                 map.setCenter(point.coordinate, animated: true)
+                map.selectAnnotation(point, animated: true)
+            }
+            
+            directions()
+        }
+        
+        private func geocode(point: MKPointAnnotation) async {
+            guard
+                let location = try? await geocoder.reverseGeocodeLocation(.init(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)).first
+            else { return }
+            point.title = location.name
+            
+            if let thoroughfare = location.thoroughfare {
+                point.subtitle = thoroughfare
+                
+                if let subThoroughfare = location.subThoroughfare,
+                   !subThoroughfare.isEmpty {
+                    point.subtitle! += " " + subThoroughfare
+                    
+                    if let locality = location.locality,
+                       !locality.isEmpty {
+                        point.subtitle! += " " + locality
+                    }
+                }
             }
         }
         
-        @objc private func tapped() {
+        @objc private func pressed() {
+            let coordinate = map.convert(long.location(in: map), toCoordinateFrom: nil)
+            
+//            guard points.contains(where: <#T##(MKPointAnnotation) throws -> Bool#>)
+            
             let point = MKPointAnnotation()
-            point.coordinate = map.convert(tap.location(in: map), toCoordinateFrom: nil)
-            point.title = "hello"
-            point.subtitle = "world"
+            point.coordinate = coordinate
+            
             add(point: point, center: false)
+            
+            Task {
+                await geocode(point: point)
+            }
         }
     }
 }
-
-
-/*
- let request = MKDirections.Request()
- request.transportType = mode == .driving ? .automobile : .walking
- request.source = .init(placemark: .init(coordinate: .init(latitude: path.latitude, longitude: path.longitude), addressDictionary: nil))
- request.destination = .init(placemark: .init(coordinate: .init(latitude: destination.latitude, longitude: destination.longitude), addressDictionary: nil))
- MKDirections(request: request).calculate { [weak self] in
-     if $1 == nil, let paths = $0?.routes {
-         if let best = paths.sorted(by: { $0.distance < $1.distance && $0.expectedTravelTime < $1.expectedTravelTime }).first {
-             let option = Path.Option()
-             option.mode = mode
-             option.distance = best.distance
-             option.duration = best.expectedTravelTime
-             option.points = UnsafeBufferPointer(start: best.polyline.points(), count: best.polyline.pointCount).map { ($0.coordinate.latitude, $0.coordinate.longitude) }
-             path.options.append(option)
-         }
-         if app.session.settings.mode == mode {
-             self?.line()
-             self?.refreshSelecting()
-         }
-     }
- }
- */
