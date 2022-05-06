@@ -39,12 +39,18 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         first = false
         setUserTrackingMode(.follow, animated: false)
     }
-//    
-//    func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
-//        let renderer = MKPolygonRenderer(overlay: rendererFor)
-//        renderer.fillColor = .init(named: "Tile")
-//        return renderer
-//    }
+    
+    func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
+        switch rendererFor {
+        case let line as MKMultiPolyline:
+            let renderer = MKMultiPolylineRenderer(multiPolyline: line)
+            renderer.strokeColor = .secondaryLabel
+            renderer.fillColor = .blue
+            return renderer
+        default:
+            return MKPolygonRenderer(overlay: rendererFor)
+        }
+    }
     
     func makeUIView(context: Context) -> Map {
         self

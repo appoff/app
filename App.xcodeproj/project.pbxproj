@@ -23,6 +23,8 @@
 		CE81D92528242DA900364029 /* Search.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D92428242DA900364029 /* Search.Item.swift */; };
 		CEC51AB928252F85003DA00D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AB828252F85003DA00D /* Session.swift */; };
 		CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABA28252FF3003DA00D /* Session.Flow.swift */; };
+		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
+		CEC51AC128255334003DA00D /* Create.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AC028255334003DA00D /* Create.Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		CE81D92428242DA900364029 /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
 		CEC51AB828252F85003DA00D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEC51ABA28252FF3003DA00D /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
+		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
+		CEC51AC028255334003DA00D /* Create.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				CE2C43AB2822D4CB000007A2 /* Launch Screen.storyboard */,
 				CE2C43982822D2B0000007A2 /* App.swift */,
 				CE81D91E2823CEDB00364029 /* Create.Action.swift */,
+				CEC51ABE28254CD4003DA00D /* Create.Builder.swift */,
+				CEC51AC028255334003DA00D /* Create.Item.swift */,
 				CE2C43B12822E1E2000007A2 /* Create.swift */,
 				CE81D9222823E4B200364029 /* Field.swift */,
 				CE2C43B32822E4A0000007A2 /* Main.swift */,
@@ -186,8 +192,10 @@
 				CE81D91F2823CEDB00364029 /* Create.Action.swift in Sources */,
 				CE2C43B22822E1E2000007A2 /* Create.swift in Sources */,
 				CE2C43AE2822E071000007A2 /* Map.swift in Sources */,
+				CEC51AC128255334003DA00D /* Create.Item.swift in Sources */,
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
 				CE81D9212823E0BE00364029 /* Search.swift in Sources */,
+				CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */,
 				CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */,
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,

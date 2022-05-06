@@ -10,16 +10,17 @@ struct Search: View {
         NavigationView {
             List() {
                 if field.results.isEmpty {
-                    HStack {
+                    VStack(spacing: 20) {
                         Image(systemName: "magnifyingglass")
-                            .font(.system(size: 24, weight: .light))
+                            .font(.system(size: 32, weight: .light))
                         Text("Search for an address\nor place of interest.")
-                        Spacer()
+                            .multilineTextAlignment(.center)
                     }
                     .foregroundStyle(.secondary)
                     .font(.callout)
                     .listSectionSeparator(.hidden)
                     .padding(.top)
+                    .frame(maxWidth: .greatestFiniteMagnitude)
                 }
                 
                 ForEach(field.results, id: \.self) { item in
@@ -47,6 +48,7 @@ struct Search: View {
                     } label: {
                         Text("Cancel")
                             .font(.callout)
+                            .foregroundStyle(.secondary)
                             .frame(minWidth: 60, minHeight: 38)
                             .contentShape(Rectangle())
                     }

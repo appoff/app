@@ -1,14 +1,12 @@
 import SwiftUI
-import MapKit
 
 struct Create: View {
     let session: Session
-    @State private var search = false
-    @State private var cancel = false
-    private let map = Map()
+    @StateObject private var builder = Builder()
     
     var body: some View {
-        map
+        builder
+            .map
             .edgesIgnoringSafeArea([.top, .leading, .trailing])
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 VStack(spacing: 0) {
@@ -16,26 +14,25 @@ struct Create: View {
                         .edgesIgnoringSafeArea(.horizontal)
                     
                     HStack {
-                        Text("0 points")
+                        Text(builder.points.count.formatted() + " points")
                             .font(.callout)
-                            .padding(.vertical)
                             .padding(.leading)
                         
                         Spacer()
                         
                         Button("Cancel", role: .destructive) {
-                            cancel = true
+                            builder.cancel = true
                         }
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .buttonStyle(.plain)
-                        .confirmationDialog("Cancel new map", isPresented: $cancel) {
+                        .confirmationDialog("Cancel new map", isPresented: $builder.cancel) {
                             Button("Cancel new map", role: .destructive) {
                                 session.flow = .main
                             }
                             
                             Button("Continue", role: .cancel) {
-                                cancel = false
+                                builder.cancel = false
                             }
                         }
                         
@@ -51,7 +48,7 @@ struct Create: View {
                         .tint(.primary)
                         .padding(.horizontal)
                     }
-                    .padding(.vertical, 5)
+                    .padding(.vertical, 10)
                     
                     Divider()
                         .padding(.horizontal)
@@ -66,7 +63,7 @@ struct Create: View {
                         }
                         
                         Button {
-                            search = true
+                            builder.search = true
                         } label: {
                             ZStack(alignment: .leading) {
                                 Capsule()
@@ -79,16 +76,10 @@ struct Create: View {
                             .frame(width: 80, height: 34)
                         }
                         .padding(.horizontal, 15)
-                        .sheet(isPresented: $search) {
+                        .sheet(isPresented: $builder.search) {
                             Search { item in
                                 Task {
-                                    guard
-                                        let response = try? await MKLocalSearch(request: .init(completion: item)).start(),
-                                        let placemark = response.mapItems.first?.placemark
-                                    else { return }
-                                    map.addAnnotation(placemark)
-                                    map.setCenter(placemark.coordinate, animated: true)
-                                    map.selectAnnotation(placemark, animated: true)
+                                    await builder.selected(completion: item)
                                 }
                             }
                         }
@@ -97,20 +88,7 @@ struct Create: View {
                             
                         }
                         
-                        Action(symbol: "location.viewfinder") {
-                            let manager = CLLocationManager()
-                            switch manager.authorizationStatus {
-                            case .denied, .restricted:
-                                UIApplication.shared.settings()
-                            case .notDetermined:
-                                map.first = true
-                                manager.requestAlwaysAuthorization()
-                            case .authorizedAlways, .authorizedWhenInUse:
-                                map.setUserTrackingMode(.follow, animated: true)
-                            @unknown default:
-                                break
-                            }
-                        }
+                        Action(symbol: "location.viewfinder", action: builder.tracker)
                     }
                     .padding(.bottom, 10)
                 }
