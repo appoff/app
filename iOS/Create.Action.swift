@@ -8,10 +8,10 @@ extension Create {
         var body: some View {
             Button(action: action) {
                 Image(systemName: symbol)
-                    .font(.system(size: 22, weight: .light))
+                    .font(.system(size: 20, weight: .light))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.primary)
-                    .frame(width: 60, height: 45)
+                    .frame(width: 64, height: 60)
                     .contentShape(Rectangle())
             }
         }

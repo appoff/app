@@ -1,61 +1,61 @@
 import SwiftUI
 import MapKit
 
-struct Create: View, Equatable {
-    static func == (lhs: Create, rhs: Create) -> Bool {
-        true
-    }
-    
+struct Create: View {
+    let session: Session
     @State private var search = false
     @State private var cancel = false
-    @Environment(\.dismiss) private var dismiss
     private let map = Map()
     
     var body: some View {
         map
-            .equatable()
             .edgesIgnoringSafeArea([.top, .leading, .trailing])
-            .safeAreaInset(edge: .top, spacing: 0) {
-                HStack {
-                    Button {
-                        cancel = true
-                    } label: {
-                        Text("Cancel")
-                            .font(.callout)
-                            .padding(.horizontal, 5)
-                    }
-                    .foregroundColor(.primary)
-                    .buttonStyle(.bordered)
-                    .padding(.leading)
-                    .confirmationDialog("Cancel new map", isPresented: $cancel) {
-                        Button("Cancel new map", role: .destructive) {
-                            dismiss()
-                        }
-                        
-                        Button("Continue", role: .cancel) {
-                            cancel = false
-                        }
-                    }
-                    
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Text("Save")
-                            .font(.callout)
-                            .padding(.horizontal, 5)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .foregroundColor(Color(.systemBackground))
-                    .tint(.primary)
-                    .padding(.trailing)
-                }
-                .padding(.top)
-            }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 VStack(spacing: 0) {
                     Divider()
                         .edgesIgnoringSafeArea(.horizontal)
+                    
+                    HStack {
+                        Text("0 points")
+                            .font(.callout)
+                            .padding(.vertical)
+                            .padding(.leading)
+                        
+                        Spacer()
+                        
+                        Button("Cancel", role: .destructive) {
+                            cancel = true
+                        }
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .buttonStyle(.plain)
+                        .confirmationDialog("Cancel new map", isPresented: $cancel) {
+                            Button("Cancel new map", role: .destructive) {
+                                session.flow = .main
+                            }
+                            
+                            Button("Continue", role: .cancel) {
+                                cancel = false
+                            }
+                        }
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Save")
+                                .font(.callout)
+                                .padding(.horizontal, 5)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .foregroundColor(Color(.systemBackground))
+                        .tint(.primary)
+                        .padding(.horizontal)
+                    }
+                    .padding(.vertical, 5)
+                    
+                    Divider()
+                        .padding(.horizontal)
+                        
                     HStack(spacing: 0) {
                         Action(symbol: "questionmark.circle") {
                             
@@ -72,11 +72,11 @@ struct Create: View, Equatable {
                                 Capsule()
                                     .fill(.tertiary)
                                 Image(systemName: "magnifyingglass")
-                                    .font(.system(size: 14, weight: .light))
+                                    .font(.system(size: 12, weight: .light))
                                     .foregroundColor(.primary)
                                     .padding(.leading, 10)
                             }
-                            .frame(width: 110, height: 34)
+                            .frame(width: 80, height: 34)
                         }
                         .padding(.horizontal, 15)
                         .sheet(isPresented: $search) {
@@ -90,30 +90,29 @@ struct Create: View, Equatable {
                                     map.setCenter(placemark.coordinate, animated: true)
                                     map.selectAnnotation(placemark, animated: true)
                                 }
-                                
-//                                MKLocalSearch(request: .init(completion: $0)).start { [weak self] in
-//                                    guard $1 == nil, let placemark = $0?.mapItems.first?.placemark, let mark = self?.map.add(placemark.coordinate) else { return }
-//                                    mark.path.name = placemark.name ?? placemark.title ?? ""
-//                                    self?.map.selectAnnotation(mark, animated: true)
-//                                    self?.refresh()
-//                                }
                             }
                         }
                         
-                        Action(symbol: "location.viewfinder") {
+                        Action(symbol: "square.stack.3d.up") {
                             
                         }
+                        
+                        Action(symbol: "location.viewfinder") {
+                            let manager = CLLocationManager()
+                            switch manager.authorizationStatus {
+                            case .denied, .restricted:
+                                UIApplication.shared.settings()
+                            case .notDetermined:
+                                map.first = true
+                                manager.requestAlwaysAuthorization()
+                            case .authorizedAlways, .authorizedWhenInUse:
+                                map.setUserTrackingMode(.follow, animated: true)
+                            @unknown default:
+                                break
+                            }
+                        }
                     }
-                    .padding(.vertical, 10)
-                    
-                    Divider()
-                        .edgesIgnoringSafeArea(.horizontal)
-                    
-                    Text("0 points")
-                        .font(.callout)
-                        .padding(.vertical)
-                        .padding(.leading, 30)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .padding(.bottom, 10)
                 }
             }
     }

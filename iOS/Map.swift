@@ -2,7 +2,7 @@ import SwiftUI
 import MapKit
 
 final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
-    private var first = true
+    var first = true
 //    private var subs = Set<AnyCancellable>()
 //    private let dispatch = DispatchQueue(label: "", qos: .utility)
     
@@ -15,6 +15,18 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         pointOfInterestFilter = .excludingAll
         mapType = .standard
         delegate = self
+        
+        var region = MKCoordinateRegion()
+        region.span = .init(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        region.center = userLocation.location == nil
+            ? centerCoordinate
+            : userLocation.coordinate.latitude != 0 || userLocation.coordinate.longitude != 0
+                ? userLocation.coordinate
+                : centerCoordinate
+        
+        setRegion(region, animated: false)
+        setUserTrackingMode(.follow, animated: false)
+        
         print("map")
     }
     
@@ -25,12 +37,8 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
     func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard first else { return }
         first = false
-        setUserTrackingMode(.follow, animated: true)
+        setUserTrackingMode(.follow, animated: false)
     }
-//    
-//    func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-////        status.follow = mode == .follow
-//    }
 //    
 //    func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
 //        let renderer = MKPolygonRenderer(overlay: rendererFor)
