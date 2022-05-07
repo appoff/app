@@ -1,10 +1,10 @@
 import SwiftUI
 import MapKit
+import Combine
 
 final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
     var first = true
-//    private var subs = Set<AnyCancellable>()
-//    private let dispatch = DispatchQueue(label: "", qos: .utility)
+    let discard = PassthroughSubject<MKPointAnnotation, Never>()
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -27,6 +27,7 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         
         setRegion(region, animated: false)
         setUserTrackingMode(.follow, animated: false)
+        register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Marker")
         
         print("map")
     }
@@ -39,6 +40,33 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         guard first else { return }
         first = false
         setUserTrackingMode(.follow, animated: false)
+    }
+    
+    func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
+        switch viewFor {
+        case is MKUserLocation:
+            return nil
+        case let point as MKPointAnnotation:
+            
+            let view = dequeueReusableAnnotationView(withIdentifier: "Marker") as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: point, reuseIdentifier: "Marker")
+            view.annotation = point
+            view.markerTintColor = .label
+            view.animatesWhenAdded = true
+            view.displayPriority = .required
+            view.canShowCallout = true
+            
+            let button = UIButton(configuration: .plain(), primaryAction: .init { [weak self] _ in
+                self?.discard.send(point)
+            })
+            button.frame = .init(x: 0, y: 0, width: 34, height: 40)
+            button.setImage(UIImage(systemName: "xmark.circle.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .secondaryLabel))?.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 16, weight: .light))), for: .normal)
+            
+            view.leftCalloutAccessoryView = button
+            
+            return view
+        default:
+            return nil
+        }
     }
     
     func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {

@@ -14,10 +14,6 @@ struct Create: View {
                         .edgesIgnoringSafeArea(.horizontal)
                     
                     HStack {
-                        Text(builder.points.count.formatted() + " points")
-                            .font(.callout)
-                            .padding(.leading)
-                        
                         Spacer()
                         
                         Button("Cancel", role: .destructive) {
@@ -36,19 +32,50 @@ struct Create: View {
                             }
                         }
                         
-                        Button {
+                        Button("Save") {
                             
-                        } label: {
-                            Text("Save")
-                                .font(.callout)
-                                .padding(.horizontal, 5)
                         }
+                        .font(.callout)
                         .buttonStyle(.borderedProminent)
                         .foregroundColor(Color(.systemBackground))
                         .tint(.primary)
-                        .padding(.horizontal)
+                        .padding(.leading)
+                        .padding(.vertical, 10)
                     }
-                    .padding(.vertical, 10)
+                    .padding(.horizontal)
+                    
+                    Divider()
+                        .padding(.horizontal)
+                    
+                    
+                    HStack(spacing: 0) {
+                        Text(builder.points.count.formatted())
+                            .font(.callout.monospacedDigit())
+                        + Text(builder.points.count == 1 ? " point" : " points")
+                            .foregroundColor(.secondary)
+                            .font(.footnote)
+                        
+                        Spacer()
+                        
+                        if !builder.route.isEmpty {
+                            Text("Duration ")
+                                .font(.caption)
+                            
+                            Text(Date(timeIntervalSinceNow: -builder.route.map(\.route.expectedTravelTime).reduce(0, +)) ..< Date.now, format: .timeDuration)
+                                .font(.footnote.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                            
+                            Text("Distance ")
+                                .font(.caption)
+                                .padding(.leading)
+                            
+                            Text(Measurement(value: builder.route.map(\.route.distance).reduce(0, +), unit: UnitLength.meters),
+                                 format: .measurement(width: .abbreviated))
+                                .font(.footnote.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding()
                     
                     Divider()
                         .padding(.horizontal)

@@ -1,18 +1,26 @@
 import MapKit
+import Combine
 
 extension Create {
     final class Builder: ObservableObject {
         @Published var search = false
         @Published var cancel = false
         @Published private(set) var points = [MKPointAnnotation]()
+        @Published private(set) var route = Set<Item>()
         let map = Map()
-        private var route = Set<Item>()
+        private var subs = Set<AnyCancellable>()
         private let long = UILongPressGestureRecognizer()
         private let geocoder = CLGeocoder()
         
         init() {
             map.addGestureRecognizer(long)
             long.addTarget(self, action: #selector(pressed))
+            map
+                .discard
+                .sink { [weak self] in
+                    self?.remove(discarded: [$0])
+                }
+                .store(in: &subs)
         }
         
         func tracker() {
@@ -85,8 +93,6 @@ extension Create {
                 map.setCenter(point.coordinate, animated: true)
             }
             
-            map.selectAnnotation(point, animated: true)
-            
             directions()
         }
         
@@ -135,10 +141,19 @@ extension Create {
                     
                     map.removeAnnotation(discard)
                 }
+            
+            directions()
         }
         
         @objc private func pressed() {
             guard long.state == .began else { return }
+            
+            map
+                .selectedAnnotations
+                .first
+                .map {
+                    map.deselectAnnotation($0, animated: true)
+                }
             
             let coordinate = map.convert(long.location(in: map), toCoordinateFrom: nil)
             remove(discarded: points
