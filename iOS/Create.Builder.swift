@@ -147,6 +147,7 @@ extension Create {
         
         @objc private func pressed() {
             guard long.state == .began else { return }
+            long.isEnabled = false
             
             map
                 .selectedAnnotations
@@ -170,7 +171,7 @@ extension Create {
                 await geocode(point: point)
             }
             
-            long.reset()
+            long.isEnabled = true
         }
     }
 }
