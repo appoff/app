@@ -14,6 +14,7 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         showsUserLocation = true
         pointOfInterestFilter = .excludingAll
         mapType = .standard
+        showsTraffic = false
         delegate = self
         
         var region = MKCoordinateRegion()
@@ -45,10 +46,9 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         case let line as MKMultiPolyline:
             let renderer = MKMultiPolylineRenderer(multiPolyline: line)
             renderer.strokeColor = .secondaryLabel
-            renderer.fillColor = .blue
             return renderer
         default:
-            return MKPolygonRenderer(overlay: rendererFor)
+            return MKOverlayRenderer(overlay: rendererFor)
         }
     }
     

@@ -43,11 +43,6 @@ extension Create {
         }
         
         private func directions() {
-            route = route
-                .filter {
-                    points.contains($0.origin) && points.contains($0.destination)
-                }
-            
             var pairs = [(MKPointAnnotation, MKPointAnnotation)]()
             _ = points.reduce(nil) { previous, current -> MKPointAnnotation? in
                 if let previous = previous {
@@ -77,7 +72,7 @@ extension Create {
             
             await MainActor
                 .run {
-                    map.removeOverlays(map.overlays.filter { $0 is MKMultiPolyline })
+                    map.removeOverlays(map.overlays)
                     map.addOverlay(MKMultiPolyline(route.map(\.route.polyline)), level: .aboveLabels)
                 }
         }
@@ -88,8 +83,9 @@ extension Create {
             
             if center {
                 map.setCenter(point.coordinate, animated: true)
-                map.selectAnnotation(point, animated: true)
             }
+            
+            map.selectAnnotation(point, animated: true)
             
             directions()
         }
@@ -107,18 +103,48 @@ extension Create {
                    !subThoroughfare.isEmpty {
                     point.subtitle! += " " + subThoroughfare
                     
-                    if let locality = location.locality,
-                       !locality.isEmpty {
-                        point.subtitle! += " " + locality
+                    if point.title?.lowercased() == point.subtitle?.lowercased() {
+                        if let locality = location.locality,
+                           !locality.isEmpty {
+                            point.subtitle = locality
+                        } else {
+                            point.subtitle = location.subLocality
+                            ?? location.postalCode
+                            ?? location.areasOfInterest?.first
+                            ?? location.subAdministrativeArea
+                            ?? location.administrativeArea
+                        }
                     }
                 }
             }
         }
         
+        private func remove(discarded: [MKPointAnnotation]) {
+            discarded
+                .forEach { discard in
+                    _ = points
+                        .firstIndex(of: discard)
+                        .map {
+                            points.remove(at: $0)
+                        }
+                    
+                    route = route
+                        .filter {
+                            $0.origin != discard && $0.destination != discard
+                        }
+                    
+                    map.removeAnnotation(discard)
+                }
+        }
+        
         @objc private func pressed() {
-            let coordinate = map.convert(long.location(in: map), toCoordinateFrom: nil)
+            guard long.state == .began else { return }
             
-//            guard points.contains(where: <#T##(MKPointAnnotation) throws -> Bool#>)
+            let coordinate = map.convert(long.location(in: map), toCoordinateFrom: nil)
+            remove(discarded: points
+                .filter { point in
+                    abs(point.coordinate.latitude - coordinate.latitude) + abs(point.coordinate.longitude - coordinate.longitude) < 0.003
+                })
             
             let point = MKPointAnnotation()
             point.coordinate = coordinate
@@ -128,6 +154,8 @@ extension Create {
             Task {
                 await geocode(point: point)
             }
+            
+            long.reset()
         }
     }
 }
