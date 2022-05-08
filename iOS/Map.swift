@@ -13,10 +13,20 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         isPitchEnabled = false
         showsUserLocation = true
         pointOfInterestFilter = .includingAll
-        mapType = .mutedStandard
         showsTraffic = false
         delegate = self
         
+        follow(animated: false)
+        register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Marker")
+        
+        print("map")
+    }
+    
+    deinit {
+        print("map gone")
+    }
+    
+    func follow(animated: Bool) {
         var region = MKCoordinateRegion()
         region.span = .init(latitudeDelta: 0.005, longitudeDelta: 0.005)
         region.center = userLocation.location == nil
@@ -25,15 +35,8 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
                 ? userLocation.coordinate
                 : centerCoordinate
         
-        setRegion(region, animated: false)
-        setUserTrackingMode(.follow, animated: false)
-        register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Marker")
-        
-        print("map")
-    }
-    
-    deinit {
-        print("map gone")
+        setRegion(region, animated: animated)
+        setUserTrackingMode(.follow, animated: animated)
     }
     
     func mapView(_: MKMapView, didUpdate: MKUserLocation) {

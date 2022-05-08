@@ -3,6 +3,8 @@ import SwiftUI
 struct Create: View {
     let session: Session
     @StateObject private var builder = Builder()
+    @State private var options = false
+    @State private var config = false
     
     var body: some View {
         builder
@@ -87,7 +89,10 @@ struct Create: View {
                         }
                         
                         Action(symbol: "slider.horizontal.3") {
-                            
+                            config = true
+                        }
+                        .sheet(isPresented: $config) {
+                            Sheet(rootView: Config())
                         }
                         
                         Button {
@@ -113,12 +118,28 @@ struct Create: View {
                         }
                         
                         Action(symbol: "square.stack.3d.up") {
-                            
+                            options = true
+                        }
+                        .sheet(isPresented: $options) {
+                            Sheet(rootView: Options())
                         }
                         
                         Action(symbol: "location.viewfinder", action: builder.tracker)
                     }
                     .padding(.bottom, 10)
+                }
+            }
+            .onReceive(cloud) {
+                
+                switch $0.settings.map {
+                case .standard:
+                    builder.map.mapType = .standard
+                case .satellite:
+                    builder.map.mapType = .satelliteFlyover
+                case .hybrid:
+                    builder.map.mapType = .hybridFlyover
+                case .emphasis:
+                    builder.map.mapType = .mutedStandard
                 }
             }
     }

@@ -32,7 +32,7 @@ extension Create {
                 map.first = true
                 manager.requestAlwaysAuthorization()
             case .authorizedAlways, .authorizedWhenInUse:
-                map.setUserTrackingMode(.follow, animated: true)
+                map.follow(animated: true)
             @unknown default:
                 break
             }

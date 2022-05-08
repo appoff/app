@@ -28,6 +28,10 @@
 		CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */; };
 		CE979A9E2827EBD400FC0EB0 /* Store.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */; };
 		CE979AA22827EF4D00FC0EB0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE979AA12827EF4D00FC0EB0 /* CloudKit.framework */; };
+		CE979AA42827F0EB00FC0EB0 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA32827F0EB00FC0EB0 /* Sheet.swift */; };
+		CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA52827F15400FC0EB0 /* Create.Options.swift */; };
+		CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA72827F21000FC0EB0 /* Create.Config.swift */; };
+		CE979AAA2827FA3D00FC0EB0 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA92827FA3D00FC0EB0 /* Window.swift */; };
 		CEC51AB928252F85003DA00D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AB828252F85003DA00D /* Session.swift */; };
 		CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABA28252FF3003DA00D /* Session.Flow.swift */; };
 		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
@@ -58,6 +62,10 @@
 		CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Item.swift; sourceTree = "<group>"; };
 		CE979A9F2827EF4A00FC0EB0 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CE979AA12827EF4D00FC0EB0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		CE979AA32827F0EB00FC0EB0 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
+		CE979AA52827F15400FC0EB0 /* Create.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Options.swift; sourceTree = "<group>"; };
+		CE979AA72827F21000FC0EB0 /* Create.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Config.swift; sourceTree = "<group>"; };
+		CE979AA92827FA3D00FC0EB0 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CEC51AB828252F85003DA00D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEC51ABA28252FF3003DA00D /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
@@ -95,7 +103,9 @@
 				CE2C43982822D2B0000007A2 /* App.swift */,
 				CE81D91E2823CEDB00364029 /* Create.Action.swift */,
 				CEC51ABE28254CD4003DA00D /* Create.Builder.swift */,
+				CE979AA72827F21000FC0EB0 /* Create.Config.swift */,
 				CEC51AC028255334003DA00D /* Create.Item.swift */,
+				CE979AA52827F15400FC0EB0 /* Create.Options.swift */,
 				CE2C43B12822E1E2000007A2 /* Create.swift */,
 				CE81D9222823E4B200364029 /* Field.swift */,
 				CE2C43B32822E4A0000007A2 /* Main.swift */,
@@ -105,7 +115,9 @@
 				CEC51ABA28252FF3003DA00D /* Session.Flow.swift */,
 				CEC51AB828252F85003DA00D /* Session.swift */,
 				CE2C43B52822E4EC000007A2 /* SessionOld.swift */,
+				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
+				CE979AA92827FA3D00FC0EB0 /* Window.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -135,10 +147,10 @@
 		CEFE119C2822D26F00C1B6BC = {
 			isa = PBXGroup;
 			children = (
+				CE979AA02827EF4D00FC0EB0 /* Frameworks */,
 				CE2C43972822D2B0000007A2 /* iOS */,
 				CE2C43962822D2B0000007A2 /* Products */,
 				CE2C43A82822D483000007A2 /* Shared */,
-				CE979AA02827EF4D00FC0EB0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,6 +237,7 @@
 				CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */,
 				CE979A9A2827EBAD00FC0EB0 /* Store.swift in Sources */,
 				CE81D91F2823CEDB00364029 /* Create.Action.swift in Sources */,
+				CE979AA42827F0EB00FC0EB0 /* Sheet.swift in Sources */,
 				CE2C43B22822E1E2000007A2 /* Create.swift in Sources */,
 				CE2C43AE2822E071000007A2 /* Map.swift in Sources */,
 				CE979A942827EB1100FC0EB0 /* App.Delegate.swift in Sources */,
@@ -237,8 +250,11 @@
 				CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */,
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
+				CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
+				CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */,
 				CE2C43992822D2B0000007A2 /* App.swift in Sources */,
+				CE979AAA2827FA3D00FC0EB0 /* Window.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,21 +1,24 @@
 import SwiftUI
 
 @main struct App: SwiftUI.App {
-    @StateObject private var session = Session()
+    
     @Environment(\.scenePhase) private var phase
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
     
     var body: some Scene {
         WindowGroup {
-            switch session.flow {
-            case .main:
-                NavigationView {
-                    Main(session: session)
+            Window()
+                .task {
+                    cloud.ready.notify(queue: .main) {
+                        cloud.pull.send()
+                        
+                        Task
+                            .detached {
+                                _ = await UNUserNotificationCenter.request()
+                                await store.launch()
+                            }
+                    }
                 }
-                .navigationViewStyle(.stack)
-            case .create:
-                Create(session: session)
-            }
         }
         .onChange(of: phase) {
             switch $0 {
