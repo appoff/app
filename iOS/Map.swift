@@ -12,8 +12,8 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
         isRotateEnabled = false
         isPitchEnabled = false
         showsUserLocation = true
-        pointOfInterestFilter = .excludingAll
-        mapType = .standard
+        pointOfInterestFilter = .includingAll
+        mapType = .mutedStandard
         showsTraffic = false
         delegate = self
         

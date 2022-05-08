@@ -39,6 +39,7 @@ struct Create: View {
                         .buttonStyle(.borderedProminent)
                         .foregroundColor(Color(.systemBackground))
                         .tint(.primary)
+                        .disabled(builder.points.count < 2)
                         .padding(.leading)
                         .padding(.vertical, 10)
                     }
