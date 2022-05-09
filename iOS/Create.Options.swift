@@ -4,6 +4,8 @@ import Offline
 extension Create {
     struct Options: View {
         @State private var map = Settings.Map.standard
+        @State private var interest = true
+        @State private var rotate = false
         
         var body: some View {
             Pop {
@@ -24,14 +26,48 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
-                Spacer()
+                Toggle(isOn: $interest) {
+                    Image(systemName: "theatermasks")
+                        .font(.system(size: 22, weight: .light))
+                        .frame(width: 45)
+                    Text("Points of interest")
+                        .font(.callout)
+                }
+                .font(.callout)
+                .padding()
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Toggle(isOn: $rotate) {
+                    Image(systemName: "gyroscope")
+                        .font(.system(size: 22, weight: .light))
+                        .frame(width: 45)
+                    Text("Allows rotation")
+                        .font(.callout)
+                }
+                .padding()
             }
+            .symbolRenderingMode(.hierarchical)
+            .toggleStyle(SwitchToggleStyle(tint: .secondary))
             .onReceive(cloud) {
                 map = $0.settings.map
+                interest = $0.settings.interest
+                rotate = $0.settings.rotate
             }
             .onChange(of: map) { value in
                 Task {
                     await cloud.update(map: value)
+                }
+            }
+            .onChange(of: interest) { value in
+                Task {
+                    await cloud.update(interest: value)
+                }
+            }
+            .onChange(of: rotate) { value in
+                Task {
+                    await cloud.update(rotate: value)
                 }
             }
         }

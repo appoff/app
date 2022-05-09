@@ -9,10 +9,8 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .zero)
-        isRotateEnabled = false
         isPitchEnabled = false
         showsUserLocation = true
-        pointOfInterestFilter = .includingAll
         showsTraffic = false
         delegate = self
         
@@ -36,13 +34,13 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
                 : centerCoordinate
         
         setRegion(region, animated: animated)
-        setUserTrackingMode(.follow, animated: animated)
+        setUserTrackingMode(isRotateEnabled ? .followWithHeading : .follow, animated: animated)
     }
     
     func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard first else { return }
         first = false
-        setUserTrackingMode(.follow, animated: false)
+        follow(animated: false)
     }
     
     func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {

@@ -135,22 +135,47 @@ struct Create: View {
             .onReceive(cloud) {
                 switch $0.settings.scheme {
                 case .auto:
-                    scheme = nil
+                    if scheme != nil {
+                        scheme = nil
+                    }
                 case .light:
-                    scheme = .light
+                    if scheme != .light {
+                        scheme = .light
+                    }
                 case .dark:
-                    scheme = .dark
+                    if scheme != .dark {
+                        scheme = .dark
+                    }
                 }
                 
                 switch $0.settings.map {
                 case .standard:
-                    builder.map.mapType = .standard
+                    if builder.map.mapType != .standard {
+                        builder.map.mapType = .standard
+                    }
                 case .satellite:
-                    builder.map.mapType = .satelliteFlyover
+                    if builder.map.mapType != .satelliteFlyover {
+                        builder.map.mapType = .satelliteFlyover
+                    }
                 case .hybrid:
-                    builder.map.mapType = .hybridFlyover
+                    if builder.map.mapType != .hybridFlyover {
+                        builder.map.mapType = .hybridFlyover
+                    }
                 case .emphasis:
-                    builder.map.mapType = .mutedStandard
+                    if builder.map.mapType != .mutedStandard {
+                        builder.map.mapType = .mutedStandard
+                    }
+                }
+                
+                if $0.settings.interest && (builder.map.pointOfInterestFilter != .includingAll)
+                    || !$0.settings.interest && (builder.map.pointOfInterestFilter != .excludingAll) {
+                    
+                    builder.map.pointOfInterestFilter = $0.settings.interest ? .includingAll : .excludingAll
+                }
+                
+                if $0.settings.rotate != builder.map.isRotateEnabled {
+                    builder.map.isRotateEnabled = $0.settings.rotate
+                    builder.map.follow(animated: true)
                 }
             }
     }

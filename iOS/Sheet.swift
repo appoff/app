@@ -5,7 +5,7 @@ final class Sheet<C>: UIHostingController<C>, UIViewControllerRepresentable wher
         super.viewWillAppear(animated)
         sheetPresentationController
             .map {
-                $0.detents = [.medium(), .large()]
+                $0.detents = [.medium()]
                 $0.preferredCornerRadius = 36
             }
     }

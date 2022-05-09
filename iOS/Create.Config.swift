@@ -27,8 +27,6 @@ extension Create {
                 
                 Divider()
                     .padding(.horizontal)
-                
-                Spacer()
             }
             .onReceive(cloud) {
                 scheme = $0.settings.scheme
