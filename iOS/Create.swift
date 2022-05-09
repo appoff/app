@@ -1,8 +1,10 @@
 import SwiftUI
+import Offline
 
 struct Create: View {
     let session: Session
     @StateObject private var builder = Builder()
+    @State private var scheme: ColorScheme?
     @State private var options = false
     @State private var config = false
     
@@ -129,7 +131,16 @@ struct Create: View {
                     .padding(.bottom, 10)
                 }
             }
+            .preferredColorScheme(scheme)
             .onReceive(cloud) {
+                switch $0.settings.scheme {
+                case .auto:
+                    scheme = nil
+                case .light:
+                    scheme = .light
+                case .dark:
+                    scheme = .dark
+                }
                 
                 switch $0.settings.map {
                 case .standard:
