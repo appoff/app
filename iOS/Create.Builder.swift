@@ -1,5 +1,6 @@
 import MapKit
 import Combine
+import Offline
 
 extension Create {
     final class Builder: ObservableObject {
@@ -7,10 +8,21 @@ extension Create {
         @Published var cancel = false
         @Published private(set) var points = [MKPointAnnotation]()
         @Published private(set) var route = Set<Item>()
+        var title = "New map"
         let map = Map()
         private var subs = Set<AnyCancellable>()
         private let long = UILongPressGestureRecognizer()
         private let geocoder = CLGeocoder()
+        
+        var factory: Factory {
+            .init(map: .init(title: title,
+                             origin: points.first?.title ?? "",
+                             destination: points.last?.title ?? "",
+                             distance: UInt32(route.map(\.route.distance).reduce(0, +)),
+                             duration: UInt32(route.map(\.route.expectedTravelTime).reduce(0, +))),
+                  points: [],
+                  route: [])
+        }
         
         init() {
             map.addGestureRecognizer(long)

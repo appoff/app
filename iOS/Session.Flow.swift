@@ -1,7 +1,11 @@
+import MapKit
+import Offline
+
 extension Session {
     enum Flow {
         case
         main,
-        create
+        create,
+        loading(Factory)
     }
 }

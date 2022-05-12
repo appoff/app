@@ -12,6 +12,8 @@ struct Window: View {
             .navigationViewStyle(.stack)
         case .create:
             Create(session: session)
+        case let .loading(factory):
+            Loading(session: session, factory: factory)
         }
     }
 }

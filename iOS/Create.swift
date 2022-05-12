@@ -1,5 +1,4 @@
 import SwiftUI
-import Offline
 
 struct Create: View {
     let session: Session
@@ -7,6 +6,7 @@ struct Create: View {
     @State private var scheme: ColorScheme?
     @State private var options = false
     @State private var config = false
+    @FocusState private var focus: Bool
     
     var body: some View {
         builder
@@ -18,6 +18,19 @@ struct Create: View {
                         .edgesIgnoringSafeArea(.horizontal)
                     
                     HStack {
+                        Button {
+                            focus.toggle()
+                        } label: {
+                            Image(systemName: "character.cursor.ibeam")
+                                .font(.system(size: 20, weight: .light))
+                        }
+                        
+                        TextField("Map title", text: $builder.title)
+                            .font(.callout)
+                            .textFieldStyle(.roundedBorder)
+                            .focused($focus)
+                            .padding(.trailing)
+                        
                         Spacer()
                         
                         Button("Cancel", role: .destructive) {
@@ -37,7 +50,7 @@ struct Create: View {
                         }
                         
                         Button("Save") {
-                            
+                            session.flow = .loading(builder.factory)
                         }
                         .font(.callout)
                         .buttonStyle(.borderedProminent)
