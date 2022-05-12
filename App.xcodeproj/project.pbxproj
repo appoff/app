@@ -34,6 +34,9 @@
 		CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA52827F15400FC0EB0 /* Create.Options.swift */; };
 		CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA72827F21000FC0EB0 /* Create.Config.swift */; };
 		CE979AAA2827FA3D00FC0EB0 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA92827FA3D00FC0EB0 /* Window.swift */; };
+		CEAE0090282D37CD00FB5EFF /* Set.Create.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE008F282D37CD00FB5EFF /* Set.Create.Item.swift */; };
+		CEAE0092282D3E0300FB5EFF /* Loading.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE0091282D3E0300FB5EFF /* Loading.Item.swift */; };
+		CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE0093282D418900FB5EFF /* Loading.Progress.swift */; };
 		CEC51AB928252F85003DA00D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AB828252F85003DA00D /* Session.swift */; };
 		CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABA28252FF3003DA00D /* Session.Flow.swift */; };
 		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
@@ -70,6 +73,9 @@
 		CE979AA52827F15400FC0EB0 /* Create.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Options.swift; sourceTree = "<group>"; };
 		CE979AA72827F21000FC0EB0 /* Create.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Config.swift; sourceTree = "<group>"; };
 		CE979AA92827FA3D00FC0EB0 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CEAE008F282D37CD00FB5EFF /* Set.Create.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.Create.Item.swift; sourceTree = "<group>"; };
+		CEAE0091282D3E0300FB5EFF /* Loading.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.Item.swift; sourceTree = "<group>"; };
+		CEAE0093282D418900FB5EFF /* Loading.Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.Progress.swift; sourceTree = "<group>"; };
 		CEC51AB828252F85003DA00D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEC51ABA28252FF3003DA00D /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 				CE502C9628291267004F16AF /* Create.Pop.swift */,
 				CE2C43B12822E1E2000007A2 /* Create.swift */,
 				CE81D9222823E4B200364029 /* Field.swift */,
+				CEAE0091282D3E0300FB5EFF /* Loading.Item.swift */,
+				CEAE0093282D418900FB5EFF /* Loading.Progress.swift */,
 				CE502C98282928DC004F16AF /* Loading.swift */,
 				CE2C43B32822E4A0000007A2 /* Main.swift */,
 				CE2C43AD2822E071000007A2 /* Map.swift */,
@@ -133,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				CE979A952827EB6E00FC0EB0 /* Global.swift */,
+				CEAE008F282D37CD00FB5EFF /* Set.Create.Item.swift */,
 				CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */,
 				CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */,
 				CE979A992827EBAD00FC0EB0 /* Store.swift */,
@@ -249,7 +258,9 @@
 				CE2C43B22822E1E2000007A2 /* Create.swift in Sources */,
 				CE2C43AE2822E071000007A2 /* Map.swift in Sources */,
 				CE979A942827EB1100FC0EB0 /* App.Delegate.swift in Sources */,
+				CEAE0092282D3E0300FB5EFF /* Loading.Item.swift in Sources */,
 				CEC51AC128255334003DA00D /* Create.Item.swift in Sources */,
+				CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */,
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
 				CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */,
 				CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */,
@@ -258,6 +269,7 @@
 				CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */,
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
+				CEAE0090282D37CD00FB5EFF /* Set.Create.Item.swift in Sources */,
 				CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */,

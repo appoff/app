@@ -14,6 +14,7 @@ struct Window: View {
             Create(session: session)
         case let .loading(factory):
             Loading(session: session, factory: factory)
+                .transition(.move(edge: .bottom))
         }
     }
 }

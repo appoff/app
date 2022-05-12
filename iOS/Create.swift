@@ -23,6 +23,7 @@ struct Create: View {
                         } label: {
                             Image(systemName: "character.cursor.ibeam")
                                 .font(.system(size: 20, weight: .light))
+                                .symbolRenderingMode(.hierarchical)
                         }
                         
                         TextField("Map title", text: $builder.title)
@@ -50,7 +51,9 @@ struct Create: View {
                         }
                         
                         Button("Save") {
-                            session.flow = .loading(builder.factory)
+                            withAnimation(.easeIn(duration: 0.4)) {
+                                session.flow = .loading(builder.factory)
+                            }
                         }
                         .font(.callout)
                         .buttonStyle(.borderedProminent)
@@ -79,7 +82,7 @@ struct Create: View {
                             Text("Duration ")
                                 .font(.caption)
                             
-                            Text(Date(timeIntervalSinceNow: -builder.route.map(\.route.expectedTravelTime).reduce(0, +)) ..< Date.now, format: .timeDuration)
+                            Text(Date(timeIntervalSinceNow: -builder.route.duration) ..< Date.now, format: .timeDuration)
                                 .font(.footnote.monospacedDigit())
                                 .foregroundStyle(.secondary)
                             
@@ -87,7 +90,7 @@ struct Create: View {
                                 .font(.caption)
                                 .padding(.leading)
                             
-                            Text(Measurement(value: builder.route.map(\.route.distance).reduce(0, +), unit: UnitLength.meters),
+                            Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
                                  format: .measurement(width: .abbreviated))
                                 .font(.footnote.monospacedDigit())
                                 .foregroundStyle(.secondary)

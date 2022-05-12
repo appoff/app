@@ -18,10 +18,10 @@ extension Create {
             .init(map: .init(title: title,
                              origin: points.first?.title ?? "",
                              destination: points.last?.title ?? "",
-                             distance: UInt32(route.map(\.route.distance).reduce(0, +)),
-                             duration: UInt32(route.map(\.route.expectedTravelTime).reduce(0, +))),
-                  points: [],
-                  route: [])
+                             distance: .init(route.distance),
+                             duration: .init(route.duration)),
+                  points: points,
+                  route: route.map(\.route))
         }
         
         init() {
