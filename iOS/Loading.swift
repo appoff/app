@@ -88,6 +88,7 @@ struct Loading: View {
             }
         }
         .task {
+            print("here shot")
             await factory.shoot()
         }
     }
