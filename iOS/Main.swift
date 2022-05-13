@@ -9,14 +9,18 @@ struct Main: View {
     var body: some View {
         List {
             if maps.isEmpty {
-                Image(systemName: "map")
-                    .font(.system(size: 30, weight: .ultraLight))
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 100)
-                Text("No maps found")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 5)
+                VStack {
+                    Image(systemName: "map")
+                        .font(.system(size: 30, weight: .ultraLight))
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 100)
+                    Text("No maps found")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 5)
+                }
+                .listRowSeparator(.hidden)
+                .frame(maxWidth: .greatestFiniteMagnitude)
             } else {
                 ForEach(filtered) {
                     Item(session: session, map: $0)

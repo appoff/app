@@ -81,9 +81,9 @@ struct Loading: View {
         .onReceive(factory.fail) {
             error = true
         }
-        .onReceive(factory.finished) {
+        .onReceive(factory.finished) { tiles in
             Task {
-                await cloud.add(map: factory.map)
+                await cloud.add(map: factory.map, tiles: tiles)
                 done()
             }
         }
