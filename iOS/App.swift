@@ -29,8 +29,3 @@ import SwiftUI
         }
     }
 }
-
-
-struct Item {
-    
-}

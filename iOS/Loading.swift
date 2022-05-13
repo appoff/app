@@ -48,7 +48,7 @@ struct Loading: View {
                 .tint(.primary)
             } else {
                 VStack(alignment: .leading) {
-                    Item(title: "Name", content: .init(factory.map.title))
+                    Item(title: "Title", content: .init(factory.map.title))
                     Divider()
                     Item(title: "Origin", content: .init(factory.map.origin))
                     Divider()

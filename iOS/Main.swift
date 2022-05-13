@@ -1,41 +1,13 @@
 import SwiftUI
+import Offline
 
 struct Main: View {
     let session: Session
     @State private var search = ""
-    @State private var maps = [Item]()
+    @State private var maps = [Offline.Map]()
     
     var body: some View {
-        ScrollView {
-//            if !session.authorized {
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-//                        .stroke(.tertiary, lineWidth: 1)
-//                    VStack(spacing: 10) {
-//                        Image(systemName: "location.viewfinder")
-//                            .font(.system(size: 30, weight: .ultraLight))
-//                        Text("Activate your location\nto get navigation")
-//                            .font(.callout)
-//                            .fixedSize(horizontal: false, vertical: true)
-//                            .multilineTextAlignment(.center)
-//                        Button {
-//                            if session.manager.authorizationStatus == .denied || session.manager.authorizationStatus == .restricted {
-//                                UIApplication.shared.settings()
-//                            } else {
-//                                session.manager.requestAlwaysAuthorization()
-//                            }
-//                        } label: {
-//                            Text("Activate")
-//                                .font(.callout)
-//                                .padding(.horizontal, 6)
-//                        }
-//                        .buttonStyle(.borderedProminent)
-//                    }
-//                    .padding()
-//                }
-//                .padding()
-//            }
-            
+        List {
             if maps.isEmpty {
                 Image(systemName: "map")
                     .font(.system(size: 30, weight: .ultraLight))
@@ -46,13 +18,24 @@ struct Main: View {
                     .foregroundStyle(.secondary)
                     .padding(.top, 5)
             } else {
-                
+                ForEach(filtered) {
+                    Item(session: session, map: $0)
+                        .listRowSeparator(.hidden)
+                }
             }
         }
+        .listStyle(.plain)
         .navigationTitle("Maps")
         .navigationBarTitleDisplayMode(.large)
         .searchable(text: $search)
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if !filtered.isEmpty {
+                    Text(filtered.count.formatted() + " maps")
+                        .foregroundStyle(.secondary)
+                        .font(.callout)
+                }
+            }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
                     
@@ -73,5 +56,12 @@ struct Main: View {
                 }
             }
         }
+        .onReceive(cloud) {
+            maps = $0.maps
+        }
+    }
+    
+    private var filtered: [Offline.Map] {
+        maps
     }
 }

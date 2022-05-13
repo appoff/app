@@ -8,8 +8,9 @@ struct Window: View {
         case .main:
             NavigationView {
                 Main(session: session)
+                    .ignoresSafeArea(.keyboard)
             }
-            .navigationViewStyle(.stack)
+            .navigationViewStyle(.stack)            
         case .create:
             Create(session: session)
         case let .loading(factory):
