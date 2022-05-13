@@ -16,51 +16,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B7D462C8-D2CA-4CA5-AD7D-703B5050BFEC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Library/Developer/Xcode/DerivedData/App-egvgotxfrpiiqxgbowszwikanobw/SourcePackages/checkouts/offline/Sources/Factory.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67">
-            <Locations>
-               <Location
-                  uuid = "B7D462C8-D2CA-4CA5-AD7D-703B5050BFEC - b04a208e97fb5939"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for Offline.Factory.shoot() async -&gt; ()"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vaux/Library/Developer/Xcode/DerivedData/App-egvgotxfrpiiqxgbowszwikanobw/SourcePackages/checkouts/offline/Sources/Factory.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "280">
-               </Location>
-               <Location
-                  uuid = "B7D462C8-D2CA-4CA5-AD7D-703B5050BFEC - dd19f9cfd140e42e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for Offline.Factory.shoot() async -&gt; ()"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vaux/Library/Developer/Xcode/DerivedData/App-egvgotxfrpiiqxgbowszwikanobw/SourcePackages/checkouts/offline/Sources/Factory.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "1752">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -11,11 +11,11 @@ struct Loading: View {
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
-                Image(systemName: "map.circle.fill")
-                    .font(.system(size: 100, weight: .ultraLight))
+                Image(systemName: "map")
+                    .font(.system(size: 80, weight: .ultraLight))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(.quaternary)
-                    .padding(.top, 30)
+                    .padding(.top, 40)
                 HStack {
                     Button("Cancel") {
                         cancel = true

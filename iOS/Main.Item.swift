@@ -15,33 +15,25 @@ extension Main {
                     Rectangle()
                         .fill(Color(.tertiarySystemBackground))
                     VStack(spacing: 0) {
-                        ZStack {
-                            if let thumbnail = thumbnail {
-                                Image(uiImage: thumbnail)
-                                    .resizable()
-                                    .scaledToFill()
-    //                                    .frame(height: 200, alignment: .center)
-                                    .aspectRatio(contentMode: .fill)
-                                    .clipped()
-                            } else {
-                                Image(systemName: "map")
-                                    .font(.system(size: 30, weight: .light))
-                                    .symbolRenderingMode(.hierarchical)
-                                    .foregroundStyle(.secondary)
-                                    .frame(height: 120)
-                                    .frame(maxWidth: .greatestFiniteMagnitude)
-                            }
-                            
-                            Text(map.title)
-                                .font(.title2.bold())
-                                .lineLimit(1)
-                                .padding()
-                                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                                .background(Color(.tertiarySystemBackground))
-                                .frame(maxHeight: .greatestFiniteMagnitude, alignment: .bottom)
+                        if let thumbnail = thumbnail {
+                            Image(uiImage: thumbnail)
+                                .resizable()
+                                .scaledToFill()
+                                .aspectRatio(contentMode: .fill)
+                                .clipped()
+                        } else {
+                            Image(systemName: "map")
+                                .font(.system(size: 30, weight: .light))
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundStyle(.secondary)
+                                .frame(height: 120)
+                                .frame(maxWidth: .greatestFiniteMagnitude)
                         }
 
                         VStack(alignment: .leading) {
+                            Text(map.title)
+                                .font(.title2.bold())
+                                .lineLimit(1)
                             Info(title: "Origin", content: .init(map.origin))
                             Info(title: "Destination", content: .init(map.destination))
                             HStack {
@@ -54,7 +46,7 @@ extension Main {
                                 }
                             }
                         }
-                        .padding([.leading, .trailing, .bottom])
+                        .padding()
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
