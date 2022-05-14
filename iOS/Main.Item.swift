@@ -6,32 +6,32 @@ extension Main {
         let session: Session
         let map: Offline.Map
         let thumbnail: UIImage?
-        let animation: Namespace.ID
+        @Namespace private var namespace
         
         var body: some View {
             Button {
-                withAnimation(.easeInOut(duration: 5)) {
-                    session.flow = .detail(map, thumbnail)
+                withAnimation(.easeInOut(duration: 0.6)) {
+                    session.selected = (map: map, namespace: namespace)
                 }
             } label: {
                 ZStack {
                     Rectangle()
                         .fill(Color(.tertiarySystemBackground))
-                        .matchedGeometryEffect(id: "background.\(map.id.uuidString)", in: animation)
+                        .matchedGeometryEffect(id: "background", in: namespace)
                     VStack(spacing: 0) {
                         if let thumbnail = thumbnail {
                             Image(uiImage: thumbnail)
                                 .resizable()
-                                .matchedGeometryEffect(id: "image.\(map.id.uuidString)", in: animation)
+                                .matchedGeometryEffect(id: "image", in: namespace)
                                 .scaledToFill()
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
                         }
                         Info(map: map, constrain: true)
-                            .matchedGeometryEffect(id: "info.\(map.id.uuidString)", in: animation)
+                            .matchedGeometryEffect(id: "info", in: namespace)
                     }
                 }
-                .matchedGeometryEffect(id: "card.\(map.id.uuidString)", in: animation)
+                .matchedGeometryEffect(id: "card", in: namespace)
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .shadow(color: .init(white: 0, opacity: 0.1), radius: 8, y: 6)
             }

@@ -4,21 +4,21 @@ import Offline
 struct Detail: View {
     let session: Session
     let map: Offline.Map
+    let namespace: Namespace.ID
     let thumbnail: UIImage?
-    let animation: Namespace.ID
     @State private var opacity = 0.0
     
     var body: some View {
         ZStack {
             Rectangle()
                 .fill(Color(.tertiarySystemBackground))
-                .matchedGeometryEffect(id: "background.\(map.id.uuidString)", in: animation)
+                .matchedGeometryEffect(id: "background", in: namespace)
             VStack {
                 ZStack(alignment: .top) {
                     if let thumbnail = thumbnail {
                         Image(uiImage: thumbnail)
                             .resizable()
-                            .matchedGeometryEffect(id: "image.\(map.id.uuidString)", in: animation)
+                            .matchedGeometryEffect(id: "image", in: namespace)
                             .scaledToFit()
                             .aspectRatio(contentMode: .fit)
                     } else {
@@ -28,8 +28,8 @@ struct Detail: View {
                         Spacer()
                         
                         Button {
-                            withAnimation(.easeInOut(duration: 0.6)) {
-                                session.flow = .main
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                session.selected = nil
                             }
                         } label: {
                             Image(systemName: "xmark.circle.fill")
@@ -42,12 +42,12 @@ struct Detail: View {
                     }
                 }
                 Info(map: map, constrain: false)
-                    .matchedGeometryEffect(id: "info.\(map.id.uuidString)", in: animation)
+                    .matchedGeometryEffect(id: "info", in: namespace)
                 Spacer()
             }
         }
-        .matchedGeometryEffect(id: "card.\(map.id.uuidString)", in: animation)
-        .edgesIgnoringSafeArea([.top, .leading, .trailing])
+        .matchedGeometryEffect(id: "card", in: namespace)
+        .edgesIgnoringSafeArea(.all)
         .statusBar(hidden: true)
         .onAppear {
             withAnimation(.easeInOut(duration: 1)) {

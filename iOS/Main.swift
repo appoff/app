@@ -2,38 +2,50 @@ import SwiftUI
 import Offline
 
 struct Main: View {
-    let session: Session
-    let animation: Namespace.ID
+    @ObservedObject var session: Session
     @State private var search = ""
     @State private var maps = [Offline.Map]()
     @State private var thumbnails = [UUID : Data]()
     
     var body: some View {
-        List {
-            if maps.isEmpty {
-                VStack {
-                    Image(systemName: "map")
-                        .font(.system(size: 30, weight: .ultraLight))
-                        .foregroundStyle(.secondary)
-                        .padding(.top, 100)
-                    Text("No maps found")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .padding(.top, 5)
-                }
-                .listRowSeparator(.hidden)
-                .frame(maxWidth: .greatestFiniteMagnitude)
-            } else {
-                ForEach(filtered) {
-                    Item(session: session, map: $0, thumbnail: thumbnails[$0.id].flatMap(UIImage.init(data:)), animation: animation)
+        ZStack {
+            List {
+                if maps.isEmpty {
+                    VStack {
+                        Image(systemName: "map")
+                            .font(.system(size: 30, weight: .ultraLight))
+                            .foregroundStyle(.secondary)
+                            .padding(.top, 100)
+                        Text("No maps found")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.top, 5)
+                    }
+                    .listRowSeparator(.hidden)
+                    .frame(maxWidth: .greatestFiniteMagnitude)
+                } else {
+                    ForEach(filtered) {
+                        Item(session: session,
+                             map: $0,
+                             thumbnail: thumbnail(map: $0))
                         .listRowSeparator(.hidden)
+                    }
                 }
             }
+            .listStyle(.plain)
+            .searchable(text: $search)
+            
+            if let selected = session.selected {
+                Detail(session: session,
+                       map: selected.map,
+                       namespace: selected.namespace,
+                       thumbnail: thumbnail(map: selected.map))
+                    .transition(.identity)
+            }
         }
-        .listStyle(.plain)
         .navigationTitle("Maps")
         .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $search)
+        .navigationBarHidden(session.selected != nil)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if !filtered.isEmpty {
@@ -85,5 +97,10 @@ struct Main: View {
                     }
             } (string.components(separatedBy: " "))
         } (search.trimmingCharacters(in: .whitespacesAndNewlines))
+    }
+    
+    private func thumbnail(map: Offline.Map) -> UIImage? {
+        thumbnails[map.id]
+            .flatMap(UIImage.init(data:))
     }
 }
