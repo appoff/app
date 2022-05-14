@@ -38,6 +38,7 @@ struct Main: View {
                     Text(filtered.count.formatted() + " maps")
                         .foregroundStyle(.secondary)
                         .font(.callout)
+                        .fixedSize()
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -66,6 +67,20 @@ struct Main: View {
     }
     
     private var filtered: [Offline.Map] {
-        maps
+        { string in
+            string.isEmpty
+            ? maps
+            : { components in
+                maps
+                    .filter { map in
+                        components
+                            .contains { token in
+                                map.title.localizedCaseInsensitiveContains(token)
+                                || map.origin.localizedCaseInsensitiveContains(token)
+                                || map.destination.localizedCaseInsensitiveContains(token)
+                            }
+                    }
+            } (string.components(separatedBy: " "))
+        } (search.trimmingCharacters(in: .whitespacesAndNewlines))
     }
 }
