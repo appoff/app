@@ -3,9 +3,7 @@ import Offline
 
 extension Create {
     struct Options: View {
-        @State private var map = Settings.Map.standard
-        @State private var interest = true
-        @State private var rotate = false
+        @ObservedObject var builder: Builder
         
         var body: some View {
             Pop {
@@ -14,7 +12,7 @@ extension Create {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.leading)
                     .padding(.bottom, 10)
-                Picker("Map type", selection: $map) {
+                Picker("Map type", selection: $builder.type) {
                     ForEach(Settings.Map.allCases, id: \.self) {
                         Text(verbatim: "\($0)".capitalized)
                             .tag($0)
@@ -26,7 +24,7 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
-                Toggle(isOn: $interest) {
+                Toggle(isOn: $builder.interest) {
                     Image(systemName: "theatermasks")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
@@ -39,7 +37,7 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
-                Toggle(isOn: $rotate) {
+                Toggle(isOn: $builder.rotate) {
                     Image(systemName: "gyroscope")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
@@ -50,26 +48,6 @@ extension Create {
             }
             .symbolRenderingMode(.hierarchical)
             .toggleStyle(SwitchToggleStyle(tint: .secondary))
-            .onReceive(cloud) {
-                map = $0.settings.map
-                interest = $0.settings.interest
-                rotate = $0.settings.rotate
-            }
-            .onChange(of: map) { value in
-                Task {
-                    await cloud.update(map: value)
-                }
-            }
-            .onChange(of: interest) { value in
-                Task {
-                    await cloud.update(interest: value)
-                }
-            }
-            .onChange(of: rotate) { value in
-                Task {
-                    await cloud.update(rotate: value)
-                }
-            }
         }
     }
 }

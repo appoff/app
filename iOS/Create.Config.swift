@@ -3,7 +3,7 @@ import Offline
 
 extension Create {
     struct Config: View {
-        @State private var scheme = Settings.Scheme.auto
+        @ObservedObject var builder: Builder
         
         var body: some View {
             Pop {
@@ -12,7 +12,7 @@ extension Create {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.leading)
                     .padding(.bottom, 10)
-                Picker("Appearance", selection: $scheme) {
+                Picker("Appearance", selection: $builder.scheme) {
                     Label("Auto", systemImage: "circle.righthalf.filled")
                         .tag(Settings.Scheme.auto)
                     Label("Light", systemImage: "sun.max")
@@ -27,14 +27,22 @@ extension Create {
                 
                 Divider()
                     .padding(.horizontal)
-            }
-            .onReceive(cloud) {
-                scheme = $0.settings.scheme
-            }
-            .onChange(of: scheme) { value in
-                Task {
-                    await cloud.update(scheme: value)
+                
+                Text("Travel mode")
+                    .font(.callout)
+                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .padding([.leading, .top])
+                    .padding(.bottom, 10)
+                Picker("Travel model", selection: $builder.directions) {
+                    Label("Walking", systemImage: "figure.walk")
+                        .tag(Settings.Directions.walking)
+                    Label("Driving", systemImage: "car")
+                        .tag(Settings.Directions.driving)
                 }
+                .symbolRenderingMode(.hierarchical)
+                .pickerStyle(.segmented)
+                .labelStyle(.iconOnly)
+                .padding([.leading, .trailing, .bottom])
             }
         }
     }

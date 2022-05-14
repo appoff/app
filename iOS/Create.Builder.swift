@@ -1,3 +1,4 @@
+import SwiftUI
 import MapKit
 import Combine
 import Offline
@@ -7,6 +8,86 @@ extension Create {
         @Published var search = false
         @Published var cancel = false
         @Published var title = "New map"
+        
+        @Published var type = Settings.Map.standard {
+            didSet {
+                guard oldValue != type else { return }
+                
+                switch type {
+                case .standard:
+                    map.mapType = .standard
+                case .satellite:
+                    map.mapType = .satelliteFlyover
+                case .hybrid:
+                    map.mapType = .hybridFlyover
+                case .emphasis:
+                    map.mapType = .mutedStandard
+                }
+                
+                Task {
+                    await cloud.update(map: type)
+                }
+            }
+        }
+        
+        @Published var interest = true {
+            didSet {
+                guard oldValue != interest else { return }
+                
+                map.pointOfInterestFilter = interest ? .includingAll : .excludingAll
+                
+                Task {
+                    await cloud.update(interest: interest)
+                }
+            }
+        }
+        
+        @Published var rotate = false {
+            didSet {
+                guard oldValue != rotate else { return }
+                
+                map.isRotateEnabled = rotate
+                map.follow(animated: true)
+                
+                Task {
+                    await cloud.update(rotate: rotate)
+                }
+            }
+        }
+        
+        @Published var scheme = Settings.Scheme.auto {
+            didSet {
+                guard oldValue != scheme else { return }
+                
+                switch scheme {
+                case .auto:
+                    color = nil
+                case .light:
+                    color = .light
+                case .dark:
+                    color = .dark
+                }
+                
+                Task {
+                    await cloud.update(scheme: scheme)
+                }
+            }
+        }
+        
+        @Published var directions = Settings.Directions.walking {
+            didSet {
+                guard oldValue != directions else { return }
+                
+                route = []
+                trace()
+                
+                Task {
+                    await cloud.update(directions: directions)
+                }
+            }
+        }
+        
+        @Published private(set) var color: ColorScheme?
         @Published private(set) var points = [MKPointAnnotation]()
         @Published private(set) var route = Set<Item>()
         let map = Map()
@@ -21,6 +102,17 @@ extension Create {
                 .discard
                 .sink { [weak self] in
                     self?.remove(discarded: [$0])
+                }
+                .store(in: &subs)
+            
+            cloud
+                .first()
+                .sink { [weak self] in
+                    self?.type = $0.settings.map
+                    self?.interest = $0.settings.interest
+                    self?.rotate = $0.settings.rotate
+                    self?.scheme = $0.settings.scheme
+                    self?.directions = $0.settings.directions
                 }
                 .store(in: &subs)
         }
@@ -63,7 +155,7 @@ extension Create {
             add(point: point, center: true)
         }
         
-        private func directions() {
+        private func trace() {
             var pairs = [(MKPointAnnotation, MKPointAnnotation)]()
             _ = points.reduce(nil) { previous, current -> MKPointAnnotation? in
                 if let previous = previous {
@@ -82,7 +174,14 @@ extension Create {
         private func make(pairs: [(MKPointAnnotation, MKPointAnnotation)]) async {
             for pair in pairs {
                 let request = MKDirections.Request()
-                request.transportType = .walking
+                
+                switch directions {
+                case .walking:
+                    request.transportType = .walking
+                case .driving:
+                    request.transportType = .automobile
+                }
+                
                 request.source = .init(placemark: .init(coordinate: pair.0.coordinate))
                 request.destination = .init(placemark: .init(coordinate: pair.1.coordinate))
                 
@@ -106,7 +205,7 @@ extension Create {
                 map.setCenter(point.coordinate, animated: true)
             }
             
-            directions()
+            trace()
         }
         
         private func geocode(point: MKPointAnnotation) async {
@@ -155,7 +254,7 @@ extension Create {
                     map.removeAnnotation(discard)
                 }
             
-            directions()
+            trace()
         }
         
         @objc private func pressed() {

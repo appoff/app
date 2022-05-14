@@ -3,7 +3,6 @@ import SwiftUI
 struct Create: View {
     let session: Session
     @StateObject private var builder = Builder()
-    @State private var scheme: ColorScheme?
     @State private var options = false
     @State private var config = false
     @FocusState private var focus: Bool
@@ -114,7 +113,7 @@ struct Create: View {
                             config = true
                         }
                         .sheet(isPresented: $config) {
-                            Sheet(rootView: Config())
+                            Sheet(rootView: Config(builder: builder))
                         }
                         
                         Button {
@@ -143,7 +142,7 @@ struct Create: View {
                             options = true
                         }
                         .sheet(isPresented: $options) {
-                            Sheet(rootView: Options())
+                            Sheet(rootView: Options(builder: builder))
                         }
                         
                         Action(symbol: "location.viewfinder", action: builder.tracker)
@@ -151,52 +150,6 @@ struct Create: View {
                     .padding(.bottom, 10)
                 }
             }
-            .preferredColorScheme(scheme)
-            .onReceive(cloud) {
-                switch $0.settings.scheme {
-                case .auto:
-                    if scheme != nil {
-                        scheme = nil
-                    }
-                case .light:
-                    if scheme != .light {
-                        scheme = .light
-                    }
-                case .dark:
-                    if scheme != .dark {
-                        scheme = .dark
-                    }
-                }
-                
-                switch $0.settings.map {
-                case .standard:
-                    if builder.map.mapType != .standard {
-                        builder.map.mapType = .standard
-                    }
-                case .satellite:
-                    if builder.map.mapType != .satelliteFlyover {
-                        builder.map.mapType = .satelliteFlyover
-                    }
-                case .hybrid:
-                    if builder.map.mapType != .hybridFlyover {
-                        builder.map.mapType = .hybridFlyover
-                    }
-                case .emphasis:
-                    if builder.map.mapType != .mutedStandard {
-                        builder.map.mapType = .mutedStandard
-                    }
-                }
-                
-                if $0.settings.interest && (builder.map.pointOfInterestFilter != .includingAll)
-                    || !$0.settings.interest && (builder.map.pointOfInterestFilter != .excludingAll) {
-                    
-                    builder.map.pointOfInterestFilter = $0.settings.interest ? .includingAll : .excludingAll
-                }
-                
-                if $0.settings.rotate != builder.map.isRotateEnabled {
-                    builder.map.isRotateEnabled = $0.settings.rotate
-                    builder.map.follow(animated: true)
-                }
-            }
+            .preferredColorScheme(builder.color)
     }
 }
