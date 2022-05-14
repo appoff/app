@@ -1,7 +1,7 @@
 import SwiftUI
 
-extension Main.Item {
-    struct Info: View {
+extension Info {
+    struct Item: View {
         let title: String
         let content: Text
         

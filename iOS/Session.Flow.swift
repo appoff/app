@@ -6,6 +6,7 @@ extension Session {
         case
         main,
         create,
+        detail(Offline.Map, UIImage?),
         loading(Factory)
     }
 }

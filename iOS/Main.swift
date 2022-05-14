@@ -3,8 +3,10 @@ import Offline
 
 struct Main: View {
     let session: Session
+    let animation: Namespace.ID
     @State private var search = ""
     @State private var maps = [Offline.Map]()
+    @State private var thumbnails = [UUID : Data]()
     
     var body: some View {
         List {
@@ -23,7 +25,7 @@ struct Main: View {
                 .frame(maxWidth: .greatestFiniteMagnitude)
             } else {
                 ForEach(filtered) {
-                    Item(session: session, map: $0)
+                    Item(session: session, map: $0, thumbnail: thumbnails[$0.id].flatMap(UIImage.init(data:)), animation: animation)
                         .listRowSeparator(.hidden)
                 }
             }
@@ -62,6 +64,7 @@ struct Main: View {
             }
         }
         .onReceive(cloud) {
+            thumbnails = $0.thumbnails
             maps = $0.maps
         }
     }
