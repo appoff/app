@@ -6,9 +6,9 @@ extension Create {
     final class Builder: ObservableObject {
         @Published var search = false
         @Published var cancel = false
+        @Published var title = "New map"
         @Published private(set) var points = [MKPointAnnotation]()
         @Published private(set) var route = Set<Item>()
-        var title = "New map"
         let map = Map()
         private var subs = Set<AnyCancellable>()
         private let long = UILongPressGestureRecognizer()
