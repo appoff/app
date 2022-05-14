@@ -51,8 +51,12 @@ struct Create: View {
                         }
                         
                         Button("Save") {
-                            withAnimation(.easeIn(duration: 0.4)) {
-                                session.flow = .loading(builder.factory)
+                            Task {
+                                let settings = await cloud.model.settings
+                                
+                                withAnimation(.easeIn(duration: 0.4)) {
+                                    session.flow = .loading(builder.factory(settings: settings))
+                                }
                             }
                         }
                         .font(.callout)

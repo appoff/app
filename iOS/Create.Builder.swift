@@ -14,16 +14,6 @@ extension Create {
         private let long = UILongPressGestureRecognizer()
         private let geocoder = CLGeocoder()
         
-        var factory: Factory {
-            .init(map: .init(title: title,
-                             origin: points.first?.title ?? "",
-                             destination: points.last?.title ?? "",
-                             distance: .init(route.distance),
-                             duration: .init(route.duration)),
-                  points: points,
-                  route: route.map(\.route))
-        }
-        
         init() {
             map.addGestureRecognizer(long)
             long.addTarget(self, action: #selector(pressed))
@@ -33,6 +23,17 @@ extension Create {
                     self?.remove(discarded: [$0])
                 }
                 .store(in: &subs)
+        }
+        
+        func factory(settings: Settings) -> Factory {
+            .init(map: .init(title: title,
+                             origin: points.first?.title ?? "",
+                             destination: points.last?.title ?? "",
+                             distance: .init(route.distance),
+                             duration: .init(route.duration)),
+                  points: points,
+                  route: route.map(\.route),
+                  settings: settings)
         }
         
         func tracker() {

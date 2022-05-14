@@ -29,11 +29,12 @@ extension Main {
                                 .frame(height: 120)
                                 .frame(maxWidth: .greatestFiniteMagnitude)
                         }
-
                         VStack(alignment: .leading) {
                             Text(map.title)
-                                .font(.title2.bold())
-                                .lineLimit(1)
+                                .font(.title.bold())
+                                .lineLimit(2)
+                                .offset(y: 8)
+                                .padding(.top, 6)
                             Info(title: "Origin", content: .init(map.origin))
                             Info(title: "Destination", content: .init(map.destination))
                             HStack {
@@ -45,8 +46,9 @@ extension Main {
                                                                            format: .measurement(width: .abbreviated)))
                                 }
                             }
+                            .padding(.bottom)
                         }
-                        .padding()
+                        .padding(.horizontal)
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
@@ -59,6 +61,7 @@ extension Main {
                     let data = await cloud.model.thumbnails[map.id],
                     let image = UIImage(data: data)
                 else { return }
+                print(data.count.formatted() + " : " + image.size.height.formatted())
                 thumbnail = image
             }
         }

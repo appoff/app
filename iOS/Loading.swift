@@ -10,27 +10,24 @@ struct Loading: View {
     
     var body: some View {
         VStack {
-            ZStack(alignment: .top) {
-                Image(systemName: "map")
-                    .font(.system(size: 80, weight: .ultraLight))
-                    .symbolRenderingMode(.hierarchical)
-                    .foregroundStyle(.quaternary)
-                    .padding(.top, 40)
-                HStack {
-                    Button("Cancel") {
-                        cancel = true
-                    }
-                    .font(.callout)
-                    .buttonStyle(.bordered)
-                    .confirmationDialog("Cancel map?", isPresented: $cancel) {
-                        Button("Continue", role: .cancel) { }
-                        Button("Cancel map", role: .destructive) {
-                            factory.cancel()
-                            done()
-                        }
-                    }
-                    Spacer()
+            HStack {
+                Button("Cancel") {
+                    cancel = true
                 }
+                .font(.callout)
+                .buttonStyle(.bordered)
+                .confirmationDialog("Cancel map?", isPresented: $cancel) {
+                    Button("Continue", role: .cancel) { }
+                    Button("Cancel map", role: .destructive) {
+                        factory.cancel()
+                        done()
+                    }
+                }
+                Spacer()
+                Image(systemName: "map")
+                    .font(.system(size: 30, weight: .light))
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(.secondary)
             }
             Spacer()
             if error {
@@ -63,7 +60,7 @@ struct Loading: View {
             }
             Spacer()
             Text(progress, format: .percent.precision(.significantDigits(2)))
-                .font(.title3.monospacedDigit())
+                .font(.title.weight(.light).monospacedDigit())
                 .padding(.top)
             ZStack {
                 Progress(value: 1)
