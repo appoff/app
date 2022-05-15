@@ -16,7 +16,6 @@ extension Info {
             }
             content
                 .font(.footnote)
-                .lineLimit(1)
         }
     }
 }

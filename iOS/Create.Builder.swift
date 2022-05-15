@@ -185,7 +185,12 @@ extension Create {
                 request.source = .init(placemark: .init(coordinate: pair.0.coordinate))
                 request.destination = .init(placemark: .init(coordinate: pair.1.coordinate))
                 
-                guard let response = try? await MKDirections(request: request).calculate().routes.first else { continue }
+                guard let response = try? await MKDirections(request: request)
+                    .calculate()
+                    .routes
+                    .min(by: { a, b in
+                        a.expectedTravelTime < b.expectedTravelTime
+                    })  else { continue }
 
                 route.insert(.init(origin: pair.0, destination: pair.1, route: response))
             }

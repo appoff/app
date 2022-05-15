@@ -10,7 +10,7 @@ extension Main {
         
         var body: some View {
             Button {
-                withAnimation(.easeInOut(duration: 0.6)) {
+                withAnimation(.easeInOut(duration: 0.4)) {
                     session.selected = (map: map, namespace: namespace)
                 }
             } label: {
@@ -27,8 +27,10 @@ extension Main {
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
                         }
-                        Info(map: map, constrain: true)
+                        Info(map: map, size: nil)
                             .matchedGeometryEffect(id: "info", in: namespace)
+                            .lineLimit(1)
+                            .padding(.bottom)
                     }
                 }
                 .matchedGeometryEffect(id: "card", in: namespace)

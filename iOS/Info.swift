@@ -3,13 +3,12 @@ import Offline
 
 struct Info: View {
     let map: Offline.Map
-    let constrain: Bool
+    let size: Int?
     
     var body: some View {
         VStack(alignment: .leading) {
             Text(map.title)
                 .font(.title.bold())
-                .lineLimit(constrain ? 1 : nil)
                 .offset(y: 8)
                 .padding(.top, 8)
             Item(title: "Origin", content: .init(map.origin))
@@ -22,8 +21,12 @@ struct Info: View {
                     Item(title: "Distance", content: .init(Measurement(value: .init(map.distance), unit: UnitLength.meters),
                                                            format: .measurement(width: .abbreviated)))
                 }
+                if let size = size {
+                    VStack(alignment: .leading) {
+                        Item(title: "Size", content: .init(.init(size), format: .byteCount(style: .file)))
+                    }
+                }
             }
-            .padding(.bottom)
         }
         .padding(.horizontal)
     }
