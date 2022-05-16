@@ -42,12 +42,12 @@ extension Create {
             }
         }
         
-        @Published var rotate = false {
+        @Published var rotate = true {
             didSet {
                 guard oldValue != rotate else { return }
                 
                 map.isRotateEnabled = rotate
-                map.follow(animated: true)
+                map.follow(animated: false)
                 
                 Task {
                     await cloud.update(rotate: rotate)

@@ -27,7 +27,7 @@ extension Main {
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
                         }
-                        Info(map: map, size: nil)
+                        Info(map: map, size: 0)
                             .matchedGeometryEffect(id: "info", in: namespace)
                             .lineLimit(1)
                             .padding(.bottom)

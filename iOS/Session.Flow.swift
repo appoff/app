@@ -6,6 +6,8 @@ extension Session {
         case
         main,
         create,
+        created(Offline.Map),
+        deleted(Offline.Map),
         loading(Factory)
     }
 }

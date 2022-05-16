@@ -11,8 +11,15 @@ struct Window: View {
                     .ignoresSafeArea(.keyboard)
             }
             .navigationViewStyle(.stack)
+            .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
         case .create:
             Create(session: session)
+        case let .created(map):
+            Created(session: session, map: map)
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+        case let .deleted(map):
+            Deleted(session: session, map: map)
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
         case let .loading(factory):
             Loading(session: session, factory: factory)
                 .transition(.move(edge: .bottom))

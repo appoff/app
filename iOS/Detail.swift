@@ -28,17 +28,22 @@ struct Detail: View {
                         
                     }
                     HStack {
-                        Button("Delete", role: .destructive) {
+                        Button(role: .destructive) {
                             delete = true
+                        } label: {
+                            Image(systemName: "trash.circle.fill")
+                                .font(.system(size: 28, weight: .light))
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(Color.primary, Color(.systemBackground))
+                                .frame(width: 70, height: 45)
                         }
-                        .font(.callout)
-                        .tint(Color(.systemBackground))
-                        .foregroundColor(.primary)
-                        .buttonStyle(.bordered)
+                        .opacity(opacity)
                         .confirmationDialog("Delete map?", isPresented: $delete) {
                             Button("Cancel", role: .cancel) { }
                             Button("Delete", role: .destructive) {
-                                dismiss()
+                                withAnimation(.easeInOut(duration: 0.35)) {
+                                    session.flow = .deleted(map)
+                                }
                             }
                         }
                         
@@ -48,12 +53,12 @@ struct Detail: View {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 28, weight: .light))
                                 .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.primary, Color(.systemBackground).opacity(0.5))
-                                .frame(width: 50, height: 50)
+                                .foregroundStyle(Color.primary, Color(.systemBackground))
+                                .frame(width: 70, height: 45)
                         }
                         .opacity(opacity)
                     }
-                    .padding([.top, .leading, .trailing], 20)
+                    .padding(.top, 40)
                 }
                 Info(map: map, size: data.count)
                     .matchedGeometryEffect(id: "info", in: namespace)
@@ -83,7 +88,7 @@ struct Detail: View {
                     dismiss()
                 }
         )
-        .statusBar(hidden: true)
+//        .statusBar(hidden: true)
         .task {
             data = await session.local.load(map: map) ?? .init()
         }

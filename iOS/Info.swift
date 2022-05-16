@@ -3,7 +3,7 @@ import Offline
 
 struct Info: View {
     let map: Offline.Map
-    let size: Int?
+    let size: Int
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,7 +21,7 @@ struct Info: View {
                     Item(title: "Distance", content: .init(Measurement(value: .init(map.distance), unit: UnitLength.meters),
                                                            format: .measurement(width: .abbreviated)))
                 }
-                if let size = size {
+                if size > 0 {
                     VStack(alignment: .leading) {
                         Item(title: "Size", content: .init(.init(size), format: .byteCount(style: .file)))
                     }
