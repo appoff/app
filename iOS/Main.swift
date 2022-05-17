@@ -49,7 +49,7 @@ struct Main: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if !filtered.isEmpty {
-                    Text(filtered.count.formatted() + " maps")
+                    Text(filtered.count.formatted() + (filtered.count == 1 ? " map" : " maps"))
                         .foregroundStyle(.secondary)
                         .font(.callout)
                         .fixedSize()

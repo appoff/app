@@ -8,7 +8,7 @@ struct Info: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(map.title)
-                .font(.title.bold())
+                .font(.title3.bold())
                 .offset(y: 8)
                 .padding(.top, 8)
             Item(title: "Origin", content: .init(map.origin))

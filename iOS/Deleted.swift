@@ -11,7 +11,7 @@ struct Deleted: View {
             Image("Deleted")
                 .foregroundColor(.primary)
             Text("Deleted")
-                .font(.title.weight(.medium))
+                .font(.title2.weight(.regular))
                 .padding(.top)
             Text(map.title)
                 .font(.callout)
@@ -25,7 +25,7 @@ struct Deleted: View {
                 }
             } label: {
                 Text("Continue")
-                    .font(.callout)
+                    .font(.body.weight(.bold))
                     .foregroundColor(.primary)
                     .padding()
                     .contentShape(Rectangle())
