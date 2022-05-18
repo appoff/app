@@ -14,7 +14,7 @@ struct Navigate: View {
                         .edgesIgnoringSafeArea(.horizontal)
                         
                     HStack(spacing: 0) {
-                        Action(symbol: "xmark") {
+                        Action(symbol: "xmark.circle") {
                             session.flow = .main
                         }
                         Spacer()

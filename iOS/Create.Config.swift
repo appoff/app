@@ -6,7 +6,7 @@ extension Create {
         @ObservedObject var builder: Builder
         
         var body: some View {
-            Pop {
+            Pop(title: "Options") {
                 Text("Appearance")
                     .font(.callout)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -28,21 +28,14 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
-                Text("Travel mode")
-                    .font(.callout)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .padding([.leading, .top])
-                    .padding(.bottom, 10)
-                Picker("Travel model", selection: $builder.directions) {
-                    Label("Walking", systemImage: "figure.walk")
-                        .tag(Settings.Directions.walking)
-                    Label("Driving", systemImage: "car")
-                        .tag(Settings.Directions.driving)
+                Toggle(isOn: $builder.rotate) {
+                    Image(systemName: "gyroscope")
+                        .font(.system(size: 22, weight: .light))
+                        .frame(width: 45)
+                    Text("Allows rotation")
+                        .font(.callout)
                 }
-                .symbolRenderingMode(.hierarchical)
-                .pickerStyle(.segmented)
-                .labelStyle(.iconOnly)
-                .padding([.leading, .trailing, .bottom])
+                .padding()
             }
         }
     }

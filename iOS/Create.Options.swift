@@ -6,19 +6,38 @@ extension Create {
         @ObservedObject var builder: Builder
         
         var body: some View {
-            Pop {
-                Text("Map type")
+            Pop(title: "Settings") {
+                Text("Type")
                     .font(.callout)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.leading)
                     .padding(.bottom, 10)
-                Picker("Map type", selection: $builder.type) {
+                Picker("Type", selection: $builder.type) {
                     ForEach(Settings.Map.allCases, id: \.self) {
                         Text(verbatim: "\($0)".capitalized)
                             .tag($0)
                     }
                 }
                 .pickerStyle(.segmented)
+                .padding([.leading, .trailing, .bottom])
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Text("Travel mode")
+                    .font(.callout)
+                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .padding([.leading, .top])
+                    .padding(.bottom, 10)
+                Picker("Travel model", selection: $builder.directions) {
+                    Label("Walking", systemImage: "figure.walk")
+                        .tag(Settings.Directions.walking)
+                    Label("Driving", systemImage: "car")
+                        .tag(Settings.Directions.driving)
+                }
+                .symbolRenderingMode(.hierarchical)
+                .pickerStyle(.segmented)
+                .labelStyle(.iconOnly)
                 .padding([.leading, .trailing, .bottom])
                 
                 Divider()
@@ -32,18 +51,6 @@ extension Create {
                         .font(.callout)
                 }
                 .font(.callout)
-                .padding()
-                
-                Divider()
-                    .padding(.horizontal)
-                
-                Toggle(isOn: $builder.rotate) {
-                    Image(systemName: "gyroscope")
-                        .font(.system(size: 22, weight: .light))
-                        .frame(width: 45)
-                    Text("Allows rotation")
-                        .font(.callout)
-                }
                 .padding()
             }
             .symbolRenderingMode(.hierarchical)
