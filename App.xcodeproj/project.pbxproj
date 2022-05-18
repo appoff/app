@@ -46,6 +46,8 @@
 		CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABA28252FF3003DA00D /* Session.Flow.swift */; };
 		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
 		CEC51AC128255334003DA00D /* Create.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AC028255334003DA00D /* Create.Item.swift */; };
+		CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D42834E32500E47E23 /* Tiler.swift */; };
+		CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D62834E4A900E47E23 /* Navigate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,8 @@
 		CEC51ABA28252FF3003DA00D /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
 		CEC51AC028255334003DA00D /* Create.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Item.swift; sourceTree = "<group>"; };
+		CEFC28D42834E32500E47E23 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
+		CEFC28D62834E4A900E47E23 /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,12 +143,14 @@
 				CEBDF1EC282E72BC00601056 /* Main.Item.swift */,
 				CE2C43B32822E4A0000007A2 /* Main.swift */,
 				CE2C43AD2822E071000007A2 /* Map.swift */,
+				CEFC28D62834E4A900E47E23 /* Navigate.swift */,
 				CE81D92428242DA900364029 /* Search.Item.swift */,
 				CE81D9202823E0BE00364029 /* Search.swift */,
 				CEC51ABA28252FF3003DA00D /* Session.Flow.swift */,
 				CEC51AB828252F85003DA00D /* Session.swift */,
 				CE2C43B52822E4EC000007A2 /* SessionOld.swift */,
 				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
+				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
 				CE979AA92827FA3D00FC0EB0 /* Window.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
@@ -285,12 +291,14 @@
 				CE787183282FF7080050BD93 /* Info.swift in Sources */,
 				CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */,
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
+				CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
 				CEAE0090282D37CD00FB5EFF /* Set.Create.Item.swift in Sources */,
 				CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */,
 				CE787181282FEAA10050BD93 /* Detail.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */,
+				CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */,
 				CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */,
 				CE4FF12028327F84008DB139 /* Created.swift in Sources */,
 				CE2C43992822D2B0000007A2 /* App.swift in Sources */,

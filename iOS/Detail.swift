@@ -66,7 +66,7 @@ struct Detail: View {
                 Spacer()
                 
                 Button {
-                    
+                    session.flow = .navigate
                 } label: {
                     Text("Open")
                         .font(.body.bold())
@@ -88,7 +88,6 @@ struct Detail: View {
                     dismiss()
                 }
         )
-//        .statusBar(hidden: true)
         .task {
             data = await session.local.load(map: map) ?? .init()
         }
