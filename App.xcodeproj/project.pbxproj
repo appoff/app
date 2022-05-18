@@ -50,6 +50,7 @@
 		CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D62834E4A900E47E23 /* Navigate.swift */; };
 		CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */; };
 		CEFC28DB2834FFAF00E47E23 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28DA2834FFAF00E47E23 /* Mapper.swift */; };
+		CEFC28DD2835247400E47E23 /* Unzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28DC2835247400E47E23 /* Unzip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		CEFC28D62834E4A900E47E23 /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 		CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Control.swift; sourceTree = "<group>"; };
 		CEFC28DA2834FFAF00E47E23 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		CEFC28DC2835247400E47E23 /* Unzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unzip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
 				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
+				CEFC28DC2835247400E47E23 /* Unzip.swift */,
 				CE979AA92827FA3D00FC0EB0 /* Window.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
 			);
@@ -289,6 +292,7 @@
 				CEC51AC128255334003DA00D /* Create.Item.swift in Sources */,
 				CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */,
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
+				CEFC28DD2835247400E47E23 /* Unzip.swift in Sources */,
 				CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */,
 				CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */,
 				CEFC28DB2834FFAF00E47E23 /* Mapper.swift in Sources */,

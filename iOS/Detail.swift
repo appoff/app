@@ -66,7 +66,9 @@ struct Detail: View {
                 Spacer()
                 
                 Button {
-                    session.flow = .navigate(.init(data: &data))
+                    withAnimation(.easeInOut(duration: 0.4)) {
+                        session.flow = .unzip(data)
+                    }
                 } label: {
                     Text("Open")
                         .font(.body.bold())

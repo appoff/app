@@ -14,10 +14,20 @@ struct Navigate: View {
                         .edgesIgnoringSafeArea(.horizontal)
                         
                     HStack(spacing: 0) {
-                        Action(symbol: "xmark.circle") {
+                        Action(size: 16, symbol: "xmark") {
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                session.flow = .main
+                            }
+                        }
+                        
+                        Action(symbol: "line.3.horizontal") {
                             session.flow = .main
                         }
-                        Spacer()
+                        
+                        Action(symbol: "slider.vertical.3") {
+                            session.flow = .main
+                        }
+                        
                         Action(symbol: "location.viewfinder", action: control.tracker)
                     }
                     .padding(.bottom, 10)

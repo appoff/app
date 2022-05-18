@@ -37,9 +37,11 @@ struct Create: View {
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .buttonStyle(.plain)
-                        .confirmationDialog("Cancel new map", isPresented: $builder.cancel) {
-                            Button("Cancel new map", role: .destructive) {
-                                session.flow = .main
+                        .confirmationDialog("Cancel map", isPresented: $builder.cancel) {
+                            Button("Cancel map", role: .destructive) {
+                                withAnimation(.easeInOut(duration: 0.4)) {
+                                    session.flow = .main
+                                }
                             }
                             
                             Button("Continue", role: .cancel) {
@@ -106,7 +108,7 @@ struct Create: View {
                             
                         }
                         
-                        Action(symbol: "slider.horizontal.3") {
+                        Action(symbol: "slider.vertical.3") {
                             builder.config = true
                         }
                         .sheet(isPresented: $builder.config) {

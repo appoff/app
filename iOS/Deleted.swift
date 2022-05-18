@@ -20,6 +20,7 @@ struct Deleted: View {
                 .frame(maxWidth: 280)
             Spacer()
             Button {
+                session.selected = nil
                 withAnimation(.easeInOut(duration: 0.3)) {
                     session.flow = .main
                 }
@@ -33,7 +34,7 @@ struct Deleted: View {
             Spacer()
         }
         .task {
-            session.selected = nil
+            try? await Task.sleep(nanoseconds: 450_000_000)
             await cloud.delete(map: map)
             session.local.delete(map: map)
         }
