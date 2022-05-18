@@ -1,46 +1,16 @@
-import SwiftUI
 import MapKit
-import Combine
 import Offline
 
 extension Create {
-    final class Builder: ObservableObject {
+    final class Builder: Mapper {
         @Published var search = false
         @Published var cancel = false
+        @Published var options = false
+        @Published var config = false
         @Published var title = "New map"
-        
-        @Published var type = Settings.Map.standard {
-            didSet {
-                guard oldValue != type else { return }
-                
-                switch type {
-                case .standard:
-                    map.mapType = .standard
-                case .satellite:
-                    map.mapType = .satelliteFlyover
-                case .hybrid:
-                    map.mapType = .hybridFlyover
-                case .emphasis:
-                    map.mapType = .mutedStandard
-                }
-                
-                Task {
-                    await cloud.update(map: type)
-                }
-            }
-        }
-        
-        @Published var interest = true {
-            didSet {
-                guard oldValue != interest else { return }
-                
-                map.pointOfInterestFilter = interest ? .includingAll : .excludingAll
-                
-                Task {
-                    await cloud.update(interest: interest)
-                }
-            }
-        }
+        @Published private(set) var points = [MKPointAnnotation]()
+        @Published private(set) var route = Set<Item>()
+        private let long = UILongPressGestureRecognizer()
         
         @Published var rotate = true {
             didSet {
@@ -51,25 +21,6 @@ extension Create {
                 
                 Task {
                     await cloud.update(rotate: rotate)
-                }
-            }
-        }
-        
-        @Published var scheme = Settings.Scheme.auto {
-            didSet {
-                guard oldValue != scheme else { return }
-                
-                switch scheme {
-                case .auto:
-                    color = nil
-                case .light:
-                    color = .light
-                case .dark:
-                    color = .dark
-                }
-                
-                Task {
-                    await cloud.update(scheme: scheme)
                 }
             }
         }
@@ -87,15 +38,8 @@ extension Create {
             }
         }
         
-        @Published private(set) var color: ColorScheme?
-        @Published private(set) var points = [MKPointAnnotation]()
-        @Published private(set) var route = Set<Item>()
-        let map = Map()
-        private var subs = Set<AnyCancellable>()
-        private let long = UILongPressGestureRecognizer()
-        private let geocoder = CLGeocoder()
-        
-        init() {
+        override init() {
+            super.init()
             map.addGestureRecognizer(long)
             long.addTarget(self, action: #selector(pressed))
             map
@@ -108,10 +52,7 @@ extension Create {
             cloud
                 .first()
                 .sink { [weak self] in
-                    self?.type = $0.settings.map
-                    self?.interest = $0.settings.interest
                     self?.rotate = $0.settings.rotate
-                    self?.scheme = $0.settings.scheme
                     self?.directions = $0.settings.directions
                 }
                 .store(in: &subs)
@@ -126,21 +67,6 @@ extension Create {
                   points: points,
                   route: route.map(\.route),
                   settings: settings)
-        }
-        
-        func tracker() {
-            let manager = CLLocationManager()
-            switch manager.authorizationStatus {
-            case .denied, .restricted:
-                UIApplication.shared.settings()
-            case .notDetermined:
-                map.first = true
-                manager.requestAlwaysAuthorization()
-            case .authorizedAlways, .authorizedWhenInUse:
-                map.follow(animated: true)
-            @unknown default:
-                break
-            }
         }
         
         @MainActor func selected(completion: MKLocalSearchCompletion) async {

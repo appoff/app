@@ -66,7 +66,7 @@ struct Detail: View {
                 Spacer()
                 
                 Button {
-                    session.flow = .navigate
+                    session.flow = .navigate(.init(data: &data))
                 } label: {
                     Text("Open")
                         .font(.body.bold())

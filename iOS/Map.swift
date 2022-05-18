@@ -77,7 +77,7 @@ final class Map: MKMapView, MKMapViewDelegate, UIViewRepresentable {
             renderer.strokeColor = .secondaryLabel
             return renderer
         default:
-            return MKOverlayRenderer(overlay: rendererFor)
+            return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
         }
     }
     

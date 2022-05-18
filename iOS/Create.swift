@@ -3,8 +3,6 @@ import SwiftUI
 struct Create: View {
     let session: Session
     @StateObject private var builder = Builder()
-    @State private var options = false
-    @State private var config = false
     @FocusState private var focus: Bool
     
     var body: some View {
@@ -70,8 +68,7 @@ struct Create: View {
                     
                     Divider()
                         .padding(.horizontal)
-                    
-                    
+
                     HStack(spacing: 0) {
                         Text(builder.points.count.formatted())
                             .font(.callout.monospacedDigit())
@@ -110,9 +107,9 @@ struct Create: View {
                         }
                         
                         Action(symbol: "slider.horizontal.3") {
-                            config = true
+                            builder.config = true
                         }
-                        .sheet(isPresented: $config) {
+                        .sheet(isPresented: $builder.config) {
                             Sheet(rootView: Config(builder: builder))
                         }
                         
@@ -139,9 +136,9 @@ struct Create: View {
                         }
                         
                         Action(symbol: "square.stack.3d.up") {
-                            options = true
+                            builder.options = true
                         }
-                        .sheet(isPresented: $options) {
+                        .sheet(isPresented: $builder.options) {
                             Sheet(rootView: Options(builder: builder))
                         }
                         

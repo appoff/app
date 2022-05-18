@@ -1,9 +1,13 @@
 import MapKit
+import Offline
 
 private let size = 512
 
 final class Tiler: MKTileOverlay {
-    init() {
+    private let tiles: Tiles
+    
+    init(tiles: Tiles) {
+        self.tiles = tiles
         super.init(urlTemplate: nil)
         tileSize = .init(width: size, height: size)
     }
@@ -14,7 +18,10 @@ final class Tiler: MKTileOverlay {
 ////        }
 //    }
     
-    override func loadTile(at path: MKTileOverlayPath) async throws -> Data {
-        .init()
+    override func loadTile(at: MKTileOverlayPath) async throws -> Data {
+        await Task.detached(priority: .utility) {
+            self.tiles[at.x, at.y, at.z]
+        }
+        .value ?? .init()
     }
 }
