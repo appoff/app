@@ -38,16 +38,19 @@ extension Navigate {
                             
                             HStack {
                                 Image(systemName: "plus")
-                                    .font(.system(size: 18, weight: .light))
+                                    .font(.system(size: 14, weight: .light))
+                                    .foregroundStyle(.secondary)
                                 
                                 Text(Date(timeIntervalSinceNow: -.init(control.route[item.offset].duration)) ..< Date.now, format: .timeDuration)
                                     .font(.callout.monospacedDigit())
+                                
+                                Text(":")
+                                    .foregroundStyle(.secondary)
                                 
                                 Text(Measurement(value: .init(control.route[item.offset].distance), unit: UnitLength.meters),
                                      format: .measurement(width: .abbreviated))
                                     .font(.callout.monospacedDigit())
                             }
-                            .foregroundStyle(.secondary)
                             
                             Divider()
                                 .padding(.horizontal)
