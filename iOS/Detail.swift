@@ -67,7 +67,7 @@ struct Detail: View {
                 
                 Button {
                     withAnimation(.easeInOut(duration: 0.4)) {
-                        session.flow = .unzip(data)
+                        session.flow = .unzip(map, data)
                     }
                 } label: {
                     Text("Open")
