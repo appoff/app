@@ -33,5 +33,6 @@ struct Navigate: View {
                     .padding(.bottom, 10)
                 }
             }
+            .preferredColorScheme(control.color)
     }
 }

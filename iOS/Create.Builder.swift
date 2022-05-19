@@ -12,19 +12,6 @@ extension Create {
         @Published private(set) var route = Set<Item>()
         private let long = UILongPressGestureRecognizer()
         
-        @Published var rotate = true {
-            didSet {
-                guard oldValue != rotate else { return }
-                
-                map.isRotateEnabled = rotate
-                map.follow(animated: false)
-                
-                Task {
-                    await cloud.update(rotate: rotate)
-                }
-            }
-        }
-        
         @Published var directions = Settings.Directions.walking {
             didSet {
                 guard oldValue != directions else { return }
@@ -38,12 +25,12 @@ extension Create {
             }
         }
         
-        override init() {
-            super.init()
+        init() {
+            super.init(editable: true)
             map.addGestureRecognizer(long)
             long.addTarget(self, action: #selector(pressed))
-            map
-                .discard
+            
+            discard
                 .sink { [weak self] in
                     self?.remove(discarded: [$0])
                 }
@@ -52,7 +39,9 @@ extension Create {
             cloud
                 .first()
                 .sink { [weak self] in
-                    self?.rotate = $0.settings.rotate
+                    self?.type = $0.settings.map
+                    self?.interest = $0.settings.interest
+                    self?.scheme = $0.settings.scheme
                     self?.directions = $0.settings.directions
                 }
                 .store(in: &subs)
@@ -72,12 +61,12 @@ extension Create {
         @MainActor func selected(completion: MKLocalSearchCompletion) async {
             guard
                 let response = try? await MKLocalSearch(request: .init(completion: completion)).start(),
-                let placemark = response.mapItems.first?.placemark
+                let item = response.mapItems.first
             else { return }
             let point = MKPointAnnotation()
-            point.coordinate = placemark.coordinate
-            point.title = placemark.title
-            point.subtitle = placemark.subtitle
+            point.coordinate = item.placemark.coordinate
+            point.title = item.placemark.responds(to: #selector(getter: MKAnnotation.title)) ? item.placemark.title : item.name
+            point.subtitle = item.placemark.responds(to: #selector(getter: MKAnnotation.subtitle)) ? item.placemark.subtitle : ""
             add(point: point, center: true)
         }
         
@@ -141,7 +130,10 @@ extension Create {
         
         private func geocode(point: MKPointAnnotation) async {
             guard
-                let location = try? await geocoder.reverseGeocodeLocation(.init(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)).first
+                let location = try? await geocoder.reverseGeocodeLocation(.init(
+                    latitude: point.coordinate.latitude,
+                    longitude: point.coordinate.longitude))
+                    .first
             else { return }
             point.title = location.name
             

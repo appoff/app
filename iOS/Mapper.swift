@@ -3,11 +3,14 @@ import MapKit
 import Combine
 import Offline
 
-class Mapper: ObservableObject {
+class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
     @Published private(set) var color: ColorScheme?
     var subs = Set<AnyCancellable>()
     let map = Map()
     let geocoder = CLGeocoder()
+    let discard = PassthroughSubject<MKPointAnnotation, Never>()
+    private var first = true
+    private let editable: Bool
     
     @Published var type = Settings.Map.standard {
         didSet {
@@ -24,6 +27,8 @@ class Mapper: ObservableObject {
                 map.mapType = .mutedStandard
             }
             
+            guard editable else { return }
+            
             Task {
                 await cloud.update(map: type)
             }
@@ -35,6 +40,8 @@ class Mapper: ObservableObject {
             guard oldValue != interest else { return }
             
             map.pointOfInterestFilter = interest ? .includingAll : .excludingAll
+            
+            guard editable else { return }
             
             Task {
                 await cloud.update(interest: interest)
@@ -55,19 +62,36 @@ class Mapper: ObservableObject {
                 color = .dark
             }
             
+            guard editable else { return }
+            
             Task {
                 await cloud.update(scheme: scheme)
             }
         }
     }
     
-    init() {
+    @Published var rotate = true {
+        didSet {
+            guard oldValue != rotate else { return }
+            
+            map.isRotateEnabled = rotate
+            map.follow(animated: false)
+            
+            Task {
+                await cloud.update(rotate: rotate)
+            }
+        }
+    }
+    
+    init(editable: Bool) {
+        self.editable = editable
+        super.init()
+        map.delegate = self
+        
         cloud
             .first()
             .sink { [weak self] in
-                self?.type = $0.settings.map
-                self?.interest = $0.settings.interest
-                self?.scheme = $0.settings.scheme
+                self?.rotate = $0.settings.rotate
             }
             .store(in: &subs)
     }
@@ -78,12 +102,58 @@ class Mapper: ObservableObject {
         case .denied, .restricted:
             UIApplication.shared.settings()
         case .notDetermined:
-            map.first = true
+            first = true
             manager.requestAlwaysAuthorization()
         case .authorizedAlways, .authorizedWhenInUse:
             map.follow(animated: true)
         @unknown default:
             break
+        }
+    }
+    
+    func mapView(_: MKMapView, didUpdate: MKUserLocation) {
+        guard first else { return }
+        first = false
+        map.follow(animated: false)
+    }
+    
+    func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
+        switch viewFor {
+        case is MKUserLocation:
+            return nil
+        case let point as MKPointAnnotation:
+            
+            let view = map.dequeueReusableAnnotationView(withIdentifier: "Marker") as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: point, reuseIdentifier: "Marker")
+            view.annotation = point
+            view.markerTintColor = .label
+            view.animatesWhenAdded = true
+            view.displayPriority = .required
+            view.canShowCallout = true
+            
+            if editable {
+                let button = UIButton(configuration: .plain(), primaryAction: .init { [weak self] _ in
+                    self?.discard.send(point)
+                })
+                button.frame = .init(x: 0, y: 0, width: 34, height: 40)
+                button.setImage(UIImage(systemName: "xmark.circle.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .secondaryLabel))?.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 16, weight: .light))), for: .normal)
+                
+                view.leftCalloutAccessoryView = button
+            }
+            
+            return view
+        default:
+            return nil
+        }
+    }
+    
+    func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
+        switch rendererFor {
+        case let line as MKMultiPolyline:
+            let renderer = MKMultiPolylineRenderer(multiPolyline: line)
+            renderer.strokeColor = .secondaryLabel
+            return renderer
+        default:
+            return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
         }
     }
 }

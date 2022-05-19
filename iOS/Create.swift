@@ -4,6 +4,7 @@ struct Create: View {
     let session: Session
     @StateObject private var builder = Builder()
     @FocusState private var focus: Bool
+    @Environment(\.colorScheme) private var scheme
     
     var body: some View {
         builder
@@ -51,7 +52,17 @@ struct Create: View {
                         
                         Button("Save") {
                             Task {
-                                let settings = await cloud.model.settings
+                                var settings = await cloud.model.settings
+                                if settings.scheme == .auto {
+                                    switch scheme {
+                                    case .light:
+                                        settings.scheme = .light
+                                    case .dark:
+                                        settings.scheme = .dark
+                                    @unknown default:
+                                        break
+                                    }
+                                }
                                 
                                 withAnimation(.easeIn(duration: 0.4)) {
                                     session.flow = .loading(builder.factory(settings: settings))
