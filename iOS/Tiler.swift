@@ -12,16 +12,7 @@ final class Tiler: MKTileOverlay {
         tileSize = .init(width: size, height: size)
     }
     
-//    override func loadTile(at: MKTileOverlayPath, result: @escaping(Data?, Error?) -> Void) {
-////        cart.tile(at.x, at.y, at.z) { [weak self] in
-////            result($0 ?? self?.fallback, nil)
-////        }
-//    }
-    
     override func loadTile(at: MKTileOverlayPath) async throws -> Data {
-        await Task.detached(priority: .utility) {
-            self.tiles[at.x, at.y, at.z]
-        }
-        .value ?? .init()
+        tiles[at.x, at.y, at.z] ?? .init()
     }
 }

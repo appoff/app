@@ -37,6 +37,8 @@ extension Create {
                 }
                 .padding()
             }
+            .symbolRenderingMode(.hierarchical)
+            .toggleStyle(SwitchToggleStyle(tint: .secondary))
         }
     }
 }

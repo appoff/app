@@ -21,11 +21,17 @@ struct Navigate: View {
                         }
                         
                         Action(symbol: "line.3.horizontal") {
-                            session.flow = .main
+                            control.points = true
+                        }
+                        .sheet(isPresented: $control.points) {
+                            Sheet(rootView: Points(control: control))
                         }
                         
                         Action(symbol: "slider.vertical.3") {
-                            session.flow = .main
+                            control.config = true
+                        }
+                        .sheet(isPresented: $control.config) {
+                            Sheet(rootView: Config(control: control))
                         }
                         
                         Action(symbol: "location.viewfinder", action: control.tracker)

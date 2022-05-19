@@ -2,8 +2,8 @@ import SwiftUI
 
 struct Pop<Content>: View where Content : View {
     let title: String
-    @Environment(\.dismiss) private var dismiss
     private let content: Content
+    @Environment(\.dismiss) private var dismiss
     
     @inlinable public init(title: String, @ViewBuilder content: () -> Content) {
         self.title = title
