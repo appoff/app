@@ -3,12 +3,11 @@ import Offline
 
 struct Detail: View {
     let session: Session
-    let map: Offline.Map
+    let item: Item
     let namespace: Namespace.ID
-    let thumbnail: UIImage?
     @State private var opacity = Double()
-    @State private var data = Data()
     @State private var delete = false
+    @State private var size = Int()
     
     var body: some View {
         ZStack {
@@ -18,7 +17,7 @@ struct Detail: View {
                 .edgesIgnoringSafeArea(.bottom)
             VStack {
                 ZStack(alignment: .top) {
-                    if let thumbnail = thumbnail {
+                    if let thumbnail = item.signature.flatMap { UIImage(data: $0.thumbnail) } {
                         Image(uiImage: thumbnail)
                             .resizable()
                             .matchedGeometryEffect(id: "image", in: namespace)
@@ -42,7 +41,7 @@ struct Detail: View {
                             Button("Cancel", role: .cancel) { }
                             Button("Delete", role: .destructive) {
                                 withAnimation(.easeInOut(duration: 0.35)) {
-                                    session.flow = .deleted(map)
+                                    session.flow = .deleted(item.map)
                                 }
                             }
                         }
@@ -60,14 +59,14 @@ struct Detail: View {
                     }
                     .padding(.top, 40)
                 }
-                Info(map: map, size: data.count)
+                Info(map: item.map, size: size)
                     .matchedGeometryEffect(id: "info", in: namespace)
                 
                 Spacer()
                 
                 Button {
                     withAnimation(.easeInOut(duration: 0.4)) {
-                        session.flow = .unzip(map, data)
+                        session.flow = .unzip(item)
                     }
                 } label: {
                     Text("Open")
@@ -91,7 +90,7 @@ struct Detail: View {
                 }
         )
         .task {
-            data = await session.local.load(map: map) ?? .init()
+            size = await session.local.size(map: item.map) ?? 0
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 1)) {

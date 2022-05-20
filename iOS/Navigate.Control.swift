@@ -6,19 +6,19 @@ extension Navigate {
         @Published var config = false
         @Published var points = false
         let annotations: [MKPointAnnotation]
-        let route: [Tiles.Route]
+        let route: [Route]
         
-        init(tiles: Tiles) {
-            annotations = tiles.annotations
-            route = tiles.route
+        init(signature: Signature, tiles: Tiles) {
+            annotations = signature.annotations
+            route = signature.route
             
             super.init(editable: false)
-            scheme = tiles.settings.scheme
-            type = tiles.settings.map
-            interest = tiles.settings.interest
+            scheme = signature.settings.scheme
+            type = signature.settings.map
+            interest = signature.settings.interest
 
             map.addOverlay(Tiler(tiles: tiles), level: .aboveLabels)
-            map.addOverlay(tiles.polyline, level: .aboveLabels)
+            map.addOverlay(signature.polyline, level: .aboveLabels)
             map.addAnnotations(annotations)
         }
     }

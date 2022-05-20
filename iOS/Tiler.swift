@@ -13,6 +13,7 @@ final class Tiler: MKTileOverlay {
     }
     
     override func loadTile(at: MKTileOverlayPath) async throws -> Data {
-        tiles[at.x, at.y, at.z] ?? .init()
+//        tiles[at.x, at.y, at.z] ?? .init()
+        .init()
     }
 }

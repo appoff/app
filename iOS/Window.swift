@@ -23,11 +23,11 @@ struct Window: View {
         case let .loading(factory):
             Loading(session: session, factory: factory)
                 .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
-        case let .unzip(map, data):
-            Unzip(session: session, map: map, data: data)
+        case let .unzip(item):
+            Unzip(session: session, item: item)
                 .transition(.opacity)
-        case let .navigate(tiles):
-            Navigate(session: session, control: .init(tiles: tiles))
+        case let .navigate(signature, tiles):
+            Navigate(session: session, control: .init(signature: signature, tiles: tiles))
         }
     }
 }

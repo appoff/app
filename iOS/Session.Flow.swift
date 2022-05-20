@@ -9,7 +9,7 @@ extension Session {
         created(Offline.Map),
         deleted(Offline.Map),
         loading(Factory),
-        unzip(Offline.Map, Data),
-        navigate(Tiles)
+        unzip(Item),
+        navigate(Signature, Tiles)
     }
 }

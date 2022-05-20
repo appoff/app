@@ -99,9 +99,9 @@ struct Loading: View {
         .onReceive(factory.fail) {
             error = true
         }
-        .onReceive(factory.finished) { tiles in
+        .onReceive(factory.finished) { signature in
             Task {
-                await cloud.add(map: factory.map, tiles: tiles)
+                await cloud.add(map: factory.map, signature: signature)
                 withAnimation(.easeInOut(duration: 0.4)) {
                     session.flow = .created(factory.map)
                 }

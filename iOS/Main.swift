@@ -4,8 +4,7 @@ import Offline
 struct Main: View {
     @ObservedObject var session: Session
     @State private var search = ""
-    @State private var maps = [Offline.Map]()
-    @State private var thumbnails = [UUID : Data]()
+    @State private var maps = [Offline.Item]()
     
     var body: some View {
         ZStack {
@@ -26,8 +25,7 @@ struct Main: View {
                 } else {
                     ForEach(filtered) {
                         Item(session: session,
-                             map: $0,
-                             thumbnail: thumbnail(map: $0))
+                             item: $0)
                         .listRowSeparator(.hidden)
                     }
                 }
@@ -37,9 +35,8 @@ struct Main: View {
             
             if let selected = session.selected {
                 Detail(session: session,
-                       map: selected.map,
-                       namespace: selected.namespace,
-                       thumbnail: thumbnail(map: selected.map))
+                       item: selected.item,
+                       namespace: selected.namespace)
                     .transition(.identity)
             }
         }
@@ -76,31 +73,20 @@ struct Main: View {
             }
         }
         .onReceive(cloud) {
-            thumbnails = $0.thumbnails
             maps = $0.maps
         }
     }
     
-    private var filtered: [Offline.Map] {
+    private var filtered: [Offline.Item] {
         { string in
             string.isEmpty
             ? maps
             : { components in
                 maps
-                    .filter { map in
-                        components
-                            .contains { token in
-                                map.title.localizedCaseInsensitiveContains(token)
-                                || map.origin.localizedCaseInsensitiveContains(token)
-                                || map.destination.localizedCaseInsensitiveContains(token)
-                            }
+                    .filter {
+                        $0.contains(tokens: components)
                     }
             } (string.components(separatedBy: " "))
         } (search.trimmingCharacters(in: .whitespacesAndNewlines))
-    }
-    
-    private func thumbnail(map: Offline.Map) -> UIImage? {
-        thumbnails[map.id]
-            .flatMap(UIImage.init(data:))
     }
 }
