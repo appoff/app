@@ -75,7 +75,7 @@ struct Create: View {
                         .tint(.primary)
                         .disabled(builder.points.count < 2)
                         .padding(.leading)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 15)
                     }
                     .padding(.horizontal)
                     
@@ -157,7 +157,7 @@ struct Create: View {
                         
                         Action(symbol: "location.viewfinder", action: builder.tracker)
                     }
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 12)
                 }
             }
             .preferredColorScheme(builder.color)

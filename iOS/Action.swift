@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Action: View {
-    var size = CGFloat(20)
+    var size = CGFloat(22)
     let symbol: String
     let action: () -> Void
     
@@ -11,7 +11,7 @@ struct Action: View {
                 .font(.system(size: size, weight: .light))
                 .symbolRenderingMode(.hierarchical)
                 .foregroundColor(.primary)
-                .frame(width: 64, height: 60)
+                .frame(width: 64, height: 70)
                 .contentShape(Rectangle())
         }
     }

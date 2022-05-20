@@ -14,7 +14,7 @@ struct Navigate: View {
                         .edgesIgnoringSafeArea(.horizontal)
                         
                     HStack(spacing: 0) {
-                        Action(size: 16, symbol: "xmark") {
+                        Action(size: 18, symbol: "xmark") {
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 session.flow = .main
                             }
@@ -36,7 +36,7 @@ struct Navigate: View {
                         
                         Action(symbol: "location.viewfinder", action: control.tracker)
                     }
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 12)
                 }
             }
             .preferredColorScheme(control.color)

@@ -4,6 +4,7 @@ import Offline
 extension Create {
     struct Config: View {
         @ObservedObject var builder: Builder
+        @Environment(\.dismiss) private var dismiss
         
         var body: some View {
             Pop(title: "Options") {
@@ -28,10 +29,32 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
+                Button {
+                    builder.current()
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "mappin.and.ellipse")
+                            .font(.system(size: 22, weight: .light))
+                            .frame(width: 45)
+                            .frame(minHeight: 36)
+                        Text("My location")
+                            .font(.callout)
+                        Spacer()
+                    }
+                    .padding()
+                    .contentShape(Rectangle())
+                    .foregroundColor(.primary)
+                }
+                
+                Divider()
+                    .padding(.horizontal)
+                
                 Toggle(isOn: $builder.rotate) {
                     Image(systemName: "gyroscope")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
+                        .frame(minHeight: 36)
                     Text("Allows rotation")
                         .font(.callout)
                 }

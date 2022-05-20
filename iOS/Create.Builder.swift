@@ -9,7 +9,7 @@ extension Create {
         @Published var config = false
         @Published var title = "New map"
         @Published private(set) var points = [MKPointAnnotation]()
-        @Published private(set) var route = Set<Item>()
+        @Published private(set) var route = Set<Routing>()
         private let long = UILongPressGestureRecognizer()
         
         @Published var directions = Settings.Directions.walking {
@@ -54,8 +54,13 @@ extension Create {
                              distance: .init(route.distance),
                              duration: .init(route.duration)),
                   points: points,
-                  route: route.map(\.route),
+                  route: route,
                   settings: settings)
+        }
+        
+        func current() {
+            add(coordinate: map.userLocation.location == nil ? map.centerCoordinate : map.userLocation.location!.coordinate,
+                center: true)
         }
         
         @MainActor func selected(completion: MKLocalSearchCompletion) async {
@@ -67,6 +72,7 @@ extension Create {
             point.coordinate = item.placemark.coordinate
             point.title = item.placemark.responds(to: #selector(getter: MKAnnotation.title)) ? item.placemark.title : item.name
             point.subtitle = item.placemark.responds(to: #selector(getter: MKAnnotation.subtitle)) ? item.placemark.subtitle : ""
+            sourroundings(coordinate: point.coordinate)
             add(point: point, center: true)
         }
         
@@ -160,6 +166,26 @@ extension Create {
             }
         }
         
+        private func add(coordinate: CLLocationCoordinate2D, center: Bool) {
+            sourroundings(coordinate: coordinate)
+            
+            let point = MKPointAnnotation()
+            point.coordinate = coordinate
+            
+            add(point: point, center: center)
+            
+            Task {
+                await geocode(point: point)
+            }
+        }
+        
+        private func sourroundings(coordinate: CLLocationCoordinate2D) {
+            remove(discarded: points
+                .filter { point in
+                    abs(point.coordinate.latitude - coordinate.latitude) + abs(point.coordinate.longitude - coordinate.longitude) < 0.003
+                })
+        }
+        
         private func remove(discarded: [MKPointAnnotation]) {
             discarded
                 .forEach { discard in
@@ -191,20 +217,7 @@ extension Create {
                     map.deselectAnnotation($0, animated: true)
                 }
             
-            let coordinate = map.convert(long.location(in: map), toCoordinateFrom: nil)
-            remove(discarded: points
-                .filter { point in
-                    abs(point.coordinate.latitude - coordinate.latitude) + abs(point.coordinate.longitude - coordinate.longitude) < 0.003
-                })
-            
-            let point = MKPointAnnotation()
-            point.coordinate = coordinate
-            
-            add(point: point, center: false)
-            
-            Task {
-                await geocode(point: point)
-            }
+            add(coordinate: map.convert(long.location(in: map), toCoordinateFrom: nil), center: false)
             
             long.isEnabled = true
         }

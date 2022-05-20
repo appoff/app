@@ -10,6 +10,7 @@ extension Navigate {
                     Image(systemName: "gyroscope")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
+                        .frame(minHeight: 36)
                     Text("Allows rotation")
                         .font(.callout)
                 }

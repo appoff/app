@@ -5,12 +5,10 @@ extension Navigate {
     final class Control: Mapper {
         @Published var config = false
         @Published var points = false
-        let annotations: [MKPointAnnotation]
-        let route: [Route]
+        let annotations: [(point: MKPointAnnotation, route: Route?)]
         
         init(signature: Signature, tiles: Tiles) {
             annotations = signature.annotations
-            route = signature.route
             
             super.init(editable: false)
             scheme = signature.settings.scheme
@@ -19,7 +17,7 @@ extension Navigate {
 
             map.addOverlay(Tiler(tiles: tiles), level: .aboveLabels)
             map.addOverlay(signature.polyline, level: .aboveLabels)
-            map.addAnnotations(annotations)
+            map.addAnnotations(annotations.map(\.point))
         }
     }
 }

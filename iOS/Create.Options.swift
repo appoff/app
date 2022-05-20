@@ -47,6 +47,7 @@ extension Create {
                     Image(systemName: "theatermasks")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
+                        .frame(minHeight: 36)
                     Text("Points of interest")
                         .font(.callout)
                 }

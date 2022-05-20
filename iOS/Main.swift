@@ -15,7 +15,7 @@ struct Main: View {
                             .font(.system(size: 30, weight: .ultraLight))
                             .foregroundStyle(.secondary)
                             .padding(.top, 100)
-                        Text("No maps found")
+                        Text("Empty maps")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                             .padding(.top, 5)

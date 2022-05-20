@@ -8,18 +8,18 @@ extension Navigate {
         var body: some View {
             Pop(title: "Points") {
                 ScrollView {
-                    ForEach(Array(control.annotations.enumerated()), id: \.0) { item in
+                    ForEach(control.annotations, id: \.point) { item in
                         Button {
                             dismiss()
-                            control.map.selectAnnotation(item.element, animated: true)
-                            control.map.setCenter(item.element.coordinate, animated: true)
+                            control.map.selectAnnotation(item.point, animated: true)
+                            control.map.setCenter(item.point.coordinate, animated: true)
                         } label: {
                             VStack(alignment: .leading) {
-                                Text(item.element.title ?? "")
+                                Text(item.point.title ?? "")
                                     .foregroundColor(.primary)
                                     .font(.callout)
 
-                                if let subtitle = item.element.subtitle, !subtitle.isEmpty {
+                                if let subtitle = item.point.subtitle, !subtitle.isEmpty {
                                     Text(subtitle)
                                         .foregroundColor(.secondary)
                                         .font(.footnote)
@@ -32,7 +32,7 @@ extension Navigate {
                             .contentShape(Rectangle())
                         }
                         
-                        if control.route.count > item.offset {
+                        if let route = item.route {
                             Divider()
                                 .padding(.horizontal)
                             
@@ -41,13 +41,13 @@ extension Navigate {
                                     .font(.system(size: 14, weight: .light))
                                     .foregroundStyle(.secondary)
                                 
-                                Text(Date(timeIntervalSinceNow: -.init(control.route[item.offset].duration)) ..< Date.now, format: .timeDuration)
+                                Text(Date(timeIntervalSinceNow: -.init(route.duration)) ..< Date.now, format: .timeDuration)
                                     .font(.callout.monospacedDigit())
                                 
                                 Text(":")
                                     .foregroundStyle(.secondary)
                                 
-                                Text(Measurement(value: .init(control.route[item.offset].distance), unit: UnitLength.meters),
+                                Text(Measurement(value: .init(route.distance), unit: UnitLength.meters),
                                      format: .measurement(width: .abbreviated))
                                     .font(.callout.monospacedDigit())
                             }
