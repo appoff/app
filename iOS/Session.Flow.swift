@@ -10,6 +10,6 @@ extension Session {
         deleted(Header),
         loading(Factory),
         unzip(Project),
-        navigate(Schema, Tiles)
+        navigate(Schema, Bufferer)
     }
 }

@@ -29,11 +29,11 @@ struct Unzip: View {
         .task {
             try? await Task.sleep(nanoseconds: 450_000_000)
             session.selected = nil
-            guard let schema = project.schema else { return }
-            let tiles = schema.tiles
+            
+            guard let bufferer = project.bufferer else { return }
             
             withAnimation(.easeInOut(duration: 0.5)) {
-                session.flow = .navigate(schema, tiles)
+                session.flow = .navigate(project.schema!, bufferer)
             }
         }
     }

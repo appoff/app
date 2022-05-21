@@ -7,7 +7,7 @@ extension Navigate {
         @Published var points = false
         let annotations: [(point: MKPointAnnotation, route: Route?)]
         
-        init(schema: Schema, tiles: Tiles) {
+        init(schema: Schema, bufferer: Bufferer) {
             annotations = schema.annotations
             
             super.init(editable: false)
@@ -15,7 +15,7 @@ extension Navigate {
             type = schema.settings.map
             interest = schema.settings.interest
 
-            map.addOverlay(Tiler(tiles: tiles), level: .aboveLabels)
+            map.addOverlay(Tiler(bufferer: bufferer), level: .aboveLabels)
             map.addOverlay(schema.polyline, level: .aboveLabels)
             map.addAnnotations(annotations.map(\.point))
         }

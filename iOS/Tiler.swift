@@ -4,17 +4,24 @@ import Offline
 private let size = 512
 
 final class Tiler: MKTileOverlay {
-    private let tiles: Tiles
+    private let bufferer: Bufferer
     
-    init(tiles: Tiles) {
-        self.tiles = tiles
+    init(bufferer: Bufferer) {
+        self.bufferer = bufferer
         super.init(urlTemplate: nil)
         tileSize = .init(width: size, height: size)
         canReplaceMapContent = true
     }
     
+    deinit {
+        bufferer.close()
+    }
+    
     override func loadTile(at: MKTileOverlayPath) async throws -> Data {
-//        tiles[at.x, at.y, at.z] ?? .init()
-        .init()
+        try await Task
+            .detached(priority: .utility) { [weak self] in
+                try await self?.bufferer.load(at: at) ?? .init()
+            }
+            .value
     }
 }
