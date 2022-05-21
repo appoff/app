@@ -4,12 +4,12 @@ import Offline
 struct Main: View {
     @ObservedObject var session: Session
     @State private var search = ""
-    @State private var maps = [Offline.Item]()
+    @State private var projects = [Project]()
     
     var body: some View {
         ZStack {
             List {
-                if maps.isEmpty {
+                if projects.isEmpty {
                     VStack {
                         Image(systemName: "map")
                             .font(.system(size: 30, weight: .ultraLight))
@@ -25,7 +25,7 @@ struct Main: View {
                 } else {
                     ForEach(filtered) {
                         Item(session: session,
-                             item: $0)
+                             project: $0)
                         .listRowSeparator(.hidden)
                     }
                 }
@@ -35,7 +35,7 @@ struct Main: View {
             
             if let selected = session.selected {
                 Detail(session: session,
-                       item: selected.item,
+                       project: selected.project,
                        namespace: selected.namespace)
                     .transition(.identity)
             }
@@ -73,16 +73,16 @@ struct Main: View {
             }
         }
         .onReceive(cloud) {
-            maps = $0.maps
+            projects = $0.projects
         }
     }
     
-    private var filtered: [Offline.Item] {
+    private var filtered: [Project] {
         { string in
             string.isEmpty
-            ? maps
+            ? projects
             : { components in
-                maps
+                projects
                     .filter {
                         $0.contains(tokens: components)
                     }

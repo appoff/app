@@ -7,16 +7,16 @@ extension Navigate {
         @Published var points = false
         let annotations: [(point: MKPointAnnotation, route: Route?)]
         
-        init(signature: Signature, tiles: Tiles) {
-            annotations = signature.annotations
+        init(schema: Schema, tiles: Tiles) {
+            annotations = schema.annotations
             
             super.init(editable: false)
-            scheme = signature.settings.scheme
-            type = signature.settings.map
-            interest = signature.settings.interest
+            scheme = schema.settings.scheme
+            type = schema.settings.map
+            interest = schema.settings.interest
 
             map.addOverlay(Tiler(tiles: tiles), level: .aboveLabels)
-            map.addOverlay(signature.polyline, level: .aboveLabels)
+            map.addOverlay(schema.polyline, level: .aboveLabels)
             map.addAnnotations(annotations.map(\.point))
         }
     }

@@ -3,7 +3,7 @@ import Offline
 
 struct Unzip: View {
     let session: Session
-    let item: Item
+    let project: Project
     
     var body: some View {
         VStack {
@@ -18,7 +18,7 @@ struct Unzip: View {
                 .font(.title2.weight(.regular))
                 .padding(.top)
             
-            Text(item.map.title)
+            Text(project.header.title)
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
@@ -29,11 +29,11 @@ struct Unzip: View {
         .task {
             try? await Task.sleep(nanoseconds: 450_000_000)
             session.selected = nil
-            guard let signature = item.signature else { return }
-            let tiles = signature.tiles
+            guard let schema = project.schema else { return }
+            let tiles = schema.tiles
             
             withAnimation(.easeInOut(duration: 0.5)) {
-                session.flow = .navigate(signature, tiles)
+                session.flow = .navigate(schema, tiles)
             }
         }
     }

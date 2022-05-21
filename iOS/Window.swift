@@ -14,20 +14,20 @@ struct Window: View {
             .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
         case .create:
             Create(session: session)
-        case let .created(map):
-            Created(session: session, map: map)
+        case let .created(header):
+            Created(session: session, header: header)
                 .transition(.asymmetric(insertion: .opacity, removal: .move(edge: .leading)))
-        case let .deleted(map):
-            Deleted(session: session, map: map)
+        case let .deleted(header):
+            Deleted(session: session, header: header)
                 .transition(.asymmetric(insertion: .opacity, removal: .move(edge: .leading)))
         case let .loading(factory):
             Loading(session: session, factory: factory)
                 .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
-        case let .unzip(item):
-            Unzip(session: session, item: item)
+        case let .unzip(project):
+            Unzip(session: session, project: project)
                 .transition(.opacity)
-        case let .navigate(signature, tiles):
-            Navigate(session: session, control: .init(signature: signature, tiles: tiles))
+        case let .navigate(schema, tiles):
+            Navigate(session: session, control: .init(schema: schema, tiles: tiles))
         }
     }
 }

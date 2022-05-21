@@ -3,7 +3,7 @@ import Offline
 
 struct Deleted: View {
     let session: Session
-    let map: Offline.Map
+    let header: Header
     
     var body: some View {
         VStack {
@@ -13,7 +13,7 @@ struct Deleted: View {
             Text("Deleted")
                 .font(.title2.weight(.regular))
                 .padding(.top)
-            Text(map.title)
+            Text(header.title)
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
@@ -35,8 +35,8 @@ struct Deleted: View {
         }
         .task {
             try? await Task.sleep(nanoseconds: 450_000_000)
-            await cloud.delete(map: map)
-            session.local.delete(map: map)
+            await cloud.delete(header: header)
+            session.local.delete(header: header)
         }
     }
 }

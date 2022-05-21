@@ -3,7 +3,7 @@ import Offline
 
 struct Detail: View {
     let session: Session
-    let item: Item
+    let project: Project
     let namespace: Namespace.ID
     @State private var opacity = Double()
     @State private var delete = false
@@ -17,7 +17,7 @@ struct Detail: View {
                 .edgesIgnoringSafeArea(.bottom)
             VStack {
                 ZStack(alignment: .top) {
-                    if let thumbnail = item.signature.flatMap { UIImage(data: $0.thumbnail) } {
+                    if let thumbnail = project.schema.flatMap { UIImage(data: $0.thumbnail) } {
                         Image(uiImage: thumbnail)
                             .resizable()
                             .matchedGeometryEffect(id: "image", in: namespace)
@@ -41,7 +41,7 @@ struct Detail: View {
                             Button("Cancel", role: .cancel) { }
                             Button("Delete", role: .destructive) {
                                 withAnimation(.easeInOut(duration: 0.35)) {
-                                    session.flow = .deleted(item.map)
+                                    session.flow = .deleted(project.header)
                                 }
                             }
                         }
@@ -59,14 +59,14 @@ struct Detail: View {
                     }
                     .padding(.top, 40)
                 }
-                Info(map: item.map, size: size)
+                Info(header: project.header, size: size)
                     .matchedGeometryEffect(id: "info", in: namespace)
                 
                 Spacer()
                 
                 Button {
                     withAnimation(.easeInOut(duration: 0.4)) {
-                        session.flow = .unzip(item)
+                        session.flow = .unzip(project)
                     }
                 } label: {
                     Text("Open")
@@ -90,7 +90,7 @@ struct Detail: View {
                 }
         )
         .task {
-            size = await session.local.size(map: item.map) ?? 0
+            size = await session.local.size(header: project.header) ?? 0
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 1)) {

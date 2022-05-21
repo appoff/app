@@ -3,7 +3,7 @@ import Offline
 
 struct Created: View {
     let session: Session
-    let map: Offline.Map
+    let header: Header
     
     var body: some View {
         VStack {
@@ -13,7 +13,7 @@ struct Created: View {
                 .padding(.top, 40)
             Text("Ready")
                 .font(.title2.weight(.regular))
-            Text(map.title)
+            Text(header.title)
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)

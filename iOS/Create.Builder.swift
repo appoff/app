@@ -48,7 +48,7 @@ extension Create {
         }
         
         func factory(settings: Settings) -> Factory {
-            .init(map: .init(title: title,
+            .init(header: .init(title: title,
                              origin: points.first?.title ?? "",
                              destination: points.last?.title ?? "",
                              distance: .init(route.distance),

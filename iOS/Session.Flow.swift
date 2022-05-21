@@ -6,10 +6,10 @@ extension Session {
         case
         main,
         create,
-        created(Offline.Map),
-        deleted(Offline.Map),
+        created(Header),
+        deleted(Header),
         loading(Factory),
-        unzip(Item),
-        navigate(Signature, Tiles)
+        unzip(Project),
+        navigate(Schema, Tiles)
     }
 }

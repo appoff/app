@@ -4,13 +4,13 @@ import Offline
 extension Main {
     struct Item: View {
         let session: Session
-        let item: Offline.Item
+        let project: Project
         @Namespace private var namespace
         
         var body: some View {
             Button {
                 withAnimation(.easeInOut(duration: 0.4)) {
-                    session.selected = (item: item, namespace: namespace)
+                    session.selected = (project: project, namespace: namespace)
                 }
             } label: {
                 ZStack {
@@ -18,7 +18,7 @@ extension Main {
                         .fill(Color(.tertiarySystemBackground))
                         .matchedGeometryEffect(id: "background", in: namespace)
                     VStack(spacing: 0) {
-                        if let thumbnail = item.signature.flatMap { UIImage(data: $0.thumbnail) } {
+                        if let thumbnail = project.schema.flatMap { UIImage(data: $0.thumbnail) } {
                             Image(uiImage: thumbnail)
                                 .resizable()
                                 .matchedGeometryEffect(id: "image", in: namespace)
@@ -26,7 +26,7 @@ extension Main {
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
                         }
-                        Info(map: item.map, size: 0)
+                        Info(header: project.header, size: 0)
                             .matchedGeometryEffect(id: "info", in: namespace)
                             .lineLimit(1)
                             .padding(.bottom)

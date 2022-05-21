@@ -54,7 +54,7 @@ struct Loading: View {
                 Text("Loading")
                     .font(.title2.weight(.regular))
                     .padding(.top)
-                Text(factory.map.title)
+                Text(factory.header.title)
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
@@ -99,11 +99,11 @@ struct Loading: View {
         .onReceive(factory.fail) {
             error = true
         }
-        .onReceive(factory.finished) { signature in
+        .onReceive(factory.finished) { schema in
             Task {
-                await cloud.add(map: factory.map, signature: signature)
+                await cloud.add(header: factory.header, schema: schema)
                 withAnimation(.easeInOut(duration: 0.4)) {
-                    session.flow = .created(factory.map)
+                    session.flow = .created(factory.header)
                 }
             }
         }
