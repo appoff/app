@@ -35,7 +35,7 @@ struct Create: View {
                         Button("Cancel", role: .destructive) {
                             builder.cancel = true
                         }
-                        .font(.callout)
+                        .font(.body)
                         .foregroundStyle(.secondary)
                         .buttonStyle(.plain)
                         .confirmationDialog("Cancel map", isPresented: $builder.cancel) {
@@ -69,7 +69,7 @@ struct Create: View {
                                 }
                             }
                         }
-                        .font(.callout)
+                        .font(.title3.weight(.medium))
                         .buttonStyle(.borderedProminent)
                         .foregroundColor(Color(.systemBackground))
                         .tint(.primary)
