@@ -25,7 +25,7 @@ struct Created: View {
                 }
             } label: {
                 Text("Continue")
-                    .font(.body.weight(.bold))
+                    .font(.title3.weight(.bold))
                     .foregroundColor(.primary)
                     .padding()
                     .contentShape(Rectangle())

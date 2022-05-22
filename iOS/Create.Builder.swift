@@ -111,7 +111,7 @@ extension Create {
                     .routes
                     .min(by: { a, b in
                         a.expectedTravelTime < b.expectedTravelTime
-                    })  else { continue }
+                    }) else { continue }
 
                 route.insert(.init(origin: pair.0, destination: pair.1, route: response))
             }
