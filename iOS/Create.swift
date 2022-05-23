@@ -120,7 +120,7 @@ struct Create: View {
                             
                         }
                         
-                        Action(symbol: "slider.vertical.3") {
+                        Action(symbol: "slider.horizontal.3") {
                             builder.config = true
                         }
                         .sheet(isPresented: $builder.config) {

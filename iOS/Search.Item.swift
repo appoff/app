@@ -16,9 +16,9 @@ extension Search {
                     Spacer()
                     Button(action: complete) {
                         Image(systemName: "character.cursor.ibeam")
-                            .font(.system(size: 16, weight: .light))
+                            .font(.system(size: 18, weight: .light))
                             .foregroundColor(.primary)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 34, height: 34)
                             .contentShape(Rectangle())
                     }
                 }
@@ -30,15 +30,15 @@ extension Search {
         
         private var title: AttributedString {
             var string = AttributedString(item.title, attributes: .init([
-                .font: UIFont.preferredFont(forTextStyle: .callout),
-                .foregroundColor: UIColor.label]))
+                .font: UIFont.preferredFont(forTextStyle: .body),
+                .foregroundColor: UIColor.secondaryLabel]))
             
             item
                 .titleHighlightRanges
                 .forEach { value in
                     let substring = item.title[item.title.index(item.title.startIndex, offsetBy: value.rangeValue.lowerBound) ..< item.title.index(item.title.startIndex, offsetBy: value.rangeValue.upperBound)]
                     if let range = string.range(of: substring) {
-                        string[range].font = .callout.bold()
+                        string[range].foregroundColor = UIColor.label
                     }
                 }
             

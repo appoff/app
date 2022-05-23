@@ -12,14 +12,14 @@ struct Search: View {
                 if field.results.isEmpty {
                     VStack(spacing: 20) {
                         Image(systemName: "magnifyingglass")
-                            .font(.system(size: 32, weight: .light))
+                            .font(.system(size: 34, weight: .light))
                         Text("Search for an address\nor place of interest.")
                             .multilineTextAlignment(.center)
+                            .font(.callout)
                     }
                     .foregroundStyle(.secondary)
-                    .font(.callout)
                     .listSectionSeparator(.hidden)
-                    .padding(.top)
+                    .padding(.top, 20)
                     .frame(maxWidth: .greatestFiniteMagnitude)
                 }
                 
@@ -32,7 +32,6 @@ struct Search: View {
                     }
                 }
             }
-            .animation(.easeInOut(duration: 0.25), value: field.results)
             .listStyle(.plain)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 field
@@ -46,10 +45,10 @@ struct Search: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel")
-                            .font(.callout)
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 24, weight: .light))
+                            .frame(width: 36, height: 36)
                             .foregroundStyle(.secondary)
-                            .frame(minWidth: 60, minHeight: 38)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)

@@ -20,14 +20,14 @@ struct Navigate: View {
                             }
                         }
                         
-                        Action(symbol: "slider.vertical.3") {
+                        Action(symbol: "slider.horizontal.3") {
                             control.config = true
                         }
                         .sheet(isPresented: $control.config) {
                             Sheet(rootView: Config(control: control))
                         }
                         
-                        Action(symbol: "line.3.horizontal") {
+                        Action(symbol: "arrow.triangle.turn.up.right.circle") {
                             control.points = true
                         }
                         .sheet(isPresented: $control.points) {
