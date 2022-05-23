@@ -46,7 +46,7 @@ struct Search: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 24, weight: .light))
+                            .font(.system(size: 20, weight: .light))
                             .frame(width: 36, height: 36)
                             .foregroundStyle(.secondary)
                             .contentShape(Rectangle())

@@ -15,6 +15,24 @@ struct Create: View {
                     Divider()
                         .edgesIgnoringSafeArea(.horizontal)
                     
+                    if builder.overflow {
+                        Image(systemName: "exclamationmark.triangle")
+                            .font(.system(size: 40, weight: .thin))
+                            .symbolRenderingMode(.hierarchical)
+                            .padding(.top)
+                        Text("Map too big")
+                            .font(.title3.weight(.regular))
+                            .padding(.top, 10)
+                        Text("Try a smaller map with\npoints closer to each other")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                            .padding(.bottom)
+                        
+                        Divider()
+                            .padding(.horizontal)
+                    }
+                    
                     HStack {
                         Button {
                             focus.toggle()
@@ -33,6 +51,7 @@ struct Create: View {
                         Spacer()
                         
                         Button("Cancel", role: .destructive) {
+                            UIApplication.shared.hide()
                             builder.cancel = true
                         }
                         .font(.body)
@@ -51,6 +70,8 @@ struct Create: View {
                         }
                         
                         Button("Save") {
+                            UIApplication.shared.hide()
+                            
                             Task {
                                 var settings = await cloud.model.settings
                                 if settings.scheme == .auto {
@@ -73,7 +94,7 @@ struct Create: View {
                         .buttonStyle(.borderedProminent)
                         .foregroundColor(Color(.systemBackground))
                         .tint(.primary)
-                        .disabled(builder.points.count < 2)
+                        .disabled(builder.points.count < 2 || builder.overflow)
                         .padding(.leading)
                         .padding(.vertical, 16)
                     }
@@ -117,10 +138,11 @@ struct Create: View {
                         
                     HStack(spacing: 0) {
                         Action(symbol: "questionmark.circle") {
-                            
+                            UIApplication.shared.hide()
                         }
                         
                         Action(symbol: "slider.horizontal.3") {
+                            UIApplication.shared.hide()
                             builder.config = true
                         }
                         .sheet(isPresented: $builder.config) {
@@ -128,6 +150,7 @@ struct Create: View {
                         }
                         
                         Button {
+                            UIApplication.shared.hide()
                             builder.search = true
                         } label: {
                             ZStack(alignment: .leading) {
@@ -150,13 +173,17 @@ struct Create: View {
                         }
                         
                         Action(symbol: "square.stack.3d.up") {
+                            UIApplication.shared.hide()
                             builder.options = true
                         }
                         .sheet(isPresented: $builder.options) {
                             Sheet(rootView: Options(builder: builder))
                         }
                         
-                        Action(symbol: "location.viewfinder", action: builder.tracker)
+                        Action(symbol: "location.viewfinder") {
+                            UIApplication.shared.hide()
+                            builder.tracker()
+                        }
                     }
                     .padding(.bottom, 12)
                 }

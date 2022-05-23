@@ -1,6 +1,8 @@
 import MapKit
 import Offline
 
+private let limit = Double(30_000)
+
 extension Create {
     final class Builder: Mapper {
         @Published var search = false
@@ -8,6 +10,7 @@ extension Create {
         @Published var options = false
         @Published var config = false
         @Published var title = "New map"
+        @Published private(set) var overflow = false
         @Published private(set) var points = [MKPointAnnotation]()
         @Published private(set) var route = Set<Routing>()
         private let long = UILongPressGestureRecognizer()
@@ -127,6 +130,8 @@ extension Create {
             points.append(point)
             map.addAnnotation(point)
             
+            validate()
+            
             if center {
                 map.setCenter(point.coordinate, animated: true)
             }
@@ -203,7 +208,22 @@ extension Create {
                     map.removeAnnotation(discard)
                 }
             
+            validate()
+            
             trace()
+        }
+        
+        private func validate() {
+            guard points.count > 1 else {
+                overflow = false
+                return
+            }
+            
+            let rect = points
+                .map(\.coordinate)
+                .rect
+            
+            overflow = max(rect.width, rect.height) > limit
         }
         
         @objc private func pressed() {
