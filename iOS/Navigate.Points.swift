@@ -17,14 +17,16 @@ extension Navigate {
                             VStack(alignment: .leading) {
                                 Text(item.point.title ?? "")
                                     .foregroundColor(.primary)
-                                    .font(.callout)
 
-                                if let subtitle = item.point.subtitle, !subtitle.isEmpty {
+                                if let subtitle = item.point.subtitle,
+                                   !subtitle.isEmpty,
+                                   subtitle.localizedCompare(item.point.title ?? "") != .orderedSame {
+                                    
                                     Text(subtitle)
                                         .foregroundColor(.secondary)
-                                        .font(.footnote)
                                 }
                             }
+                            .font(.callout)
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -51,6 +53,7 @@ extension Navigate {
                                      format: .measurement(width: .abbreviated))
                                     .font(.callout.monospacedDigit())
                             }
+                            .padding(.vertical, 5)
                             
                             Divider()
                                 .padding(.horizontal)

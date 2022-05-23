@@ -12,11 +12,11 @@ struct Main: View {
                 if projects.isEmpty {
                     VStack {
                         Image(systemName: "map")
-                            .font(.system(size: 30, weight: .ultraLight))
+                            .font(.system(size: 35, weight: .ultraLight))
                             .foregroundStyle(.secondary)
                             .padding(.top, 100)
                         Text("Empty maps")
-                            .font(.footnote)
+                            .font(.callout)
                             .foregroundStyle(.secondary)
                             .padding(.top, 5)
                     }
@@ -57,7 +57,7 @@ struct Main: View {
                     
                 } label: {
                     Image(systemName: "gear")
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 18, weight: .regular))
                         .frame(minWidth: 40, minHeight: 30)
                         .contentShape(Rectangle())
                 }
@@ -66,7 +66,7 @@ struct Main: View {
                     session.flow = .create
                 } label: {
                     Image(systemName: "plus")
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 18, weight: .regular))
                         .frame(minWidth: 40, minHeight: 30)
                         .contentShape(Rectangle())
                 }

@@ -15,7 +15,7 @@ struct Detail: View {
                 .fill(Color(.tertiarySystemBackground))
                 .matchedGeometryEffect(id: "background", in: namespace)
                 .edgesIgnoringSafeArea(.bottom)
-            VStack {
+            VStack(spacing: 0) {
                 ZStack(alignment: .top) {
                     if let thumbnail = project.schema.flatMap { UIImage(data: $0.thumbnail) } {
                         Image(uiImage: thumbnail)
@@ -31,7 +31,7 @@ struct Detail: View {
                             delete = true
                         } label: {
                             Image(systemName: "trash.circle.fill")
-                                .font(.system(size: 28, weight: .light))
+                                .font(.system(size: 32, weight: .light))
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(Color.primary, Color(.systemBackground))
                                 .frame(width: 70, height: 45)
@@ -50,7 +50,7 @@ struct Detail: View {
                         
                         Button(action: dismiss) {
                             Image(systemName: "xmark.circle.fill")
-                                .font(.system(size: 28, weight: .light))
+                                .font(.system(size: 32, weight: .light))
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(Color.primary, Color(.systemBackground))
                                 .frame(width: 70, height: 45)
@@ -59,8 +59,13 @@ struct Detail: View {
                     }
                     .padding(.top, 40)
                 }
+                
+                Divider()
+                    .edgesIgnoringSafeArea(.horizontal)
+                
                 Info(header: project.header, size: size)
                     .matchedGeometryEffect(id: "info", in: namespace)
+                    .padding(.top, 4)
                 
                 Spacer()
                 
@@ -70,15 +75,15 @@ struct Detail: View {
                     }
                 } label: {
                     Text("Open")
-                        .font(.body.bold())
+                        .font(.title3.weight(.medium))
                         .frame(maxWidth: .greatestFiniteMagnitude)
-                        .frame(minHeight: 32)
+                        .frame(minHeight: 34)
                 }
                 .tint(.primary)
                 .foregroundColor(.init(.systemBackground))
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .padding(.bottom, 20)
+                .padding(.bottom, 24)
             }
         }
         .matchedGeometryEffect(id: "card", in: namespace)

@@ -20,12 +20,12 @@ struct Create: View {
                             focus.toggle()
                         } label: {
                             Image(systemName: "character.cursor.ibeam")
-                                .font(.system(size: 20, weight: .light))
+                                .font(.system(size: 22, weight: .light))
                                 .symbolRenderingMode(.hierarchical)
                         }
                         
                         TextField("Map title", text: $builder.title)
-                            .font(.callout)
+                            .font(.body)
                             .textFieldStyle(.roundedBorder)
                             .focused($focus)
                             .padding(.trailing)
@@ -75,7 +75,7 @@ struct Create: View {
                         .tint(.primary)
                         .disabled(builder.points.count < 2)
                         .padding(.leading)
-                        .padding(.vertical, 15)
+                        .padding(.vertical, 16)
                     }
                     .padding(.horizontal)
                     
@@ -84,32 +84,33 @@ struct Create: View {
 
                     HStack(spacing: 0) {
                         Text(builder.points.count.formatted())
-                            .font(.callout.monospacedDigit())
+                            .font(.body.monospacedDigit())
                         + Text(builder.points.count == 1 ? " point" : " points")
                             .foregroundColor(.secondary)
-                            .font(.footnote)
+                            .font(.callout)
                         
                         Spacer()
                         
                         if !builder.route.isEmpty {
                             Text("Duration ")
-                                .font(.caption)
+                                .font(.footnote)
                             
                             Text(Date(timeIntervalSinceNow: -builder.route.duration) ..< Date.now, format: .timeDuration)
-                                .font(.footnote.monospacedDigit())
+                                .font(.callout.monospacedDigit())
                                 .foregroundStyle(.secondary)
                             
                             Text("Distance ")
-                                .font(.caption)
+                                .font(.footnote)
                                 .padding(.leading)
                             
                             Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
                                  format: .measurement(width: .abbreviated))
-                                .font(.footnote.monospacedDigit())
+                                .font(.callout.monospacedDigit())
                                 .foregroundStyle(.secondary)
                         }
                     }
                     .padding()
+                    .padding(.vertical, 4)
                     
                     Divider()
                         .padding(.horizontal)
@@ -139,7 +140,7 @@ struct Create: View {
                             }
                             .frame(width: 80, height: 34)
                         }
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal, 16)
                         .sheet(isPresented: $builder.search) {
                             Search { item in
                                 Task {

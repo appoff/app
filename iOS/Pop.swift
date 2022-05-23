@@ -20,8 +20,7 @@ struct Pop<Content>: View where Content : View {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 24, weight: .light))
-                        .foregroundStyle(.secondary)
+                        .font(.system(size: 28, weight: .light))
                         .frame(width: 36, height: 36)
                         .padding(.trailing, 12)
                         .contentShape(Rectangle())

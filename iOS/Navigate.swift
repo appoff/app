@@ -20,13 +20,6 @@ struct Navigate: View {
                             }
                         }
                         
-                        Action(symbol: "line.3.horizontal") {
-                            control.points = true
-                        }
-                        .sheet(isPresented: $control.points) {
-                            Sheet(rootView: Points(control: control))
-                        }
-                        
                         Action(symbol: "slider.vertical.3") {
                             control.config = true
                         }
@@ -34,9 +27,16 @@ struct Navigate: View {
                             Sheet(rootView: Config(control: control))
                         }
                         
+                        Action(symbol: "line.3.horizontal") {
+                            control.points = true
+                        }
+                        .sheet(isPresented: $control.points) {
+                            Sheet(rootView: Points(control: control))
+                        }
+                        
                         Action(symbol: "location.viewfinder", action: control.tracker)
                     }
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 14)
                 }
             }
             .preferredColorScheme(control.color)

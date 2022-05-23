@@ -13,10 +13,6 @@ final class Tiler: MKTileOverlay {
         canReplaceMapContent = true
     }
     
-    deinit {
-        bufferer.close()
-    }
-    
     override func loadTile(at: MKTileOverlayPath) async throws -> Data {
         try await Task
             .detached(priority: .utility) { [weak self] in
