@@ -8,14 +8,14 @@ extension Info {
         var body: some View {
             HStack {
                 Text(title)
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
                 VStack {
                     Divider()
                 }
             }
             content
-                .font(.caption)
+                .font(.footnote)
         }
     }
 }

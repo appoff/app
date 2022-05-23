@@ -13,7 +13,7 @@ struct Navigate: View {
                     Divider()
                         .edgesIgnoringSafeArea(.horizontal)
                         
-                    HStack(spacing: 0) {
+                    HStack(spacing: 12) {
                         Action(size: 18, symbol: "xmark") {
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 session.flow = .main

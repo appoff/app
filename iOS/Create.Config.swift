@@ -35,11 +35,11 @@ extension Create {
                 } label: {
                     HStack {
                         Image(systemName: "mappin.and.ellipse")
-                            .font(.system(size: 22, weight: .light))
+                            .font(.system(size: 22, weight: .regular))
                             .frame(width: 45)
                             .frame(minHeight: 36)
                         Text("My location")
-                            .font(.callout)
+                            .font(.callout.weight(.medium))
                         Spacer()
                     }
                     .padding()

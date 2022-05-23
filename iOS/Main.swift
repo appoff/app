@@ -12,11 +12,11 @@ struct Main: View {
                 if projects.isEmpty {
                     VStack {
                         Image(systemName: "map")
-                            .font(.system(size: 35, weight: .ultraLight))
+                            .font(.system(size: 50, weight: .ultraLight))
                             .foregroundStyle(.secondary)
                             .padding(.top, 100)
                         Text("Empty maps")
-                            .font(.callout)
+                            .font(.body)
                             .foregroundStyle(.secondary)
                             .padding(.top, 5)
                     }
