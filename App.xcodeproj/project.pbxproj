@@ -47,6 +47,7 @@
 		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
 		CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE215802836863B0083FC99 /* Navigate.Config.swift */; };
 		CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2158228368D230083FC99 /* Navigate.Points.swift */; };
+		CEEB863F283CFFA800A9FF13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB863E283CFFA800A9FF13 /* User.swift */; };
 		CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D42834E32500E47E23 /* Tiler.swift */; };
 		CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D62834E4A900E47E23 /* Navigate.swift */; };
 		CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */; };
@@ -97,6 +98,7 @@
 		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
 		CEE215802836863B0083FC99 /* Navigate.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Config.swift; sourceTree = "<group>"; };
 		CEE2158228368D230083FC99 /* Navigate.Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Points.swift; sourceTree = "<group>"; };
+		CEEB863E283CFFA800A9FF13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CEFC28D42834E32500E47E23 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
 		CEFC28D62834E4A900E47E23 /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 		CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Control.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
 				CEFC28DC2835247400E47E23 /* Unzip.swift */,
+				CEEB863E283CFFA800A9FF13 /* User.swift */,
 				CE979AA92827FA3D00FC0EB0 /* Window.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
 			);
@@ -297,6 +300,7 @@
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
 				CEFC28DD2835247400E47E23 /* Unzip.swift in Sources */,
 				CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */,
+				CEEB863F283CFFA800A9FF13 /* User.swift in Sources */,
 				CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */,
 				CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */,
 				CEFC28DB2834FFAF00E47E23 /* Mapper.swift in Sources */,

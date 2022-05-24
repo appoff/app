@@ -131,10 +131,11 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
     
     func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
         switch viewFor {
-        case is MKUserLocation:
-            return nil
+        case let user as MKUserLocation:
+            let view = map.dequeueReusableAnnotationView(withIdentifier: "User") as? User ?? User()
+            view.annotation = user
+            return view
         case let point as MKPointAnnotation:
-            
             let view = map.dequeueReusableAnnotationView(withIdentifier: "Marker") as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: point, reuseIdentifier: "Marker")
             view.annotation = point
             view.markerTintColor = .label
