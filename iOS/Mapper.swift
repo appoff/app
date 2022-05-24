@@ -11,6 +11,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
     let discard = PassthroughSubject<MKPointAnnotation, Never>()
     private var first = true
     private let editable: Bool
+    private let position = PassthroughSubject<Void, Never>()
     
     @Published var type = Settings.Map.standard {
         didSet {
@@ -75,7 +76,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
             guard oldValue != rotate else { return }
             
             map.isRotateEnabled = rotate
-            map.follow(animated: false)
+            position.send()
             
             Task {
                 await cloud.update(rotate: rotate)
@@ -94,6 +95,17 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
                 self?.rotate = $0.settings.rotate
             }
             .store(in: &subs)
+        
+        position
+            .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.follow(animated: true)
+            }
+            .store(in: &subs)
+        
+        var region = map.region
+        region.span = .init(latitudeDelta: 0.002, longitudeDelta: 0.002)
+        map.setRegion(region, animated: false)
     }
     
     func tracker() {
@@ -105,7 +117,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
             first = true
             manager.requestAlwaysAuthorization()
         case .authorizedAlways, .authorizedWhenInUse:
-            map.follow(animated: true)
+            follow(animated: true)
         @unknown default:
             break
         }
@@ -114,7 +126,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
     func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard first else { return }
         first = false
-        map.follow(animated: false)
+        position.send()
     }
     
     func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
@@ -155,5 +167,17 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
         default:
             return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
         }
+    }
+    
+    private func follow(animated: Bool) {
+        var region = map.region
+        region.center = map.userLocation.location == nil
+            ? map.centerCoordinate
+            : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
+                ? map.userLocation.coordinate
+                : map.centerCoordinate
+        
+        map.setRegion(region, animated: animated)
+        map.setUserTrackingMode(map.isRotateEnabled ? .followWithHeading : .follow, animated: animated)
     }
 }
