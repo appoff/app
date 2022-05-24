@@ -3,7 +3,7 @@ import MapKit
 import Combine
 import Offline
 
-class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
+class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDelegate {
     @Published private(set) var color: ColorScheme?
     var subs = Set<AnyCancellable>()
     let map = Map()
@@ -12,6 +12,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
     private var first = true
     private let editable: Bool
     private let position = PassthroughSubject<Void, Never>()
+    private let manager = CLLocationManager()
     
     @Published var type = Settings.Map.standard {
         didSet {
@@ -106,10 +107,17 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
         var region = map.region
         region.span = .init(latitudeDelta: 0.002, longitudeDelta: 0.002)
         map.setRegion(region, animated: false)
+        
+        manager.delegate = self
+        manager.stopUpdatingHeading()
+        manager.startUpdatingHeading()
     }
     
-    func tracker() {
-        let manager = CLLocationManager()
+    deinit {
+        manager.stopUpdatingHeading()
+    }
+    
+    final func tracker() {
         switch manager.authorizationStatus {
         case .denied, .restricted:
             UIApplication.shared.settings()
@@ -123,13 +131,13 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
         }
     }
     
-    func mapView(_: MKMapView, didUpdate: MKUserLocation) {
+    final func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard first else { return }
         first = false
         position.send()
     }
     
-    func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
+    final func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
         switch viewFor {
         case let user as MKUserLocation:
             let view = map.dequeueReusableAnnotationView(withIdentifier: "User") as? User ?? User()
@@ -159,7 +167,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
         }
     }
     
-    func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
+    final func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
         switch rendererFor {
         case let line as MKMultiPolyline:
             let liner = Liner(multiPolyline: line)
@@ -169,6 +177,24 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
             return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
         }
     }
+    
+    final func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
+        guard
+            didUpdateHeading.headingAccuracy >= 0,
+            didUpdateHeading.trueHeading >= 0,
+            let user = map.annotations.first(where: { $0 === map.userLocation }),
+            let view = map.view(for: user) as? User
+        else { return }
+        view.orientation(angle: didUpdateHeading.trueHeading * .pi / 180)
+    }
+    
+    final func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
+    final func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
+    final func locationManager(_: CLLocationManager, didFailWithError: Error) { }
+    
+#if os(iOS)
+    final func locationManager(_: CLLocationManager, didFinishDeferredUpdatesWithError: Error?) { }
+#endif
     
     private func follow(animated: Bool) {
         var region = map.region

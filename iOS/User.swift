@@ -2,8 +2,9 @@ import MapKit
 import Combine
 
 final class User: MKAnnotationView {
-    private(set) weak var heading: UIImageView?
     private weak var halo: CAShapeLayer?
+    private weak var heading: CAShapeLayer?
+    private weak var gradient: CAGradientLayer?
     private weak var circle: UIView!
     private var subs = Set<AnyCancellable>()
     
@@ -16,17 +17,32 @@ final class User: MKAnnotationView {
         canShowCallout = false
         frame = .init(x: 0, y: 0, width: 22, height: 22)
         
+        let gradient = CAGradientLayer()
+        gradient.startPoint = .init(x: 0.5, y: 1)
+        gradient.endPoint = .init(x: 0.5, y: 0)
+        gradient.locations = [0, 1]
+        gradient.frame = .init(x: 0, y: 0, width: 30, height: 50)
+        self.gradient = gradient
+        
+        let heading = CAShapeLayer()
+        heading.frame = .init(x: -4, y: -14, width: 30, height: 50)
+        heading.anchorPoint = .init(x: 0.5, y: 1)
+        heading.path = { path in
+            path.move(to: .zero)
+            path.addLine(to: .init(x: 30, y: 0))
+            path.addLine(to: .init(x: 20, y: 50))
+            path.addLine(to: .init(x: 10, y: 50))
+            path.closeSubpath()
+            return path
+        } (CGMutablePath())
+        heading.mask = gradient
+        layer.addSublayer(heading)
+        self.heading = heading
+        
         let halo = CAShapeLayer()
         halo.frame = .init(x: -7, y: -7, width: 36, height: 36)
-        layer.insertSublayer(halo, below: nil)
+        layer.addSublayer(halo)
         self.halo = halo
-        
-        let heading = UIImageView(image: UIImage(named: "heading"))
-        heading.translatesAutoresizingMaskIntoConstraints = false
-        heading.contentMode = .center
-        heading.clipsToBounds = true
-        addSubview(heading)
-        self.heading = heading
         
         let circle = UIView()
         circle.translatesAutoresizingMaskIntoConstraints = false
@@ -35,11 +51,6 @@ final class User: MKAnnotationView {
         circle.layer.cornerRadius = 9
         addSubview(circle)
         self.circle = circle
-        
-        heading.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        heading.heightAnchor.constraint(equalToConstant: 110).isActive = true
-        heading.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        heading.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         circle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         circle.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -55,8 +66,14 @@ final class User: MKAnnotationView {
             .store(in: &subs)
     }
     
+    func orientation(angle: Double) {
+        heading?.transform = CATransform3DMakeRotation(angle, 0, 0, 1)
+    }
+    
     override func traitCollectionDidChange(_: UITraitCollection?) {
         halo?.fillColor = UIColor.secondaryLabel.cgColor
+        heading?.fillColor = UIColor.label.withAlphaComponent(0.6).cgColor
+        gradient?.colors = [heading?.fillColor ?? UIColor.clear.cgColor, UIColor.clear.cgColor]
         reanimate()
     }
     

@@ -16,7 +16,7 @@ extension Search {
                     Spacer()
                     Button(action: complete) {
                         Image(systemName: "character.cursor.ibeam")
-                            .font(.system(size: 18, weight: .light))
+                            .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.primary)
                             .frame(width: 34, height: 34)
                             .contentShape(Rectangle())
