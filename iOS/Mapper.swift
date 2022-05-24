@@ -176,8 +176,8 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
             : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
                 ? map.userLocation.coordinate
                 : map.centerCoordinate
-        
+
         map.setRegion(region, animated: animated)
-        map.setUserTrackingMode(map.isRotateEnabled ? .followWithHeading : .follow, animated: animated)
+        map.setUserTrackingMode(map.isRotateEnabled ? .followWithHeading : .follow, animated: false)
     }
 }

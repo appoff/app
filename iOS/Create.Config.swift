@@ -48,16 +48,16 @@ extension Create {
                 } label: {
                     HStack(spacing: 0) {
                         Image(systemName: "mappin.and.ellipse")
-                            .font(.system(size: 20, weight: .regular))
-                            .frame(width: 40)
-                            .frame(minHeight: 36)
+                            .font(.system(size: 18, weight: .regular))
+                            .frame(width: 28)
                         Text("Current location")
                             .font(.callout)
-                            .padding(.trailing, 12)
+                            .padding(.trailing, 8)
                     }
                     .contentShape(Rectangle())
-                    .foregroundColor(.primary)
                 }
+                .tint(Color.primary.opacity(0.3))
+                .foregroundColor(.primary)
                 .buttonStyle(.bordered)
                 .fixedSize()
                 .padding()

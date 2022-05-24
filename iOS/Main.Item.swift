@@ -29,7 +29,7 @@ extension Main {
                         Info(header: project.header, size: 0)
                             .matchedGeometryEffect(id: "info", in: namespace)
                             .lineLimit(1)
-                            .padding(.bottom)
+                            .padding(.bottom, 20)
                     }
                 }
                 .matchedGeometryEffect(id: "card", in: namespace)

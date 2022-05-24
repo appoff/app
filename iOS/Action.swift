@@ -11,7 +11,7 @@ struct Action: View {
                 .font(.system(size: size, weight: .light))
                 .symbolRenderingMode(.hierarchical)
                 .foregroundColor(.primary)
-                .frame(width: 64, height: 70)
+                .frame(width: 64, height: 64)
                 .contentShape(Rectangle())
         }
     }

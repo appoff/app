@@ -94,8 +94,7 @@ struct Create: View {
                                 .focused($focus)
                                 .padding(.trailing)
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
+                        .padding(10)
                         
                         if focus && !builder.title.isEmpty {
                             HStack {
@@ -137,13 +136,13 @@ struct Create: View {
                         }
                     }
                     .padding(.horizontal)
-                    .font(.body.weight(.medium))
+                    .font(.title3.weight(.medium))
                     .buttonStyle(.borderedProminent)
                     .foregroundColor(Color(.systemBackground))
                     .tint(.primary)
                     .disabled(builder.points.count < 2 || builder.overflow)
                 }
-                .padding(.vertical)
+                .padding(.vertical, 10)
                 
                 Divider()
             }
@@ -219,7 +218,6 @@ struct Create: View {
                         builder.tracker()
                     }
                 }
-                .padding(.bottom, 12)
             }
         }
         .preferredColorScheme(builder.color)

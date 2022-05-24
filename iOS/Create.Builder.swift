@@ -73,8 +73,12 @@ extension Create {
             else { return }
             let point = MKPointAnnotation()
             point.coordinate = item.placemark.coordinate
-            point.title = item.placemark.responds(to: #selector(getter: MKAnnotation.title)) ? item.placemark.title : item.name
-            point.subtitle = item.placemark.responds(to: #selector(getter: MKAnnotation.subtitle)) ? item.placemark.subtitle : ""
+            point.title = item.name
+            point.subtitle = item.placemark.responds(to: #selector(getter: MKAnnotation.title))
+                ? item.placemark.title
+                : item.placemark.responds(to: #selector(getter: MKAnnotation.subtitle))
+                    ? item.placemark.subtitle
+                    : ""
             sourroundings(coordinate: point.coordinate)
             add(point: point, center: true)
         }
