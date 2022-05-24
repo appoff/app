@@ -161,9 +161,9 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate {
     func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
         switch rendererFor {
         case let line as MKMultiPolyline:
-            let renderer = MKMultiPolylineRenderer(multiPolyline: line)
-            renderer.strokeColor = .secondaryLabel
-            return renderer
+            let liner = Liner(multiPolyline: line)
+            liner.strokeColor = .label
+            return liner
         default:
             return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
         }

@@ -1,7 +1,7 @@
 import MapKit
 import Offline
 
-private let limit = Double(30_000)
+private let limit = Double(80_000)
 
 extension Create {
     final class Builder: Mapper {
@@ -187,7 +187,7 @@ extension Create {
         private func sourroundings(coordinate: CLLocationCoordinate2D) {
             remove(discarded: points
                 .filter { point in
-                    abs(point.coordinate.latitude - coordinate.latitude) + abs(point.coordinate.longitude - coordinate.longitude) < 0.003
+                    abs(point.coordinate.latitude - coordinate.latitude) + abs(point.coordinate.longitude - coordinate.longitude) < 0.002
                 })
         }
         
@@ -223,7 +223,7 @@ extension Create {
                 .map(\.coordinate)
                 .rect
             
-            overflow = max(rect.width, rect.height) > limit
+            overflow = rect.width + rect.height > limit
         }
         
         @objc private func pressed() {
@@ -237,7 +237,7 @@ extension Create {
                     map.deselectAnnotation($0, animated: true)
                 }
             
-            add(coordinate: map.convert(long.location(in: map), toCoordinateFrom: nil), center: false)
+            add(coordinate: map.convert(long.location(in: map), toCoordinateFrom: map), center: false)
             
             long.isEnabled = true
         }

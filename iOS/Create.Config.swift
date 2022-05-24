@@ -29,27 +29,6 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
-                Button {
-                    builder.current()
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "mappin.and.ellipse")
-                            .font(.system(size: 22, weight: .regular))
-                            .frame(width: 45)
-                            .frame(minHeight: 36)
-                        Text("My location")
-                            .font(.callout.weight(.medium))
-                        Spacer()
-                    }
-                    .padding()
-                    .contentShape(Rectangle())
-                    .foregroundColor(.primary)
-                }
-                
-                Divider()
-                    .padding(.horizontal)
-                
                 Toggle(isOn: $builder.rotate) {
                     Image(systemName: "gyroscope")
                         .font(.system(size: 22, weight: .light))
@@ -58,6 +37,29 @@ extension Create {
                     Text("Allows rotation")
                         .font(.callout)
                 }
+                .padding()
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Button {
+                    builder.current()
+                    dismiss()
+                } label: {
+                    HStack(spacing: 0) {
+                        Image(systemName: "mappin.and.ellipse")
+                            .font(.system(size: 20, weight: .regular))
+                            .frame(width: 40)
+                            .frame(minHeight: 36)
+                        Text("Current location")
+                            .font(.callout)
+                            .padding(.trailing, 12)
+                    }
+                    .contentShape(Rectangle())
+                    .foregroundColor(.primary)
+                }
+                .buttonStyle(.bordered)
+                .fixedSize()
                 .padding()
             }
             .symbolRenderingMode(.hierarchical)
