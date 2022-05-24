@@ -100,7 +100,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         position
             .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main)
             .sink { [weak self] in
-                self?.follow(animated: true)
+                self?.follow(region: true, animated: true)
             }
             .store(in: &subs)
         
@@ -125,7 +125,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
             first = true
             manager.requestAlwaysAuthorization()
         case .authorizedAlways, .authorizedWhenInUse:
-            follow(animated: true)
+            follow(region: false, animated: true)
         @unknown default:
             break
         }
@@ -196,15 +196,27 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
     final func locationManager(_: CLLocationManager, didFinishDeferredUpdatesWithError: Error?) { }
 #endif
     
-    private func follow(animated: Bool) {
-        var region = map.region
-        region.center = map.userLocation.location == nil
-            ? map.centerCoordinate
-            : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
-                ? map.userLocation.coordinate
-                : map.centerCoordinate
+    private func follow(region: Bool, animated: Bool) {
+        if region {
+            var region = map.region
+            region.center = map.userLocation.location == nil
+                ? map.centerCoordinate
+                : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
+                    ? map.userLocation.coordinate
+                    : map.centerCoordinate
 
-        map.setRegion(region, animated: animated)
+            map.setRegion(region, animated: animated)
+        } else {
+            let minZoom: CLLocationDistance = 100 // desired visible radius from user in metres
+            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: minZoom)
+            
+            map.setCameraZoomRange(zoomRange, animated: false)
+        }
+        
         map.setUserTrackingMode(map.isRotateEnabled ? .followWithHeading : .follow, animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.map.setCameraZoomRange(nil, animated: false)
+        }
     }
 }
