@@ -117,6 +117,7 @@ struct Create: View {
                     
                     Button("Save") {
                         UIApplication.shared.hide()
+                        builder.map.follow = false
                         
                         Task {
                             var settings = await cloud.model.settings
@@ -173,10 +174,12 @@ struct Create: View {
                 HStack(spacing: 0) {
                     Action(symbol: "questionmark.circle") {
                         UIApplication.shared.hide()
+                        builder.map.follow = false
                     }
                     
                     Action(symbol: "slider.horizontal.3") {
                         UIApplication.shared.hide()
+                        builder.map.follow = false
                         builder.config = true
                     }
                     .sheet(isPresented: $builder.config) {
@@ -209,6 +212,7 @@ struct Create: View {
                     
                     Action(symbol: "square.stack.3d.up") {
                         UIApplication.shared.hide()
+                        builder.map.follow = false
                         builder.options = true
                     }
                     .sheet(isPresented: $builder.options) {

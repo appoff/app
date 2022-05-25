@@ -184,7 +184,6 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
     }
     
     func mapView(_: MKMapView, didSelect: MKAnnotationView) {
-        print("unfollow")
         map.follow = false
     }
     

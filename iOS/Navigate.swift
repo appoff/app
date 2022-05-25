@@ -21,6 +21,7 @@ struct Navigate: View {
                         }
                         
                         Action(symbol: "slider.horizontal.3") {
+                            control.map.follow = false
                             control.config = true
                         }
                         .sheet(isPresented: $control.config) {
@@ -28,6 +29,7 @@ struct Navigate: View {
                         }
                         
                         Action(symbol: "arrow.triangle.turn.up.right.circle") {
+                            control.map.follow = false
                             control.points = true
                         }
                         .sheet(isPresented: $control.points) {
