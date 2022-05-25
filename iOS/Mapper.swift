@@ -117,6 +117,13 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
     }
     
     final func tracker() {
+        map
+            .selectedAnnotations
+            .first
+            .map {
+                map.deselectAnnotation($0, animated: true)
+            }
+        
         switch manager.authorizationStatus {
         case .denied, .restricted:
             UIApplication.shared.settings()
