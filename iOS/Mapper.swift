@@ -5,7 +5,7 @@ import Offline
 
 class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDelegate {
     @Published private(set) var color: ColorScheme?
-    var subs = Set<AnyCancellable>()
+    final var subs = Set<AnyCancellable>()
     let map = Map()
     let geocoder = CLGeocoder()
     let discard = PassthroughSubject<MKPointAnnotation, Never>()
@@ -14,7 +14,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
     private let position = PassthroughSubject<Void, Never>()
     private let manager = CLLocationManager()
     
-    @Published var type = Settings.Map.standard {
+    @Published final var type = Settings.Map.standard {
         didSet {
             guard oldValue != type else { return }
             
@@ -37,7 +37,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         }
     }
     
-    @Published var interest = true {
+    @Published final var interest = true {
         didSet {
             guard oldValue != interest else { return }
             
@@ -51,7 +51,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         }
     }
     
-    @Published var scheme = Settings.Scheme.auto {
+    @Published final var scheme = Settings.Scheme.auto {
         didSet {
             guard oldValue != scheme else { return }
             
@@ -72,7 +72,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         }
     }
     
-    @Published var rotate = true {
+    @Published final var rotate = true {
         didSet {
             guard oldValue != rotate else { return }
             
@@ -98,15 +98,14 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
             .store(in: &subs)
         
         position
-            .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(75), scheduler: DispatchQueue.main)
             .sink { [weak self] in
-                self?.follow(region: true, animated: true)
+                self?.user(span: false)
+                self?.first = false
             }
             .store(in: &subs)
         
-        var region = map.region
-        region.span = .init(latitudeDelta: 0.002, longitudeDelta: 0.002)
-        map.setRegion(region, animated: false)
+        user(span: true)
         
         manager.delegate = self
         manager.stopUpdatingHeading()
@@ -125,15 +124,20 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
             first = true
             manager.requestAlwaysAuthorization()
         case .authorizedAlways, .authorizedWhenInUse:
-            follow(region: false, animated: true)
+            user(span: true)
+            map.follow = true
         @unknown default:
             break
         }
     }
     
     final func mapView(_: MKMapView, didUpdate: MKUserLocation) {
-        guard first else { return }
-        first = false
+        guard
+            map.follow,
+            let delta = didUpdate.location.map({ $0.coordinate.delta(other: map.centerCoordinate) }),
+            delta > 0.000000015
+        else { return }
+        
         position.send()
     }
     
@@ -196,27 +200,27 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
     final func locationManager(_: CLLocationManager, didFinishDeferredUpdatesWithError: Error?) { }
 #endif
     
-    private func follow(region: Bool, animated: Bool) {
-        if region {
-            var region = map.region
-            region.center = map.userLocation.location == nil
-                ? map.centerCoordinate
-                : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
-                    ? map.userLocation.coordinate
-                    : map.centerCoordinate
-
-            map.setRegion(region, animated: animated)
-        } else {
-            let minZoom: CLLocationDistance = 100 // desired visible radius from user in metres
-            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: minZoom)
-            
-            map.setCameraZoomRange(zoomRange, animated: false)
-        }
-        
-        map.setUserTrackingMode(map.isRotateEnabled ? .followWithHeading : .follow, animated: false)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.map.setCameraZoomRange(nil, animated: false)
-        }
+    private func user(span: Bool) {
+        UIView
+            .animate(withDuration: first ? 0 : 1,
+                     delay: 0,
+                     options: [.curveEaseInOut, .allowUserInteraction]) { [weak self] in
+                guard let map = self?.map else { return }
+                
+                let center = map.userLocation.location == nil
+                    ? map.centerCoordinate
+                    : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
+                        ? map.userLocation.coordinate
+                        : map.centerCoordinate
+                
+                if span {
+                    var region = MKCoordinateRegion()
+                    region.span = .init(latitudeDelta: 0.0015, longitudeDelta: 0.0015)
+                    region.center = center
+                    map.region = region
+                } else {
+                    map.centerCoordinate = center
+                }
+            }
     }
 }
