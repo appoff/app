@@ -25,8 +25,9 @@ struct Detail: View {
                             .scaledToFit()
                             .aspectRatio(contentMode: .fit)
                     } else {
-                        
+                        #warning("offloaded map")
                     }
+                    
                     HStack {
                         Button(role: .destructive) {
                             delete = true
