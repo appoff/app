@@ -2,8 +2,9 @@ import StoreKit
 import UserNotifications
 import Combine
 
-struct Store {
-    let status = CurrentValueSubject<Status, Never>(.loading)
+final actor Store {
+    nonisolated let status = CurrentValueSubject<Status, Never>(.loading)
+    private var products = [Item : Product]()
     private var restored = false
     
     func launch() async {
@@ -14,25 +15,16 @@ struct Store {
         }
     }
     
-    @MainActor func load() async {
-        do {
-            let products = try await Product.products(for: Item.allCases.map(\.rawValue))
-            if products.isEmpty {
-                status.send(.error("No In-App Purchases available at the moment, try again later."))
-            } else {
-                status.send(
-                    .products(
-                        products
-                            .sorted {
-                                $0.price < $1.price
-                            }))
-            }
-        } catch let error {
-            status.send(.error("Unable to connect to the App Store.\n" + error.localizedDescription))
+    func load(item: Item) async -> Product? {
+        guard let product = products[item] else {
+            guard let product = try? await Product.products(for: [item.rawValue]).first else { return nil }
+            products[item] = product
+            return product
         }
+        return product
     }
     
-    @MainActor func purchase(_ product: Product) async {
+    func purchase(_ product: Product) async {
         status.send(.loading)
 
         do {
@@ -40,22 +32,23 @@ struct Store {
             case let .success(verification):
                 if case let .verified(safe) = verification {
                     await process(transaction: safe)
-                    await load()
+//                    await load()
                 } else {
                     status.send(.error("Purchase verification failed."))
                 }
             case .pending:
-                await load()
+//                await load()
                 await UNUserNotificationCenter.send(message: "Purchase is pending...")
             default:
-                await load()
+                break
+//                await load()
             }
         } catch let error {
             status.send(.error(error.localizedDescription))
         }
     }
     
-    @MainActor mutating func restore() async {
+    func restore() async {
         status.send(.loading)
         
         if restored {
@@ -68,7 +61,7 @@ struct Store {
             }
         }
         
-        await load()
+//        await load()
         restored = true
     }
     

@@ -44,7 +44,7 @@ extension Create {
                     .padding(.horizontal)
                 
                 Toggle(isOn: $builder.interest) {
-                    Image(systemName: "theatermasks")
+                    Image(systemName: "building.2")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
                         .frame(minHeight: 36)

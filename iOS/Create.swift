@@ -143,7 +143,7 @@ struct Create: View {
                     .tint(.primary)
                     .disabled(builder.points.count < 2 || builder.overflow)
                 }
-                .padding(.vertical, 10)
+                .padding(.vertical)
                 
                 Divider()
             }

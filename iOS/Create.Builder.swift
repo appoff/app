@@ -191,8 +191,8 @@ extension Create {
         
         private func sourroundings(coordinate: CLLocationCoordinate2D) {
             remove(discarded: points
-                .filter { point in
-                    abs(point.coordinate.latitude - coordinate.latitude) + abs(point.coordinate.longitude - coordinate.longitude) < 0.002
+                .filter {
+                    $0.coordinate.delta(other: coordinate) < 0.0000025
                 })
         }
         

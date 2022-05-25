@@ -3,9 +3,9 @@ import UserNotifications
 import Offline
 
 extension Store {
-    enum Item: String, CaseIterable {
+    enum Item: String {
         case
-        plus = "app.offline.cloud"
+        cloud = "app.offline.cloud"
         
         func purchased(active: Bool) async {
             if active {
