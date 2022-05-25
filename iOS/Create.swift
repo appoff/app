@@ -80,6 +80,7 @@ struct Create: View {
                         RoundedRectangle(cornerRadius: 6)
                             .fill(Color(.secondarySystemBackground))
                             .onTapGesture {
+                                builder.map.follow = false
                                 focus.toggle()
                             }
                         
@@ -184,6 +185,7 @@ struct Create: View {
                     
                     Button {
                         UIApplication.shared.hide()
+                        builder.map.follow = false
                         builder.search = true
                     } label: {
                         ZStack(alignment: .leading) {

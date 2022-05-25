@@ -182,6 +182,11 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         }
     }
     
+    func mapView(_: MKMapView, didSelect: MKAnnotationView) {
+        print("unfollow")
+        map.follow = false
+    }
+    
     final func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
         guard
             didUpdateHeading.headingAccuracy >= 0,

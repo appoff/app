@@ -4,7 +4,6 @@ import Combine
 final class User: MKAnnotationView {
     private weak var halo: CAShapeLayer?
     private weak var heading: CAShapeLayer?
-    private weak var gradient: CAGradientLayer?
     private weak var circle: UIView!
     private var subs = Set<AnyCancellable>()
     
@@ -21,17 +20,17 @@ final class User: MKAnnotationView {
         gradient.startPoint = .init(x: 0.5, y: 1)
         gradient.endPoint = .init(x: 0.5, y: 0)
         gradient.locations = [0, 1]
-        gradient.frame = .init(x: 0, y: 0, width: 30, height: 50)
-        self.gradient = gradient
+        gradient.frame = .init(x: 0, y: 0, width: 30, height: 30)
+        gradient.colors = [CGColor(gray: 0, alpha: 1), CGColor(gray: 0, alpha: 0)]
         
         let heading = CAShapeLayer()
-        heading.frame = .init(x: -4, y: -14, width: 30, height: 50)
+        heading.frame = .init(x: -4, y: -4, width: 30, height: 30)
         heading.anchorPoint = .init(x: 0.5, y: 1)
         heading.path = { path in
             path.move(to: .zero)
             path.addLine(to: .init(x: 30, y: 0))
-            path.addLine(to: .init(x: 20, y: 50))
-            path.addLine(to: .init(x: 10, y: 50))
+            path.addLine(to: .init(x: 24, y: 30))
+            path.addLine(to: .init(x: 6, y: 30))
             path.closeSubpath()
             return path
         } (CGMutablePath())
@@ -72,8 +71,7 @@ final class User: MKAnnotationView {
     
     override func traitCollectionDidChange(_: UITraitCollection?) {
         halo?.fillColor = UIColor.secondaryLabel.cgColor
-        heading?.fillColor = UIColor.label.withAlphaComponent(0.6).cgColor
-        gradient?.colors = [heading?.fillColor ?? UIColor.clear.cgColor, UIColor.clear.cgColor]
+        heading?.fillColor = UIColor.secondaryLabel.cgColor
         reanimate()
     }
     

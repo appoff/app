@@ -13,9 +13,7 @@ final class Tiler: MKTileOverlay {
     }
     
     override func loadTile(at: MKTileOverlayPath) async throws -> Data {
-        print(at.z)
-        
-        return try await Task
+        try await Task
             .detached(priority: .utility) { [weak self] in
                 try await self?.bufferer.load(at: at) ?? .init()
             }

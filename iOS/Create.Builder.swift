@@ -35,6 +35,7 @@ extension Create {
             
             discard
                 .sink { [weak self] in
+                    self?.map.follow = false
                     self?.remove(discarded: [$0])
                 }
                 .store(in: &subs)
@@ -232,6 +233,7 @@ extension Create {
         
         @objc private func pressed() {
             guard long.state == .began else { return }
+            map.follow = false
             long.isEnabled = false
             
             map
