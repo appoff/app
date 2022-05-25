@@ -8,7 +8,7 @@ extension Navigate {
         let annotations: [(point: MKPointAnnotation, route: Route?)]
         private let polyline: MKMultiPolyline
         
-        var directions = true {
+        @Published var directions = true {
             didSet {
                 guard oldValue != directions else { return }
                 overlays()

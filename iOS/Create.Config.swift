@@ -47,12 +47,13 @@ extension Create {
                     dismiss()
                 } label: {
                     HStack(spacing: 0) {
-                        Image(systemName: "mappin.and.ellipse")
-                            .font(.system(size: 18, weight: .regular))
-                            .frame(width: 28)
-                        Text("Current location")
+                        Image("Logo")
+                            .resizable()
+                            .frame(width: 28, height: 28)
+                        Text("Location")
                             .font(.callout)
                             .padding(.trailing, 8)
+                            .padding(.top, 3)
                     }
                     .contentShape(Rectangle())
                 }

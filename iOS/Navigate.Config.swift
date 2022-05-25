@@ -3,6 +3,7 @@ import SwiftUI
 extension Navigate {
     struct Config: View {
         @ObservedObject var control: Control
+        @Environment(\.dismiss) private var dismiss
         
         var body: some View {
             Pop(title: "Options") {
@@ -27,6 +28,9 @@ extension Navigate {
                         .frame(minHeight: 36)
                     Text("Directions")
                         .font(.callout)
+                }
+                .onChange(of: control.directions) { _ in
+                    dismiss()
                 }
                 .padding()
                 
