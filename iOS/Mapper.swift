@@ -149,6 +149,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
             return view
         case let point as MKPointAnnotation:
             let view = map.dequeueReusableAnnotationView(withIdentifier: "Marker") as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: point, reuseIdentifier: "Marker")
+            view.glyphImage = .init(named: "Logo")
             view.annotation = point
             view.markerTintColor = .label
             view.animatesWhenAdded = true
@@ -197,6 +198,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         view.orientation(angle: didUpdateHeading.trueHeading * .pi / 180)
     }
     
+    final func locationManagerShouldDisplayHeadingCalibration(_: CLLocationManager) -> Bool { true }
     final func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
     final func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
     final func locationManager(_: CLLocationManager, didFailWithError: Error) { }

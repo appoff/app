@@ -34,7 +34,7 @@ extension Create {
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
                         .frame(minHeight: 36)
-                    Text("Allows rotation")
+                    Text("Rotation")
                         .font(.callout)
                 }
                 .padding()

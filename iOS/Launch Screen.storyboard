@@ -17,11 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="kkc-Zw-nbF">
-                                <rect key="frame" x="132" y="373" width="150" height="150"/>
+                                <rect key="frame" x="184.5" y="425.5" width="45" height="45"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="1i0-ck-7rO"/>
-                                    <constraint firstAttribute="height" constant="150" id="N1Y-P4-NSi"/>
+                                    <constraint firstAttribute="width" constant="45" id="1i0-ck-7rO"/>
+                                    <constraint firstAttribute="height" constant="45" id="N1Y-P4-NSi"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -39,7 +39,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo" width="150" height="150"/>
+        <image name="Logo" width="45" height="45"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

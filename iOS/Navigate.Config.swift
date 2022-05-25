@@ -11,11 +11,24 @@ extension Navigate {
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
                         .frame(minHeight: 36)
-                    Text("Allows rotation")
+                    Text("Rotation")
                         .font(.callout)
                 }
                 .padding()
                 .padding(.top)
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Toggle(isOn: $control.directions) {
+                    Image(systemName: "arrow.triangle.turn.up.right.circle")
+                        .font(.system(size: 22, weight: .light))
+                        .frame(width: 45)
+                        .frame(minHeight: 36)
+                    Text("Directions")
+                        .font(.callout)
+                }
+                .padding()
                 
                 Divider()
                     .padding(.horizontal)
