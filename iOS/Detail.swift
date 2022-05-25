@@ -57,7 +57,7 @@ struct Detail: View {
                         }
                         .opacity(opacity)
                     }
-                    .padding(.top, 40)
+                    .padding(.top, UIApplication.shared.insets.top)
                 }
                 
                 Divider()
@@ -66,6 +66,12 @@ struct Detail: View {
                 Info(header: project.header, size: size)
                     .matchedGeometryEffect(id: "info", in: namespace)
                     .padding(.top, 4)
+                
+                if !Defaults.cloud {
+                    Spacer()
+                    
+                    Upgrade()
+                }
                 
                 Spacer()
                 
@@ -83,7 +89,7 @@ struct Detail: View {
                 .foregroundColor(.init(.systemBackground))
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .padding(.bottom, 24)
+                .padding(.bottom, max(UIApplication.shared.insets.bottom, 16))
             }
         }
         .matchedGeometryEffect(id: "card", in: namespace)

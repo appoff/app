@@ -18,7 +18,15 @@ struct Created: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .frame(maxWidth: 280)
+            
+            if !Defaults.cloud {
+                Spacer()
+                
+                Upgrade()
+            }
+            
             Spacer()
+            
             Button {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     session.flow = .main

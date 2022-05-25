@@ -1,4 +1,5 @@
 import SwiftUI
+import Offline
 
 @main struct App: SwiftUI.App {
     @Environment(\.scenePhase) private var phase
@@ -15,6 +16,7 @@ import SwiftUI
                             .detached {
                                 _ = await UNUserNotificationCenter.request()
                                 await store.launch()
+                                Defaults.start()
                             }
                     }
                 }

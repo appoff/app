@@ -2,6 +2,12 @@ import UIKit
 import StoreKit
 
 extension UIApplication {
+    var insets: UIEdgeInsets {
+        scene?
+            .keyWindow?
+            .safeAreaInsets ?? .zero
+    }
+    
     func settings() {
         open(URL(string: Self.openSettingsURLString)!)
     }

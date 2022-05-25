@@ -17,6 +17,7 @@
 		CE2C43B42822E4A0000007A2 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B32822E4A0000007A2 /* Main.swift */; };
 		CE2C43B62822E4EC000007A2 /* SessionOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B52822E4EC000007A2 /* SessionOld.swift */; };
 		CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B72822E9AF000007A2 /* UIApplication.swift */; };
+		CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */; };
 		CE4FF11E28327F42008DB139 /* Deleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11D28327F42008DB139 /* Deleted.swift */; };
 		CE4FF12028327F84008DB139 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11F28327F84008DB139 /* Created.swift */; };
 		CE502C9728291267004F16AF /* Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C9628291267004F16AF /* Pop.swift */; };
@@ -67,6 +68,8 @@
 		CE2C43B32822E4A0000007A2 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		CE2C43B52822E4EC000007A2 /* SessionOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionOld.swift; sourceTree = "<group>"; };
 		CE2C43B72822E9AF000007A2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		CE3A92C5283E6C5400D52C2A /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		CE4FF11D28327F42008DB139 /* Deleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deleted.swift; sourceTree = "<group>"; };
 		CE4FF11F28327F84008DB139 /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		CE502C9628291267004F16AF /* Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pop.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 			children = (
 				CE979A9F2827EF4A00FC0EB0 /* iOS.entitlements */,
 				CE2C43A72822D3EA000007A2 /* Info.plist */,
+				CE3A92C5283E6C5400D52C2A /* Configuration.storekit */,
 				CE2C43AB2822D4CB000007A2 /* Launch Screen.storyboard */,
 				CE81D91E2823CEDB00364029 /* Action.swift */,
 				CE979A932827EB1100FC0EB0 /* App.Delegate.swift */,
@@ -167,6 +171,7 @@
 				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
 				CEFC28DC2835247400E47E23 /* Unzip.swift */,
+				CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */,
 				CEEB863E283CFFA800A9FF13 /* User.swift */,
 				CE979AA92827FA3D00FC0EB0 /* Window.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
@@ -314,6 +319,7 @@
 				CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
 				CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */,
+				CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */,
 				CE787181282FEAA10050BD93 /* Detail.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */,
