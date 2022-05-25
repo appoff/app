@@ -4,6 +4,7 @@ import Offline
 struct Created: View {
     let session: Session
     let header: Header
+    @AppStorage("cloud") private var cloud = false
     
     var body: some View {
         VStack {
@@ -19,7 +20,7 @@ struct Created: View {
                 .lineLimit(1)
                 .frame(maxWidth: 280)
             
-            if !Defaults.cloud {
+            if !cloud {
                 Spacer()
                 
                 Upgrade()

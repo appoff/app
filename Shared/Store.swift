@@ -3,7 +3,7 @@ import UserNotifications
 import Combine
 
 final actor Store {
-    nonisolated let status = CurrentValueSubject<Status, Never>(.loading)
+    nonisolated let status = CurrentValueSubject<Status, Never>(.ready)
     private var products = [Item : Product]()
     private var restored = false
     
@@ -32,16 +32,15 @@ final actor Store {
             case let .success(verification):
                 if case let .verified(safe) = verification {
                     await process(transaction: safe)
-//                    await load()
+                    status.send(.ready)
                 } else {
                     status.send(.error("Purchase verification failed."))
                 }
             case .pending:
-//                await load()
+                status.send(.ready)
                 await UNUserNotificationCenter.send(message: "Purchase is pending...")
             default:
-                break
-//                await load()
+                status.send(.ready)
             }
         } catch let error {
             status.send(.error(error.localizedDescription))
@@ -61,7 +60,7 @@ final actor Store {
             }
         }
         
-//        await load()
+        status.send(.ready)
         restored = true
     }
     

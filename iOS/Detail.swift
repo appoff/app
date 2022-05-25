@@ -8,6 +8,7 @@ struct Detail: View {
     @State private var opacity = Double()
     @State private var delete = false
     @State private var size = Int()
+    @AppStorage("cloud") private var cloud = false
     
     var body: some View {
         ZStack {
@@ -67,7 +68,7 @@ struct Detail: View {
                     .matchedGeometryEffect(id: "info", in: namespace)
                     .padding(.top, 4)
                 
-                if !Defaults.cloud {
+                if !cloud {
                     Spacer()
                     
                     Upgrade()
