@@ -22,6 +22,7 @@
 		CE4FF12028327F84008DB139 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11F28327F84008DB139 /* Created.swift */; };
 		CE502C9728291267004F16AF /* Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C9628291267004F16AF /* Pop.swift */; };
 		CE502C99282928DC004F16AF /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C98282928DC004F16AF /* Loading.swift */; };
+		CE7647AC2840DF8F004B7C42 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7647AB2840DF8F004B7C42 /* Share.swift */; };
 		CE787181282FEAA10050BD93 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE787180282FEAA10050BD93 /* Detail.swift */; };
 		CE787183282FF7080050BD93 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE787182282FF7080050BD93 /* Info.swift */; };
 		CE78C582283CDFB60046FF33 /* Liner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78C581283CDFB60046FF33 /* Liner.swift */; };
@@ -74,6 +75,7 @@
 		CE4FF11F28327F84008DB139 /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		CE502C9628291267004F16AF /* Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pop.swift; sourceTree = "<group>"; };
 		CE502C98282928DC004F16AF /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		CE7647AB2840DF8F004B7C42 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		CE787180282FEAA10050BD93 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CE787182282FF7080050BD93 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CE78C581283CDFB60046FF33 /* Liner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Liner.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				CEC51ABA28252FF3003DA00D /* Session.Flow.swift */,
 				CEC51AB828252F85003DA00D /* Session.swift */,
 				CE2C43B52822E4EC000007A2 /* SessionOld.swift */,
+				CE7647AB2840DF8F004B7C42 /* Share.swift */,
 				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
 				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
@@ -293,6 +296,7 @@
 				CE502C99282928DC004F16AF /* Loading.swift in Sources */,
 				CE2C43B62822E4EC000007A2 /* SessionOld.swift in Sources */,
 				CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */,
+				CE7647AC2840DF8F004B7C42 /* Share.swift in Sources */,
 				CE502C9728291267004F16AF /* Pop.swift in Sources */,
 				CE979A9A2827EBAD00FC0EB0 /* Store.swift in Sources */,
 				CE81D91F2823CEDB00364029 /* Action.swift in Sources */,

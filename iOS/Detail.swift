@@ -69,9 +69,11 @@ struct Detail: View {
                     .matchedGeometryEffect(id: "info", in: namespace)
                     .padding(.top, 4)
                 
-                if !cloud {
-                    Spacer()
-                    
+                Spacer()
+                
+                if cloud {
+                    Share(project: project)
+                } else {
                     Upgrade()
                 }
                 

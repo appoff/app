@@ -14,22 +14,30 @@ extension Navigate {
                             control.map.selectAnnotation(item.point, animated: true)
                             control.map.setCenter(item.point.coordinate, animated: true)
                         } label: {
-                            VStack(alignment: .leading) {
-                                Text(item.point.title ?? "")
+                            HStack {
+                                Image("Logo")
+                                    .resizable()
                                     .foregroundColor(.primary)
+                                    .frame(width: 28, height: 28)
+                                
+                                VStack(alignment: .leading) {
+                                    Text(item.point.title ?? "")
+                                        .foregroundColor(.primary)
 
-                                if let subtitle = item.point.subtitle,
-                                   !subtitle.isEmpty,
-                                   subtitle.localizedCompare(item.point.title ?? "") != .orderedSame {
-                                    
-                                    Text(subtitle)
-                                        .foregroundColor(.secondary)
+                                    if let subtitle = item.point.subtitle,
+                                       !subtitle.isEmpty,
+                                       subtitle.localizedCompare(item.point.title ?? "") != .orderedSame {
+                                        
+                                        Text(subtitle)
+                                            .foregroundColor(.secondary)
+                                    }
                                 }
+                                .font(.callout)
+                                .multilineTextAlignment(.leading)
+                                .fixedSize(horizontal: false, vertical: true)
+                                
+                                Spacer()
                             }
-                            .font(.callout)
-                            .multilineTextAlignment(.leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                             .padding()
                             .contentShape(Rectangle())
                         }

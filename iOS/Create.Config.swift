@@ -47,13 +47,13 @@ extension Create {
                     dismiss()
                 } label: {
                     HStack(spacing: 0) {
+                        Text("Location")
+                            .font(.callout.weight(.medium))
+                            .padding(.trailing, 8)
+                            .padding(.top, 3)
                         Image("Logo")
                             .resizable()
                             .frame(width: 28, height: 28)
-                        Text("Location")
-                            .font(.callout)
-                            .padding(.trailing, 8)
-                            .padding(.top, 3)
                     }
                     .contentShape(Rectangle())
                 }
