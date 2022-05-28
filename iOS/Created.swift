@@ -20,9 +20,11 @@ struct Created: View {
                 .lineLimit(1)
                 .frame(maxWidth: 280)
             
-            if !cloud {
-                Spacer()
-                
+            Spacer()
+            
+            if cloud {
+                Premium(header: header)
+            } else {
                 Upgrade()
             }
             

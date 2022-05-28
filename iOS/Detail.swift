@@ -72,7 +72,7 @@ struct Detail: View {
                 Spacer()
                 
                 if cloud {
-                    Share(project: project)
+                    Premium(header: project.header)
                 } else {
                     Upgrade()
                 }
