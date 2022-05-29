@@ -43,7 +43,7 @@ struct Premium: View {
             .buttonStyle(.bordered)
             .foregroundColor(.primary)
             .sheet(isPresented: $offload) {
-                Offload(header: header)
+                Offload(offloader: .init(header: header))
             }
         }
         .symbolRenderingMode(.hierarchical)

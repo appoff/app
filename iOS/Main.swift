@@ -74,6 +74,8 @@ struct Main: View {
         }
         .onReceive(cloud) {
             projects = $0.projects
+            
+            print(projects.map(\.schema?.data))
         }
     }
     

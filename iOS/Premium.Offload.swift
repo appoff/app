@@ -3,9 +3,8 @@ import Offline
 
 extension Premium {
     struct Offload: View {
-        let header: Header
+        let offloader: Offloader
         @State private var status = Status.loading
-        private let offloader = Offloader()
         
         var body: some View {
             VStack {
@@ -21,15 +20,17 @@ extension Premium {
                 Spacer()
             }
             .task {
-                do {
-                    if try await offloader.exists(header: header) {
-                        
-                    } else {
-                        status = .notfound
-                    }
-                } catch {
-                    status = .error(error)
-                }
+                let schema = await cloud.model.projects.first { $0.id == offloader.header.id }?.schema
+                
+//                do {
+//                    if try await offloader.save(schema: schema) {
+//                        
+//                    } else {
+//                        status = .notfound
+//                    }
+//                } catch {
+//                    status = .error(error)
+//                }
             }
         }
     }
