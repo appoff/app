@@ -75,6 +75,8 @@ struct Loading: View {
             .confirmationDialog("Cancel map?", isPresented: $cancel) {
                 Button("Continue", role: .cancel) { }
                 Button("Cancel map", role: .destructive) {
+                    UIApplication.shared.isIdleTimerDisabled = false
+                    
                     factory.cancel()
                     withAnimation(.easeInOut(duration: 0.4)) {
                         session.flow = .main
@@ -100,6 +102,8 @@ struct Loading: View {
             error = true
         }
         .onReceive(factory.finished) { schema in
+            UIApplication.shared.isIdleTimerDisabled = false
+            
             Task {
                 await cloud.add(header: factory.header, schema: schema)
                 withAnimation(.easeInOut(duration: 0.4)) {
@@ -108,6 +112,8 @@ struct Loading: View {
             }
         }
         .task {
+            UIApplication.shared.isIdleTimerDisabled = true
+            
             await factory.shoot()
         }
     }
