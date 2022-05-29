@@ -1,13 +1,16 @@
 import Foundation
 extension Offloader {
-    enum Error: LocalizedError {
+    public enum Error: LocalizedError {
         case
-        unavailable
+        unavailable,
+        offloaded
         
-        var errorDescription: String? {
+        public var errorDescription: String? {
             switch self {
             case .unavailable:
                 return "iCloud unreachable, check that you are logged into your account or try again later."
+            case .offloaded:
+                return "Seems like you haven't downloaded this map yet."
             }
         }
     }

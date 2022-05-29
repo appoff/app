@@ -19,37 +19,23 @@ public struct Offloader {
     public func save(schema: Schema) async throws {
         guard .available == (try await container.accountStatus()) else { throw Error.unavailable }
         try await container.database.configuredWith(configuration: config) { base in
-            
-            
             let record = CKRecord(recordType: "Map", recordID: .init(recordName: header.id.uuidString))
-//            record["Schema"] = CKAsset
-            record["Payload"] = CKAsset(fileURL: local.url(header: header))
-            _ = try? await base.modifyRecords(saving: [record],
+            record["id"] = header.id.uuidString
+            record["schema"] = schema.data
+            record["payload"] = CKAsset(fileURL: local.url(header: header))
+            let result = try await base.modifyRecords(saving: [record],
                                               deleting: [],
-                                              savePolicy: .allKeys,
+                                              savePolicy: .ifServerRecordUnchanged,
                                               atomically: true)
             
-            try await base.record(for: .init(recordName: ""))
+            switch result.saveResults[.init(recordName: header.id.uuidString)]! {
+            case let .failure(error):
+                guard (error as? CKError)?.code == .serverRecordChanged else {
+                    throw error
+                }
+            default:
+                break
+            }
         }
-        
-        
-        
-        
-        /*
-         Task { [weak self] in
-             let result = await container.database.configured(with: config) { base -> Output? in
-                 guard
-                     let record = try? await base.record(for: id),
-                     let asset = record[Asset] as? CKAsset,
-                     let fileURL = asset.fileURL,
-                     let data = try? Data(contentsOf: fileURL)
-                 else {
-                     return nil
-                 }
-                 return await .prototype(data: data)
-             }
-             self?.remote.send(result)
-         }
-         */
     }
 }

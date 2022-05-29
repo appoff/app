@@ -3,6 +3,7 @@ extension Premium.Offload {
         case
         loading,
         notfound,
+        uploaded,
         error(Error)
     }
 }
