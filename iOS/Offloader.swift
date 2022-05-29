@@ -2,6 +2,10 @@
 
 import CloudKit
 
+private let _id = "id"
+private let _schema = "schema"
+private let _payload = "payload"
+
 public struct Offloader {
     public let header: Header
     private let container = CKContainer(identifier: "iCloud.offline")
@@ -20,9 +24,9 @@ public struct Offloader {
         guard .available == (try await container.accountStatus()) else { throw Error.unavailable }
         try await container.database.configuredWith(configuration: config) { base in
             let record = CKRecord(recordType: "Map", recordID: .init(recordName: header.id.uuidString))
-            record["id"] = header.id.uuidString
-            record["schema"] = schema.data
-            record["payload"] = CKAsset(fileURL: local.url(header: header))
+            record[_id] = header.id.uuidString
+            record[_schema] = schema.data
+            record[_payload] = CKAsset(fileURL: local.url(header: header))
             let result = try await base.modifyRecords(saving: [record],
                                               deleting: [],
                                               savePolicy: .ifServerRecordUnchanged,
@@ -37,5 +41,9 @@ public struct Offloader {
                 break
             }
         }
+    }
+    
+    public func delete() {
+        local.delete(header: header)
     }
 }

@@ -13,8 +13,10 @@ extension Premium {
                     Text("Loading")
                 case .notfound:
                     Text("Not found")
-                case .uploaded:
-                    Text("Uploaded")
+                case .cleaning:
+                    Text("Cleaning")
+                case .finished:
+                    Text("Finished")
                 case let .error(error):
                     Text("Error \(error.localizedDescription)")
                 }
@@ -29,7 +31,11 @@ extension Premium {
                 
                 do {
                     try await offloader.save(schema: schema)
-                    status = .uploaded
+                    status = .cleaning
+                    
+                    await cloud.offload(header: offloader.header)
+                    offloader.delete()
+                    status = .finished
                 } catch {
                     status = .error(error)
                 }
