@@ -18,6 +18,9 @@
 		CE2C43B62822E4EC000007A2 /* SessionOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B52822E4EC000007A2 /* SessionOld.swift */; };
 		CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B72822E9AF000007A2 /* UIApplication.swift */; };
 		CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */; };
+		CE4DB850284398AD00733F02 /* Offloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB84F284398AD00733F02 /* Offloader.swift */; };
+		CE4DB85228439B0000733F02 /* Offloader.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB85128439B0000733F02 /* Offloader.Error.swift */; };
+		CE4DB85428439BD500733F02 /* Premium.Offload.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB85328439BD500733F02 /* Premium.Offload.Status.swift */; };
 		CE4FF11E28327F42008DB139 /* Deleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11D28327F42008DB139 /* Deleted.swift */; };
 		CE4FF12028327F84008DB139 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11F28327F84008DB139 /* Created.swift */; };
 		CE502C9728291267004F16AF /* Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C9628291267004F16AF /* Pop.swift */; };
@@ -72,6 +75,9 @@
 		CE2C43B72822E9AF000007A2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE3A92C5283E6C5400D52C2A /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
+		CE4DB84F284398AD00733F02 /* Offloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offloader.swift; sourceTree = "<group>"; };
+		CE4DB85128439B0000733F02 /* Offloader.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offloader.Error.swift; sourceTree = "<group>"; };
+		CE4DB85328439BD500733F02 /* Premium.Offload.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Premium.Offload.Status.swift; sourceTree = "<group>"; };
 		CE4FF11D28327F42008DB139 /* Deleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deleted.swift; sourceTree = "<group>"; };
 		CE4FF11F28327F84008DB139 /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		CE502C9628291267004F16AF /* Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pop.swift; sourceTree = "<group>"; };
@@ -167,6 +173,7 @@
 				CEFC28D62834E4A900E47E23 /* Navigate.swift */,
 				CE502C9628291267004F16AF /* Pop.swift */,
 				CE9EF51528424298008169E2 /* Premium.Offload.swift */,
+				CE4DB85328439BD500733F02 /* Premium.Offload.Status.swift */,
 				CE7647AB2840DF8F004B7C42 /* Premium.swift */,
 				CE81D92428242DA900364029 /* Search.Item.swift */,
 				CE81D9202823E0BE00364029 /* Search.swift */,
@@ -181,6 +188,8 @@
 				CEEB863E283CFFA800A9FF13 /* User.swift */,
 				CE979AA92827FA3D00FC0EB0 /* Window.swift */,
 				CE2C439C2822D2B0000007A2 /* Assets.xcassets */,
+				CE4DB84F284398AD00733F02 /* Offloader.swift */,
+				CE4DB85128439B0000733F02 /* Offloader.Error.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -314,6 +323,7 @@
 				CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */,
 				CEEB863F283CFFA800A9FF13 /* User.swift in Sources */,
 				CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */,
+				CE4DB850284398AD00733F02 /* Offloader.swift in Sources */,
 				CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */,
 				CEFC28DB2834FFAF00E47E23 /* Mapper.swift in Sources */,
 				CEBDF1EF282E82D100601056 /* Info.Item.swift in Sources */,
@@ -324,10 +334,12 @@
 				CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */,
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
 				CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */,
+				CE4DB85428439BD500733F02 /* Premium.Offload.Status.swift in Sources */,
 				CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
 				CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */,
 				CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */,
+				CE4DB85228439B0000733F02 /* Offloader.Error.swift in Sources */,
 				CE787181282FEAA10050BD93 /* Detail.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */,
