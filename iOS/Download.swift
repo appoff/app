@@ -82,7 +82,7 @@ struct Download: View {
             try await cloud.add(header: syncher.header, schema: syncher.download())
             
             withAnimation(.easeInOut(duration: 0.4)) {
-                session.flow = .main
+                session.flow = .downloaded(syncher.header)
             }
         } catch {
             self.error = error

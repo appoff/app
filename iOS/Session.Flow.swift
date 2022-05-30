@@ -12,6 +12,8 @@ extension Session {
         unzip(Project),
         offload(Header),
         download(Header),
+        offloaded(Header),
+        downloaded(Header),
         navigate(Schema, Bufferer)
     }
 }

@@ -105,7 +105,7 @@ struct Offload: View {
             await cloud.offload(header: syncher.header)
             
             withAnimation(.easeInOut(duration: 0.4)) {
-                session.flow = .main
+                session.flow = .offloaded(syncher.header)
             }
         } catch {
             self.error = error
