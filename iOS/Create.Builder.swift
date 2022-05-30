@@ -192,7 +192,7 @@ extension Create {
         private func sourroundings(coordinate: CLLocationCoordinate2D) {
             remove(discarded: points
                 .filter {
-                    $0.coordinate.delta(other: coordinate) < 0.0000025
+                    $0.coordinate.delta(other: coordinate) < 0.0000006
                 })
         }
         

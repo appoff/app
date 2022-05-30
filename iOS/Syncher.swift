@@ -14,10 +14,14 @@ public struct Syncher {
     
     public init(header: Header) {
         self.header = header
-        config.timeoutIntervalForRequest = 300
-        config.timeoutIntervalForResource = 300
+        config.timeoutIntervalForRequest = 600
+        config.timeoutIntervalForResource = 600
         config.allowsCellularAccess = false
         config.qualityOfService = .userInitiated
+    }
+    
+    public func share(schema: Schema) async throws {
+        
     }
     
     public func upload(schema: Schema) async throws {
@@ -28,22 +32,25 @@ public struct Syncher {
             record[_schema] = schema.data
             record[_payload] = CKAsset(fileURL: local.url(header: header))
             
-            guard let result = (try await base.modifyRecords(saving: [record],
-                                                            deleting: [],
-                                                            savePolicy: .ifServerRecordUnchanged,
-                                                            atomically: true))
-                .saveResults
-                .first?
-                .value
-                    
+            guard
+                let result = (try await base
+                    .modifyRecords(saving: [record],
+                                   deleting: [],
+                                   savePolicy: .ifServerRecordUnchanged,
+                                   atomically: true))
+                    .saveResults
+                    .first?
+                    .value
             else { throw Error.malformed }
             
             if case let .failure(error) = result, (error as? CKError)?.code != .serverRecordChanged {
                 throw error
             }
-            
-            local.delete(header: header)
         }
+    }
+    
+    public func delete() {
+        local.delete(header: header)
     }
     
     public func download() async throws -> Schema {
@@ -78,6 +85,19 @@ public struct Syncher {
     private func available() async throws {
         if try await container.accountStatus() != .available {
             throw Error.unavailable
+        }
+    }
+    
+    private func exists() async -> Bool {
+        await container.database.configuredWith(configuration: config) { base in
+            guard
+                let result = (try? await base
+                    .records(for: [.init(recordName: header.id.uuidString)], desiredKeys: []))?
+                    .first?
+                    .value,
+                case .success = result
+            else { return false }
+            return true
         }
     }
 }

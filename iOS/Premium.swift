@@ -8,7 +8,9 @@ struct Premium: View {
     
     var body: some View {
         Button {
-            
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.flow = .share(header)
+            }
         } label: {
             HStack {
                 Text("Share")

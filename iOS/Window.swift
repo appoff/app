@@ -38,6 +38,9 @@ struct Window: View {
         case let .offloaded(header):
             Offloaded(session: session, header: header)
                 .transition(.asymmetric(insertion: .opacity, removal: .move(edge: .leading)))
+        case let .share(header):
+            Share(session: session, syncher: .init(header: header))
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
         case let .navigate(schema, bufferer):
             Navigate(session: session, control: .init(schema: schema, bufferer: bufferer))
         }

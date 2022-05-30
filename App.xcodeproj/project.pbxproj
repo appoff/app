@@ -20,6 +20,7 @@
 		CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */; };
 		CE3AF0EA2844F3C10016AA02 /* Downloaded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AF0E92844F3C10016AA02 /* Downloaded.swift */; };
 		CE3AF0EC2844F4530016AA02 /* Offloaded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AF0EB2844F4530016AA02 /* Offloaded.swift */; };
+		CE3AF0EE284525AB0016AA02 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AF0ED284525AB0016AA02 /* Share.swift */; };
 		CE4DB850284398AD00733F02 /* Syncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB84F284398AD00733F02 /* Syncher.swift */; };
 		CE4DB85228439B0000733F02 /* Syncher.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB85128439B0000733F02 /* Syncher.Error.swift */; };
 		CE4FF11E28327F42008DB139 /* Deleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11D28327F42008DB139 /* Deleted.swift */; };
@@ -79,6 +80,7 @@
 		CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		CE3AF0E92844F3C10016AA02 /* Downloaded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloaded.swift; sourceTree = "<group>"; };
 		CE3AF0EB2844F4530016AA02 /* Offloaded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offloaded.swift; sourceTree = "<group>"; };
+		CE3AF0ED284525AB0016AA02 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		CE4DB84F284398AD00733F02 /* Syncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncher.swift; sourceTree = "<group>"; };
 		CE4DB85128439B0000733F02 /* Syncher.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncher.Error.swift; sourceTree = "<group>"; };
 		CE4FF11D28327F42008DB139 /* Deleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deleted.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				CEC51ABA28252FF3003DA00D /* Session.Flow.swift */,
 				CEC51AB828252F85003DA00D /* Session.swift */,
 				CE2C43B52822E4EC000007A2 /* SessionOld.swift */,
+				CE3AF0ED284525AB0016AA02 /* Share.swift */,
 				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
 				CE4DB85128439B0000733F02 /* Syncher.Error.swift */,
 				CE4DB84F284398AD00733F02 /* Syncher.swift */,
@@ -313,6 +316,7 @@
 				CE979A9E2827EBD400FC0EB0 /* Store.Item.swift in Sources */,
 				CE502C99282928DC004F16AF /* Loading.swift in Sources */,
 				CE2C43B62822E4EC000007A2 /* SessionOld.swift in Sources */,
+				CE3AF0EE284525AB0016AA02 /* Share.swift in Sources */,
 				CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */,
 				CE7647AC2840DF8F004B7C42 /* Premium.swift in Sources */,
 				CE502C9728291267004F16AF /* Pop.swift in Sources */,

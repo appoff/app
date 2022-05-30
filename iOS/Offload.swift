@@ -27,6 +27,10 @@ struct Offload: View {
                 .lineLimit(1)
                 .frame(maxWidth: 280)
             
+            Text("Please wait")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            
             if let error = error {
                 Text(error.localizedDescription)
                     .font(.callout)
@@ -90,6 +94,7 @@ struct Offload: View {
         do {
             try await syncher.upload(schema: schema)
             await cloud.offload(header: syncher.header)
+            syncher.delete()
             
             UIApplication.shared.isIdleTimerDisabled = false
             

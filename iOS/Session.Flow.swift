@@ -14,6 +14,7 @@ extension Session {
         download(Header),
         offloaded(Header),
         downloaded(Header),
+        share(Header),
         navigate(Schema, Bufferer)
     }
 }
