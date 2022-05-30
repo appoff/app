@@ -1,4 +1,5 @@
 import SwiftUI
+import CloudKit
 import Offline
 
 struct Share: View {
@@ -27,18 +28,18 @@ struct Share: View {
                 .lineLimit(1)
                 .frame(maxWidth: 280)
             
-            Text("Please wait")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-            
             if let error = error {
-                Text(error.localizedDescription)
+                Text((error as? CKError)?.localizedDescription ?? error.localizedDescription)
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: 280)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 20)
+            } else {
+                Text("Please wait")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
             }
             
             Spacer()
@@ -91,23 +92,42 @@ struct Share: View {
                 try await syncher.upload(schema: schema)
             } catch {
                 self.error = error
+                return
             }
         } else {
             fatalError()
         }
-//
-//        do {
-//
-//            await cloud.offload(header: syncher.header)
-//            syncher.delete()
-//
-//            UIApplication.shared.isIdleTimerDisabled = false
-//
-//            withAnimation(.easeInOut(duration: 0.4)) {
-//                session.flow = .offloaded(syncher.header)
-//            }
-//        } catch {
-//            self.error = error
-//        }
+        
+        UIApplication.shared.isIdleTimerDisabled = false
+        
+        withAnimation(.easeInOut(duration: 0.4)) {
+            session.flow = .offloaded(syncher.header)
+        }
+        //
+        //        do {
+        //
+        //            await cloud.offload(header: syncher.header)
+        //            syncher.delete()
+        //
+        //            UIApplication.shared.isIdleTimerDisabled = false
+        //
+        //            withAnimation(.easeInOut(duration: 0.4)) {
+        //                session.flow = .offloaded(syncher.header)
+        //            }
+        //        } catch {
+        //            self.error = error
+        //        }
     }
 }
+
+
+
+/*
+ public class func export(_ board:Board) -> CGImage {
+     let filter = CIFilter(name:"CIQRCodeGenerator")!
+     filter.setValue("H", forKey:"inputCorrectionLevel")
+     filter.setValue(Data(board.id.utf8), forKey:"inputMessage")
+     let ciImage = filter.outputImage!.transformed(by:CGAffineTransform(scaleX:14, y:14))
+     return CIContext().createCGImage(ciImage, from:ciImage.extent)!
+ }
+ */

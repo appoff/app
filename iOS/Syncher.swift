@@ -1,6 +1,7 @@
 @testable import Offline
 
 import CloudKit
+import Network
 
 private let _id = "id"
 private let _schema = "schema"
@@ -25,7 +26,11 @@ public struct Syncher {
     }
     
     public func upload(schema: Schema) async throws {
+        try network()
         try await available()
+        
+//        guard await !exists() else { return }
+        
         try await container.database.configuredWith(configuration: config) { base in
             let record = CKRecord(recordType: "Map", recordID: .init(recordName: header.id.uuidString))
             record[_id] = header.id.uuidString
@@ -85,6 +90,13 @@ public struct Syncher {
     private func available() async throws {
         if try await container.accountStatus() != .available {
             throw Error.unavailable
+        }
+    }
+    
+    private func network() throws {
+        let path = NWPathMonitor(prohibitedInterfaceTypes: [.cellular]).currentPath
+        if path.status != .satisfied || path.isExpensive {
+            throw Error.network
         }
     }
     

@@ -27,10 +27,6 @@ struct Offload: View {
                 .lineLimit(1)
                 .frame(maxWidth: 280)
             
-            Text("Please wait")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-            
             if let error = error {
                 Text(error.localizedDescription)
                     .font(.callout)
@@ -39,6 +35,10 @@ struct Offload: View {
                     .frame(maxWidth: 280)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 20)
+            } else {
+                Text("Please wait")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
             }
             
             Spacer()
