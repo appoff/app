@@ -2,50 +2,48 @@ import SwiftUI
 import Offline
 
 struct Premium: View {
+    let session: Session
     let header: Header
-    @State private var share = false
-    @State private var offload = false
     
     var body: some View {
-        VStack(spacing: 20) {
-            Button {
-                
-            } label: {
-                HStack {
-                    Text("Share")
-                        .font(.callout.weight(.medium))
-                    Spacer()
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.system(size: 16, weight: .regular))
-                }
-                .frame(width: 130)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 3)
-                .contentShape(Rectangle())
+        Button {
+            
+        } label: {
+            HStack {
+                Text("Share")
+                    .font(.callout.weight(.medium))
+                Spacer()
+                Image(systemName: "square.and.arrow.up")
+                    .font(.system(size: 16, weight: .regular))
+                    .symbolRenderingMode(.hierarchical)
             }
-            .buttonStyle(.bordered)
-            .foregroundColor(.primary)
-            Button {
-                offload = true
-            } label: {
-                HStack {
-                    Text("Offload")
-                        .font(.callout.weight(.medium))
-                    Spacer()
-                    Image(systemName: "icloud.and.arrow.up")
-                        .font(.system(size: 16, weight: .regular))
-                }
-                .frame(width: 130)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 3)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.bordered)
-            .foregroundColor(.primary)
-            .sheet(isPresented: $offload) {
-                Offload(offloader: .init(header: header))
-            }
+            .frame(width: 130)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 3)
+            .contentShape(Rectangle())
         }
-        .symbolRenderingMode(.hierarchical)
+        .buttonStyle(.bordered)
+        .foregroundColor(.primary)
+        .padding(.bottom, 20)
+        Button {
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.flow = .offload(header)
+            }
+        } label: {
+            HStack {
+                Text("Offload")
+                    .font(.callout.weight(.medium))
+                Spacer()
+                Image(systemName: "icloud.and.arrow.up")
+                    .font(.system(size: 16, weight: .regular))
+                    .symbolRenderingMode(.hierarchical)
+            }
+            .frame(width: 130)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 3)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.bordered)
+        .foregroundColor(.primary)
     }
 }

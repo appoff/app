@@ -25,6 +25,14 @@ extension Main {
                                 .scaledToFill()
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
+                        } else {
+                            Image(systemName: "cloud")
+                                .font(.system(size: 60, weight: .ultraLight))
+                                .matchedGeometryEffect(id: "image", in: namespace)
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundStyle(.secondary)
+                                .padding(.top, 30)
+                                .padding(.bottom)
                         }
                         Info(header: project.header, size: 0)
                             .matchedGeometryEffect(id: "info", in: namespace)

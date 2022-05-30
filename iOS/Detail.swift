@@ -25,7 +25,13 @@ struct Detail: View {
                             .scaledToFit()
                             .aspectRatio(contentMode: .fit)
                     } else {
-                        #warning("offloaded map")
+                        Image(systemName: "cloud")
+                            .font(.system(size: 60, weight: .ultraLight))
+                            .matchedGeometryEffect(id: "image", in: namespace)
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.secondary)
+                            .padding(.top, UIApplication.shared.insets.top + 60)
+                            .padding(.bottom, 40)
                     }
                     
                     HStack {
@@ -71,29 +77,54 @@ struct Detail: View {
                 
                 Spacer()
                 
-                if cloud {
-                    Premium(header: project.header)
-                } else {
-                    Upgrade()
-                }
-                
-                Spacer()
-                
-                Button {
-                    withAnimation(.easeInOut(duration: 0.4)) {
-                        session.flow = .unzip(project)
+                if size > 0 {
+                    if cloud {
+                        Premium(session: session, header: project.header)
+                    } else {
+                        Upgrade()
                     }
-                } label: {
-                    Text("Open")
-                        .font(.title3.weight(.medium))
-                        .frame(maxWidth: .greatestFiniteMagnitude)
-                        .frame(minHeight: 34)
+                    
+                    Spacer()
                 }
-                .tint(.primary)
-                .foregroundColor(.init(.systemBackground))
-                .buttonStyle(.borderedProminent)
-                .padding(.horizontal)
-                .padding(.bottom, max(UIApplication.shared.insets.bottom, 16))
+                
+                if size > 0 {
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            session.flow = .unzip(project)
+                        }
+                    } label: {
+                        Text("Open")
+                            .font(.title3.weight(.medium))
+                            .frame(maxWidth: .greatestFiniteMagnitude)
+                            .frame(minHeight: 34)
+                    }
+                    .tint(.primary)
+                    .foregroundColor(.init(.systemBackground))
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal)
+                    .padding(.bottom, max(UIApplication.shared.insets.bottom, 16))
+                } else {
+                    Text("Stored in Offline Cloud")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .padding(.bottom)
+                    
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            session.flow = .download(project.header)
+                        }
+                    } label: {
+                        Text("Download")
+                            .font(.title3.weight(.medium))
+                            .frame(maxWidth: .greatestFiniteMagnitude)
+                            .frame(minHeight: 34)
+                    }
+                    .tint(.primary)
+                    .foregroundColor(.init(.systemBackground))
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal)
+                    .padding(.bottom, max(UIApplication.shared.insets.bottom, 16))
+                }
             }
         }
         .matchedGeometryEffect(id: "card", in: namespace)

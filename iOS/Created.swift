@@ -23,7 +23,7 @@ struct Created: View {
             Spacer()
             
             if cloud {
-                Premium(header: header)
+                Premium(session: session, header: header)
             } else {
                 Upgrade()
             }

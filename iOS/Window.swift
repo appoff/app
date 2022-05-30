@@ -26,6 +26,12 @@ struct Window: View {
         case let .unzip(project):
             Unzip(session: session, project: project)
                 .transition(.opacity)
+        case let .offload(header):
+            Offload(session: session, offloader: .init(header: header))
+                .transition(.move(edge: .bottom))
+        case let .download(header):
+            Download(session: session, header: header)
+                .transition(.move(edge: .bottom))
         case let .navigate(schema, bufferer):
             Navigate(session: session, control: .init(schema: schema, bufferer: bufferer))
         }
