@@ -56,6 +56,8 @@ struct Offload: View {
                 .padding(.bottom)
                 
                 Button(role: .destructive) {
+                    UIApplication.shared.isIdleTimerDisabled = false
+                    
                     withAnimation(.easeInOut(duration: 0.4)) {
                         session.flow = .main
                     }
@@ -69,24 +71,9 @@ struct Offload: View {
                 .padding(.bottom, 30)
             }
         }
-        
-//        VStack {
-//            switch status {
-//            case .loading:
-//                Text("Loading")
-//            case .notfound:
-//                Text("Not found")
-//            case .cleaning:
-//                Text("Cleaning")
-//            case .finished:
-//                Text("Finished")
-//            case let .error(error):
-//                Text("Error \(error.localizedDescription)")
-//            }
-//
-//            Spacer()
-//        }
         .task {
+            UIApplication.shared.isIdleTimerDisabled = true
+            
             try? await Task.sleep(nanoseconds: 450_000_000)
             session.selected = nil
             
@@ -94,7 +81,7 @@ struct Offload: View {
         }
     }
     
-    private func offload() async {
+    @MainActor private func offload() async {
         guard let schema = await cloud.model.projects.first(where: { $0.id == syncher.header.id })?.schema else {
             error = Syncher.Error.offloaded
             return
@@ -103,6 +90,8 @@ struct Offload: View {
         do {
             try await syncher.upload(schema: schema)
             await cloud.offload(header: syncher.header)
+            
+            UIApplication.shared.isIdleTimerDisabled = false
             
             withAnimation(.easeInOut(duration: 0.4)) {
                 session.flow = .offloaded(syncher.header)

@@ -58,6 +58,8 @@ struct Download: View {
                 }
                 
                 Button(role: .destructive) {
+                    UIApplication.shared.isIdleTimerDisabled = false
+                    
                     withAnimation(.easeInOut(duration: 0.4)) {
                         session.flow = .main
                     }
@@ -72,6 +74,8 @@ struct Download: View {
             }
         }
         .task {
+            UIApplication.shared.isIdleTimerDisabled = true
+            
             try? await Task.sleep(nanoseconds: 450_000_000)
             session.selected = nil
             
@@ -79,9 +83,11 @@ struct Download: View {
         }
     }
     
-    private func download() async {
+    @MainActor private func download() async {
         do {
             try await cloud.add(header: syncher.header, schema: syncher.download())
+            
+            UIApplication.shared.isIdleTimerDisabled = false
             
             withAnimation(.easeInOut(duration: 0.4)) {
                 session.flow = .downloaded(syncher.header)

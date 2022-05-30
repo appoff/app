@@ -77,13 +77,11 @@ struct Detail: View {
                 
                 Spacer()
                 
-                if size > 0 {
-                    if cloud {
-                        Premium(session: session, header: project.header)
-                    } else {
-                        Upgrade()
-                    }
-                    
+                if cloud {
+                    Premium(session: session, header: project.header)
+                    Spacer()
+                } else if size > 0 {
+                    Upgrade()
                     Spacer()
                 }
                 
