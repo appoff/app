@@ -39,21 +39,23 @@ struct Download: View {
             
             Spacer()
             
-            if error != nil {
-                Button {
-                    error = nil
-                    
-                    Task {
-                        await download()
+            if let error = error {
+                if error as? Syncher.Error != Syncher.Error.unsynched {
+                    Button {
+                        self.error = nil
+                        
+                        Task {
+                            await download()
+                        }
+                    } label: {
+                        Text("Try again")
+                            .font(.body.weight(.bold))
+                            .foregroundColor(.primary)
+                            .padding()
+                            .contentShape(Rectangle())
                     }
-                } label: {
-                    Text("Try again")
-                        .font(.body.weight(.bold))
-                        .foregroundColor(.primary)
-                        .padding()
-                        .contentShape(Rectangle())
+                    .padding(.bottom)
                 }
-                .padding(.bottom)
                 
                 Button(role: .destructive) {
                     withAnimation(.easeInOut(duration: 0.4)) {

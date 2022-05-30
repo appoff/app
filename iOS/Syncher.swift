@@ -49,21 +49,29 @@ public struct Syncher {
     public func download() async throws -> Schema {
         try await available()
         return try await container.database.configuredWith(configuration: config) { base in
-            let record = try await base.record(for: .init(recordName: header.id.uuidString))
-            guard
-                let schema = record[_schema] as? Data,
-                !schema.isEmpty,
-                let payload = record[_payload] as? CKAsset,
-                let url = payload.fileURL
-            else { throw Error.malformed }
-            
-            let data = try Data(contentsOf: url)
-            
-            guard !data.isEmpty else { throw Error.malformed }
-            
-            local.save(header: header, data: data)
-            
-            return schema.prototype()
+            do {
+                let record = try await base.record(for: .init(recordName: header.id.uuidString))
+                
+                guard
+                    let schema = record[_schema] as? Data,
+                    !schema.isEmpty,
+                    let payload = record[_payload] as? CKAsset,
+                    let url = payload.fileURL
+                else { throw Error.malformed }
+                
+                let data = try Data(contentsOf: url)
+                
+                guard !data.isEmpty else { throw Error.malformed }
+                
+                local.save(header: header, data: data)
+                
+                return schema.prototype()
+            } catch {
+                if (error as? CKError)?.code == .unknownItem {
+                    throw Error.unsynched
+                }
+                throw error
+            }
         }
     }
     

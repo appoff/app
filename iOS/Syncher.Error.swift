@@ -5,7 +5,8 @@ extension Syncher {
         case
         unavailable,
         offloaded,
-        malformed
+        malformed,
+        unsynched
         
         public var errorDescription: String? {
             switch self {
@@ -15,6 +16,8 @@ extension Syncher {
                 return "Seems like you haven't downloaded this map yet."
             case .malformed:
                 return "iCloud response was malformed, try again later."
+            case .unsynched:
+                return "Seems like this map has not been shared nor offloaded. Try sharing it on the device where it was created."
             }
         }
     }
