@@ -27,10 +27,10 @@ struct Window: View {
             Unzip(session: session, project: project)
                 .transition(.opacity)
         case let .offload(header):
-            Offload(session: session, offloader: .init(header: header))
+            Offload(session: session, syncher: .init(header: header))
                 .transition(.move(edge: .bottom))
         case let .download(header):
-            Download(session: session, header: header)
+            Download(session: session, syncher: .init(header: header))
                 .transition(.move(edge: .bottom))
         case let .navigate(schema, bufferer):
             Navigate(session: session, control: .init(schema: schema, bufferer: bufferer))

@@ -6,7 +6,7 @@ private let _id = "id"
 private let _schema = "schema"
 private let _payload = "payload"
 
-public struct Offloader {
+public struct Syncher {
     public let header: Header
     private let container = CKContainer(identifier: "iCloud.offline")
     private let config = CKOperation.Configuration()
@@ -20,7 +20,7 @@ public struct Offloader {
         config.qualityOfService = .userInitiated
     }
     
-    public func save(schema: Schema) async throws {
+    public func upload(schema: Schema) async throws {
         guard .available == (try await container.accountStatus()) else { throw Error.unavailable }
         try await container.database.configuredWith(configuration: config) { base in
             let record = CKRecord(recordType: "Map", recordID: .init(recordName: header.id.uuidString))
@@ -41,6 +41,10 @@ public struct Offloader {
                 break
             }
         }
+    }
+    
+    public func download() async throws {
+        throw Error.unavailable
     }
     
     public func delete() {

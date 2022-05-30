@@ -3,7 +3,7 @@ import Offline
 
 struct Offload: View {
     let session: Session
-    let offloader: Offloader
+    let syncher: Syncher
     @State private var status = Status.loading
     
     var body: some View {
@@ -24,17 +24,17 @@ struct Offload: View {
             Spacer()
         }
         .task {
-            guard let schema = await cloud.model.projects.first(where: { $0.id == offloader.header.id })?.schema else {
-                status = .error(Offloader.Error.offloaded)
+            guard let schema = await cloud.model.projects.first(where: { $0.id == syncher.header.id })?.schema else {
+                status = .error(Syncher.Error.offloaded)
                 return
             }
             
             do {
-                try await offloader.save(schema: schema)
+                try await syncher.upload(schema: schema)
                 status = .cleaning
                 
-                await cloud.offload(header: offloader.header)
-                offloader.delete()
+                await cloud.offload(header: syncher.header)
+                syncher.delete()
                 status = .finished
             } catch {
                 status = .error(error)

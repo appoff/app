@@ -1,5 +1,6 @@
 import Foundation
-extension Offloader {
+
+extension Syncher {
     public enum Error: LocalizedError {
         case
         unavailable,

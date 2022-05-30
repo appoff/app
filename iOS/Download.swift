@@ -3,7 +3,8 @@ import Offline
 
 struct Download: View {
     let session: Session
-    let header: Header
+    let syncher: Syncher
+    @State private var error: Error?
     
     var body: some View {
         VStack {
@@ -14,17 +15,73 @@ struct Download: View {
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(.primary)
             
-            Text("Downloading")
-                .font(.title2.weight(.regular))
-                .padding(.top)
+            if error == nil {
+                Text("Downloading")
+                    .font(.title2.weight(.regular))
+                    .padding(.top)
+            }
             
-            Text(header.title)
+            Text(syncher.header.title)
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .frame(maxWidth: 280)
             
+            if let error = error {
+                Text(error.localizedDescription)
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: 280)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 20)
+            }
+            
             Spacer()
+            
+            if error != nil {
+                Button {
+                    error = nil
+                    
+                    Task {
+                        await download()
+                    }
+                } label: {
+                    Text("Try again")
+                        .font(.body.weight(.bold))
+                        .foregroundColor(.primary)
+                        .padding()
+                        .contentShape(Rectangle())
+                }
+                .padding(.bottom)
+                
+                Button(role: .destructive) {
+                    withAnimation(.easeInOut(duration: 0.4)) {
+                        session.flow = .main
+                    }
+                } label: {
+                    Text("Cancel")
+                        .font(.callout.weight(.medium))
+                        .foregroundColor(.primary)
+                        .padding()
+                        .contentShape(Rectangle())
+                }
+                .padding(.bottom, 30)
+            }
+        }
+        .task {
+            await download()
+            
+            try? await Task.sleep(nanoseconds: 450_000_000)
+            session.selected = nil
+        }
+    }
+    
+    private func download() async {
+        do {
+            try await syncher.download()
+        } catch {
+            self.error = error
         }
     }
 }
