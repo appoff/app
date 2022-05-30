@@ -70,16 +70,20 @@ struct Download: View {
             }
         }
         .task {
-            await download()
-            
             try? await Task.sleep(nanoseconds: 450_000_000)
             session.selected = nil
+            
+            await download()
         }
     }
     
     private func download() async {
         do {
-            try await syncher.download()
+            try await cloud.add(header: syncher.header, schema: syncher.download())
+            
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.flow = .main
+            }
         } catch {
             self.error = error
         }

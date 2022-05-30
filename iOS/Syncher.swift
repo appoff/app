@@ -21,18 +21,24 @@ public struct Syncher {
     }
     
     public func upload(schema: Schema) async throws {
-        guard .available == (try await container.accountStatus()) else { throw Error.unavailable }
+        try await available()
         try await container.database.configuredWith(configuration: config) { base in
             let record = CKRecord(recordType: "Map", recordID: .init(recordName: header.id.uuidString))
             record[_id] = header.id.uuidString
             record[_schema] = schema.data
             record[_payload] = CKAsset(fileURL: local.url(header: header))
-            let result = try await base.modifyRecords(saving: [record],
-                                              deleting: [],
-                                              savePolicy: .ifServerRecordUnchanged,
-                                              atomically: true)
             
-            switch result.saveResults[.init(recordName: header.id.uuidString)]! {
+            guard let result = (try await base.modifyRecords(saving: [record],
+                                                            deleting: [],
+                                                            savePolicy: .ifServerRecordUnchanged,
+                                                            atomically: true))
+                .saveResults
+                .first?
+                .value
+                    
+            else { throw Error.malformed }
+            
+            switch result {
             case let .failure(error):
                 guard (error as? CKError)?.code == .serverRecordChanged else {
                     throw error
@@ -43,11 +49,34 @@ public struct Syncher {
         }
     }
     
-    public func download() async throws {
-        throw Error.unavailable
+    public func download() async throws -> Schema {
+        try await available()
+        return try await container.database.configuredWith(configuration: config) { base in
+            let record = try await base.record(for: .init(recordName: header.id.uuidString))
+            guard
+                let schema = record[_schema] as? Data,
+                !schema.isEmpty,
+                let payload = record[_payload] as? CKAsset,
+                let url = payload.fileURL
+            else { throw Error.malformed }
+            
+            let data = try Data(contentsOf: url)
+            
+            guard !data.isEmpty else { throw Error.malformed }
+            
+            local.save(header: header, data: data)
+            
+            return schema.prototype()
+        }
     }
     
     public func delete() {
         local.delete(header: header)
+    }
+    
+    private func available() async throws {
+        if try await container.accountStatus() != .available {
+            throw Error.unavailable
+        }
     }
 }
