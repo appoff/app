@@ -38,14 +38,11 @@ public struct Syncher {
                     
             else { throw Error.malformed }
             
-            switch result {
-            case let .failure(error):
-                guard (error as? CKError)?.code == .serverRecordChanged else {
-                    throw error
-                }
-            default:
-                break
+            if case let .failure(error) = result, (error as? CKError)?.code != .serverRecordChanged {
+                throw error
             }
+            
+            local.delete(header: header)
         }
     }
     
@@ -68,10 +65,6 @@ public struct Syncher {
             
             return schema.prototype()
         }
-    }
-    
-    public func delete() {
-        local.delete(header: header)
     }
     
     private func available() async throws {

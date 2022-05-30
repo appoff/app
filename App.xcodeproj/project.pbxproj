@@ -20,7 +20,6 @@
 		CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */; };
 		CE4DB850284398AD00733F02 /* Syncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB84F284398AD00733F02 /* Syncher.swift */; };
 		CE4DB85228439B0000733F02 /* Syncher.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB85128439B0000733F02 /* Syncher.Error.swift */; };
-		CE4DB85428439BD500733F02 /* Offload.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB85328439BD500733F02 /* Offload.Status.swift */; };
 		CE4FF11E28327F42008DB139 /* Deleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11D28327F42008DB139 /* Deleted.swift */; };
 		CE4FF12028327F84008DB139 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11F28327F84008DB139 /* Created.swift */; };
 		CE502C9728291267004F16AF /* Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C9628291267004F16AF /* Pop.swift */; };
@@ -78,7 +77,6 @@
 		CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		CE4DB84F284398AD00733F02 /* Syncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncher.swift; sourceTree = "<group>"; };
 		CE4DB85128439B0000733F02 /* Syncher.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncher.Error.swift; sourceTree = "<group>"; };
-		CE4DB85328439BD500733F02 /* Offload.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offload.Status.swift; sourceTree = "<group>"; };
 		CE4FF11D28327F42008DB139 /* Deleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deleted.swift; sourceTree = "<group>"; };
 		CE4FF11F28327F84008DB139 /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		CE502C9628291267004F16AF /* Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pop.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */,
 				CEE2158228368D230083FC99 /* Navigate.Points.swift */,
 				CEFC28D62834E4A900E47E23 /* Navigate.swift */,
-				CE4DB85328439BD500733F02 /* Offload.Status.swift */,
 				CE9EF51528424298008169E2 /* Offload.swift */,
 				CE4DB85128439B0000733F02 /* Syncher.Error.swift */,
 				CE4DB84F284398AD00733F02 /* Syncher.swift */,
@@ -337,7 +334,6 @@
 				CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */,
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
 				CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */,
-				CE4DB85428439BD500733F02 /* Offload.Status.swift in Sources */,
 				CE7E701D2844D136008D5CD5 /* Download.swift in Sources */,
 				CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
