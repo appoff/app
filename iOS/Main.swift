@@ -47,29 +47,53 @@ struct Main: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 if !filtered.isEmpty {
                     Text(filtered.count.formatted() + (filtered.count == 1 ? " map" : " maps"))
-                        .foregroundStyle(.secondary)
                         .font(.callout)
                         .fixedSize()
                 }
             }
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            if session.selected == nil {
+                VStack(spacing: 0) {
+                    Divider()
                     
-                } label: {
-                    Image(systemName: "gear")
-                        .font(.system(size: 18, weight: .regular))
-                        .frame(minWidth: 40, minHeight: 30)
-                        .contentShape(Rectangle())
+                    HStack(spacing: 30) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "gear")
+                                .font(.system(size: 20, weight: .light))
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundColor(.primary)
+                                .frame(width: 60, height: 60)
+                                .contentShape(Rectangle())
+                        }
+                        
+                        Button {
+                            session.flow = .create
+                        } label: {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.system(size: 42, weight: .thin))
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundColor(.primary)
+                                .frame(width: 60, height: 60)
+                                .contentShape(Rectangle())
+                        }
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "square.and.arrow.down")
+                                .font(.system(size: 20, weight: .light))
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundColor(.primary)
+                                .frame(width: 60, height: 60)
+                                .contentShape(Rectangle())
+                        }
+                    }
+                    .padding(.vertical, 3)
                 }
-                
-                Button {
-                    session.flow = .create
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 18, weight: .regular))
-                        .frame(minWidth: 40, minHeight: 30)
-                        .contentShape(Rectangle())
-                }
+                .background(.ultraThinMaterial)
             }
         }
         .onReceive(cloud) {
