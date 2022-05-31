@@ -31,13 +31,15 @@ struct Shared: View {
                 try? data.write(to: url)
                 UIApplication.shared.share(url)
             } label: {
-                Image(systemName: "square.and.arrow.up.circle.fill")
+                Image(systemName: "square.and.arrow.up.circle")
                     .font(.system(size: 45, weight: .thin))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.primary)
                     .padding()
                     .contentShape(Rectangle())
             }
+            
+            Spacer()
             
             Button {
                 if let url = url {
