@@ -1,5 +1,6 @@
 @testable import Offline
 
+import CoreImage
 import CloudKit
 import Network
 
@@ -21,15 +22,23 @@ public struct Syncher {
         config.qualityOfService = .userInitiated
     }
     
-    public func share(schema: Schema) async throws {
-        
+    public func share() throws -> CGImage {
+        guard
+            let filter = CIFilter(name: "CIQRCodeGenerator", parameters: [
+                "inputCorrectionLevel" : "H",
+                "inputMessage" : header.wrapped]),
+            let raw = filter
+                .outputImage?
+                .transformed(by: .init(scaleX: 10, y: 10)),
+            let image = CIContext()
+                .createCGImage(raw, from: raw.extent)
+        else { throw Error.generate }
+        return image
     }
     
     public func upload(schema: Schema) async throws {
         try network()
         try await available()
-        
-//        guard await !exists() else { return }
         
         try await container.database.configuredWith(configuration: config) { base in
             let record = CKRecord(recordType: "Map", recordID: .init(recordName: header.id.uuidString))
@@ -59,7 +68,9 @@ public struct Syncher {
     }
     
     public func download() async throws -> Schema {
+        try network()
         try await available()
+        
         return try await container.database.configuredWith(configuration: config) { base in
             do {
                 let record = try await base.record(for: .init(recordName: header.id.uuidString))
@@ -97,19 +108,6 @@ public struct Syncher {
         let path = NWPathMonitor(prohibitedInterfaceTypes: [.cellular]).currentPath
         if path.status != .satisfied || path.isExpensive {
             throw Error.network
-        }
-    }
-    
-    private func exists() async -> Bool {
-        await container.database.configuredWith(configuration: config) { base in
-            guard
-                let result = (try? await base
-                    .records(for: [.init(recordName: header.id.uuidString)], desiredKeys: []))?
-                    .first?
-                    .value,
-                case .success = result
-            else { return false }
-            return true
         }
     }
 }

@@ -94,29 +94,17 @@ struct Share: View {
                 self.error = error
                 return
             }
-        } else {
-            fatalError()
         }
         
-        UIApplication.shared.isIdleTimerDisabled = false
-        
-        withAnimation(.easeInOut(duration: 0.4)) {
-            session.flow = .offloaded(syncher.header)
+        do {
+            let raw = try syncher.share()
+            UIApplication.shared.isIdleTimerDisabled = false
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.flow = .shared(syncher.header, .init(cgImage: raw))
+            }
+        } catch {
+            self.error = error
         }
-        //
-        //        do {
-        //
-        //            await cloud.offload(header: syncher.header)
-        //            syncher.delete()
-        //
-        //            UIApplication.shared.isIdleTimerDisabled = false
-        //
-        //            withAnimation(.easeInOut(duration: 0.4)) {
-        //                session.flow = .offloaded(syncher.header)
-        //            }
-        //        } catch {
-        //            self.error = error
-        //        }
     }
 }
 

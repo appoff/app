@@ -7,7 +7,8 @@ extension Syncher {
         offloaded,
         malformed,
         unsynched,
-        network
+        network,
+        generate
         
         public var errorDescription: String? {
             switch self {
@@ -21,6 +22,8 @@ extension Syncher {
                 return "Seems like this map has not been shared nor offloaded. Try sharing it on the device where it was created."
             case .network:
                 return "No network connection available, try again later."
+            case .generate:
+                return "Failed to create QRCode, try again later."
             }
         }
     }

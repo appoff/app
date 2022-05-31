@@ -15,6 +15,7 @@ extension Session {
         offloaded(Header),
         downloaded(Header),
         share(Header),
+        shared(Header, UIImage),
         navigate(Schema, Bufferer)
     }
 }
