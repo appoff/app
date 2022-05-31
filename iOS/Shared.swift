@@ -22,7 +22,7 @@ struct Shared: View {
             
             Spacer()
             
-            Button {
+            Button {                
                 guard
                     let url = url,
                     let data = image.pngData()

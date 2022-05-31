@@ -429,6 +429,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save or import QR Codes";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -503,6 +504,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save or import QR Codes";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;

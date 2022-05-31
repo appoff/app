@@ -8,7 +8,8 @@ extension Syncher {
         malformed,
         unsynched,
         network,
-        generate
+        generate,
+        importing
         
         public var errorDescription: String? {
             switch self {
@@ -24,6 +25,8 @@ extension Syncher {
                 return "No network connection available, try again later."
             case .generate:
                 return "Failed to create QRCode, try again later."
+            case .importing:
+                return "Failed loading QRCode, try again later."
             }
         }
     }

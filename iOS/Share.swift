@@ -98,6 +98,7 @@ struct Share: View {
         
         do {
             let raw = try syncher.share()
+
             UIApplication.shared.isIdleTimerDisabled = false
             withAnimation(.easeInOut(duration: 0.4)) {
                 session.flow = .shared(syncher.header, .init(cgImage: raw))

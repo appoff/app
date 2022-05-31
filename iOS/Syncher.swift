@@ -23,6 +23,7 @@ public struct Syncher {
     }
     
     public func share() throws -> CGImage {
+        print(header.wrapped.count)
         guard
             let filter = CIFilter(name: "CIQRCodeGenerator", parameters: [
                 "inputCorrectionLevel" : "H",
@@ -34,6 +35,22 @@ public struct Syncher {
                 .createCGImage(raw, from: raw.extent)
         else { throw Error.generate }
         return image
+    }
+    
+    public func load(image: CGImage) throws {
+        guard
+            let detector = CIDetector(ofType: CIDetectorTypeQRCode,
+                                      context: nil,
+                                      options: [CIDetectorAccuracy: CIDetectorAccuracyHigh]),
+            let header = Header
+                .unwrap(data: .init(detector
+                    .features(in: .init(cgImage: image))
+                    .compactMap({ $0 as? CIQRCodeFeature })
+                    .compactMap(\.messageString)
+                    .flatMap({ Data($0.utf8) })))
+        else { throw Error.importing }
+        
+        
     }
     
     public func upload(schema: Schema) async throws {
