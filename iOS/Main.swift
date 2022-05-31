@@ -81,7 +81,7 @@ struct Main: View {
                         }
                         
                         Button {
-                            
+                            session.flow = .scan
                         } label: {
                             Image(systemName: "square.and.arrow.down")
                                 .font(.system(size: 20, weight: .light))

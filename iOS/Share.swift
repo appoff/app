@@ -99,9 +99,26 @@ struct Share: View {
         do {
             let raw = try syncher.share()
 
+            let watermark = UIImage(named: "Watermark")!.cgImage!
+            
+            UIGraphicsBeginImageContext(.init(width: raw.width, height: raw.height))
+            UIGraphicsGetCurrentContext()!.translateBy(x: 0, y: .init(raw.height))
+            UIGraphicsGetCurrentContext()!.scaleBy(x: 1, y: -1)
+            UIGraphicsGetCurrentContext()!.draw(raw,
+                                                in: .init(origin: .zero,
+                                                          size: .init(width: raw.width,
+                                                                      height: raw.height)))
+            UIGraphicsGetCurrentContext()!.draw(watermark,
+                                                in: .init(origin: .init(x: (raw.width - 64) / 2,
+                                                                        y: (raw.height - 64) / 2),
+                                                          size: .init(width: 64, height: 64)))
+            let image = UIImage(cgImage: UIGraphicsGetCurrentContext()!.makeImage()!)
+            
+            UIGraphicsEndImageContext()
+            
             UIApplication.shared.isIdleTimerDisabled = false
             withAnimation(.easeInOut(duration: 0.4)) {
-                session.flow = .shared(syncher.header, .init(cgImage: raw))
+                session.flow = .shared(syncher.header, image)
             }
         } catch {
             self.error = error

@@ -6,6 +6,7 @@ extension Session {
         case
         main,
         create,
+        scan,
         created(Header),
         deleted(Header),
         loading(Factory),

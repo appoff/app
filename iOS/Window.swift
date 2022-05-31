@@ -14,6 +14,8 @@ struct Window: View {
             .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
         case .create:
             Create(session: session)
+        case .scan:
+            Scan(session: session)
         case let .created(header):
             Created(session: session, header: header)
                 .transition(.asymmetric(insertion: .opacity, removal: .move(edge: .leading)))
