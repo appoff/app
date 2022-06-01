@@ -9,13 +9,13 @@ struct Main: View {
     var body: some View {
         ZStack {
             List {
-                if projects.isEmpty {
+                if filtered.isEmpty {
                     VStack {
                         Image(systemName: "map")
                             .font(.system(size: 50, weight: .ultraLight))
                             .foregroundStyle(.secondary)
                             .padding(.top, 100)
-                        Text("Empty maps")
+                        Text(projects.isEmpty ? "Empty maps" : "No results")
                             .font(.body)
                             .foregroundStyle(.secondary)
                             .padding(.top, 5)

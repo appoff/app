@@ -28,13 +28,17 @@ struct Offload: View {
                 .frame(maxWidth: 280)
             
             if let error = error {
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: 50, weight: .ultraLight))
+                    .symbolRenderingMode(.hierarchical)
+                    .padding(.vertical)
+                
                 Text(error.localizedDescription)
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: 280)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.top, 20)
             } else {
                 Text("Please wait")
                     .font(.footnote)
@@ -68,7 +72,7 @@ struct Offload: View {
                 } label: {
                     Text("Cancel")
                         .font(.callout.weight(.medium))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.secondary)
                         .padding()
                         .contentShape(Rectangle())
                 }

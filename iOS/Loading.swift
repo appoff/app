@@ -33,9 +33,12 @@ struct Loading: View {
             .padding(.vertical)
             
             if error {
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: 50, weight: .ultraLight))
+                    .symbolRenderingMode(.hierarchical)
+                    .padding(.vertical)
                 Text("Loading failed")
                     .font(.body)
-                    .padding(.top)
                 Spacer()
                 Button {
                     error = false
@@ -67,7 +70,7 @@ struct Loading: View {
             } label: {
                 Text("Cancel")
                     .font(.callout.weight(.medium))
-                    .foregroundColor(.primary)
+                    .foregroundColor(.secondary)
                     .padding()
                     .contentShape(Rectangle())
             }
