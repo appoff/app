@@ -2,6 +2,8 @@ import SwiftUI
 import CloudKit
 import Offline
 
+private let size = 110
+
 struct Share: View {
     let session: Session
     let syncher: Syncher
@@ -112,9 +114,9 @@ struct Share: View {
                                                           size: .init(width: raw.width,
                                                                       height: raw.height)))
             UIGraphicsGetCurrentContext()!.draw(watermark,
-                                                in: .init(origin: .init(x: (raw.width - 64) / 2,
-                                                                        y: (raw.height - 64) / 2),
-                                                          size: .init(width: 64, height: 64)))
+                                                in: .init(origin: .init(x: (raw.width - size) / 2,
+                                                                        y: (raw.height - size) / 2),
+                                                          size: .init(width: size, height: size)))
             let image = UIImage(cgImage: UIGraphicsGetCurrentContext()!.makeImage()!)
             
             UIGraphicsEndImageContext()
