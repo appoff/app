@@ -4,6 +4,7 @@ import PhotosUI
 extension Scan {
     final class Picker: NSObject, PHPickerViewControllerDelegate, UIViewControllerRepresentable, ObservableObject {
         @Published var image: UIImage?
+        @Published var error: Error?
         
         func picker(_ picker: PHPickerViewController, didFinishPicking: [PHPickerResult]) {
             picker.dismiss(animated: true)
@@ -15,7 +16,12 @@ extension Scan {
             
             provider
                 .loadObject(ofClass: UIImage.self) { [weak self] reading, _ in
-                    self?.image = reading as? UIImage
+                    guard let image = reading as? UIImage else {
+                        self?.error = Syncher.Error.importing
+                        return
+                    }
+                    
+                    self?.image = image
                 }
         }
         

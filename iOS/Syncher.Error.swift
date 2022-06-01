@@ -27,7 +27,7 @@ extension Syncher {
             case .generate:
                 return "Failed to create QRCode, try again later."
             case .importing:
-                return "Failed loading QRCode, try again later."
+                return "Could not find a QRCode or it is not valid, try with a different image."
             case .existing:
                 return "You already have this map."
             }

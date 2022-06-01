@@ -51,7 +51,7 @@ struct Shared: View {
                 }
             } label: {
                 Text("Continue")
-                    .font(.body.weight(.medium))
+                    .font(.title3.weight(.bold))
                     .foregroundColor(.primary)
                     .padding()
                     .contentShape(Rectangle())
