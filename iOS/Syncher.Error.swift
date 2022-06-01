@@ -29,7 +29,7 @@ extension Syncher {
             case .importing:
                 return "Failed loading QRCode, try again later."
             case .existing:
-                return "You already have this map, if it is offloaded try downloading it."
+                return "You already have this map."
             }
         }
     }

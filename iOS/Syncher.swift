@@ -52,7 +52,6 @@ public struct Syncher {
     }
     
     public func upload(schema: Schema) async throws {
-        try network()
         try await available()
         
         try await container.database.configuredWith(configuration: config) { base in
@@ -72,8 +71,15 @@ public struct Syncher {
                     .value
             else { throw Error.malformed }
             
-            if case let .failure(error) = result, (error as? CKError)?.code != .serverRecordChanged {
-                throw error
+            if case let .failure(error) = result {
+                switch (error as? CKError)?.code {
+                case .networkFailure, .networkUnavailable:
+                    throw Error.network
+                case .serverRecordChanged:
+                    break
+                default:
+                    throw error
+                }
             }
         }
     }
@@ -83,7 +89,6 @@ public struct Syncher {
     }
     
     public func download() async throws -> Schema {
-        try network()
         try await available()
         
         return try await container.database.configuredWith(configuration: config) { base in
@@ -105,10 +110,14 @@ public struct Syncher {
                 
                 return schema.prototype()
             } catch {
-                if (error as? CKError)?.code == .unknownItem {
+                switch (error as? CKError)?.code {
+                case .networkFailure, .networkUnavailable:
+                    throw Error.network
+                case .unknownItem:
                     throw Error.unsynched
+                default:
+                    throw error
                 }
-                throw error
             }
         }
     }
@@ -116,13 +125,6 @@ public struct Syncher {
     private func available() async throws {
         if try await container.accountStatus() != .available {
             throw Error.unavailable
-        }
-    }
-    
-    private func network() throws {
-        let path = NWPathMonitor(prohibitedInterfaceTypes: [.cellular]).currentPath
-        if path.status != .satisfied || path.isExpensive {
-            throw Error.network
         }
     }
 }

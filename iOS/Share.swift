@@ -35,7 +35,7 @@ struct Share: View {
                     .font(.system(size: 50, weight: .ultraLight))
                     .symbolRenderingMode(.hierarchical)
                     .padding(.vertical)
-                Text((error as? CKError)?.localizedDescription ?? error.localizedDescription)
+                Text(error.localizedDescription)
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
