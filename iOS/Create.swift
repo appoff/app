@@ -16,8 +16,8 @@ struct Create: View {
                             UIApplication.shared.hide()
                             builder.cancel = true
                         } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.system(size: 26, weight: .light))
+                            Image(systemName: "xmark")
+                                .font(.system(size: 18, weight: .light))
                                 .symbolRenderingMode(.hierarchical)
                         }
                         .foregroundStyle(.secondary)

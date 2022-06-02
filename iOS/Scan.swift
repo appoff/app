@@ -160,7 +160,7 @@ struct Scan: View {
                             session.flow = .scan
                         } label: {
                             Image(systemName: "questionmark.circle")
-                                .font(.system(size: 24, weight: .light))
+                                .font(.system(size: 22, weight: .light))
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundColor(.primary)
                                 .frame(width: 60, height: 60)
