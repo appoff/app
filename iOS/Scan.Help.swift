@@ -77,7 +77,7 @@ If there is any error downloading the map, this will still be added to the list 
                         }
                     }
                 }
-                .navigationTitle("Import map")
+                .navigationTitle("Importing map")
                 .navigationBarTitleDisplayMode(.large)
             }
             .navigationViewStyle(.stack)

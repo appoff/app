@@ -113,7 +113,7 @@ struct Create: View {
                             Text(builder.points.count.formatted())
                                 .font(.body.monospacedDigit())
                                 .padding(.leading)
-                            Text(builder.points.count == 1 ? " point" : " points")
+                            Text(builder.points.count == 1 ? " marker" : " markers")
                                 .foregroundStyle(.secondary)
                                 .font(.caption)
                             
@@ -170,8 +170,9 @@ struct Create: View {
                     HStack(spacing: 0) {
                         Action(symbol: "questionmark.circle") {
                             UIApplication.shared.hide()
-                            builder.map.follow = false
+                            builder.help = true
                         }
+                        .sheet(isPresented: $builder.help, content: Help.init)
                         
                         Action(symbol: "slider.horizontal.3") {
                             UIApplication.shared.hide()
@@ -197,7 +198,7 @@ struct Create: View {
                             }
                             .frame(width: 80, height: 38)
                         }
-                        .frame(height: 62)
+                        .padding(.horizontal, 10)
                         .sheet(isPresented: $builder.search) {
                             Search { item in
                                 Task {
@@ -220,6 +221,7 @@ struct Create: View {
                             builder.tracker()
                         }
                     }
+                    .frame(height: 62)
                 }
             }
             .preferredColorScheme(builder.color)

@@ -12,12 +12,6 @@ final class Map: MKMapView, UIViewRepresentable {
         showsTraffic = false
         userTrackingMode = .none
         register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Marker")
-        
-        print("map")
-    }
-    
-    deinit {
-        print("map gone")
     }
     
     func makeUIView(context: Context) -> Map {
