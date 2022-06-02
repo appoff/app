@@ -9,7 +9,6 @@ extension Scan {
         required init?(coder: NSCoder) { nil }
         init() {
             session = .init()
-            
             super.init(frame: .zero)
             backgroundColor = .black
             

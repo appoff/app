@@ -60,6 +60,7 @@
 		CED82A122848A327003742CC /* Scan.Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A112848A327003742CC /* Scan.Camera.swift */; };
 		CED82A142848A5B0003742CC /* Scan.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A132848A5B0003742CC /* Scan.Status.swift */; };
 		CED82A162848A7C8003742CC /* Scan.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A152848A7C8003742CC /* Scan.Error.swift */; };
+		CED82A182848CDE9003742CC /* Scan.Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A172848CDE9003742CC /* Scan.Help.swift */; };
 		CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE215802836863B0083FC99 /* Navigate.Config.swift */; };
 		CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2158228368D230083FC99 /* Navigate.Points.swift */; };
 		CEEB863F283CFFA800A9FF13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB863E283CFFA800A9FF13 /* User.swift */; };
@@ -127,6 +128,7 @@
 		CED82A112848A327003742CC /* Scan.Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Camera.swift; sourceTree = "<group>"; };
 		CED82A132848A5B0003742CC /* Scan.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Status.swift; sourceTree = "<group>"; };
 		CED82A152848A7C8003742CC /* Scan.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Error.swift; sourceTree = "<group>"; };
+		CED82A172848CDE9003742CC /* Scan.Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Help.swift; sourceTree = "<group>"; };
 		CEE215802836863B0083FC99 /* Navigate.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Config.swift; sourceTree = "<group>"; };
 		CEE2158228368D230083FC99 /* Navigate.Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Points.swift; sourceTree = "<group>"; };
 		CEEB863E283CFFA800A9FF13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				CE7647AB2840DF8F004B7C42 /* Premium.swift */,
 				CED82A112848A327003742CC /* Scan.Camera.swift */,
 				CED82A152848A7C8003742CC /* Scan.Error.swift */,
+				CED82A172848CDE9003742CC /* Scan.Help.swift */,
 				CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */,
 				CED82A132848A5B0003742CC /* Scan.Status.swift */,
 				CE51628628462DC8007D5D61 /* Scan.swift */,
@@ -351,6 +354,7 @@
 				CED82A142848A5B0003742CC /* Scan.Status.swift in Sources */,
 				CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */,
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
+				CED82A182848CDE9003742CC /* Scan.Help.swift in Sources */,
 				CEFC28DD2835247400E47E23 /* Unzip.swift in Sources */,
 				CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */,
 				CE5162852846118F007D5D61 /* Shared.swift in Sources */,

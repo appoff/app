@@ -4,8 +4,9 @@ import Offline
 struct Scan: View {
     let session: Session
     @StateObject private var status = Status()
-    @State private var pick = false
     @State private var title: String?
+    @State private var pick = false
+    @State private var help = false
     private let picker = Picker()
     private let camera = Camera()
     
@@ -157,7 +158,7 @@ struct Scan: View {
                         }
                         
                         Button {
-                            session.flow = .scan
+                            help = true
                         } label: {
                             Image(systemName: "questionmark.circle")
                                 .font(.system(size: 22, weight: .light))
@@ -166,6 +167,7 @@ struct Scan: View {
                                 .frame(width: 60, height: 60)
                                 .contentShape(Rectangle())
                         }
+                        .sheet(isPresented: $help, content: Help.init)
                     }
                     .frame(height: 62)
                 }
