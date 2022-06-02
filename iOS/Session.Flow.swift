@@ -7,6 +7,7 @@ extension Session {
         main,
         create,
         scan,
+        preferences,
         created(Header),
         deleted(Header),
         loading(Factory),

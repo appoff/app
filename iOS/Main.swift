@@ -59,10 +59,12 @@ struct Main: View {
                     
                     HStack(spacing: 30) {
                         Button {
-                            
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                session.flow = .preferences
+                            }
                         } label: {
                             Image(systemName: "gear")
-                                .font(.system(size: 20, weight: .light))
+                                .font(.system(size: 21, weight: .light))
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundColor(.primary)
                                 .frame(width: 60, height: 60)
@@ -75,16 +77,18 @@ struct Main: View {
                             Image(systemName: "plus.circle.fill")
                                 .font(.system(size: 42, weight: .thin))
                                 .symbolRenderingMode(.hierarchical)
+                                .foregroundStyle(.secondary)
                                 .foregroundColor(.primary)
                                 .frame(width: 60, height: 60)
                                 .contentShape(Rectangle())
                         }
                         
+                        
                         Button {
                             session.flow = .scan
                         } label: {
                             Image(systemName: "square.and.arrow.down")
-                                .font(.system(size: 20, weight: .light))
+                                .font(.system(size: 21, weight: .light))
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundColor(.primary)
                                 .frame(width: 60, height: 60)

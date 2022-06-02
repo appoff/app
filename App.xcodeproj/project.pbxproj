@@ -63,6 +63,9 @@
 		CED82A182848CDE9003742CC /* Scan.Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A172848CDE9003742CC /* Scan.Help.swift */; };
 		CED82A1A2848D7D9003742CC /* Create.Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A192848D7D9003742CC /* Create.Help.swift */; };
 		CED82A1C284909A3003742CC /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A1B284909A3003742CC /* Helper.swift */; };
+		CED82A1E28490DC4003742CC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A1D28490DC4003742CC /* Preferences.swift */; };
+		CED82A2028490FFA003742CC /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A1F28490FFA003742CC /* Copy.swift */; };
+		CED82A22284910E6003742CC /* Preferences.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A21284910E6003742CC /* Preferences.Info.swift */; };
 		CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE215802836863B0083FC99 /* Navigate.Config.swift */; };
 		CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2158228368D230083FC99 /* Navigate.Points.swift */; };
 		CEEB863F283CFFA800A9FF13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB863E283CFFA800A9FF13 /* User.swift */; };
@@ -133,6 +136,9 @@
 		CED82A172848CDE9003742CC /* Scan.Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Help.swift; sourceTree = "<group>"; };
 		CED82A192848D7D9003742CC /* Create.Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Help.swift; sourceTree = "<group>"; };
 		CED82A1B284909A3003742CC /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		CED82A1D28490DC4003742CC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		CED82A1F28490FFA003742CC /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
+		CED82A21284910E6003742CC /* Preferences.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Info.swift; sourceTree = "<group>"; };
 		CEE215802836863B0083FC99 /* Navigate.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Config.swift; sourceTree = "<group>"; };
 		CEE2158228368D230083FC99 /* Navigate.Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Points.swift; sourceTree = "<group>"; };
 		CEEB863E283CFFA800A9FF13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -202,6 +208,8 @@
 				CE9EF51528424298008169E2 /* Offload.swift */,
 				CE3AF0EB2844F4530016AA02 /* Offloaded.swift */,
 				CE502C9628291267004F16AF /* Pop.swift */,
+				CED82A21284910E6003742CC /* Preferences.Info.swift */,
+				CED82A1D28490DC4003742CC /* Preferences.swift */,
 				CE7647AB2840DF8F004B7C42 /* Premium.swift */,
 				CED82A112848A327003742CC /* Scan.Camera.swift */,
 				CED82A152848A7C8003742CC /* Scan.Error.swift */,
@@ -233,6 +241,7 @@
 		CE2C43A82822D483000007A2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CED82A1F28490FFA003742CC /* Copy.swift */,
 				CE979A952827EB6E00FC0EB0 /* Global.swift */,
 				CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */,
 				CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */,
@@ -359,6 +368,7 @@
 				CE979A942827EB1100FC0EB0 /* App.Delegate.swift in Sources */,
 				CED82A142848A5B0003742CC /* Scan.Status.swift in Sources */,
 				CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */,
+				CED82A2028490FFA003742CC /* Copy.swift in Sources */,
 				CE81D9232823E4B200364029 /* Field.swift in Sources */,
 				CED82A182848CDE9003742CC /* Scan.Help.swift in Sources */,
 				CEFC28DD2835247400E47E23 /* Unzip.swift in Sources */,
@@ -386,12 +396,14 @@
 				CE4DB85228439B0000733F02 /* Syncher.Error.swift in Sources */,
 				CE787181282FEAA10050BD93 /* Detail.swift in Sources */,
 				CE51628728462DC8007D5D61 /* Scan.swift in Sources */,
+				CED82A22284910E6003742CC /* Preferences.Info.swift in Sources */,
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */,
 				CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */,
 				CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */,
 				CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */,
 				CE3AF0EA2844F3C10016AA02 /* Downloaded.swift in Sources */,
+				CED82A1E28490DC4003742CC /* Preferences.swift in Sources */,
 				CE4FF12028327F84008DB139 /* Created.swift in Sources */,
 				CED82A1C284909A3003742CC /* Helper.swift in Sources */,
 				CE2C43992822D2B0000007A2 /* App.swift in Sources */,

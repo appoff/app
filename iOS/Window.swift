@@ -16,6 +16,9 @@ struct Window: View {
             Create(session: session)
         case .scan:
             Scan(status: .init(session: session))
+        case .preferences:
+            Preferences(session: session)
+                .transition(.move(edge: .leading))
         case let .created(header):
             Created(session: session, header: header)
                 .transition(.asymmetric(insertion: .opacity, removal: .move(edge: .leading)))

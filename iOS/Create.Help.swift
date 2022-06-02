@@ -40,7 +40,7 @@ Once a marker is added you can remove it by selecting it and hitting the remove 
                     }
 
                     Section("Controls") {
-                        Helper(symbol: "character.cursor.ibeam", size: 20, title: "Define a title to your map to differentiate it.")
+                        Helper(symbol: "character.cursor.ibeam", size: 20, title: "Differentiate your map with a title.")
                         Helper(symbol: "slider.horizontal.3", size: 22, title: "Options menu.")
                         Helper(symbol: "magnifyingglass", size: 20, title: "Search for an address or place of interest.")
                         Helper(symbol: "square.stack.3d.up", size: 22, title: "Settings menu.")
