@@ -2,13 +2,15 @@ import SwiftUI
 
 struct Scan: View {
     let session: Session
-    @StateObject private var picker = Picker()
+    @StateObject private var status = Status()
     @State private var pick = false
     @State private var title: String?
+    private let picker = Picker()
+    private let camera = Camera()
     
     var body: some View {
         VStack {
-            if let image = picker.image {
+            if let image = status.image {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -24,7 +26,7 @@ struct Scan: View {
                             title = header.title
                             
                             if await cloud.model.projects.contains(where: { $0.header.id == header.id }) {
-                                picker.error = Syncher.Error.existing
+                                status.error = Error.existing
                             } else {
                                 await cloud.add(header: header, schema: nil)
                                 
@@ -33,7 +35,7 @@ struct Scan: View {
                                 }
                             }
                         } catch {
-                            picker.error = error
+                            status.error = error
                         }
                     }
                 
@@ -45,16 +47,32 @@ struct Scan: View {
                         .padding(.top)
                 }
                 
-                if picker.error == nil {
+                if status.error == nil {
                     Text("Loading")
                         .font(.title2.weight(.regular))
                         .padding(.top)
+                    Spacer()
                 }
-            } else if picker.error == nil {
-                Text("Camera")
+            } else if status.error == nil {
+                if status.video {
+                    camera
+                } else {
+                    Spacer()
+                    Image(systemName: "qrcode.viewfinder")
+                        .font(.system(size: 50, weight: .ultraLight))
+                        .symbolRenderingMode(.hierarchical)
+                        .padding(.bottom)
+                    
+                    Text("This device can't scan QR Codes")
+                        .font(.callout)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: 280)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             
-            if let error = picker.error {
+            if let error = status.error {
                 Spacer()
                 
                 Image(systemName: "exclamationmark.triangle")
@@ -72,9 +90,9 @@ struct Scan: View {
                 Spacer()
                 
                 Button {
-                    picker.error = nil
+                    status.error = nil
                     title = nil
-                    picker.image = nil
+                    status.image = nil
                 } label: {
                     Text("Try again")
                         .font(.body.weight(.bold))
@@ -95,11 +113,12 @@ struct Scan: View {
                         .padding()
                         .contentShape(Rectangle())
                 }
+                
+                Spacer()
             }
-            Spacer()
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            if picker.image == nil && picker.error == nil {
+            if status.image == nil && status.error == nil {
                 VStack(spacing: 0) {
                     Divider()
                     
@@ -146,6 +165,10 @@ struct Scan: View {
                 }
                 .background(.regularMaterial)
             }
+        }
+        .task {
+            picker.status = status
+            camera.status = status
         }
     }
 }

@@ -9,8 +9,7 @@ extension Syncher {
         unsynched,
         network,
         generate,
-        importing,
-        existing
+        importing
         
         public var errorDescription: String? {
             switch self {
@@ -28,8 +27,6 @@ extension Syncher {
                 return "Failed to create QRCode, try again later."
             case .importing:
                 return "Could not find a QRCode or it is not valid, try with a different image."
-            case .existing:
-                return "You already have this map."
             }
         }
     }
