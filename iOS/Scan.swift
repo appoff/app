@@ -1,14 +1,7 @@
 import SwiftUI
-import Offline
 
 struct Scan: View {
-    let session: Session
-    @StateObject private var status = Status()
-    @State private var title: String?
-    @State private var pick = false
-    @State private var help = false
-    private let picker = Picker()
-    private let camera = Camera()
+    @StateObject var status: Status
     
     var body: some View {
         VStack {
@@ -23,7 +16,7 @@ struct Scan: View {
                             guard let raw = image.cgImage else { return }
                             
                             do {
-                                try await load(header: Syncher.load(image: raw))
+                                try await status.load(header: Syncher.load(image: raw))
                             } catch {
                                 status.error = error
                             }
@@ -35,14 +28,14 @@ struct Scan: View {
                         .padding(.top)
                         .task {
                             do {
-                                try await load(header: Syncher.load(data: data))
+                                try await status.load(header: Syncher.load(data: data))
                             } catch {
                                 status.error = error
                             }
                         }
                 }
                 
-                if let title = title {
+                if let title = status.title {
                     Text(title)
                         .font(.callout)
                         .lineLimit(1)
@@ -58,7 +51,7 @@ struct Scan: View {
                 }
             } else if status.error == nil {
                 if status.video {
-                    camera
+                    status.camera
                 } else {
                     Spacer()
                     Image(systemName: "qrcode.viewfinder")
@@ -66,12 +59,13 @@ struct Scan: View {
                         .symbolRenderingMode(.hierarchical)
                         .padding(.bottom)
                     
-                    Text("This device can't scan QR Codes")
+                    Text("This device can't scan QR Codes, try selecting an image.")
                         .font(.callout)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: 280)
                         .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
                 }
             }
             
@@ -93,9 +87,7 @@ struct Scan: View {
                 Spacer()
                 
                 Button {
-                    status.error = nil
-                    title = nil
-                    status.found = nil
+                    status.clear()
                 } label: {
                     Text("Try again")
                         .font(.body.weight(.bold))
@@ -107,7 +99,7 @@ struct Scan: View {
                 
                 Button(role: .destructive) {
                     withAnimation(.easeInOut(duration: 0.4)) {
-                        session.flow = .main
+                        status.session.flow = .main
                     }
                 } label: {
                     Text("Cancel")
@@ -127,12 +119,12 @@ struct Scan: View {
                     
                     HStack(spacing: 30) {
                         Button {
-                            if camera.session.isRunning {
-                                camera.session.stopRunning()
+                            if status.camera.session.isRunning {
+                                status.camera.session.stopRunning()
                             }
                             
                             withAnimation(.easeInOut(duration: 0.4)) {
-                                session.flow = .main
+                                status.session.flow = .main
                             }
                         } label: {
                             Image(systemName: "xmark")
@@ -144,7 +136,7 @@ struct Scan: View {
                         }
                         
                         Button {
-                            pick = true
+                            status.pick = true
                         } label: {
                             Image(systemName: "photo.circle.fill")
                                 .font(.system(size: 42, weight: .thin))
@@ -153,12 +145,12 @@ struct Scan: View {
                                 .frame(width: 60, height: 60)
                                 .contentShape(Rectangle())
                         }
-                        .sheet(isPresented: $pick) {
-                            picker
+                        .sheet(isPresented: $status.pick) {
+                            status.picker
                         }
                         
                         Button {
-                            help = true
+                            status.help = true
                         } label: {
                             Image(systemName: "questionmark.circle")
                                 .font(.system(size: 22, weight: .light))
@@ -167,35 +159,11 @@ struct Scan: View {
                                 .frame(width: 60, height: 60)
                                 .contentShape(Rectangle())
                         }
-                        .sheet(isPresented: $help, content: Help.init)
+                        .sheet(isPresented: $status.help, content: Help.init)
                     }
                     .frame(height: 62)
                 }
                 .background(.regularMaterial)
-            }
-        }
-        .task {
-            picker.status = status
-            camera.status = status
-        }
-    }
-    
-    private func load(header: Header) async throws {
-        title = header.title
-        
-        try? await Task.sleep(nanoseconds: 100_000_000)
-        
-        if await cloud.model.projects.contains(where: { $0.header.id == header.id }) {
-            status.error = Error.existing
-        } else {
-            await cloud.add(header: header, schema: nil)
-            
-            if camera.session.isRunning {
-                camera.session.stopRunning()
-            }
-            
-            withAnimation(.easeInOut(duration: 0.4)) {
-                session.flow = .download(header)
             }
         }
     }

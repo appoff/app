@@ -9,6 +9,7 @@ extension Create {
         @Published var cancel = false
         @Published var options = false
         @Published var config = false
+        @Published var help = false
         @Published var title = "New map"
         @Published private(set) var overflow = false
         @Published private(set) var points = [MKPointAnnotation]()
