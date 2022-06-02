@@ -197,7 +197,7 @@ struct Create: View {
                             }
                             .frame(width: 80, height: 38)
                         }
-                        .padding(.horizontal, 16)
+                        .frame(height: 62)
                         .sheet(isPresented: $builder.search) {
                             Search { item in
                                 Task {

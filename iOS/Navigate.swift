@@ -38,6 +38,7 @@ struct Navigate: View {
                         
                         Action(symbol: "location.viewfinder", action: control.tracker)
                     }
+                    .frame(height: 62)
                 }
             }
             .preferredColorScheme(control.color)

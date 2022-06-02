@@ -91,7 +91,7 @@ struct Main: View {
                                 .contentShape(Rectangle())
                         }
                     }
-                    .padding(.vertical, 3)
+                    .frame(height: 62)
                 }
                 .background(.ultraThinMaterial)
             }

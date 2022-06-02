@@ -4,7 +4,7 @@ import AVFoundation
 extension Scan {
     final class Camera: UIView, UIViewRepresentable, AVCaptureMetadataOutputObjectsDelegate {
         weak var status: Status?
-        private let session: AVCaptureSession
+        let session: AVCaptureSession
         
         required init?(coder: NSCoder) { nil }
         init() {

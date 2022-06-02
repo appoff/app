@@ -126,12 +126,16 @@ struct Scan: View {
                     
                     HStack(spacing: 30) {
                         Button {
+                            if camera.session.isRunning {
+                                camera.session.stopRunning()
+                            }
+                            
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 session.flow = .main
                             }
                         } label: {
-                            Image(systemName: "xmark.circle")
-                                .font(.system(size: 24, weight: .light))
+                            Image(systemName: "xmark")
+                                .font(.system(size: 18, weight: .light))
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundColor(.primary)
                                 .frame(width: 60, height: 60)
@@ -163,7 +167,7 @@ struct Scan: View {
                                 .contentShape(Rectangle())
                         }
                     }
-                    .padding(.vertical, 3)
+                    .frame(height: 62)
                 }
                 .background(.regularMaterial)
             }
@@ -183,6 +187,10 @@ struct Scan: View {
             status.error = Error.existing
         } else {
             await cloud.add(header: header, schema: nil)
+            
+            if camera.session.isRunning {
+                camera.session.stopRunning()
+            }
             
             withAnimation(.easeInOut(duration: 0.4)) {
                 session.flow = .download(header)
