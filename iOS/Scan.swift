@@ -1,4 +1,5 @@
 import SwiftUI
+import Offline
 
 struct Scan: View {
     let session: Session
@@ -10,34 +11,35 @@ struct Scan: View {
     
     var body: some View {
         VStack {
-            if let image = status.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding([.leading, .trailing, .top])
-                    .frame(maxHeight: 200)
-                    .task {
-                        try? await Task.sleep(nanoseconds: 100_000_000)
-                        
-                        guard let raw = image.cgImage else { return }
-                        
-                        do {
-                            let header = try Syncher.load(image: raw)
-                            title = header.title
+            if let found = status.found {
+                if let image = found as? UIImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding([.leading, .trailing, .top])
+                        .frame(maxHeight: 200)
+                        .task {
+                            guard let raw = image.cgImage else { return }
                             
-                            if await cloud.model.projects.contains(where: { $0.header.id == header.id }) {
-                                status.error = Error.existing
-                            } else {
-                                await cloud.add(header: header, schema: nil)
-                                
-                                withAnimation(.easeInOut(duration: 0.4)) {
-                                    session.flow = .download(header)
-                                }
+                            do {
+                                try await load(header: Syncher.load(image: raw))
+                            } catch {
+                                status.error = error
                             }
-                        } catch {
-                            status.error = error
                         }
-                    }
+                } else if let data = found as? Data {
+                    Image(systemName: "qrcode.viewfinder")
+                        .font(.system(size: 200, weight: .ultraLight))
+                        .symbolRenderingMode(.hierarchical)
+                        .padding(.top)
+                        .task {
+                            do {
+                                try await load(header: Syncher.load(data: data))
+                            } catch {
+                                status.error = error
+                            }
+                        }
+                }
                 
                 if let title = title {
                     Text(title)
@@ -92,7 +94,7 @@ struct Scan: View {
                 Button {
                     status.error = nil
                     title = nil
-                    status.image = nil
+                    status.found = nil
                 } label: {
                     Text("Try again")
                         .font(.body.weight(.bold))
@@ -118,7 +120,7 @@ struct Scan: View {
             }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            if status.image == nil && status.error == nil {
+            if status.found == nil && status.error == nil {
                 VStack(spacing: 0) {
                     Divider()
                     
@@ -169,6 +171,22 @@ struct Scan: View {
         .task {
             picker.status = status
             camera.status = status
+        }
+    }
+    
+    private func load(header: Header) async throws {
+        title = header.title
+        
+        try? await Task.sleep(nanoseconds: 100_000_000)
+        
+        if await cloud.model.projects.contains(where: { $0.header.id == header.id }) {
+            status.error = Error.existing
+        } else {
+            await cloud.add(header: header, schema: nil)
+            
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.flow = .download(header)
+            }
         }
     }
 }

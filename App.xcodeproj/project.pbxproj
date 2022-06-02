@@ -447,6 +447,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR Codes";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save and load maps from QR Codes";
@@ -522,6 +523,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR Codes";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save and load maps from QR Codes";

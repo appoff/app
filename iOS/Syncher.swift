@@ -18,14 +18,18 @@ public struct Syncher {
         guard
             let detector = CIDetector(ofType: CIDetectorTypeQRCode,
                                       context: nil,
-                                      options: [CIDetectorAccuracy: CIDetectorAccuracyHigh]),
-            let header = Header
-                .unwrap(data: .init(detector
-                    .features(in: .init(cgImage: image))
-                    .compactMap({ $0 as? CIQRCodeFeature })
-                    .compactMap(\.messageString)
-                    .flatMap({ $0.utf8 })))
+                                      options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         else { throw Error.importing }
+        
+        return try load(data: .init(detector
+            .features(in: .init(cgImage: image))
+            .compactMap { $0 as? CIQRCodeFeature }
+            .compactMap(\.messageString)
+            .flatMap { $0.utf8 }))
+    }
+    
+    public static func load(data: Data) throws -> Header {
+        guard let header = Header.unwrap(data: data) else { throw Error.importing }
         return header
     }
     

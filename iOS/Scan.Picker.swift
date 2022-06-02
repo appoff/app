@@ -20,7 +20,7 @@ extension Scan {
                         return
                     }
                     
-                    self?.status?.image = image
+                    self?.status?.found = image
                 }
         }
         
