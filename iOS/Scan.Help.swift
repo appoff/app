@@ -23,26 +23,13 @@ Anyone can import a map from a QR Code, even if they have not purchased **Offlin
                     .headerProminence(.increased)
                     
                     Section("2. Importing") {
-                        HStack(spacing: 0) {
-                            Image(systemName: "qrcode.viewfinder")
-                                .font(.system(size: 34, weight: .thin))
-                                .symbolRenderingMode(.hierarchical)
-                                .frame(width: 64)
-                            Text("""
-    Use the camera on your device to scan a *QR Code* and start downloading the map.
-    """).font(.callout)
-                            Spacer()
-                        }
-                        HStack(spacing: 0) {
-                            Image(systemName: "photo")
-                                .font(.system(size: 28, weight: .thin))
-                                .symbolRenderingMode(.hierarchical)
-                                .frame(width: 64)
-                            Text("""
-    You can also import a *QR Code* by selecting an image from your *Photo Library*.
-    """).font(.callout)
-                            Spacer()
-                        }
+                        Helper(symbol: "qrcode.viewfinder",
+                               size: 34,
+                               title: "Use the camera on your device to scan a *QR Code* and start downloading the map.")
+                        
+                        Helper(symbol: "photo",
+                               size: 28,
+                               title: "You can also import a *QR Code* by selecting an image from your *Photo Library*.")
                     }
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)

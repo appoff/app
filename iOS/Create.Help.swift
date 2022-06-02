@@ -24,9 +24,6 @@ Avoid creating maps under a cellular network, this will consume huge amounts of 
 Once you have created a map is not possible to edit it anymore, if you want to change anything you need to create a new one instead.
 """).font(.callout)
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .headerProminence(.increased)
                     
                     Section("Markers") {
                         Text("""
@@ -34,55 +31,21 @@ You can add markers by touching down on the map and keeping it pressed for a few
 
 It is also possible to add markers by searching for a specific address or point of interest, if you select any search result it will be added to the map.
 
+If you want to add a marker on your current location you can do that on the **Options** menu.
+
 Every time you add or remove a marker the directions between the markers will be updated.
 
 Once a marker is added you can remove it by selecting it and hitting the remove button on the popup.
 """).font(.callout)
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .headerProminence(.increased)
 
                     Section("Controls") {
-                        HStack(spacing: 0) {
-                            Image(systemName: "qrcode.viewfinder")
-                                .font(.system(size: 34, weight: .thin))
-                                .symbolRenderingMode(.hierarchical)
-                                .frame(width: 64)
-                            Text("""
-    Use the camera on your device to scan a *QR Code* and start downloading the map.
-    """).font(.callout)
-                            Spacer()
-                        }
-                        HStack(spacing: 0) {
-                            Image(systemName: "photo")
-                                .font(.system(size: 28, weight: .thin))
-                                .symbolRenderingMode(.hierarchical)
-                                .frame(width: 64)
-                            Text("""
-    You can also import a *QR Code* by selecting an image from your *Photo Library*.
-    """).font(.callout)
-                            Spacer()
-                        }
+                        Helper(symbol: "character.cursor.ibeam", size: 20, title: "Define a title to your map to differentiate it.")
+                        Helper(symbol: "slider.horizontal.3", size: 22, title: "Options menu.")
+                        Helper(symbol: "magnifyingglass", size: 20, title: "Search for an address or place of interest.")
+                        Helper(symbol: "square.stack.3d.up", size: 22, title: "Settings menu.")
+                        Helper(symbol: "location.viewfinder", size: 22, title: "Follow your current location.")
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .headerProminence(.increased)
-                    
-                    Section("3. Downloading") {
-                        Text("""
-When a *QR Code* is loaded the map will start downloading.
-""").font(.callout)
-                        Text("""
-Maps use a lot of memory, so if you are not using a stable connection, or you are using mobile data the map will not be downloaded at the moment.
-""").font(.callout)
-                        Text("""
-If there is any error downloading the map, this will still be added to the list of your maps and you can try downloading it again when you get a more stable Internet connection.
-""").font(.callout)
-                    }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .headerProminence(.increased)
                 }
                 .listStyle(.sidebar)
                 .toolbar {
