@@ -8,7 +8,7 @@ struct Search: View {
     
     var body: some View {
         NavigationView {
-            List() {
+            List {
                 if field.results.isEmpty {
                     VStack(spacing: 20) {
                         Image(systemName: "magnifyingglass")

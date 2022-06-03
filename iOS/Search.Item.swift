@@ -11,8 +11,7 @@ extension Search {
             Button(action: action) {
                 HStack {
                     Text(title)
-                    + Text("\n")
-                    + Text(subtitle)
+                    + complement
                     Spacer()
                     Button(action: complete) {
                         Image(systemName: "character.cursor.ibeam")
@@ -30,7 +29,7 @@ extension Search {
         
         private var title: AttributedString {
             var string = AttributedString(item.title, attributes: .init([
-                .font: UIFont.preferredFont(forTextStyle: .body),
+                .font: UIFont.preferredFont(forTextStyle: .callout),
                 .foregroundColor: UIColor.secondaryLabel]))
             
             item
@@ -39,10 +38,20 @@ extension Search {
                     let substring = item.title[item.title.index(item.title.startIndex, offsetBy: value.rangeValue.lowerBound) ..< item.title.index(item.title.startIndex, offsetBy: value.rangeValue.upperBound)]
                     if let range = string.range(of: substring) {
                         string[range].foregroundColor = UIColor.label
+                        string[range].font = .callout.bold()
                     }
                 }
             
             return string
+        }
+        
+        private var complement: Text {
+            if item.subtitle.isEmpty {
+                return Text("")
+            } else {
+                return Text("\n")
+                + Text(subtitle)
+            }
         }
         
         private var subtitle: AttributedString {
