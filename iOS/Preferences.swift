@@ -123,18 +123,16 @@ struct Preferences: View {
     
     private var app: some View {
         Section("Offline") {
-            Button {
-                
-            } label: {
+            NavigationLink(destination: About.init) {
                 HStack {
+                    Image("Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 26)
                     Text("About")
                         .font(.callout)
                         .foregroundColor(.primary)
                     Spacer()
-                    Image("Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30)
                 }
             }
             
@@ -156,9 +154,9 @@ struct Preferences: View {
                 }
             }
             
-            Link(destination: .init(string: "privacy://goprivacy.app")!) {
+            Link(destination: .init(string: "https://appoff.github.io/about")!) {
                 HStack {
-                    Text("goprivacy.app")
+                    Text("appoff.github.io/about")
                         .foregroundColor(.primary)
                         .font(.callout)
                     

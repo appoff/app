@@ -27,6 +27,7 @@
 		CE4FF12028327F84008DB139 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FF11F28327F84008DB139 /* Created.swift */; };
 		CE502C9728291267004F16AF /* Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C9628291267004F16AF /* Pop.swift */; };
 		CE502C99282928DC004F16AF /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE502C98282928DC004F16AF /* Loading.swift */; };
+		CE50539C284A18C2001ACCCB /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50539B284A18C2001ACCCB /* About.swift */; };
 		CE5162852846118F007D5D61 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5162842846118F007D5D61 /* Shared.swift */; };
 		CE51628728462DC8007D5D61 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51628628462DC8007D5D61 /* Scan.swift */; };
 		CE7647AC2840DF8F004B7C42 /* Premium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7647AB2840DF8F004B7C42 /* Premium.swift */; };
@@ -99,6 +100,7 @@
 		CE4FF11F28327F84008DB139 /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		CE502C9628291267004F16AF /* Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pop.swift; sourceTree = "<group>"; };
 		CE502C98282928DC004F16AF /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		CE50539B284A18C2001ACCCB /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		CE5162842846118F007D5D61 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		CE51628628462DC8007D5D61 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
 		CE7647AB2840DF8F004B7C42 /* Premium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Premium.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				CE2C43A72822D3EA000007A2 /* Info.plist */,
 				CE3A92C5283E6C5400D52C2A /* Configuration.storekit */,
 				CE2C43AB2822D4CB000007A2 /* Launch Screen.storyboard */,
+				CE50539B284A18C2001ACCCB /* About.swift */,
 				CE81D91E2823CEDB00364029 /* Action.swift */,
 				CE979A932827EB1100FC0EB0 /* App.Delegate.swift */,
 				CE2C43982822D2B0000007A2 /* App.swift */,
@@ -363,6 +366,7 @@
 				CE81D91F2823CEDB00364029 /* Action.swift in Sources */,
 				CE979AA42827F0EB00FC0EB0 /* Sheet.swift in Sources */,
 				CE2C43B22822E1E2000007A2 /* Create.swift in Sources */,
+				CE50539C284A18C2001ACCCB /* About.swift in Sources */,
 				CE2C43AE2822E071000007A2 /* Map.swift in Sources */,
 				CE4FF11E28327F42008DB139 /* Deleted.swift in Sources */,
 				CE979A942827EB1100FC0EB0 /* App.Delegate.swift in Sources */,
