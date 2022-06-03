@@ -15,7 +15,6 @@
 		CE2C43AE2822E071000007A2 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43AD2822E071000007A2 /* Map.swift */; };
 		CE2C43B22822E1E2000007A2 /* Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B12822E1E2000007A2 /* Create.swift */; };
 		CE2C43B42822E4A0000007A2 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B32822E4A0000007A2 /* Main.swift */; };
-		CE2C43B62822E4EC000007A2 /* SessionOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B52822E4EC000007A2 /* SessionOld.swift */; };
 		CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43B72822E9AF000007A2 /* UIApplication.swift */; };
 		CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */; };
 		CE3AF0EA2844F3C10016AA02 /* Downloaded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AF0E92844F3C10016AA02 /* Downloaded.swift */; };
@@ -86,7 +85,6 @@
 		CE2C43AD2822E071000007A2 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		CE2C43B12822E1E2000007A2 /* Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.swift; sourceTree = "<group>"; };
 		CE2C43B32822E4A0000007A2 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
-		CE2C43B52822E4EC000007A2 /* SessionOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionOld.swift; sourceTree = "<group>"; };
 		CE2C43B72822E9AF000007A2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE3A92C5283E6C5400D52C2A /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 				CE81D9202823E0BE00364029 /* Search.swift */,
 				CEC51ABA28252FF3003DA00D /* Session.Flow.swift */,
 				CEC51AB828252F85003DA00D /* Session.swift */,
-				CE2C43B52822E4EC000007A2 /* SessionOld.swift */,
 				CE3AF0ED284525AB0016AA02 /* Share.swift */,
 				CE5162842846118F007D5D61 /* Shared.swift */,
 				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
@@ -352,7 +349,6 @@
 				CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */,
 				CE979A9E2827EBD400FC0EB0 /* Store.Item.swift in Sources */,
 				CE502C99282928DC004F16AF /* Loading.swift in Sources */,
-				CE2C43B62822E4EC000007A2 /* SessionOld.swift in Sources */,
 				CE3AF0EE284525AB0016AA02 /* Share.swift in Sources */,
 				CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */,
 				CED82A162848A7C8003742CC /* Scan.Error.swift in Sources */,
