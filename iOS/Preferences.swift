@@ -46,7 +46,7 @@ struct Preferences: View {
     
     private var purchases: some View {
         Section("In-App Purchases") {
-            NavigationLink(destination: Info(title: "Privacy Policy", text: Copy.policy)) {
+            NavigationLink(destination: Purchases.init) {
                 Label("Offline Cloud", systemImage: "cloud")
                     .symbolRenderingMode(.hierarchical)
                     .font(.callout)
