@@ -77,7 +77,6 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
             guard oldValue != rotate else { return }
             
             map.isRotateEnabled = rotate
-            position.send()
             
             Task {
                 await cloud.update(rotate: rotate)
