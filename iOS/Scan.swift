@@ -1,4 +1,5 @@
 import SwiftUI
+import Offline
 
 struct Scan: View {
     @StateObject var status: Status
