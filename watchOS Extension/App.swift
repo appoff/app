@@ -1,20 +1,21 @@
 import SwiftUI
+import Offline
 
 @main struct App: SwiftUI.App {
-    @State private var selection = 0
+    @State private var loading = true
+    @State private var projects = [Project]()
     @Environment(\.scenePhase) private var phase
     @WKExtensionDelegateAdaptor(Delegate.self) private var delegate
     
     var body: some Scene {
         WindowGroup {
-            TabView(selection: $selection) {
-                Circle()
-            }
-            .task {
-                cloud.ready.notify(queue: .main) {
-                    cloud.pull.send()
+            Main(projects: projects, loading: loading)
+                .task {
+                    cloud.ready.notify(queue: .main) {
+                        cloud.pull.send()
+                        loading = false
+                    }
                 }
-            }
         }
         .onChange(of: phase) {
             if $0 == .active {

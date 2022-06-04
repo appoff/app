@@ -10,7 +10,6 @@
 		CE146BAA284B6E73002B031D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE146BA9284B6E73002B031D /* Assets.xcassets */; };
 		CE146BB0284B6E73002B031D /* App.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE146BAF284B6E73002B031D /* App.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE146BB7284B6E73002B031D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE146BB6284B6E73002B031D /* App.swift */; };
-		CE146BBB284B6E73002B031D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE146BBA284B6E73002B031D /* Assets.xcassets */; };
 		CE146BC2284B6E73002B031D /* App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CE146BA7284B6E72002B031D /* App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE2C43992822D2B0000007A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43982822D2B0000007A2 /* App.swift */; };
 		CE2C439D2822D2B0000007A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2C439C2822D2B0000007A2 /* Assets.xcassets */; };
@@ -77,6 +76,12 @@
 		CEF58919284B76C20049A81C /* Offline in Frameworks */ = {isa = PBXBuildFile; productRef = CEF58918284B76C20049A81C /* Offline */; };
 		CEF5891A284B7C140049A81C /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A952827EB6E00FC0EB0 /* Global.swift */; };
 		CEF5891D284B7CB80049A81C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF5891C284B7CB80049A81C /* CloudKit.framework */; };
+		CEF5891F284B7D6B0049A81C /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5891E284B7D6B0049A81C /* Projects.swift */; };
+		CEF58921284B7E2B0049A81C /* Global.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF58920284B7E2B0049A81C /* Global.xcassets */; };
+		CEF58922284B7E2B0049A81C /* Global.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF58920284B7E2B0049A81C /* Global.xcassets */; };
+		CEF58925284B7ECD0049A81C /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58923284B7ECD0049A81C /* Loading.swift */; };
+		CEF58928284B7EE30049A81C /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58926284B7EE30049A81C /* Empty.swift */; };
+		CEF5892B284B7F4F0049A81C /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58929284B7F4F0049A81C /* Main.swift */; };
 		CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D42834E32500E47E23 /* Tiler.swift */; };
 		CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D62834E4A900E47E23 /* Navigate.swift */; };
 		CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */; };
@@ -131,7 +136,6 @@
 		CE146BA9284B6E73002B031D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE146BAF284B6E73002B031D /* App.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = App.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE146BB6284B6E73002B031D /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		CE146BBA284B6E73002B031D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE146BBF284B6E73002B031D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE2C43952822D2B0000007A2 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE2C43982822D2B0000007A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -200,6 +204,11 @@
 		CEF58916284B76AE0049A81C /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
 		CEF5891B284B7CAF0049A81C /* watchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "watchOS Extension.entitlements"; sourceTree = "<group>"; };
 		CEF5891C284B7CB80049A81C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		CEF5891E284B7D6B0049A81C /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
+		CEF58920284B7E2B0049A81C /* Global.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Global.xcassets; sourceTree = "<group>"; };
+		CEF58923284B7ECD0049A81C /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		CEF58926284B7EE30049A81C /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
+		CEF58929284B7F4F0049A81C /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		CEFC28D42834E32500E47E23 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
 		CEFC28D62834E4A900E47E23 /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 		CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Control.swift; sourceTree = "<group>"; };
@@ -244,7 +253,10 @@
 				CE146BBF284B6E73002B031D /* Info.plist */,
 				CEF58916284B76AE0049A81C /* App.Delegate.swift */,
 				CE146BB6284B6E73002B031D /* App.swift */,
-				CE146BBA284B6E73002B031D /* Assets.xcassets */,
+				CEF58926284B7EE30049A81C /* Empty.swift */,
+				CEF58923284B7ECD0049A81C /* Loading.swift */,
+				CEF58929284B7F4F0049A81C /* Main.swift */,
+				CEF5891E284B7D6B0049A81C /* Projects.swift */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -335,6 +347,7 @@
 				CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */,
 				CE979A992827EBAD00FC0EB0 /* Store.swift */,
 				CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */,
+				CEF58920284B7E2B0049A81C /* Global.xcassets */,
 				CE2C43A92822D494000007A2 /* Media.xcassets */,
 			);
 			path = Shared;
@@ -480,7 +493,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE146BBB284B6E73002B031D /* Assets.xcassets in Resources */,
+				CEF58922284B7E2B0049A81C /* Global.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF58921284B7E2B0049A81C /* Global.xcassets in Resources */,
 				CE2C43AC2822D4CB000007A2 /* Launch Screen.storyboard in Resources */,
 				CE2C43AA2822D494000007A2 /* Media.xcassets in Resources */,
 				CE2C439D2822D2B0000007A2 /* Assets.xcassets in Resources */,
@@ -503,7 +517,11 @@
 			files = (
 				CE146BB7284B6E73002B031D /* App.swift in Sources */,
 				CEF58917284B76AE0049A81C /* App.Delegate.swift in Sources */,
+				CEF58925284B7ECD0049A81C /* Loading.swift in Sources */,
 				CEF5891A284B7C140049A81C /* Global.swift in Sources */,
+				CEF5891F284B7D6B0049A81C /* Projects.swift in Sources */,
+				CEF5892B284B7F4F0049A81C /* Main.swift in Sources */,
+				CEF58928284B7EE30049A81C /* Empty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
