@@ -10,6 +10,8 @@ struct Main: View {
             Loading()
         } else if projects.isEmpty {
             Empty()
+        } else {
+            Projects(projects: projects)
         }
     }
 }

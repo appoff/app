@@ -10,6 +10,9 @@ import Offline
     var body: some Scene {
         WindowGroup {
             Main(projects: projects, loading: loading)
+                .onReceive(cloud) {
+                    projects = $0.projects
+                }
                 .task {
                     cloud.ready.notify(queue: .main) {
                         cloud.pull.send()

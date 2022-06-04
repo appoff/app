@@ -82,6 +82,7 @@
 		CEF58925284B7ECD0049A81C /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58923284B7ECD0049A81C /* Loading.swift */; };
 		CEF58928284B7EE30049A81C /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58926284B7EE30049A81C /* Empty.swift */; };
 		CEF5892B284B7F4F0049A81C /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58929284B7F4F0049A81C /* Main.swift */; };
+		CEF5892E284B86D10049A81C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5892C284B86D10049A81C /* Item.swift */; };
 		CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D42834E32500E47E23 /* Tiler.swift */; };
 		CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D62834E4A900E47E23 /* Navigate.swift */; };
 		CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */; };
@@ -209,6 +210,7 @@
 		CEF58923284B7ECD0049A81C /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		CEF58926284B7EE30049A81C /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		CEF58929284B7F4F0049A81C /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		CEF5892C284B86D10049A81C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CEFC28D42834E32500E47E23 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
 		CEFC28D62834E4A900E47E23 /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 		CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Control.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				CEF58916284B76AE0049A81C /* App.Delegate.swift */,
 				CE146BB6284B6E73002B031D /* App.swift */,
 				CEF58926284B7EE30049A81C /* Empty.swift */,
+				CEF5892C284B86D10049A81C /* Item.swift */,
 				CEF58923284B7ECD0049A81C /* Loading.swift */,
 				CEF58929284B7F4F0049A81C /* Main.swift */,
 				CEF5891E284B7D6B0049A81C /* Projects.swift */,
@@ -519,6 +522,7 @@
 				CEF58917284B76AE0049A81C /* App.Delegate.swift in Sources */,
 				CEF58925284B7ECD0049A81C /* Loading.swift in Sources */,
 				CEF5891A284B7C140049A81C /* Global.swift in Sources */,
+				CEF5892E284B86D10049A81C /* Item.swift in Sources */,
 				CEF5891F284B7D6B0049A81C /* Projects.swift in Sources */,
 				CEF5892B284B7F4F0049A81C /* Main.swift in Sources */,
 				CEF58928284B7EE30049A81C /* Empty.swift in Sources */,
