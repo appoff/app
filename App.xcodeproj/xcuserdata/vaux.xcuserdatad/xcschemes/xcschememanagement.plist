@@ -9,9 +9,24 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>watchOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>CE146BA6284B6E72002B031D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE146BAE284B6E73002B031D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CE2C43942822D2B0000007A2</key>
 		<dict>
 			<key>primary</key>
