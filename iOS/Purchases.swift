@@ -92,7 +92,9 @@ struct Purchases: View {
                 status = $0
             }
             .task {
+                store.status.value = .loading
                 product = await store.load(item: .cloud)
+                store.status.value = .ready
             }
         }
     }

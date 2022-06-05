@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CE146BA6284B6E72002B031D"
-               BuildableName = "Offline.app"
+               BuildableName = "App.app"
                BlueprintName = "watchOS"
                ReferencedContainer = "container:App.xcodeproj">
             </BuildableReference>
@@ -59,7 +59,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE146BA6284B6E72002B031D"
-            BuildableName = "Offline.app"
+            BuildableName = "App.app"
             BlueprintName = "watchOS"
             ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE146BA6284B6E72002B031D"
-            BuildableName = "Offline.app"
+            BuildableName = "App.app"
             BlueprintName = "watchOS"
             ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
