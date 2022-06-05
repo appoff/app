@@ -3,6 +3,8 @@ import CoreLocation
 
 struct Preferences: View {
     let session: Session
+    @State private var store = false
+    @State private var about = false
     @State private var notifications = false
     @State private var location = false
     
@@ -46,12 +48,22 @@ struct Preferences: View {
     
     private var purchases: some View {
         Section("In-App Purchases") {
-            NavigationLink(destination: Purchases.init) {
-                Label("Offline Cloud", systemImage: "cloud")
-                    .symbolRenderingMode(.hierarchical)
-                    .font(.callout)
-                    .foregroundColor(.primary)
+            Button {
+                store = true
+            } label: {
+                HStack {
+                    Text("Offline Cloud")
+                        .font(.callout)
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "cloud")
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundColor(.primary)
+                        .font(.system(size: 16, weight: .light))
+                        .frame(width: 18)
+                }
             }
+            .sheet(isPresented: $store, content: Purchases.init)
         }
         .headerProminence(.increased)
     }
@@ -77,7 +89,7 @@ struct Preferences: View {
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.primary)
                         .font(.system(size: 16, weight: .light))
-                        .frame(width: 24)
+                        .frame(width: 18)
                 }
             }
             Button {
@@ -99,7 +111,7 @@ struct Preferences: View {
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.primary)
                         .font(.system(size: 16, weight: .light))
-                        .frame(width: 24)
+                        .frame(width: 18)
                 }
             }
             Button {
@@ -114,7 +126,7 @@ struct Preferences: View {
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.primary)
                         .font(.system(size: 16, weight: .light))
-                        .frame(width: 24)
+                        .frame(width: 18)
                 }
             }
         }
@@ -123,18 +135,21 @@ struct Preferences: View {
     
     private var app: some View {
         Section("Offline") {
-            NavigationLink(destination: About.init) {
+            Button {
+                about = true
+            } label: {
                 HStack {
-                    Image("Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 26)
                     Text("About")
                         .font(.callout)
                         .foregroundColor(.primary)
                     Spacer()
+                    Image("Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 26)
                 }
             }
+            .sheet(isPresented: $about, content: About.init)
             
             Button {
                 Task {
@@ -150,7 +165,7 @@ struct Preferences: View {
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.primary)
                         .font(.system(size: 16, weight: .light))
-                        .frame(width: 24)
+                        .frame(width: 18)
                 }
             }
             
@@ -165,7 +180,7 @@ struct Preferences: View {
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.primary)
                         .font(.system(size: 16, weight: .light))
-                        .frame(width: 24)
+                        .frame(width: 18)
                 }
             }
         }

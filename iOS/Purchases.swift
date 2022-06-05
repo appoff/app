@@ -5,29 +5,40 @@ struct Purchases: View {
     @State private var status = Store.Status.loading
     @State private var product: Product?
     @AppStorage("cloud") private var cloud = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        if cloud {
-            VStack(spacing: 30) {
-                Image(systemName: "cloud")
-                    .font(.system(size: 80, weight: .ultraLight))
-                    .symbolRenderingMode(.hierarchical)
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 28, weight: .light))
+                        .frame(width: 36, height: 36)
+                        .padding(.trailing, 12)
+                        .contentShape(Rectangle())
+                }
+            }
+            .padding(.top, 12)
+            
+            Image(systemName: "cloud")
+                .font(.system(size: 120, weight: .ultraLight))
+                .symbolRenderingMode(.hierarchical)
+                .padding(.top)
+            
+            Spacer()
+            
+            if cloud {
                 Text("Offline Cloud")
                     .font(.title.weight(.light))
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 35, weight: .ultraLight))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(.secondary)
-            }
-        } else {
-            VStack(spacing: 12) {
-                Image(systemName: "cloud")
-                    .font(.system(size: 120, weight: .ultraLight))
-                    .symbolRenderingMode(.hierarchical)
-                    .padding(.top)
-                
                 Spacer()
-                
+            } else {
                 switch status {
                 case .loading:
                     Image(systemName: "hourglass")
@@ -88,14 +99,13 @@ struct Purchases: View {
                     Spacer()
                 }
             }
-            .onReceive(store.status) {
-                status = $0
-            }
-            .task {
-                store.status.value = .loading
-                product = await store.load(item: .cloud)
-                store.status.value = .ready
-            }
+        }.onReceive(store.status) {
+            status = $0
+        }
+        .task {
+            store.status.value = .loading
+            product = await store.load(item: .cloud)
+            store.status.value = .ready
         }
     }
 }
