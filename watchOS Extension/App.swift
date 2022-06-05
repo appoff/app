@@ -11,7 +11,11 @@ import Offline
         WindowGroup {
             Main(projects: projects, loading: loading)
                 .onReceive(cloud) {
-                    projects = $0.projects
+                    projects = $0
+                        .projects
+                        .filter {
+                            $0.schema != nil
+                        }
                 }
                 .task {
                     cloud.ready.notify(queue: .main) {

@@ -7,8 +7,10 @@ struct Projects: View {
     var body: some View {
         NavigationView {
             List(projects) { project in
-                NavigationLink(destination: Item(project: project)) {
+                NavigationLink(destination: Detail(project: project)) {
                     Text(project.header.title)
+                        .font(.callout)
+                        .lineLimit(1)
                 }
             }
             .navigationTitle("Maps")
