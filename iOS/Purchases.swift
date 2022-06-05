@@ -34,8 +34,9 @@ struct Purchases: View {
                 Text("Offline Cloud")
                     .font(.title.weight(.light))
                 Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 35, weight: .ultraLight))
+                    .font(.system(size: 35, weight: .medium))
                     .symbolRenderingMode(.hierarchical)
+                    .foregroundColor(.primary)
                     .foregroundStyle(.secondary)
                 Spacer()
             } else {

@@ -43,5 +43,10 @@ struct Created: View {
             }
             Spacer()
         }
+        .onAppear {
+            if Defaults.rate {
+                UIApplication.shared.review()
+            }
+        }
     }
 }

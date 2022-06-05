@@ -11,12 +11,12 @@ import Offline
                 .task {
                     cloud.ready.notify(queue: .main) {
                         cloud.pull.send()
+                        Defaults.start()
                         
                         Task
                             .detached {
                                 _ = await UNUserNotificationCenter.request()
                                 await store.launch()
-                                Defaults.start()
                             }
                     }
                 }

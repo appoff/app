@@ -60,6 +60,11 @@ struct Shared: View {
             
             Spacer()
         }
+        .onAppear {
+            if Defaults.rate {
+                UIApplication.shared.review()
+            }
+        }
         .task {
             url = .init(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(header.title + ".png")
         }
