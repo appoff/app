@@ -120,20 +120,20 @@ struct Create: View {
                             Spacer()
                             
                             if !builder.route.isEmpty {
+                                Text("Distance ")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    
+                                Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
+                                     format: .measurement(width: .abbreviated))
+                                    .font(.callout.monospacedDigit())
+                                    .padding(.leading)
+                                    
                                 Text("Duration ")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                 
                                 Text(Date(timeIntervalSinceNow: -builder.route.duration) ..< Date.now, format: .timeDuration)
-                                    .font(.callout.monospacedDigit())
-                                
-                                Text("Distance ")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.leading)
-                                
-                                Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
-                                     format: .measurement(width: .abbreviated))
                                     .font(.callout.monospacedDigit())
                                     .padding(.trailing)
                             }

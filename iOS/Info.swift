@@ -16,11 +16,11 @@ struct Info: View {
             if size > 0 {
                 HStack {
                     VStack(alignment: .leading) {
-                        Item(title: "Duration", content: .init(Date(timeIntervalSinceNow: -.init(header.duration)) ..< Date.now, format: .timeDuration))
-                    }
-                    VStack(alignment: .leading) {
                         Item(title: "Distance", content: .init(Measurement(value: .init(header.distance), unit: UnitLength.meters),
                                                                format: .measurement(width: .abbreviated)))
+                    }
+                    VStack(alignment: .leading) {
+                        Item(title: "Duration", content: .init(Date(timeIntervalSinceNow: -.init(header.duration)) ..< Date.now, format: .timeDuration))
                     }
                     VStack(alignment: .leading) {
                         Item(title: "Size", content: .init(.init(size), format: .byteCount(style: .file)))
