@@ -5,8 +5,8 @@ struct Navigate: View {
     let schema: Schema
     
     var body: some View {
-        VStack {
-            
+        ZStack {
+            Draw()
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
