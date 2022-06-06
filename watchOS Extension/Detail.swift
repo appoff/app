@@ -22,17 +22,31 @@ struct Detail: View {
                         .padding(.bottom)
                 }
                 
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left.circle.fill")
-                        .font(.system(size: 25, weight: .light))
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.white, .black)
-                        .frame(width: 45, height: 45)
-                        .contentShape(Rectangle())
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left.circle.fill")
+                            .font(.system(size: 28, weight: .light))
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.white, .black)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .frame(width: 65, height: 65)
+                    Spacer()
                 }
             }
+            
+            NavigationLink(destination: Navigate(schema: project.schema!)) {
+                Text("Open")
+            }
+            .font(.callout.weight(.medium))
+            .tint(.white)
+            .foregroundColor(.black)
+            .buttonStyle(.borderedProminent)
+            .padding()
+            
             Text(project.header.title)
                 .font(.callout)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)

@@ -11,6 +11,8 @@ struct Projects: View {
                     Text(project.header.title)
                         .font(.callout)
                         .lineLimit(1)
+                        .padding(.vertical, 14)
+                        .contentShape(Rectangle())
                 }
             }
             .navigationTitle("Maps")
