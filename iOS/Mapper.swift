@@ -207,10 +207,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
     final func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
     final func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
     final func locationManager(_: CLLocationManager, didFailWithError: Error) { }
-    
-#if os(iOS)
     final func locationManager(_: CLLocationManager, didFinishDeferredUpdatesWithError: Error?) { }
-#endif
     
     private func user(span: Bool) {
         UIView

@@ -13,7 +13,7 @@
 		CE146BC2284B6E73002B031D /* App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CE146BA7284B6E72002B031D /* App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE1EF9C1284E0AAA00E43F2B /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EF9C0284E0AAA00E43F2B /* Navigate.swift */; };
 		CE1EF9C3284E0C3A00E43F2B /* Navigate.Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EF9C2284E0C3A00E43F2B /* Navigate.Draw.swift */; };
-		CE1EF9C5284E0E1D00E43F2B /* Navigate.Draw.Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EF9C4284E0E1D00E43F2B /* Navigate.Draw.Model.swift */; };
+		CE1EF9C5284E0E1D00E43F2B /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EF9C4284E0E1D00E43F2B /* Session.swift */; };
 		CE2C43992822D2B0000007A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2C43982822D2B0000007A2 /* App.swift */; };
 		CE2C439D2822D2B0000007A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2C439C2822D2B0000007A2 /* Assets.xcassets */; };
 		CE2C43A62822D2E4000007A2 /* Offline in Frameworks */ = {isa = PBXBuildFile; productRef = CE2C43A52822D2E4000007A2 /* Offline */; };
@@ -144,7 +144,7 @@
 		CE146BBF284B6E73002B031D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1EF9C0284E0AAA00E43F2B /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 		CE1EF9C2284E0C3A00E43F2B /* Navigate.Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Draw.swift; sourceTree = "<group>"; };
-		CE1EF9C4284E0E1D00E43F2B /* Navigate.Draw.Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Draw.Model.swift; sourceTree = "<group>"; };
+		CE1EF9C4284E0E1D00E43F2B /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CE2C43952822D2B0000007A2 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE2C43982822D2B0000007A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE2C439C2822D2B0000007A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -268,10 +268,10 @@
 				CEF58926284B7EE30049A81C /* Empty.swift */,
 				CEF58923284B7ECD0049A81C /* Loading.swift */,
 				CEF58929284B7F4F0049A81C /* Main.swift */,
-				CE1EF9C4284E0E1D00E43F2B /* Navigate.Draw.Model.swift */,
 				CE1EF9C2284E0C3A00E43F2B /* Navigate.Draw.swift */,
 				CE1EF9C0284E0AAA00E43F2B /* Navigate.swift */,
 				CEF5891E284B7D6B0049A81C /* Projects.swift */,
+				CE1EF9C4284E0E1D00E43F2B /* Session.swift */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -540,7 +540,7 @@
 				CEE82CCF284CCD2500228B2D /* Detail.Item.swift in Sources */,
 				CE1EF9C1284E0AAA00E43F2B /* Navigate.swift in Sources */,
 				CE1EF9C3284E0C3A00E43F2B /* Navigate.Draw.swift in Sources */,
-				CE1EF9C5284E0E1D00E43F2B /* Navigate.Draw.Model.swift in Sources */,
+				CE1EF9C5284E0E1D00E43F2B /* Session.swift in Sources */,
 				CEF58928284B7EE30049A81C /* Empty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -740,6 +740,7 @@
 				INFOPLIST_FILE = "watchOS Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2022 Offline";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -783,6 +784,7 @@
 				INFOPLIST_FILE = "watchOS Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Offline;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2022 Offline";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Activate your location to get navigation";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

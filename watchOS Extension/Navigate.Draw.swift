@@ -2,23 +2,23 @@ import SwiftUI
 
 extension Navigate {
     struct Draw: View {
-        @StateObject private var model = Model()
+        let session: Session
         
         var body: some View {
             TimelineView(.periodic(from: .now, by: 0.05)) { timeline in
                 Canvas { context, size in
-                    model.tick(date: timeline.date, size: size)
+                    session.tick(date: timeline.date, size: size)
                     
                     let center = CGPoint(x: size.width / 2, y: size.height / 2)
                     
                     context
                         .fill(.init {
                             $0.addArc(center: center,
-                                      radius: model.radius,
+                                      radius: session.radius,
                                       startAngle: .degrees(0),
                                       endAngle: .degrees(360),
                                       clockwise: false)
-                        }, with: .color(.white.opacity(model.opacity)))
+                        }, with: .color(.white.opacity(session.opacity)))
                     
                     context
                         .fill(.init {
@@ -32,22 +32,19 @@ extension Navigate {
                     context.translateBy(x: center.x, y: center.y)
                     context
                         .drawLayer { layer in
-                            layer.translateBy(x: 15, y: 30)
-                            layer.rotate(by: .init(degrees: 180))
+                            layer.rotate(by: .degrees(45))
                             layer
                                 .fill(.init {
-                                    $0.move(to: .zero)
-                                    $0.addLine(to: .init(x: 30, y: 0))
-                                    $0.addLine(to: .init(x: 24, y: 30))
-                                    $0.addLine(to: .init(x: 6, y: 30))
+                                    $0.move(to: .init(x: -15, y: -15))
+                                    $0.addLine(to: .init(x: 15, y: -15))
+                                    $0.addLine(to: .init(x: 9, y: 15))
+                                    $0.addLine(to: .init(x: -9, y: 15))
                                     $0.closeSubpath()
-                                    
                                 }, with: .linearGradient(.init(colors: [
                                     .init(white: 1, opacity: 0),
                                     .init(white: 1, opacity: 1)]),
-                                                         startPoint: .zero,
-                                                         endPoint: .init(x: 0, y: 30)))
-                            layer.translateBy(x: -15, y: -30)
+                                                         startPoint: .init(x: 0, y: -15),
+                                                         endPoint: .init(x: 0, y: 15)))
                         }
                     
                     context.translateBy(x: -center.x, y: -center.y)
