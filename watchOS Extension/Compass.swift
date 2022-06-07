@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct Compass: View {
-    @StateObject private var session = Session()
+    private let session = Session()
+    @Environment(\.scenePhase) private var phase
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -26,5 +27,8 @@ struct Compass: View {
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
+        .onAppear {
+            session.start()
+        }
     }
 }

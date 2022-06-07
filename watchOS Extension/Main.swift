@@ -13,8 +13,8 @@ struct Main: View {
                         Text("Compass")
                             .font(.callout)
                         Spacer()
-                        Image(systemName: "location.north")
-                            .font(.system(size: 18, weight: .light))
+                        Image(systemName: "location.north.fill")
+                            .font(.system(size: 12, weight: .medium))
                     }
                     .padding(.vertical, 14)
                     .contentShape(Rectangle())

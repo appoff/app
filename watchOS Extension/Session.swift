@@ -11,6 +11,14 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
         print("session")
         super.init()
         manager.delegate = self
+    }
+    
+    deinit {
+        print("session gone")
+        manager.stopUpdatingHeading()
+    }
+    
+    func start() {
         manager.stopUpdatingHeading()
         manager.startUpdatingHeading()
         
@@ -19,17 +27,12 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    deinit {
-        print("session gone")
-        manager.stopUpdatingHeading()
-    }
-    
     func tick(date: Date, size: CGSize) {
-        opacity = radius < 10 ? 0.1 : opacity + 0.005
-        radius = radius < 10 ? 20 : radius - 0.075
+        opacity = radius < 9 ? 0.1 : opacity + 0.005
+        radius = radius < 9 ? 20 : radius - 0.075
     }
     
-    final func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
+    func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
         guard
             didUpdateHeading.headingAccuracy >= 0,
             didUpdateHeading.trueHeading >= 0
@@ -37,8 +40,8 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
         heading = didUpdateHeading.trueHeading
     }
     
-    final func locationManagerShouldDisplayHeadingCalibration(_: CLLocationManager) -> Bool { true }
-    final func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
-    final func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
-    final func locationManager(_: CLLocationManager, didFailWithError: Error) { }
+    func locationManagerShouldDisplayHeadingCalibration(_: CLLocationManager) -> Bool { true }
+    func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
+    func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
+    func locationManager(_: CLLocationManager, didFailWithError: Error) { }
 }

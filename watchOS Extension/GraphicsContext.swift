@@ -2,11 +2,15 @@ import SwiftUI
 
 extension GraphicsContext {
     mutating func compass(session: Session, center: CGPoint) {
+        draw(Text(Image(systemName: "n.circle.fill"))
+            .font(.system(size: 15, weight: .medium))
+            .foregroundColor(.secondary),
+             at: .init(x: center.x, y: 10))
         
         draw(Text(Image(systemName: "location.north.fill"))
-            .font(.system(size: 25, weight: .light))
+            .font(.system(size: 15, weight: .medium))
             .foregroundColor(.secondary),
-             at: .init(x: center.x, y: 20))
+             at: .init(x: center.x, y: 30))
         
         fill(.init {
             $0.addArc(center: center,
@@ -18,21 +22,11 @@ extension GraphicsContext {
         
         fill(.init {
             $0.addArc(center: center,
-                      radius: 10,
+                      radius: 9,
                       startAngle: .degrees(0),
                       endAngle: .degrees(360),
                       clockwise: false)
         }, with: .color(.white))
-        
-        stroke(.init {
-            $0.addArc(center: center,
-                      radius: 30,
-                      startAngle: .degrees(0),
-                      endAngle: .degrees(360),
-                      clockwise: false)
-        },
-               with: .color(white: 0.15),
-               style: .init(lineWidth: 10, dash: [1.5, 2.5]))
         
         translateBy(x: center.x - 15, y: center.y - 30)
         
