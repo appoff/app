@@ -7,30 +7,33 @@ extension Navigate {
         var body: some View {
             TimelineView(.periodic(from: .now, by: 0.05)) { timeline in
                 Canvas { context, size in
-                    
                     model.tick(date: timeline.date, size: size)
+                    
                     let center = CGPoint(x: size.width / 2, y: size.height / 2)
                     
-//                    context
-//                        .fill(.init {
-//                            $0.addArc(center: center,
-//                                      radius: model.radius,
-//                                      startAngle: .degrees(0),
-//                                      endAngle: .degrees(360),
-//                                      clockwise: false)
-//                        }, with: .color(.white.opacity(model.opacity)))
-//                    
-//                    context
-//                        .fill(.init {
-//                            $0.addArc(center: center,
-//                                      radius: 10,
-//                                      startAngle: .degrees(0),
-//                                      endAngle: .degrees(360),
-//                                      clockwise: false)
-//                        }, with: .color(.white))
+                    context
+                        .fill(.init {
+                            $0.addArc(center: center,
+                                      radius: model.radius,
+                                      startAngle: .degrees(0),
+                                      endAngle: .degrees(360),
+                                      clockwise: false)
+                        }, with: .color(.white.opacity(model.opacity)))
                     
                     context
+                        .fill(.init {
+                            $0.addArc(center: center,
+                                      radius: 10,
+                                      startAngle: .degrees(0),
+                                      endAngle: .degrees(360),
+                                      clockwise: false)
+                        }, with: .color(.white))
+
+                    context.translateBy(x: center.x, y: center.y)
+                    context
                         .drawLayer { layer in
+                            layer.translateBy(x: 15, y: 30)
+                            layer.rotate(by: .init(degrees: 180))
                             layer
                                 .fill(.init {
                                     $0.move(to: .zero)
@@ -39,8 +42,15 @@ extension Navigate {
                                     $0.addLine(to: .init(x: 6, y: 30))
                                     $0.closeSubpath()
                                     
-                                }, with: .color(.white))
+                                }, with: .linearGradient(.init(colors: [
+                                    .init(white: 1, opacity: 0),
+                                    .init(white: 1, opacity: 1)]),
+                                                         startPoint: .zero,
+                                                         endPoint: .init(x: 0, y: 30)))
+                            layer.translateBy(x: -15, y: -30)
                         }
+                    
+                    context.translateBy(x: -center.x, y: -center.y)
                     
                     /*
                      let gradient = CAGradientLayer()
