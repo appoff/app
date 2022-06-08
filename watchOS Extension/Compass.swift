@@ -2,7 +2,6 @@ import SwiftUI
 
 struct Compass: View {
     private let session = Session()
-    @Environment(\.scenePhase) private var phase
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {

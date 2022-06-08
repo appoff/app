@@ -107,6 +107,8 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         user(span: true)
         
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        manager.allowsBackgroundLocationUpdates = true
         manager.stopUpdatingHeading()
         manager.startUpdatingHeading()
     }

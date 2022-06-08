@@ -38,7 +38,7 @@ struct Detail: View {
                 }
             }
             
-            NavigationLink(destination: Navigate(schema: project.schema!)) {
+            NavigationLink(destination: Lazy(Navigate(schema: project.schema!))) {
                 Text("Open")
             }
             .font(.callout.weight(.medium))

@@ -11,6 +11,8 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
         print("session")
         super.init()
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        manager.allowsBackgroundLocationUpdates = true
     }
     
     deinit {
