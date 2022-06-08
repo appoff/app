@@ -70,6 +70,6 @@ extension Navigate {
 
 private extension String {
     var capped: Self {
-        count > 16 ? prefix(14).trimmingCharacters(in: .whitespacesAndNewlines) + "..." : self
+        count > 18 ? prefix(16).trimmingCharacters(in: .whitespacesAndNewlines) + "..." : self
     }
 }

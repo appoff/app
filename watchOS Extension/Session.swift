@@ -2,7 +2,7 @@ import SwiftUI
 import CoreLocation
 
 final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
-    var zoom = Double(10)
+    var zoom = Double(30)
     @Published var visuals = true
     private(set) var radius = Double(20)
     private(set) var opacity = Double(0.1)
