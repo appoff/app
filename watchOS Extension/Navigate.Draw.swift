@@ -5,30 +5,43 @@ private let ratio = Double(20)
 extension Navigate {
     struct Draw: View {
         let session: Session
-        let annotations: [(title: String, coordinate: CLLocationCoordinate2D)]
+        let points: [(title: String, coordinate: CLLocationCoordinate2D)]
+        let route: [CLLocationCoordinate2D]
         
         var body: some View {
             TimelineView(.periodic(from: .now, by: 0.05)) { timeline in
                 Canvas { context, size in
                     session.tick(date: timeline.date, size: size)
                     
+                    context.draw(Text((session.zoom / 10).formatted() + "x")
+                        .font(.caption2)
+                        .foregroundColor(.secondary),
+                                 at: .init(x: 20, y: 20),
+                                 anchor: .topLeading)
+                    
                     let center = CGPoint(x: size.width / 2, y: size.height / 2)
+                    let value = abs(session.zoom - 20)
+                    let zoom = ratio * value * value * 25
                     
                     if let location = session.location {
-                        for (title, coordinate) in annotations {
-                            let x = location.longitude >= 0
-                                ? location.longitude - coordinate.longitude
-                                : coordinate.longitude - location.longitude
-                            let y = location.latitude >= 0
-                                ? location.latitude - coordinate.latitude
-                                : coordinate.latitude - location.latitude
-                            let delta = ratio * session.zoom * session.zoom
-                            let point = CGPoint(x: center.x + (x * delta), y: center.y + (y * delta))
+                        if session.visuals {
+                            context
+                                .stroke(.init { path in
+                                    path.addLines(route
+                                        .map {
+                                            point(location: location, coordinate: $0, center: center, zoom: zoom)
+                                        })
+                                }, with: .color(white: 1, opacity: 0.35),
+                                        style: .init(lineWidth: 6, lineCap: .round, lineJoin: .round))
+                        }
+                        
+                        for (title, coordinate) in points {
+                            let point = point(location: location, coordinate: coordinate, center: center, zoom: zoom)
                             
                             context
                                 .fill(.init {
                                     $0.addArc(center: point,
-                                              radius: 6,
+                                              radius: 7,
                                               startAngle: .degrees(0),
                                               endAngle: .degrees(360),
                                               clockwise: false)
@@ -48,11 +61,22 @@ extension Navigate {
                 }
             }
         }
+        
+        private func point(location: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D, center: CGPoint, zoom: Double) -> CGPoint {
+            let x = location.longitude >= 0
+                ? location.longitude - coordinate.longitude
+                : coordinate.longitude - location.longitude
+            let y = location.latitude >= 0
+                ? location.latitude - coordinate.latitude
+                : coordinate.latitude - location.latitude
+            
+            return .init(x: center.x + (x * zoom), y: center.y + (y * zoom))
+        }
     }
 }
 
 private extension String {
     var capped: Self {
-        count > 18 ? prefix(16).trimmingCharacters(in: .whitespacesAndNewlines) + "..." : self
+        count > 16 ? prefix(14).trimmingCharacters(in: .whitespacesAndNewlines) + "..." : self
     }
 }
