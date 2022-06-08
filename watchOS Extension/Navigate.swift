@@ -19,7 +19,7 @@ struct Navigate: View {
             .focusable()
             .digitalCrownRotation($session.zoom,
                                   from: 1,
-                                  through: 20,
+                                  through: 60,
                                   by: 1,
                                   sensitivity: .low,
                                   isContinuous: false,

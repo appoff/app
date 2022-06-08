@@ -17,7 +17,7 @@ extension Navigate {
                     }
                     
                     let center = CGPoint(x: size.width / 2, y: size.height / 2)
-                    let value = abs(session.zoom - 20)
+                    let value = abs(session.zoom - 60)
                     let zoom = ratio * value * value * 25
                     
                     if let location = session.location {
