@@ -7,17 +7,14 @@ extension Navigate {
         let session: Session
         let points: [(title: String, coordinate: CLLocationCoordinate2D)]
         let route: [CLLocationCoordinate2D]
+        @Environment(\.scenePhase) private var phase
         
         var body: some View {
-            TimelineView(.periodic(from: .now, by: 0.05)) { timeline in
+            TimelineView(.periodic(from: .now, by: phase == .active ? 0.05 : 5)) { timeline in
                 Canvas { context, size in
-                    session.tick(date: timeline.date, size: size)
-                    
-                    context.draw(Text((session.zoom / 10).formatted() + "x")
-                        .font(.caption2)
-                        .foregroundColor(.secondary),
-                                 at: .init(x: 20, y: 20),
-                                 anchor: .topLeading)
+                    if phase == .active {
+                        session.tick(date: timeline.date, size: size)
+                    }
                     
                     let center = CGPoint(x: size.width / 2, y: size.height / 2)
                     let value = abs(session.zoom - 20)
@@ -69,7 +66,7 @@ extension Navigate {
             let y = location.latitude >= 0
                 ? location.latitude - coordinate.latitude
                 : coordinate.latitude - location.latitude
-            
+
             return .init(x: center.x + (x * zoom), y: center.y + (y * zoom))
         }
     }

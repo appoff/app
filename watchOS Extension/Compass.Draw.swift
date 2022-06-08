@@ -3,11 +3,15 @@ import SwiftUI
 extension Compass {
     struct Draw: View {
         let session: Session
+        @Environment(\.scenePhase) private var phase
         
         var body: some View {
-            TimelineView(.periodic(from: .now, by: 0.05)) { timeline in
+            TimelineView(.periodic(from: .now, by: phase == .active ? 0.05 : 5)) { timeline in
                 Canvas { context, size in
-                    session.tick(date: timeline.date, size: size)
+                    if phase == .active {
+                        session.tick(date: timeline.date, size: size)
+                    }
+                    
                     context.compass(session: session, center: .init(x: size.width / 2, y: size.height / 2))
                 }
             }
