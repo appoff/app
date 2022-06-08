@@ -127,11 +127,11 @@ struct Create: View {
                                 Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
                                      format: .measurement(width: .abbreviated))
                                     .font(.callout.monospacedDigit())
-                                    .padding(.leading)
                                     
                                 Text("Duration ")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
+                                    .padding(.leading)
                                 
                                 Text(Date(timeIntervalSinceNow: -builder.route.duration) ..< Date.now, format: .timeDuration)
                                     .font(.callout.monospacedDigit())
