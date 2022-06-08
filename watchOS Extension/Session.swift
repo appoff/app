@@ -38,7 +38,11 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {
-        location = didUpdateLocations.last?.coordinate
+        didUpdateLocations
+            .last
+            .map {
+                location = $0.coordinate
+            }
     }
     
     func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
