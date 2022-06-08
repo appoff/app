@@ -85,6 +85,7 @@
 		CEF5892B284B7F4F0049A81C /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF58929284B7F4F0049A81C /* Main.swift */; };
 		CEF5892E284B86D10049A81C /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5892C284B86D10049A81C /* Detail.swift */; };
 		CEF63CBE28509050005EBFED /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF63CBD28509050005EBFED /* Lazy.swift */; };
+		CEF63CC0285093A9005EBFED /* Compass.Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF63CBF285093A9005EBFED /* Compass.Draw.swift */; };
 		CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D42834E32500E47E23 /* Tiler.swift */; };
 		CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D62834E4A900E47E23 /* Navigate.swift */; };
 		CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */; };
@@ -217,6 +218,7 @@
 		CEF58929284B7F4F0049A81C /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		CEF5892C284B86D10049A81C /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CEF63CBD28509050005EBFED /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
+		CEF63CBF285093A9005EBFED /* Compass.Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compass.Draw.swift; sourceTree = "<group>"; };
 		CEFC28D42834E32500E47E23 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
 		CEFC28D62834E4A900E47E23 /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
 		CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Control.swift; sourceTree = "<group>"; };
@@ -263,15 +265,16 @@
 				CE146BBF284B6E73002B031D /* Info.plist */,
 				CEF58916284B76AE0049A81C /* App.Delegate.swift */,
 				CE146BB6284B6E73002B031D /* App.swift */,
+				CEF63CBF285093A9005EBFED /* Compass.Draw.swift */,
 				CEFD5373284F636F008141EC /* Compass.swift */,
 				CEE82CCE284CCD2500228B2D /* Detail.Item.swift */,
 				CEF5892C284B86D10049A81C /* Detail.swift */,
 				CEFD5375284F643B008141EC /* GraphicsContext.swift */,
+				CEF63CBD28509050005EBFED /* Lazy.swift */,
 				CEF58929284B7F4F0049A81C /* Main.swift */,
 				CE1EF9C2284E0C3A00E43F2B /* Navigate.Draw.swift */,
 				CE1EF9C0284E0AAA00E43F2B /* Navigate.swift */,
 				CE1EF9C4284E0E1D00E43F2B /* Session.swift */,
-				CEF63CBD28509050005EBFED /* Lazy.swift */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF63CC0285093A9005EBFED /* Compass.Draw.swift in Sources */,
 				CE146BB7284B6E73002B031D /* App.swift in Sources */,
 				CEF63CBE28509050005EBFED /* Lazy.swift in Sources */,
 				CEF58917284B76AE0049A81C /* App.Delegate.swift in Sources */,

@@ -8,17 +8,17 @@ struct Main: View {
     var body: some View {
         NavigationView {
             List {
-//                NavigationLink(destination: Compass()) {
-//                    HStack {
-//                        Text("Compass")
-//                            .font(.callout)
-//                        Spacer()
-//                        Image(systemName: "location.north.fill")
-//                            .font(.system(size: 12, weight: .medium))
-//                    }
-//                    .padding(.vertical, 14)
-//                    .contentShape(Rectangle())
-//                }
+                NavigationLink(destination: Lazy(Compass())) {
+                    HStack {
+                        Text("Compass")
+                            .font(.callout)
+                        Spacer()
+                        Image(systemName: "location.north.fill")
+                            .font(.system(size: 12, weight: .medium))
+                    }
+                    .padding(.vertical, 14)
+                    .contentShape(Rectangle())
+                }
                 
                 if loading {
                     Text("\nLoading maps...")

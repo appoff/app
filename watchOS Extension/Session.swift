@@ -13,25 +13,29 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.allowsBackgroundLocationUpdates = true
+        
+        if manager.authorizationStatus == .notDetermined {
+            manager.requestAlwaysAuthorization()
+        }
+        
+        manager.stopUpdatingHeading()
+        manager.startUpdatingHeading()
+        manager.startUpdatingLocation()
     }
     
     deinit {
         print("session gone")
         manager.stopUpdatingHeading()
-    }
-    
-    func start() {
-        manager.stopUpdatingHeading()
-        manager.startUpdatingHeading()
-        
-        if manager.authorizationStatus == .notDetermined {
-            manager.requestWhenInUseAuthorization()
-        }
+        manager.stopUpdatingLocation()
     }
     
     func tick(date: Date, size: CGSize) {
         opacity = radius < 9 ? 0.1 : opacity + 0.005
         radius = radius < 9 ? 20 : radius - 0.075
+    }
+    
+    func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {
+        
     }
     
     func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
@@ -44,6 +48,5 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManagerShouldDisplayHeadingCalibration(_: CLLocationManager) -> Bool { true }
     func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
-    func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
     func locationManager(_: CLLocationManager, didFailWithError: Error) { }
 }

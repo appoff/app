@@ -3,7 +3,7 @@ import Offline
 
 struct Navigate: View {
     let schema: Schema
-    private let session = Session()
+    @StateObject private var session = Session()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
