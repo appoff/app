@@ -60,12 +60,8 @@ extension Navigate {
         }
         
         private func point(location: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D, center: CGPoint, zoom: Double) -> CGPoint {
-            let x = location.longitude >= 0
-                ? location.longitude - coordinate.longitude
-                : coordinate.longitude - location.longitude
-            let y = location.latitude >= 0
-                ? location.latitude - coordinate.latitude
-                : coordinate.latitude - location.latitude
+            let x = coordinate.longitude - location.longitude
+            let y = location.latitude - coordinate.latitude
 
             return .init(x: center.x + (x * zoom), y: center.y + (y * zoom))
         }
