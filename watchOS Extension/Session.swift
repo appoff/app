@@ -3,10 +3,11 @@ import CoreLocation
 
 final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var visuals = true
-    @Published var zoom = Double(5)
+    @Published var zoom = Double(50)
     @Published private(set) var radius = Double(20)
     @Published private(set) var opacity = Double(0.1)
     @Published private(set) var heading = Double()
+    @Published private(set) var location: CLLocationCoordinate2D?
     private let manager = CLLocationManager()
     
     override init() {
@@ -37,7 +38,7 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {
-        
+        location = didUpdateLocations.last?.coordinate
     }
     
     func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {

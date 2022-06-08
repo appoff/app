@@ -20,7 +20,7 @@ extension GraphicsContext {
                       startAngle: .degrees(0),
                       endAngle: .degrees(360),
                       clockwise: false)
-        }, with: .color(white: session.opacity))
+        }, with: .color(white: 1, opacity: session.opacity))
         
         fill(.init {
             $0.addArc(center: center,

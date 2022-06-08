@@ -19,15 +19,13 @@ struct Navigate: View {
             .focusable()
             .digitalCrownRotation($session.zoom,
                                   from: 1,
-                                  through: 10,
+                                  through: 100,
                                   by: 1,
                                   sensitivity: .low,
                                   isContinuous: false,
                                   isHapticFeedbackEnabled: true)
             
-            Text(session.zoom.formatted())
-            
-            Draw(session: session)
+            Draw(session: session, annotations: schema.annotations)
                 .allowsHitTesting(false)
             
             if session.visuals {
