@@ -11,10 +11,10 @@ struct Compass: View {
                 dismiss()
             } label: {
                 Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 30, weight: .light))
+                    .font(.system(size: 35, weight: .light))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(.secondary)
-                    .frame(width: 55, height: 55)
+                    .frame(width: 60, height: 60)
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
