@@ -2,11 +2,11 @@ import SwiftUI
 import CoreLocation
 
 final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
-    var zoom = Double(20)
+    var zoom = Double(15)
     @Published var visuals = true
     private(set) var radius = Double(20)
     private(set) var opacity = Double(0.1)
-    private(set) var heading = Double()
+    private(set) var heading = 90.0
     private(set) var location: CLLocationCoordinate2D?
     private let manager = CLLocationManager()
     
@@ -43,14 +43,14 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
     }
     
-    func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
-        guard
-            didUpdateHeading.headingAccuracy >= 0,
-            didUpdateHeading.trueHeading >= 0
-        else { return }
-        heading = didUpdateHeading.trueHeading
-    }
-    
+//    func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
+//        guard
+//            didUpdateHeading.headingAccuracy >= 0,
+//            didUpdateHeading.trueHeading >= 0
+//        else { return }
+//        heading = didUpdateHeading.trueHeading
+//    }
+//
     func locationManagerShouldDisplayHeadingCalibration(_: CLLocationManager) -> Bool { true }
     func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
     func locationManager(_: CLLocationManager, didFailWithError: Error) { }

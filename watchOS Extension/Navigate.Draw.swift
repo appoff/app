@@ -54,9 +54,9 @@ extension Navigate {
                             
                             if session.visuals {
                                 context.draw(Text(title.capped)
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary),
-                                             at: .init(x: point.x, y: point.y + 6),
+                                    .font(.caption2.weight(.light))
+                                    .foregroundColor(.primary.opacity(0.5)),
+                                             at: .init(x: point.x, y: point.y + 11),
                                              anchor: .top)
                             }
                         }
