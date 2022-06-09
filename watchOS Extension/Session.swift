@@ -2,7 +2,7 @@ import SwiftUI
 import CoreLocation
 
 final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
-    var zoom = Double(30)
+    var zoom = Double(20)
     @Published var visuals = true
     private(set) var radius = Double(20)
     private(set) var opacity = Double(0.1)
@@ -11,7 +11,6 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     
     override init() {
-        print("session")
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -27,7 +26,6 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     deinit {
-        print("session gone")
         manager.stopUpdatingHeading()
         manager.stopUpdatingLocation()
     }

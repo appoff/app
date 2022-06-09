@@ -17,8 +17,7 @@ extension Navigate {
                     }
                     
                     let center = CGPoint(x: size.width / 2, y: size.height / 2)
-                    let value = abs(session.zoom - 60)
-                    let zoom = ratio * value * value * 25
+                    let zoom = ratio * session.zoom * session.zoom * 25
                     
                     if let location = session.location {
                         if session.visuals {
@@ -52,6 +51,13 @@ extension Navigate {
                                              anchor: .top)
                             }
                         }
+                    } else {
+                        context
+                            .draw(Text(Image(systemName: "location.slash.fill"))
+                                .font(.system(size: 30, weight: .regular))
+                                .foregroundColor(.primary.opacity(0.35)),
+                                  at: .init(x: 10, y: 10),
+                                  anchor: .topLeading)
                     }
                     
                     context.compass(session: session, center: center)
@@ -70,6 +76,6 @@ extension Navigate {
 
 private extension String {
     var capped: Self {
-        count > 18 ? prefix(16).trimmingCharacters(in: .whitespacesAndNewlines) + "..." : self
+        count > 20 ? prefix(18).trimmingCharacters(in: .whitespacesAndNewlines) + "..." : self
     }
 }

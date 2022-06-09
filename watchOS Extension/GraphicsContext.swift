@@ -8,10 +8,12 @@ extension GraphicsContext {
                 .foregroundColor(.secondary),
                  at: .init(x: center.x, y: 10))
             
-            draw(Text(Image(systemName: "location.north.fill"))
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(.secondary),
-                 at: .init(x: center.x, y: 30))
+            if session.location != nil {
+                draw(Text(Image(systemName: "location.north.fill"))
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(.primary),
+                     at: .init(x: center.x, y: 30))
+            }
         }
         
         fill(.init {
