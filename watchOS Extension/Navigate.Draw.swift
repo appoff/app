@@ -27,21 +27,30 @@ extension Navigate {
                                         .map {
                                             point(location: location, coordinate: $0, center: center, zoom: zoom)
                                         })
-                                }, with: .color(white: 1, opacity: 0.35),
-                                        style: .init(lineWidth: 6, lineCap: .round, lineJoin: .round))
+                                }, with: .color(white: 1, opacity: 0.3),
+                                        style: .init(lineWidth: 7, lineCap: .round, lineJoin: .round))
                         }
                         
                         for (title, coordinate) in points {
                             let point = point(location: location, coordinate: coordinate, center: center, zoom: zoom)
                             
                             context
-                                .fill(.init {
+                                .stroke(.init {
                                     $0.addArc(center: point,
-                                              radius: 7,
+                                              radius: 11,
                                               startAngle: .degrees(0),
                                               endAngle: .degrees(360),
                                               clockwise: false)
-                                }, with: .color(white: 0.9))
+                                }, with: .color(white: 1), lineWidth: 2)
+                            
+                            context
+                                .fill(.init {
+                                    $0.addArc(center: point,
+                                              radius: 9,
+                                              startAngle: .degrees(0),
+                                              endAngle: .degrees(360),
+                                              clockwise: false)
+                                }, with: .color(white: 1, opacity: 0.5))
                             
                             if session.visuals {
                                 context.draw(Text(title.capped)
