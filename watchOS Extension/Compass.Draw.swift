@@ -6,7 +6,7 @@ extension Compass {
         @Environment(\.scenePhase) private var phase
         
         var body: some View {
-            TimelineView(.periodic(from: .now, by: phase == .active ? 0.025 : 5)) { timeline in
+            TimelineView(.animation(minimumInterval: 0.05, paused: phase != .active)) { timeline in
                 Canvas { context, size in
                     if phase == .active {
                         session.tick(date: timeline.date, size: size)

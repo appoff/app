@@ -30,7 +30,7 @@ extension GraphicsContext {
         if active {
             drawLayer { layer in
                 layer.translateBy(x: 15, y: 30)
-                layer.rotate(by: .init(degrees: session.rotation))
+                layer.rotate(by: .init(degrees: session.heading))
                 layer.translateBy(x: -15, y: -30)
                 layer
                     .fill(.init {

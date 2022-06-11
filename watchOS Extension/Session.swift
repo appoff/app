@@ -6,9 +6,8 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var visuals = true
     private(set) var radius = Double(20)
     private(set) var opacity = Double(0.1)
-    private(set) var rotation = Double()
+    private(set) var heading = Double()
     private(set) var location: CLLocationCoordinate2D?
-    private var heading = Double()
     private let manager = CLLocationManager()
     
     override init() {
@@ -34,13 +33,6 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     func tick(date: Date, size: CGSize) {
         opacity = radius < 9 ? 0.1 : opacity + 0.002
         radius = radius < 9 ? 20 : radius - 0.075
-        
-        let rotation = heading - rotation
-        if abs(rotation) > 1 {
-            self.rotation += rotation > 0 ? 1 : -1
-        } else {
-            self.rotation = heading
-        }
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {
