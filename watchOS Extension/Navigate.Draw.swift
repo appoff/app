@@ -20,44 +20,44 @@ extension Navigate {
                     let zoom = ratio * session.zoom * session.zoom * 25
                     
                     if let location = session.location {
-                        if session.visuals {
-                            context
-                                .stroke(.init { path in
-                                    path.addLines(route
-                                        .map {
-                                            point(location: location, coordinate: $0, center: center, zoom: zoom)
-                                        })
-                                }, with: .color(white: 1, opacity: 0.3),
-                                        style: .init(lineWidth: 7, lineCap: .round, lineJoin: .round))
-                        }
+                        context
+                            .stroke(.init { path in
+                                path.addLines(route
+                                    .map {
+                                        point(location: location, coordinate: $0, center: center, zoom: zoom)
+                                    })
+                            }, with: .color(white: 1, opacity: 0.4),
+                                    style: .init(lineWidth: 5, lineCap: .round, lineJoin: .round))
                         
                         for (title, coordinate) in points {
                             let point = point(location: location, coordinate: coordinate, center: center, zoom: zoom)
                             
                             context
-                                .stroke(.init {
-                                    $0.addArc(center: point,
-                                              radius: 11,
-                                              startAngle: .degrees(0),
-                                              endAngle: .degrees(360),
-                                              clockwise: false)
-                                }, with: .color(white: 1), lineWidth: 2)
-                            
-                            context
                                 .fill(.init {
                                     $0.addArc(center: point,
-                                              radius: 9,
+                                              radius: 8,
                                               startAngle: .degrees(0),
                                               endAngle: .degrees(360),
                                               clockwise: false)
-                                }, with: .color(white: 1, opacity: 0.5))
+                                }, with: .color(white: 0.6))
                             
                             if session.visuals {
-                                context.draw(Text(title.capped)
-                                    .font(.caption2.weight(.light))
-                                    .foregroundColor(.primary.opacity(0.5)),
-                                             at: .init(x: point.x, y: point.y + 11),
-                                             anchor: .top)
+                                context
+                                    .stroke(.init {
+                                        $0.addArc(center: point,
+                                                  radius: 9,
+                                                  startAngle: .degrees(0),
+                                                  endAngle: .degrees(360),
+                                                  clockwise: false)
+                                    }, with: .color(white: 1), lineWidth: 3)
+                                
+                                if phase == .active {
+                                    context.draw(Text(title.capped)
+                                        .font(.caption2.weight(.light))
+                                        .foregroundColor(.primary.opacity(0.6)),
+                                                 at: .init(x: point.x, y: point.y + 11),
+                                                 anchor: .top)
+                                }
                             }
                         }
                     } else {

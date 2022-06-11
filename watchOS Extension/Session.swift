@@ -32,7 +32,7 @@ final class Session: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func tick(date: Date, size: CGSize) {
-        opacity = radius < 9 ? 0.1 : opacity + 0.005
+        opacity = radius < 9 ? 0.1 : opacity + 0.002
         radius = radius < 9 ? 20 : radius - 0.075
         
         let rotation = heading - rotation

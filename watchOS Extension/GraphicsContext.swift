@@ -4,31 +4,9 @@ extension GraphicsContext {
     mutating func compass(session: Session, size: CGSize, center: CGPoint, active: Bool) {
         if session.visuals {
             draw(Text(Image(systemName: "n.circle.fill"))
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(.secondary),
+                .font(.system(size: 20, weight: .medium))
+                .foregroundColor(.primary.opacity(0.6)),
                  at: .init(x: center.x, y: 10))
-            
-            draw(Text(Image(systemName: "s.circle"))
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(.primary.opacity(0.3)),
-                 at: .init(x: center.x, y: size.height - 10))
-            
-            draw(Text(Image(systemName: "e.circle"))
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(.primary.opacity(0.3)),
-                 at: .init(x: size.width - 10, y: center.y))
-            
-            draw(Text(Image(systemName: "w.circle"))
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(.primary.opacity(0.3)),
-                 at: .init(x: 10, y: center.y))
-            
-            if session.location != nil {
-                draw(Text(Image(systemName: "location.north.fill"))
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.primary),
-                     at: .init(x: center.x, y: 30))
-            }
         }
         
         fill(.init {
@@ -64,7 +42,7 @@ extension GraphicsContext {
                         
                     }, with: .linearGradient(.init(colors: [
                         .init(white: 1, opacity: 0),
-                        .init(white: 1, opacity: 1)]),
+                        .init(white: 1, opacity: 0.5)]),
                                              startPoint: .zero,
                                              endPoint: .init(x: 0, y: 30)))
             }
