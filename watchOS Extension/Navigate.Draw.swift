@@ -10,7 +10,7 @@ extension Navigate {
         @Environment(\.scenePhase) private var phase
         
         var body: some View {
-            TimelineView(.periodic(from: .now, by: phase == .active ? 0.05 : 5)) { timeline in
+            TimelineView(.periodic(from: .now, by: phase == .active ? 0.025 : 10)) { timeline in
                 Canvas { context, size in
                     if phase == .active {
                         session.tick(date: timeline.date, size: size)
@@ -69,7 +69,7 @@ extension Navigate {
                                   anchor: .topLeading)
                     }
                     
-                    context.compass(session: session, center: center)
+                    context.compass(session: session, center: center, active: phase == .active)
                 }
             }
         }

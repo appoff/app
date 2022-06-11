@@ -6,13 +6,13 @@ extension Compass {
         @Environment(\.scenePhase) private var phase
         
         var body: some View {
-            TimelineView(.periodic(from: .now, by: phase == .active ? 0.05 : 5)) { timeline in
+            TimelineView(.periodic(from: .now, by: phase == .active ? 0.025 : 10)) { timeline in
                 Canvas { context, size in
                     if phase == .active {
                         session.tick(date: timeline.date, size: size)
                     }
                     
-                    context.compass(session: session, center: .init(x: size.width / 2, y: size.height / 2))
+                    context.compass(session: session, center: .init(x: size.width / 2, y: size.height / 2), active: phase == .active)
                 }
             }
         }
