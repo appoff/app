@@ -7,7 +7,7 @@ struct Navigate: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack(alignment: .bottomLeading) {
             Button {
                 session.visuals.toggle()
             } label: {
@@ -36,7 +36,7 @@ struct Navigate: View {
                         .font(.system(size: 35, weight: .light))
                         .symbolRenderingMode(.hierarchical)
                         .foregroundStyle(.secondary)
-                        .frame(width: 60, height: 60)
+                        .frame(width: 65, height: 65)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)

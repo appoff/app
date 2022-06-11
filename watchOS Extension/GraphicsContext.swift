@@ -1,12 +1,27 @@
 import SwiftUI
 
 extension GraphicsContext {
-    mutating func compass(session: Session, center: CGPoint, active: Bool) {
+    mutating func compass(session: Session, size: CGSize, center: CGPoint, active: Bool) {
         if session.visuals {
             draw(Text(Image(systemName: "n.circle.fill"))
                 .font(.system(size: 15, weight: .medium))
                 .foregroundColor(.secondary),
                  at: .init(x: center.x, y: 10))
+            
+            draw(Text(Image(systemName: "s.circle"))
+                .font(.system(size: 15, weight: .light))
+                .foregroundColor(.primary.opacity(0.3)),
+                 at: .init(x: center.x, y: size.height - 10))
+            
+            draw(Text(Image(systemName: "e.circle"))
+                .font(.system(size: 15, weight: .light))
+                .foregroundColor(.primary.opacity(0.3)),
+                 at: .init(x: size.width - 10, y: center.y))
+            
+            draw(Text(Image(systemName: "w.circle"))
+                .font(.system(size: 15, weight: .light))
+                .foregroundColor(.primary.opacity(0.3)),
+                 at: .init(x: 10, y: center.y))
             
             if session.location != nil {
                 draw(Text(Image(systemName: "location.north.fill"))

@@ -5,7 +5,7 @@ struct Compass: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack(alignment: .bottomLeading) {
             Draw(session: session)
             Button {
                 dismiss()
@@ -14,7 +14,7 @@ struct Compass: View {
                     .font(.system(size: 35, weight: .light))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(.secondary)
-                    .frame(width: 60, height: 60)
+                    .frame(width: 65, height: 65)
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
