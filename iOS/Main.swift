@@ -28,6 +28,9 @@ struct Main: View {
                              project: $0)
                         .listRowSeparator(.hidden)
                     }
+                    
+                    Spacer()
+                        .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
