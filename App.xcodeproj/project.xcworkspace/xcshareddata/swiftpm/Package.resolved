@@ -6,7 +6,7 @@
       "location" : "https://github.com/appoff/offline.git",
       "state" : {
         "branch" : "main",
-        "revision" : "6bc2baa661639db5d9342f728320ac4172b55e84"
+        "revision" : "b70588051f1695356b783ab2a34ee415e4de84c0"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/archivable/package.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ce2d18e7f15c5192fe5b82aa15913bcb86a45397"
+        "revision" : "2872c6e5c68656d6fbeaaea4fdb65d78be1f8ac7"
       }
     }
   ],
