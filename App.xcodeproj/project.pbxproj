@@ -227,7 +227,7 @@
 		CEE2158228368D230083FC99 /* Navigate.Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Points.swift; sourceTree = "<group>"; };
 		CEE82CCE284CCD2500228B2D /* Detail.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Item.swift; sourceTree = "<group>"; };
 		CEEB863E283CFFA800A9FF13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		CEF2D728289C194100D34CCE /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEF2D728289C194100D34CCE /* Offline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Offline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF2D72A289C194100D34CCE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CEF2D72E289C194200D34CCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF2D733289C194200D34CCE /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 				CE2C43952822D2B0000007A2 /* App.app */,
 				CE146BA7284B6E72002B031D /* App.app */,
 				CE146BAF284B6E73002B031D /* App.appex */,
-				CEF2D728289C194100D34CCE /* App.app */,
+				CEF2D728289C194100D34CCE /* Offline.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -526,7 +526,7 @@
 				CE002CBD289C1F7B0010F6F9 /* Offline */,
 			);
 			productName = macOS;
-			productReference = CEF2D728289C194100D34CCE /* App.app */;
+			productReference = CEF2D728289C194100D34CCE /* Offline.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1119,6 +1119,8 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = app.offline;
+				PRODUCT_MODULE_NAME = App;
+				PRODUCT_NAME = Offline;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1168,6 +1170,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = app.offline;
+				PRODUCT_MODULE_NAME = App;
+				PRODUCT_NAME = Offline;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
