@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>macOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>watchOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>CE2C43942822D2B0000007A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEF2D727289C194100D34CCE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
