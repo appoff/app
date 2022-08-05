@@ -63,6 +63,13 @@
 		CE979AAA2827FA3D00FC0EB0 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA92827FA3D00FC0EB0 /* Window.swift */; };
 		CE9EDCC628475A4100CC7ACB /* Scan.Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */; };
 		CE9EF51628424298008169E2 /* Offload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EF51528424298008169E2 /* Offload.swift */; };
+		CEAA2668289D42AE00897FB3 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2667289D42AE00897FB3 /* Sidebar.swift */; };
+		CEAA266A289D434700897FB3 /* Sidebar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2669289D434700897FB3 /* Sidebar.Field.swift */; };
+		CEAA266C289D435300897FB3 /* Sidebar.Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA266B289D435300897FB3 /* Sidebar.Editor.swift */; };
+		CEAA266E289D435F00897FB3 /* Sidebar.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA266D289D435F00897FB3 /* Sidebar.Cell.swift */; };
+		CEAA2676289D4F4900897FB3 /* Coffee in Frameworks */ = {isa = PBXBuildFile; productRef = CEAA2675289D4F4900897FB3 /* Coffee */; };
+		CEAA2678289D4FE100897FB3 /* Coffee in Frameworks */ = {isa = PBXBuildFile; productRef = CEAA2677289D4FE100897FB3 /* Coffee */; };
+		CEAA267A289D5D5500897FB3 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2679289D5D5500897FB3 /* Content.swift */; };
 		CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE0093282D418900FB5EFF /* Loading.Progress.swift */; };
 		CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF1EC282E72BC00601056 /* Main.Item.swift */; };
 		CEBDF1EF282E82D100601056 /* Info.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF1EE282E82D100601056 /* Info.Item.swift */; };
@@ -208,6 +215,11 @@
 		CE979AA92827FA3D00FC0EB0 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Picker.swift; sourceTree = "<group>"; };
 		CE9EF51528424298008169E2 /* Offload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offload.swift; sourceTree = "<group>"; };
+		CEAA2667289D42AE00897FB3 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		CEAA2669289D434700897FB3 /* Sidebar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.Field.swift; sourceTree = "<group>"; };
+		CEAA266B289D435300897FB3 /* Sidebar.Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.Editor.swift; sourceTree = "<group>"; };
+		CEAA266D289D435F00897FB3 /* Sidebar.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.Cell.swift; sourceTree = "<group>"; };
+		CEAA2679289D5D5500897FB3 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		CEAE0093282D418900FB5EFF /* Loading.Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.Progress.swift; sourceTree = "<group>"; };
 		CEBDF1EC282E72BC00601056 /* Main.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.Item.swift; sourceTree = "<group>"; };
 		CEBDF1EE282E82D100601056 /* Info.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Item.swift; sourceTree = "<group>"; };
@@ -270,6 +282,7 @@
 			files = (
 				CEF2D73C289C1A0A00D34CCE /* StoreKit.framework in Frameworks */,
 				CE2C43A62822D2E4000007A2 /* Offline in Frameworks */,
+				CEAA2676289D4F4900897FB3 /* Coffee in Frameworks */,
 				CE979AA22827EF4D00FC0EB0 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +293,7 @@
 			files = (
 				CE002CBE289C1F7B0010F6F9 /* Offline in Frameworks */,
 				CEF2D738289C19F500D34CCE /* CloudKit.framework in Frameworks */,
+				CEAA2678289D4FE100897FB3 /* Coffee in Frameworks */,
 				CEF2D73A289C1A0600D34CCE /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,7 +441,12 @@
 				CEF2D733289C194200D34CCE /* macOS.entitlements */,
 				CEF2D73F289C1A9D00D34CCE /* Info.plist */,
 				CEF2D72A289C194100D34CCE /* App.swift */,
+				CEAA2679289D5D5500897FB3 /* Content.swift */,
 				CEF2D741289C1E3A00D34CCE /* Session.swift */,
+				CEAA266D289D435F00897FB3 /* Sidebar.Cell.swift */,
+				CEAA266B289D435300897FB3 /* Sidebar.Editor.swift */,
+				CEAA2669289D434700897FB3 /* Sidebar.Field.swift */,
+				CEAA2667289D42AE00897FB3 /* Sidebar.swift */,
 				CEF2D743289C1F3800D34CCE /* Window.swift */,
 				CEF2D72E289C194200D34CCE /* Assets.xcassets */,
 			);
@@ -504,6 +523,7 @@
 			name = iOS;
 			packageProductDependencies = (
 				CE2C43A52822D2E4000007A2 /* Offline */,
+				CEAA2675289D4F4900897FB3 /* Coffee */,
 			);
 			productName = iOS;
 			productReference = CE2C43952822D2B0000007A2 /* App.app */;
@@ -524,6 +544,7 @@
 			name = macOS;
 			packageProductDependencies = (
 				CE002CBD289C1F7B0010F6F9 /* Offline */,
+				CEAA2677289D4FE100897FB3 /* Coffee */,
 			);
 			productName = macOS;
 			productReference = CEF2D728289C194100D34CCE /* Offline.app */;
@@ -564,6 +585,7 @@
 			mainGroup = CEFE119C2822D26F00C1B6BC;
 			packageReferences = (
 				CE2C43A42822D2E4000007A2 /* XCRemoteSwiftPackageReference "offline" */,
+				CEAA2674289D4F4900897FB3 /* XCRemoteSwiftPackageReference "coffee" */,
 			);
 			productRefGroup = CE2C43962822D2B0000007A2 /* Products */;
 			projectDirPath = "";
@@ -710,15 +732,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAA2668289D42AE00897FB3 /* Sidebar.swift in Sources */,
 				CE002CC3289C1FA40010F6F9 /* Copy.swift in Sources */,
 				CEF2D740289C1E2700D34CCE /* Global.swift in Sources */,
 				CE002CBF289C1F8E0010F6F9 /* UNUserNotificationCenter.swift in Sources */,
 				CEF2D72B289C194100D34CCE /* App.swift in Sources */,
 				CE002CC1289C1F980010F6F9 /* Store.Status.swift in Sources */,
+				CEAA266A289D434700897FB3 /* Sidebar.Field.swift in Sources */,
 				CE002CC0289C1F950010F6F9 /* Store.swift in Sources */,
 				CE002CC2289C1F9B0010F6F9 /* Store.Item.swift in Sources */,
+				CEAA267A289D5D5500897FB3 /* Content.swift in Sources */,
 				CEF2D742289C1E3A00D34CCE /* Session.swift in Sources */,
+				CEAA266C289D435300897FB3 /* Sidebar.Editor.swift in Sources */,
 				CEF2D744289C1F3800D34CCE /* Window.swift in Sources */,
+				CEAA266E289D435F00897FB3 /* Sidebar.Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1333,6 +1360,14 @@
 				kind = branch;
 			};
 		};
+		CEAA2674289D4F4900897FB3 /* XCRemoteSwiftPackageReference "coffee" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/macoskit/coffee.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1345,6 +1380,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE2C43A42822D2E4000007A2 /* XCRemoteSwiftPackageReference "offline" */;
 			productName = Offline;
+		};
+		CEAA2675289D4F4900897FB3 /* Coffee */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEAA2674289D4F4900897FB3 /* XCRemoteSwiftPackageReference "coffee" */;
+			productName = Coffee;
+		};
+		CEAA2677289D4FE100897FB3 /* Coffee */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEAA2674289D4F4900897FB3 /* XCRemoteSwiftPackageReference "coffee" */;
+			productName = Coffee;
 		};
 		CEF58918284B76C20049A81C /* Offline */ = {
 			isa = XCSwiftPackageProductDependency;

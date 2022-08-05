@@ -28,27 +28,24 @@ final class Window: NSWindow {
 //        bar.layoutAttribute = .top
 //        addTitlebarAccessoryViewController(bar)
 //        
-//        let sidebar = Sidebar(session: session)
-//        contentView!.addSubview(sidebar)
+        let sidebar = Sidebar(session: session)
+        contentView!.addSubview(sidebar)
 //        
-//        let middlebar = Middlebar(session: session)
-//        contentView!.addSubview(middlebar)
+        let content = Content(session: session)
+        contentView!.addSubview(content)
 //        
-//        let content = Content(session: session)
-//        contentView!.addSubview(content)
-//        
-//        sidebar.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
-//        sidebar.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
-//        sidebar.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
+        sidebar.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
+        sidebar.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
+        sidebar.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
 //        
 //        middlebar.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
 //        middlebar.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
 //        middlebar.leftAnchor.constraint(equalTo: sidebar.rightAnchor).isActive = true
 //        
-//        content.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
-//        content.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
-//        content.leftAnchor.constraint(equalTo: middlebar.rightAnchor).isActive = true
-//        content.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
+        content.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
+        content.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
+        content.leftAnchor.constraint(equalTo: sidebar.rightAnchor).isActive = true
+        content.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
     }
     
     override func close() {
