@@ -51,6 +51,28 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         let separator = Separator()
         addSubview(separator)
         
+        let flip = Flip()
+        flip.translatesAutoresizingMaskIntoConstraints = false
+        
+        let scroll = NSScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.documentView = flip
+        scroll.hasVerticalScroller = true
+        scroll.verticalScroller!.controlSize = .mini
+        scroll.drawsBackground = false
+        scroll.scrollerInsets.top = 5
+        scroll.scrollerInsets.bottom = 5
+        scroll.automaticallyAdjustsContentInsets = false
+        scroll.contentView.postsBoundsChangedNotifications = false
+        scroll.contentView.postsFrameChangedNotifications = false
+        addSubview(scroll)
+        
+        let stack = Stack()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.orientation = .vertical
+        stack.spacing = 1
+        flip.addSubview(stack)
+        
         widthAnchor.constraint(equalToConstant: 300).isActive = true
         
         field.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
@@ -77,47 +99,30 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         separator.widthAnchor.constraint(equalToConstant: 1).isActive = true
         separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = .byTruncatingTail
+        scroll.topAnchor.constraint(equalTo: topAnchor, constant: 1).isActive = true
+        scroll.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        scroll.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        scroll.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
-        let countAttributes = AttributeContainer([.font: NSFont
-            .monospacedDigitSystemFont(
-                ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize,
-                weight: .regular),
-                                                  .foregroundColor: NSColor.secondaryLabelColor,
-                                                  .paragraphStyle: paragraph])
-        let titleAttributes = AttributeContainer([.font: NSFont.preferredFont(forTextStyle: .body),
-                                                  .foregroundColor: NSColor.tertiaryLabelColor,
-                                                  .paragraphStyle: paragraph])
+        flip.topAnchor.constraint(equalTo: scroll.topAnchor).isActive = true
+        flip.leftAnchor.constraint(equalTo: scroll.leftAnchor).isActive = true
+        flip.rightAnchor.constraint(equalTo: scroll.rightAnchor).isActive = true
+        flip.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
         
-//        session
-//            .items
-//            .combineLatest(session
-//                .showing
-//                .removeDuplicates())
-//            .sink { items, showing in
-//                var string = AttributedString(items.count.formatted(),
-//                                              attributes: countAttributes)
-//                string.append(AttributedString(" ", attributes: titleAttributes))
-//
-//                let title: String
-//
-//                switch showing {
-//                case 0:
-//                    title = items.count == 1 ? "article" : "articles"
-//                    filter.image.image = .init(systemSymbolName: "line.3.horizontal.decrease.circle", accessibilityDescription: nil)
-//                case 1:
-//                    title = "not read"
-//                    filter.image.image = .init(systemSymbolName: "line.3.horizontal.decrease.circle.fill", accessibilityDescription: nil)
-//                default:
-//                    title = items.count == 1 ? "bookmark" : "bookmarks"
-//                    filter.image.image = .init(systemSymbolName: "line.3.horizontal.decrease.circle.fill", accessibilityDescription: nil)
-//                }
-//
-//                string.append(AttributedString(title, attributes: titleAttributes))
-//                count.attributedStringValue = .init(string)
-//            }
-//            .store(in: &subs)
+        stack.topAnchor.constraint(equalTo: flip.topAnchor, constant: 1).isActive = true
+        stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 1).isActive = true
+        stack.widthAnchor.constraint(equalToConstant: 298).isActive = true
+        
+        session
+            .filtered
+            .sink { items in
+                stack.setViews(items
+                    .map {
+                        Item(session: session, item: $0)
+                    }, in: .center)
+            }
+            .store(in: &subs)
+        
         
 //        session
 //            .find

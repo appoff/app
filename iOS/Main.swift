@@ -109,15 +109,6 @@ struct Main: View {
     }
     
     private var filtered: [Project] {
-        { string in
-            string.isEmpty
-            ? projects
-            : { components in
-                projects
-                    .filter {
-                        $0.contains(tokens: components)
-                    }
-            } (string.components(separatedBy: " "))
-        } (search.trimmingCharacters(in: .whitespacesAndNewlines))
+        projects.filtered(search: search)
     }
 }

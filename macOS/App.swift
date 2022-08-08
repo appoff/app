@@ -19,6 +19,7 @@ import Offline
         Window(session: session).makeKeyAndOrderFront(nil)
         
         cloud.ready.notify(queue: .main) {
+            self.session.loading.value = false
 //            Defaults.start()
             
 //            Task
@@ -30,12 +31,6 @@ import Offline
     
     func applicationDidBecomeActive(_: Notification) {
         cloud.pull.send()
-        
-        if session.loading.value {
-            cloud.ready.notify(queue: .main) {
-                self.session.loading.value = false
-            }
-        }
     }
     
     func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {

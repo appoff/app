@@ -11,5 +11,15 @@ final class Content: NSVisualEffectView {
         translatesAutoresizingMaskIntoConstraints = false
         state = .active
         material = .sidebar
+        
+        session
+            .flow
+            .sink {
+                switch $0 {
+                default:
+                    break
+                }
+            }
+            .store(in: &subs)
     }
 }

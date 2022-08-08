@@ -19,6 +19,8 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>MKDirectionsApplicationSupportedModes</key>
+	<array/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
