@@ -12,13 +12,26 @@ final class Content: NSVisualEffectView {
         state = .active
         material = .sidebar
         
+        var view: NSView?
+        
         session
             .flow
             .sink {
+                view?.removeFromSuperview()
+                
                 switch $0 {
+                case .create:
+                    view = Create(session: session)
                 default:
-                    break
+                    view = Main(session: session)
                 }
+                
+                self.addSubview(view!)
+                
+                view!.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+                view!.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+                view!.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+                view!.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
             }
             .store(in: &subs)
     }
