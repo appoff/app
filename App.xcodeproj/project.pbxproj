@@ -67,7 +67,6 @@
 		CEAA266A289D434700897FB3 /* Sidebar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2669289D434700897FB3 /* Sidebar.Field.swift */; };
 		CEAA266C289D435300897FB3 /* Sidebar.Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA266B289D435300897FB3 /* Sidebar.Editor.swift */; };
 		CEAA266E289D435F00897FB3 /* Sidebar.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA266D289D435F00897FB3 /* Sidebar.Cell.swift */; };
-		CEAA2676289D4F4900897FB3 /* Coffee in Frameworks */ = {isa = PBXBuildFile; productRef = CEAA2675289D4F4900897FB3 /* Coffee */; };
 		CEAA2678289D4FE100897FB3 /* Coffee in Frameworks */ = {isa = PBXBuildFile; productRef = CEAA2677289D4FE100897FB3 /* Coffee */; };
 		CEAA267A289D5D5500897FB3 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2679289D5D5500897FB3 /* Content.swift */; };
 		CEAA267C289D60C700897FB3 /* Topbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA267B289D60C700897FB3 /* Topbar.swift */; };
@@ -284,7 +283,6 @@
 			files = (
 				CEF2D73C289C1A0A00D34CCE /* StoreKit.framework in Frameworks */,
 				CE2C43A62822D2E4000007A2 /* Offline in Frameworks */,
-				CEAA2676289D4F4900897FB3 /* Coffee in Frameworks */,
 				CE979AA22827EF4D00FC0EB0 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,7 +524,6 @@
 			name = iOS;
 			packageProductDependencies = (
 				CE2C43A52822D2E4000007A2 /* Offline */,
-				CEAA2675289D4F4900897FB3 /* Coffee */,
 			);
 			productName = iOS;
 			productReference = CE2C43952822D2B0000007A2 /* App.app */;
@@ -1384,11 +1381,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE2C43A42822D2E4000007A2 /* XCRemoteSwiftPackageReference "offline" */;
 			productName = Offline;
-		};
-		CEAA2675289D4F4900897FB3 /* Coffee */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CEAA2674289D4F4900897FB3 /* XCRemoteSwiftPackageReference "coffee" */;
-			productName = Coffee;
 		};
 		CEAA2677289D4FE100897FB3 /* Coffee */ = {
 			isa = XCSwiftPackageProductDependency;
