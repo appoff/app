@@ -10,7 +10,7 @@ final class Content: NSVisualEffectView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         state = .active
-        material = .sidebar
+        material = .menu
         
         var view: NSView?
         

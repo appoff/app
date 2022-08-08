@@ -21,6 +21,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     init(session: Session, editable: Bool) {
         self.editable = editable
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         isPitchEnabled = false
         showsUserLocation = true
         showsTraffic = false
@@ -113,35 +114,34 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        manager.allowsBackgroundLocationUpdates = true
     }
     
     final func tracker() {
-        map
-            .selectedAnnotations
-            .first
-            .map {
-                map.deselectAnnotation($0, animated: true)
-            }
-        
-        switch manager.authorizationStatus {
-        case .denied, .restricted:
-            UIApplication.shared.settings()
-        case .notDetermined:
-            first = true
-            manager.requestAlwaysAuthorization()
-        case .authorizedAlways, .authorizedWhenInUse:
-            user(span: true)
-            map.follow = true
-        @unknown default:
-            break
-        }
+//        map
+//            .selectedAnnotations
+//            .first
+//            .map {
+//                map.deselectAnnotation($0, animated: true)
+//            }
+//
+//        switch manager.authorizationStatus {
+//        case .denied, .restricted:
+//            UIApplication.shared.settings()
+//        case .notDetermined:
+//            first = true
+//            manager.requestAlwaysAuthorization()
+//        case .authorizedAlways, .authorizedWhenInUse:
+//            user(span: true)
+//            map.follow = true
+//        @unknown default:
+//            break
+//        }
     }
     
     final func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard
-            map.follow,
-            let delta = didUpdate.location.map({ $0.coordinate.delta(other: map.centerCoordinate) }),
+            follow.value,
+            let delta = didUpdate.location.map({ $0.coordinate.delta(other: centerCoordinate) }),
             delta > 0.000000015
         else { return }
         
@@ -151,26 +151,26 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     final func mapView(_: MKMapView, viewFor: MKAnnotation) -> MKAnnotationView? {
         switch viewFor {
         case let user as MKUserLocation:
-            let view = map.dequeueReusableAnnotationView(withIdentifier: "User") as? User ?? User()
+            let view = dequeueReusableAnnotationView(withIdentifier: "User") as? User ?? User()
             view.annotation = user
             return view
         case let point as MKPointAnnotation:
-            let view = map.dequeueReusableAnnotationView(withIdentifier: "Marker") as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: point, reuseIdentifier: "Marker")
+            let view = dequeueReusableAnnotationView(withIdentifier: "Marker") as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: point, reuseIdentifier: "Marker")
             view.glyphImage = .init(named: "Logo")
             view.annotation = point
-            view.markerTintColor = .label
+            view.markerTintColor = .labelColor
             view.animatesWhenAdded = true
             view.displayPriority = .required
             view.canShowCallout = true
             
             if editable {
-                let button = UIButton(configuration: .plain(), primaryAction: .init { [weak self] _ in
-                    self?.discard.send(point)
-                })
-                button.frame = .init(x: 0, y: 0, width: 34, height: 40)
-                button.setImage(UIImage(systemName: "xmark.circle.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .secondaryLabel))?.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 16, weight: .light))), for: .normal)
-                
-                view.leftCalloutAccessoryView = button
+//                let button = UIButton(configuration: .plain(), primaryAction: .init { [weak self] _ in
+//                    self?.discard.send(point)
+//                })
+//                button.frame = .init(x: 0, y: 0, width: 34, height: 40)
+//                button.setImage(UIImage(systemName: "xmark.circle.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .secondaryLabel))?.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 16, weight: .light))), for: .normal)
+//
+//                view.leftCalloutAccessoryView = button
             }
             
             return view
@@ -179,58 +179,47 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-    final func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
-        switch rendererFor {
-        case let line as MKMultiPolyline:
-            let liner = Liner(multiPolyline: line)
-            liner.strokeColor = .label
-            return liner
-        default:
-            return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
-        }
-    }
+//    final func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
+//        switch rendererFor {
+//        case let line as MKMultiPolyline:
+//            let liner = Liner(multiPolyline: line)
+//            liner.strokeColor = .label
+//            return liner
+//        default:
+//            return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
+//        }
+//    }
     
     func mapView(_: MKMapView, didSelect: MKAnnotationView) {
-        map.follow = false
+        follow.value = false
     }
     
-    final func locationManager(_: CLLocationManager, didUpdateHeading: CLHeading) {
-        guard
-            didUpdateHeading.headingAccuracy >= 0,
-            didUpdateHeading.trueHeading >= 0,
-            let user = map.annotations.first(where: { $0 === map.userLocation }),
-            let view = map.view(for: user) as? User
-        else { return }
-        view.orientation(angle: didUpdateHeading.trueHeading * .pi / 180)
-    }
-    
-    final func locationManagerShouldDisplayHeadingCalibration(_: CLLocationManager) -> Bool { true }
     final func locationManagerDidChangeAuthorization(_: CLLocationManager) { }
     final func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) { }
     final func locationManager(_: CLLocationManager, didFailWithError: Error) { }
     final func locationManager(_: CLLocationManager, didFinishDeferredUpdatesWithError: Error?) { }
     
     private func user(span: Bool) {
-        UIView
-            .animate(withDuration: first ? 0 : 1,
-                     delay: 0,
-                     options: [.curveEaseInOut, .allowUserInteraction]) { [weak self] in
-                guard let map = self?.map else { return }
-                
-                let center = map.userLocation.location == nil
-                    ? map.centerCoordinate
-                    : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
-                        ? map.userLocation.coordinate
-                        : map.centerCoordinate
-                
-                if span {
-                    var region = MKCoordinateRegion()
-                    region.span = .init(latitudeDelta: 0.0015, longitudeDelta: 0.0015)
-                    region.center = center
-                    map.region = region
-                } else {
-                    map.centerCoordinate = center
-                }
-            }
+//        UIView
+//            .animate(withDuration: first ? 0 : 1,
+//                     delay: 0,
+//                     options: [.curveEaseInOut, .allowUserInteraction]) { [weak self] in
+//                guard let map = self?.map else { return }
+//                
+//                let center = map.userLocation.location == nil
+//                    ? map.centerCoordinate
+//                    : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
+//                        ? map.userLocation.coordinate
+//                        : map.centerCoordinate
+//                
+//                if span {
+//                    var region = MKCoordinateRegion()
+//                    region.span = .init(latitudeDelta: 0.0015, longitudeDelta: 0.0015)
+//                    region.center = center
+//                    map.region = region
+//                } else {
+//                    map.centerCoordinate = center
+//                }
+//            }
     }
 }
