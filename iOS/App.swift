@@ -10,15 +10,14 @@ import Offline
             Window()
                 .task {
                     cloud.ready.notify(queue: .main) {
-                        cloud.pull.send()
                         Defaults.start()
-                        
-                        Task
-                            .detached {
-                                _ = await UNUserNotificationCenter.request()
-                                await store.launch()
-                            }
                     }
+                    
+                    Task
+                        .detached {
+                            _ = await UNUserNotificationCenter.request()
+                            await store.launch()
+                        }
                 }
         }
         .onChange(of: phase) {
