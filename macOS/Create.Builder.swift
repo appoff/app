@@ -2,7 +2,7 @@ import MapKit
 import Offline
 
 extension Create {
-    final class Builder: Mapper {
+    final class Builder: Map {
         @Published var search = false
         @Published var cancel = false
         @Published var options = false
