@@ -19,6 +19,7 @@ extension Create {
         let route = CurrentValueSubject<_, Never>(Set<Routing>())
         let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
         let title = CurrentValueSubject<_, Never>("New map")
+        private var pressed: TimeInterval?
         
         required init?(coder: NSCoder) { nil }
         init(session: Session) {
@@ -69,18 +70,6 @@ extension Create {
                 center: true)
         }
         
-        func pressed(location: CGPoint) {
-            follow.value = false
-            selectedAnnotations
-                .first
-                .map {
-                    deselectAnnotation($0, animated: true)
-                }
-            
-            add(coordinate: convert(convert(location, from: nil),
-                                    toCoordinateFrom: self), center: false)
-        }
-        
         @MainActor func selected(completion: MKLocalSearchCompletion) async {
             guard
                 let response = try? await MKLocalSearch(request: .init(completion: completion)).start(),
@@ -96,6 +85,42 @@ extension Create {
                     : ""
             sourroundings(coordinate: point.coordinate)
             add(point: point, center: true)
+        }
+        
+        override func mouseDown(with: NSEvent) {
+            super.mouseDown(with: with)
+            
+            if with.clickCount == 1 {
+                pressed = with.timestamp
+            }
+        }
+        
+        override func mouseDragged(with: NSEvent) {
+            super.mouseDragged(with: with)
+            pressed = with.timestamp
+        }
+        
+        override func mouseUp(with: NSEvent) {
+            guard
+                with.clickCount == 1,
+                let pressed = pressed,
+                with.timestamp - pressed > 1
+            else {
+                self.pressed = nil
+                super.mouseUp(with: with)
+                return
+            }
+            self.pressed = nil
+            follow.value = false
+            selectedAnnotations
+                .first
+                .map {
+                    deselectAnnotation($0, animated: true)
+                }
+            
+            add(coordinate: convert(convert(with.locationInWindow, from: nil),
+                                    toCoordinateFrom: self),
+                center: false)
         }
         
         private func trace() {
