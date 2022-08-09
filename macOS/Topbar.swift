@@ -152,8 +152,9 @@ final class Topbar: NSView, NSTextFieldDelegate {
         
         session
             .flow
-            .sink {
-                switch $0 {
+            .combineLatest(session.completed.removeDuplicates())
+            .sink { flow, completed in
+                switch flow {
                 case .main:
                     create.state = .on
                     scan.state = .on
@@ -177,9 +178,7 @@ final class Topbar: NSView, NSTextFieldDelegate {
                     search.state = .on
                     options.state = .on
                     follow.state = .on
-                    save.state = .off
-                    
-                    session.title.value = "New map"
+                    save.state = completed ? .on : .off
                 default:
                     create.state = .off
                     scan.state = .off

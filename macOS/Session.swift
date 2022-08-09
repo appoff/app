@@ -9,6 +9,7 @@ final class Session {
     let flow = CurrentValueSubject<_, Never>(Flow.main)
     let cancel = PassthroughSubject<Void, Never>()
     let title = CurrentValueSubject<_, Never>("")
+    let completed = CurrentValueSubject<_, Never>(false)
     private var reviewed = false
     private var subs = Set<AnyCancellable>()
     

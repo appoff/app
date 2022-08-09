@@ -74,6 +74,7 @@ struct Create: View {
                         .fixedSize(horizontal: false, vertical: true)
                         
                         Button("Save") {
+                            guard builder.points.count > 1 && !builder.overflow else { return }
                             UIApplication.shared.hide()
                             builder.map.follow = false
                             

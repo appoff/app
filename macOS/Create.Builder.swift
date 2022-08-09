@@ -18,6 +18,7 @@ extension Create {
         private let directions = CurrentValueSubject<_, Never>(Settings.Directions.walking)
         private let route = CurrentValueSubject<_, Never>(Set<Routing>())
         private let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
+        private let overflow = CurrentValueSubject<_, Never>(false)
         private let long = PassthroughSubject<CLLocationCoordinate2D?, Never>()
         private let point = PassthroughSubject<CLLocationCoordinate2D, Never>()
         
@@ -74,6 +75,19 @@ extension Create {
                         }
                     
                     self?.add(coordinate: location, center: false)
+                }
+                .store(in: &subs)
+            
+            points
+                .map {
+                    $0.count > 1
+                }
+                .removeDuplicates()
+                .combineLatest(overflow.removeDuplicates()) {
+                    $0 && !$1
+                }
+                .sink {
+                    session.completed.value = $0
                 }
                 .store(in: &subs)
         }
