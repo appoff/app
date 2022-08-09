@@ -1,31 +1,24 @@
 import AppKit
 
-extension Sidebar {
+extension Topbar {
     final class Field: NSTextField {
         private let session: Session
         
-        override var canBecomeKeyView: Bool {
-            false
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(session: Session) {
-            Self.cellClass = Cell.self
             self.session = session
+            Self.cellClass = Cell.self
             
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
             translatesAutoresizingMaskIntoConstraints = false
-            font = .preferredFont(forTextStyle: .body)
+            font = .systemFont(ofSize: 14, weight: .regular)
             controlSize = .large
             lineBreakMode = .byTruncatingTail
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
-            placeholderString = "Search"
+            placeholderString = "New map"
             maximumNumberOfLines = 1
-            wantsLayer = true
-            layer!.cornerRadius = 8
-            layer!.cornerCurve = .continuous
         }
         
         deinit {
@@ -36,10 +29,13 @@ extension Sidebar {
                 }
         }
         
+        override var canBecomeKeyView: Bool {
+            false
+        }
+        
         override func cancelOperation(_: Any?) {
             stringValue = ""
             undoManager?.removeAllActions()
-//            session.search.send("")
             window?.makeFirstResponder(nil)
         }
         

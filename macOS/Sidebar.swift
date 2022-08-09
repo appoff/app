@@ -73,7 +73,7 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         stack.spacing = 1
         flip.addSubview(stack)
         
-        widthAnchor.constraint(equalToConstant: 300).isActive = true
+        widthAnchor.constraint(equalToConstant: 220).isActive = true
         
         field.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         field.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
@@ -111,7 +111,7 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         
         stack.topAnchor.constraint(equalTo: flip.topAnchor, constant: 1).isActive = true
         stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 1).isActive = true
-        stack.widthAnchor.constraint(equalToConstant: 298).isActive = true
+        stack.widthAnchor.constraint(equalToConstant: 218).isActive = true
         
         session
             .filtered

@@ -7,6 +7,7 @@ final class Session {
     let filtered = CurrentValueSubject<[Project], Never>([])
     let search = CurrentValueSubject<_, Never>("")
     let flow = CurrentValueSubject<_, Never>(Flow.main)
+    let cancel = PassthroughSubject<Void, Never>()
     private var reviewed = false
     private var subs = Set<AnyCancellable>()
     

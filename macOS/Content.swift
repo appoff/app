@@ -10,7 +10,6 @@ final class Content: NSVisualEffectView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         state = .active
-        material = .menu
         
         var view: NSView?
         
@@ -22,8 +21,10 @@ final class Content: NSVisualEffectView {
                 switch $0 {
                 case .create:
                     view = Create(session: session)
+                    self.material = .sidebar
                 default:
                     view = Main(session: session)
+                    self.material = .hudWindow
                 }
                 
                 self.addSubview(view!)

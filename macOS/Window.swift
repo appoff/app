@@ -9,12 +9,12 @@ final class Window: NSWindow {
         self.session = session
         super.init(contentRect: .init(x: 0,
                                       y: 0,
-                                      width: 980,
-                                      height: 600),
+                                      width: min(NSScreen.main?.frame.width ?? 1024, 1024),
+                                      height: min(NSScreen.main?.frame.width ?? 800, 800)),
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
                    backing: .buffered,
                    defer: false)
-        minSize = .init(width: 600, height: 400)
+        minSize = .init(width: 700, height: 400)
         center()
         toolbar = .init()
         isReleasedWhenClosed = false
@@ -47,5 +47,13 @@ final class Window: NSWindow {
     override func close() {
         super.close()
         NSApp.terminate(nil)
+    }
+    
+    override func cancelOperation(_ sender: Any?) {
+        if case .create = session.flow.value {
+            session.cancel.send()
+        } else {
+            super.cancelOperation(sender)
+        }
     }
 }
