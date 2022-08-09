@@ -2,7 +2,7 @@ import AppKit
 import Coffee
 import Combine
 
-final class Topbar: NSView {
+final class Topbar: NSView, NSTextFieldDelegate {
     private var subs = Set<AnyCancellable>()
     private let session: Session
     
@@ -32,6 +32,7 @@ final class Topbar: NSView {
         addSubview(scan)
         
         let name = Field(session: session)
+        name.delegate = self
         name.isHidden = true
         addSubview(name)
         
@@ -177,6 +178,8 @@ final class Topbar: NSView {
                     options.state = .on
                     follow.state = .on
                     save.state = .off
+                    
+                    session.title.value = "New map"
                 default:
                     create.state = .off
                     scan.state = .off
@@ -204,9 +207,30 @@ final class Topbar: NSView {
                 if alert.runModal().rawValue == cancel.tag {
                     session.flow.value = .main
                     name.stringValue = ""
+                    session.title.value = ""
                     self?.window?.makeFirstResponder(nil)
                 }
             }
             .store(in: &subs)
+    }
+    
+    func controlTextDidChange(_ notification: Notification) {
+        guard let name = notification.object as? Field else { return }
+        session.title.value = name.stringValue
+    }
+    
+    func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
+        switch doCommandBy {
+        case #selector(cancelOperation):
+            session.cancel.send()
+            return true
+        case #selector(complete),
+            #selector(NSSavePanel.cancel),
+            #selector(insertNewline):
+            window!.makeFirstResponder(window!.contentView)
+            return true
+        default:
+            return false
+        }
     }
 }

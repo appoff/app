@@ -18,7 +18,6 @@ extension Create {
         let directions = CurrentValueSubject<_, Never>(Settings.Directions.walking)
         let route = CurrentValueSubject<_, Never>(Set<Routing>())
         let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
-        let title = CurrentValueSubject<_, Never>("New map")
         private var pressed: TimeInterval?
         
         required init?(coder: NSCoder) { nil }
@@ -54,16 +53,16 @@ extension Create {
                 .store(in: &subs)
         }
         
-        func factory(settings: Settings) -> Factory {
-            .init(header: .init(title: title.value,
-                                origin: points.value.first?.title ?? "",
-                                destination: points.value.last?.title ?? "",
-                                distance: .init(route.value.distance),
-                                duration: .init(route.value.duration)),
-                  points: points.value,
-                  route: route.value,
-                  settings: settings)
-        }
+//        func factory(settings: Settings) -> Factory {
+//            .init(header: .init(title: sess.value,
+//                                origin: points.value.first?.title ?? "",
+//                                destination: points.value.last?.title ?? "",
+//                                distance: .init(route.value.distance),
+//                                duration: .init(route.value.duration)),
+//                  points: points.value,
+//                  route: route.value,
+//                  settings: settings)
+//        }
         
         func current() {
             add(coordinate: userLocation.location == nil ? centerCoordinate : userLocation.location!.coordinate,

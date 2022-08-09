@@ -105,12 +105,12 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
         position
             .debounce(for: .milliseconds(75), scheduler: DispatchQueue.main)
             .sink { [weak self] in
-//                self?.user(span: false)
-//                self?.first = false
+                self?.user(span: false)
+                self?.first = false
             }
             .store(in: &subs)
         
-//        user(span: true)
+        user(span: true)
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -200,26 +200,23 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     final func locationManager(_: CLLocationManager, didFinishDeferredUpdatesWithError: Error?) { }
     
     private func user(span: Bool) {
-//        UIView
-//            .animate(withDuration: first ? 0 : 1,
-//                     delay: 0,
-//                     options: [.curveEaseInOut, .allowUserInteraction]) { [weak self] in
-//                guard let map = self?.map else { return }
-//                
-//                let center = map.userLocation.location == nil
-//                    ? map.centerCoordinate
-//                    : map.userLocation.coordinate.latitude != 0 || map.userLocation.coordinate.longitude != 0
-//                        ? map.userLocation.coordinate
-//                        : map.centerCoordinate
-//                
-//                if span {
-//                    var region = MKCoordinateRegion()
-//                    region.span = .init(latitudeDelta: 0.0015, longitudeDelta: 0.0015)
-//                    region.center = center
-//                    map.region = region
-//                } else {
-//                    map.centerCoordinate = center
-//                }
-//            }
+        NSAnimationContext
+            .runAnimationGroup {
+                $0.duration = first ? 0 : 1
+                let center = userLocation.location == nil
+                ? centerCoordinate
+                : userLocation.coordinate.latitude != 0 || userLocation.coordinate.longitude != 0
+                ? userLocation.coordinate
+                : centerCoordinate
+                
+                if span {
+                    var region = MKCoordinateRegion()
+                    region.span = .init(latitudeDelta: 0.0015, longitudeDelta: 0.0015)
+                    region.center = center
+                    self.region = region
+                } else {
+                    centerCoordinate = center
+                }
+            }
     }
 }
