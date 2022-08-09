@@ -15,10 +15,10 @@ extension Create {
 //        @Published private(set) var route = Set<Routing>()
 //        private let long = UILongPressGestureRecognizer()
         
-        let directions = CurrentValueSubject<_, Never>(Settings.Directions.walking)
-        let route = CurrentValueSubject<_, Never>(Set<Routing>())
-        let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
-        private var pressed: TimeInterval?
+        private let directions = CurrentValueSubject<_, Never>(Settings.Directions.walking)
+        private let route = CurrentValueSubject<_, Never>(Set<Routing>())
+        private let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
+        private let long = PassthroughSubject<CLLocationCoordinate2D?, Never>()
         
         required init?(coder: NSCoder) { nil }
         init(session: Session) {
@@ -49,6 +49,23 @@ extension Create {
                     self?.interest.value = $0.settings.interest
                     self?.scheme.value = $0.settings.scheme
                     self?.directions.value = $0.settings.directions
+                }
+                .store(in: &subs)
+            
+            long
+                .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+                .compactMap {
+                    $0
+                }
+                .sink { [weak self] location in
+                    self?.follow.value = false
+                    self?.selectedAnnotations
+                        .first
+                        .map {
+                            self?.deselectAnnotation($0, animated: true)
+                        }
+                    
+                    self?.add(coordinate: location, center: false)
                 }
                 .store(in: &subs)
         }
@@ -90,36 +107,24 @@ extension Create {
             super.mouseDown(with: with)
             
             if with.clickCount == 1 {
-                pressed = with.timestamp
+                long.send(convert(convert(with.locationInWindow, from: nil),
+                                  toCoordinateFrom: self))
             }
         }
         
         override func mouseDragged(with: NSEvent) {
             super.mouseDragged(with: with)
-            pressed = with.timestamp
+            long.send(nil)
         }
         
         override func mouseUp(with: NSEvent) {
-            guard
-                with.clickCount == 1,
-                let pressed = pressed,
-                with.timestamp - pressed > 1
-            else {
-                self.pressed = nil
-                super.mouseUp(with: with)
-                return
-            }
-            self.pressed = nil
-            follow.value = false
-            selectedAnnotations
-                .first
-                .map {
-                    deselectAnnotation($0, animated: true)
-                }
-            
-            add(coordinate: convert(convert(with.locationInWindow, from: nil),
-                                    toCoordinateFrom: self),
-                center: false)
+            long.send(nil)
+            super.mouseUp(with: with)
+        }
+        
+        override func mouseExited(with: NSEvent) {
+            super.mouseExited(with: with)
+            long.send(nil)
         }
         
         private func trace() {

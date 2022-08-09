@@ -8,9 +8,9 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     let discard = PassthroughSubject<MKPointAnnotation, Never>()
     let type = CurrentValueSubject<_, Never>(Settings.Map.standard)
     let scheme = CurrentValueSubject<_, Never>(Settings.Scheme.auto)
-    let mode = CurrentValueSubject<NSAppearance?, Never>(nil)
+    private let mode = CurrentValueSubject<NSAppearance?, Never>(nil)
     let interest = CurrentValueSubject<_, Never>(true)
-    let rotate = CurrentValueSubject<_, Never>(true)
+    private let rotate = CurrentValueSubject<_, Never>(true)
     let follow = CurrentValueSubject<_, Never>(true)
     private var first = true
     private let editable: Bool
@@ -116,7 +116,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
-    final func tracker() {
+    private final func tracker() {
 //        map
 //            .selectedAnnotations
 //            .first
