@@ -19,10 +19,12 @@ extension Create {
         private let route = CurrentValueSubject<_, Never>(Set<Routing>())
         private let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
         private let long = PassthroughSubject<CLLocationCoordinate2D?, Never>()
+        private let point = PassthroughSubject<CLLocationCoordinate2D, Never>()
         
         required init?(coder: NSCoder) { nil }
         init(session: Session) {
             super.init(session: session, editable: true)
+            
             directions
                 .removeDuplicates()
                 .sink { [weak self] directions in
@@ -53,10 +55,16 @@ extension Create {
                 .store(in: &subs)
             
             long
-                .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+                .debounce(for: .seconds(0.8), scheduler: DispatchQueue.main)
                 .compactMap {
                     $0
                 }
+                .sink { [weak self] location in
+                    self?.point.send(location)
+                }
+                .store(in: &subs)
+            
+            point
                 .sink { [weak self] location in
                     self?.follow.value = false
                     self?.selectedAnnotations
@@ -107,8 +115,7 @@ extension Create {
             super.mouseDown(with: with)
             
             if with.clickCount == 1 {
-                long.send(convert(convert(with.locationInWindow, from: nil),
-                                  toCoordinateFrom: self))
+                long.send(coordinates(event: with))
             }
         }
         
@@ -125,6 +132,25 @@ extension Create {
         override func mouseExited(with: NSEvent) {
             super.mouseExited(with: with)
             long.send(nil)
+        }
+        
+        override func rightMouseDragged(with: NSEvent) {
+            super.rightMouseDragged(with: with)
+        }
+        
+        override func rightMouseDown(with: NSEvent) {
+            super.rightMouseDown(with: with)
+            long.send(nil)
+        }
+        
+        override func rightMouseUp(with: NSEvent) {
+            long.send(nil)
+            
+            if with.clickCount == 1 {
+                point.send(coordinates(event: with))
+            } else {
+                super.rightMouseUp(with: with)
+            }
         }
         
         private func trace() {
@@ -273,6 +299,11 @@ extension Create {
 //                .rect
 //
 //            overflow = rect.width + rect.height > limit
+        }
+        
+        private func coordinates(event: NSEvent) -> CLLocationCoordinate2D {
+            convert(convert(event.locationInWindow, from: nil),
+                    toCoordinateFrom: self)
         }
     }
 }
