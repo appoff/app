@@ -221,7 +221,7 @@ final class Topbar: NSView, NSTextFieldDelegate {
     func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
         switch doCommandBy {
         case #selector(cancelOperation):
-            session.cancel.send()
+            window?.makeFirstResponder(nil)
             return true
         case #selector(complete),
             #selector(NSSavePanel.cancel),
