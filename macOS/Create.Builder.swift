@@ -69,6 +69,18 @@ extension Create {
                 center: true)
         }
         
+        func pressed(location: CGPoint) {
+            follow.value = false
+            selectedAnnotations
+                .first
+                .map {
+                    deselectAnnotation($0, animated: true)
+                }
+            
+            add(coordinate: convert(convert(location, from: nil),
+                                    toCoordinateFrom: self), center: false)
+        }
+        
         @MainActor func selected(completion: MKLocalSearchCompletion) async {
             guard
                 let response = try? await MKLocalSearch(request: .init(completion: completion)).start(),
@@ -233,22 +245,5 @@ extension Create {
 //
 //            overflow = rect.width + rect.height > limit
         }
-        
-//        @objc private func pressed() {
-//            guard long.state == .began else { return }
-//            map.follow = false
-//            long.isEnabled = false
-//
-//            map
-//                .selectedAnnotations
-//                .first
-//                .map {
-//                    map.deselectAnnotation($0, animated: true)
-//                }
-//
-//            add(coordinate: map.convert(long.location(in: map), toCoordinateFrom: map), center: false)
-//
-//            long.isEnabled = true
-//        }
     }
 }
