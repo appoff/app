@@ -4,21 +4,10 @@ import Offline
 
 extension Create {
     final class Builder: Map {
-//        @Published var search = false
-//        @Published var cancel = false
-//        @Published var options = false
-//        @Published var config = false
-//        @Published var help = false
-//        @Published var title = "New map"
-//        @Published private(set) var overflow = false
-//        @Published private(set) var points = [MKPointAnnotation]()
-//        @Published private(set) var route = Set<Routing>()
-//        private let long = UILongPressGestureRecognizer()
-
         let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
+        let route = CurrentValueSubject<_, Never>(Set<Routing>())
         let overflow = CurrentValueSubject<_, Never>(false)
         private let directions = CurrentValueSubject<_, Never>(Settings.Directions.walking)
-        private let route = CurrentValueSubject<_, Never>(Set<Routing>())
         private let long = PassthroughSubject<CLLocationCoordinate2D?, Never>()
         private let point = PassthroughSubject<CLLocationCoordinate2D, Never>()
         
@@ -30,7 +19,7 @@ extension Create {
                 .removeDuplicates()
                 .sink { [weak self] directions in
                     self?.route.value = []
-//                    self?.trace()
+                    self?.trace()
                     
                     Task {
                         await cloud.update(directions: directions)
@@ -155,19 +144,19 @@ extension Create {
         }
         
         private func trace() {
-//            var pairs = [(MKPointAnnotation, MKPointAnnotation)]()
-//            _ = points.reduce(nil) { previous, current -> MKPointAnnotation? in
-//                if let previous = previous {
-//                    if !route.contains(where: { $0.origin == previous && $0.destination == current }) {
-//                        pairs.append((previous, current))
-//                    }
-//                }
-//                return current
-//            }
-//
-//            Task { [pairs] in
-//                await make(pairs: pairs)
-//            }
+            var pairs = [(MKPointAnnotation, MKPointAnnotation)]()
+            _ = points.value.reduce(nil) { previous, current -> MKPointAnnotation? in
+                if let previous = previous {
+                    if !route.value.contains(where: { $0.origin == previous && $0.destination == current }) {
+                        pairs.append((previous, current))
+                    }
+                }
+                return current
+            }
+
+            Task { [pairs] in
+                await make(pairs: pairs)
+            }
         }
         
         private func make(pairs: [(MKPointAnnotation, MKPointAnnotation)]) async {
@@ -261,45 +250,49 @@ extension Create {
         }
         
         private func sourroundings(coordinate: CLLocationCoordinate2D) {
-//            remove(discarded: points
-//                .filter {
-//                    $0.coordinate.delta(other: coordinate) < 0.0000006
-//                })
+            remove(discarded: points
+                .value
+                .filter {
+                    $0.coordinate.delta(other: coordinate) < 0.0000006
+                })
         }
         
         private func remove(discarded: [MKPointAnnotation]) {
-//            discarded
-//                .forEach { discard in
-//                    _ = points
-//                        .firstIndex(of: discard)
-//                        .map {
-//                            points.remove(at: $0)
-//                        }
-//
-//                    route = route
-//                        .filter {
-//                            $0.origin != discard && $0.destination != discard
-//                        }
-//
-//                    map.removeAnnotation(discard)
-//                }
-//
-//            validate()
-//
-//            trace()
+            discarded
+                .forEach { discard in
+                    _ = points
+                        .value
+                        .firstIndex(of: discard)
+                        .map {
+                            points.value.remove(at: $0)
+                        }
+
+                    route.value = route
+                        .value
+                        .filter {
+                            $0.origin != discard && $0.destination != discard
+                        }
+
+                    removeAnnotation(discard)
+                }
+
+            validate()
+
+            trace()
         }
         
         private func validate() {
-//            guard points.count > 1 else {
-//                overflow = false
-//                return
-//            }
-//
-//            let rect = points
-//                .map(\.coordinate)
-//                .rect
-//
-//            overflow = rect.width + rect.height > limit
+            guard points.value.count > 1 else {
+                overflow.value = false
+                return
+            }
+
+            let rect = points
+                .value
+                .map(\.coordinate)
+                .rect
+            
+            overflow.value = rect.width + rect.height > limit
         }
         
         private func coordinates(event: NSEvent) -> CLLocationCoordinate2D {

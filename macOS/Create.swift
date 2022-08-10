@@ -32,6 +32,11 @@ final class Create: NSView, NSTextFieldDelegate {
             .store(in: &subs)
         addSubview(rename)
         
+        let info = Text(vibrancy: true)
+        info.maximumNumberOfLines = 1
+        info.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        addSubview(info)
+        
         let secondDivider = Separator()
         addSubview(secondDivider)
         
@@ -44,8 +49,12 @@ final class Create: NSView, NSTextFieldDelegate {
         firstDivider.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         rename.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        
         name.leftAnchor.constraint(equalTo: rename.rightAnchor, constant: 8).isActive = true
         name.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        info.leftAnchor.constraint(equalTo: name.rightAnchor, constant: 20).isActive = true
+        info.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
         
         secondDivider.topAnchor.constraint(equalTo: firstDivider.bottomAnchor, constant: 50).isActive = true
         secondDivider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -57,7 +66,7 @@ final class Create: NSView, NSTextFieldDelegate {
         builder.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         builder.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        [rename, name]
+        [rename, name, info]
             .forEach {
                 $0.centerYAnchor.constraint(equalTo: firstDivider.bottomAnchor, constant: 25).isActive = true
             }
@@ -75,6 +84,87 @@ final class Create: NSView, NSTextFieldDelegate {
                 session.ready.value = $0
             }
             .store(in: &subs)
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byTruncatingTail
+        
+        let caption = [NSAttributedString.Key.font :
+                        NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular),
+                       .foregroundColor: NSColor.tertiaryLabelColor,
+                       .paragraphStyle: paragraph]
+        
+        let values = [NSAttributedString.Key.font :
+                        NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+                      .foregroundColor: NSColor.secondaryLabelColor,
+                      .paragraphStyle: paragraph]
+        
+        builder
+            .points
+            .map {
+                $0.count
+            }
+            .removeDuplicates()
+            .combineLatest(builder.route)
+            .sink { points, route in
+                let string = NSMutableAttributedString()
+                string.append(.init(string: points.formatted(),
+                                    attributes: values))
+                string.append(.init(string: points == 1 ? " Marker" : " Markers",
+                                    attributes: caption))
+                
+                if !route.isEmpty {
+                    string.append(.init(string: " — Distance ",
+                                        attributes: caption))
+                    
+                    string.append(.init(string: Measurement(value: route.distance,
+                                                            unit: UnitLength.meters)
+                        .formatted(.measurement(width: .abbreviated)),
+                                        attributes: values))
+                    
+                    string.append(.init(string: " — Duration ",
+                                        attributes: caption))
+                    
+                    string.append(.init(string: (Date(timeIntervalSinceNow: -route.duration) ..< Date.now)
+                        .formatted(.timeDuration),
+                                        attributes: values))
+                }
+                
+                info.attributedStringValue = string
+            }
+            .store(in: &subs)
+        
+        /*
+         HStack(alignment: .bottom, spacing: 0) {
+             Text(builder.points.count.formatted())
+                 .font(.body.monospacedDigit())
+                 .padding(.leading)
+             Text(builder.points.count == 1 ? " marker" : " markers")
+                 .foregroundStyle(.secondary)
+                 .font(.caption)
+             
+             Spacer()
+             
+             if !builder.route.isEmpty {
+                 Text("Distance ")
+                     .font(.caption)
+                     .foregroundStyle(.secondary)
+                     
+                 Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
+                      format: .measurement(width: .abbreviated))
+                     .font(.callout.monospacedDigit())
+                     
+                 Text("Duration ")
+                     .foregroundStyle(.secondary)
+                     .font(.caption)
+                     .padding(.leading)
+                 
+                 Text(Date(timeIntervalSinceNow: -builder.route.duration) ..< Date.now, format: .timeDuration)
+                     .font(.callout.monospacedDigit())
+                     .padding(.trailing)
+             }
+         }
+         .padding(.vertical, 10)
+         */
     }
     
     func controlTextDidChange(_ notification: Notification) {

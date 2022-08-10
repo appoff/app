@@ -111,10 +111,10 @@ struct Create: View {
                         Rectangle()
                             .fill(Color(.quaternarySystemFill))
                         HStack(alignment: .bottom, spacing: 0) {
-                            Text(builder.points.count.formatted())
+                            Text(builder.points.count, format: .number)
                                 .font(.body.monospacedDigit())
                                 .padding(.leading)
-                            Text(builder.points.count == 1 ? " marker" : " markers")
+                            Text(builder.points.count == 1 ? " Marker" : " Markers")
                                 .foregroundStyle(.secondary)
                                 .font(.caption)
                             
