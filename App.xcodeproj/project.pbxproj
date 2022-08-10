@@ -70,8 +70,8 @@
 		CE979A9E2827EBD400FC0EB0 /* Store.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */; };
 		CE979AA22827EF4D00FC0EB0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE979AA12827EF4D00FC0EB0 /* CloudKit.framework */; };
 		CE979AA42827F0EB00FC0EB0 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA32827F0EB00FC0EB0 /* Sheet.swift */; };
-		CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA52827F15400FC0EB0 /* Create.Options.swift */; };
-		CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA72827F21000FC0EB0 /* Create.Config.swift */; };
+		CE979AA62827F15400FC0EB0 /* Create.Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA52827F15400FC0EB0 /* Create.Settings.swift */; };
+		CE979AA82827F21000FC0EB0 /* Create.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA72827F21000FC0EB0 /* Create.Options.swift */; };
 		CE979AAA2827FA3D00FC0EB0 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA92827FA3D00FC0EB0 /* Window.swift */; };
 		CE9EDCC628475A4100CC7ACB /* Scan.Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */; };
 		CE9EF51628424298008169E2 /* Offload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EF51528424298008169E2 /* Offload.swift */; };
@@ -236,8 +236,8 @@
 		CE979A9F2827EF4A00FC0EB0 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CE979AA12827EF4D00FC0EB0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE979AA32827F0EB00FC0EB0 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
-		CE979AA52827F15400FC0EB0 /* Create.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Options.swift; sourceTree = "<group>"; };
-		CE979AA72827F21000FC0EB0 /* Create.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Config.swift; sourceTree = "<group>"; };
+		CE979AA52827F15400FC0EB0 /* Create.Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Settings.swift; sourceTree = "<group>"; };
+		CE979AA72827F21000FC0EB0 /* Create.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Options.swift; sourceTree = "<group>"; };
 		CE979AA92827FA3D00FC0EB0 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Picker.swift; sourceTree = "<group>"; };
 		CE9EF51528424298008169E2 /* Offload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offload.swift; sourceTree = "<group>"; };
@@ -381,9 +381,9 @@
 				CE979A932827EB1100FC0EB0 /* App.Delegate.swift */,
 				CE2C43982822D2B0000007A2 /* App.swift */,
 				CEC51ABE28254CD4003DA00D /* Create.Builder.swift */,
-				CE979AA72827F21000FC0EB0 /* Create.Config.swift */,
 				CED82A192848D7D9003742CC /* Create.Help.swift */,
-				CE979AA52827F15400FC0EB0 /* Create.Options.swift */,
+				CE979AA72827F21000FC0EB0 /* Create.Options.swift */,
+				CE979AA52827F15400FC0EB0 /* Create.Settings.swift */,
 				CE2C43B12822E1E2000007A2 /* Create.swift */,
 				CE4FF11F28327F84008DB139 /* Created.swift */,
 				CE4FF11D28327F42008DB139 /* Deleted.swift */,
@@ -748,7 +748,7 @@
 				CE7E701D2844D136008D5CD5 /* Download.swift in Sources */,
 				CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */,
 				CE81D92528242DA900364029 /* Search.Item.swift in Sources */,
-				CE979AA62827F15400FC0EB0 /* Create.Options.swift in Sources */,
+				CE979AA62827F15400FC0EB0 /* Create.Settings.swift in Sources */,
 				CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */,
 				CE787181282FEAA10050BD93 /* Detail.swift in Sources */,
 				CE51628728462DC8007D5D61 /* Scan.swift in Sources */,
@@ -756,7 +756,7 @@
 				CE2C43B42822E4A0000007A2 /* Main.swift in Sources */,
 				CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */,
 				CEFC28D52834E32500E47E23 /* Tiler.swift in Sources */,
-				CE979AA82827F21000FC0EB0 /* Create.Config.swift in Sources */,
+				CE979AA82827F21000FC0EB0 /* Create.Options.swift in Sources */,
 				CEFC28D92834F0EA00E47E23 /* Navigate.Control.swift in Sources */,
 				CE3AF0EA2844F3C10016AA02 /* Downloaded.swift in Sources */,
 				CED82A1E28490DC4003742CC /* Preferences.swift in Sources */,

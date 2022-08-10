@@ -4,36 +4,22 @@ import Offline
 extension Create {
     struct Options: View {
         @ObservedObject var builder: Builder
+        @Environment(\.dismiss) private var dismiss
         
         var body: some View {
-            Pop(title: "Settings") {
-                Text("Type")
+            Pop(title: "Options") {
+                Text("Appearance")
                     .font(.callout)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.leading)
                     .padding(.bottom, 10)
-                Picker("Type", selection: $builder.type) {
-                    ForEach(Settings.Map.allCases, id: \.self) {
-                        Text(verbatim: "\($0)".capitalized)
-                            .tag($0)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding([.leading, .trailing, .bottom])
-                
-                Divider()
-                    .padding(.horizontal)
-                
-                Text("Travel mode")
-                    .font(.callout)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .padding([.leading, .top])
-                    .padding(.bottom, 10)
-                Picker("Travel model", selection: $builder.directions) {
-                    Label("Walking", systemImage: "figure.walk")
-                        .tag(Settings.Directions.walking)
-                    Label("Driving", systemImage: "car")
-                        .tag(Settings.Directions.driving)
+                Picker("Appearance", selection: $builder.scheme) {
+                    Label("Auto", systemImage: "circle.righthalf.filled")
+                        .tag(Offline.Settings.Scheme.auto)
+                    Label("Light", systemImage: "sun.max")
+                        .tag(Offline.Settings.Scheme.light)
+                    Label("Dark", systemImage: "moon.stars")
+                        .tag(Offline.Settings.Scheme.dark)
                 }
                 .symbolRenderingMode(.hierarchical)
                 .pickerStyle(.segmented)
@@ -43,15 +29,38 @@ extension Create {
                 Divider()
                     .padding(.horizontal)
                 
-                Toggle(isOn: $builder.interest) {
-                    Image(systemName: "building.2")
+                Toggle(isOn: $builder.rotate) {
+                    Image(systemName: "gyroscope")
                         .font(.system(size: 22, weight: .light))
                         .frame(width: 45)
                         .frame(minHeight: 36)
-                    Text("Points of interest")
+                    Text("Rotation")
                         .font(.callout)
                 }
-                .font(.callout)
+                .padding()
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Button {
+                    builder.current()
+                    dismiss()
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("Location")
+                            .font(.callout.weight(.medium))
+                            .padding(.trailing, 8)
+                            .padding(.top, 3)
+                        Image("Logo")
+                            .resizable()
+                            .frame(width: 28, height: 28)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .tint(Color.primary.opacity(0.3))
+                .foregroundColor(.primary)
+                .buttonStyle(.bordered)
+                .fixedSize()
                 .padding()
             }
             .symbolRenderingMode(.hierarchical)

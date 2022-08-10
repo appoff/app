@@ -181,7 +181,7 @@ struct Create: View {
                             builder.config = true
                         }
                         .sheet(isPresented: $builder.config) {
-                            Sheet(rootView: Config(builder: builder))
+                            Sheet(rootView: Options(builder: builder))
                         }
                         
                         Button {
@@ -214,7 +214,7 @@ struct Create: View {
                             builder.options = true
                         }
                         .sheet(isPresented: $builder.options) {
-                            Sheet(rootView: Options(builder: builder))
+                            Sheet(rootView: Settings(builder: builder))
                         }
                         
                         Action(symbol: "location.viewfinder") {

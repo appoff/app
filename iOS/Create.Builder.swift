@@ -14,7 +14,7 @@ extension Create {
         @Published private(set) var route = Set<Routing>()
         private let long = UILongPressGestureRecognizer()
         
-        @Published var directions = Settings.Directions.walking {
+        @Published var directions = Offline.Settings.Directions.walking {
             didSet {
                 guard oldValue != directions else { return }
                 
@@ -50,7 +50,7 @@ extension Create {
                 .store(in: &subs)
         }
         
-        func factory(settings: Settings) -> Factory {
+        func factory(settings: Offline.Settings) -> Factory {
             .init(header: .init(title: title,
                              origin: points.first?.title ?? "",
                              destination: points.last?.title ?? "",
