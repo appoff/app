@@ -83,6 +83,8 @@
 		CEAA267A289D5D5500897FB3 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2679289D5D5500897FB3 /* Content.swift */; };
 		CEAA267C289D60C700897FB3 /* Topbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA267B289D60C700897FB3 /* Topbar.swift */; };
 		CEAE0094282D418900FB5EFF /* Loading.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE0093282D418900FB5EFF /* Loading.Progress.swift */; };
+		CEB170EF28A3D20A00F10A35 /* Liner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78C581283CDFB60046FF33 /* Liner.swift */; };
+		CEB170F028A3D22900F10A35 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC28D42834E32500E47E23 /* Tiler.swift */; };
 		CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF1EC282E72BC00601056 /* Main.Item.swift */; };
 		CEBDF1EF282E82D100601056 /* Info.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF1EE282E82D100601056 /* Info.Item.swift */; };
 		CEC51AB928252F85003DA00D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AB828252F85003DA00D /* Session.swift */; };
@@ -392,7 +394,6 @@
 				CED82A1B284909A3003742CC /* Helper.swift */,
 				CEBDF1EE282E82D100601056 /* Info.Item.swift */,
 				CE787182282FF7080050BD93 /* Info.swift */,
-				CE78C581283CDFB60046FF33 /* Liner.swift */,
 				CEAE0093282D418900FB5EFF /* Loading.Progress.swift */,
 				CE502C98282928DC004F16AF /* Loading.swift */,
 				CEBDF1EC282E72BC00601056 /* Main.Item.swift */,
@@ -423,7 +424,6 @@
 				CE3AF0ED284525AB0016AA02 /* Share.swift */,
 				CE5162842846118F007D5D61 /* Shared.swift */,
 				CE979AA32827F0EB00FC0EB0 /* Sheet.swift */,
-				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE2C43B72822E9AF000007A2 /* UIApplication.swift */,
 				CEFC28DC2835247400E47E23 /* Unzip.swift */,
 				CE3A92C6283E6D8D00D52C2A /* Upgrade.swift */,
@@ -439,9 +439,11 @@
 			children = (
 				CED82A1F28490FFA003742CC /* Copy.swift */,
 				CE979A952827EB6E00FC0EB0 /* Global.swift */,
+				CE78C581283CDFB60046FF33 /* Liner.swift */,
 				CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */,
 				CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */,
 				CE979A992827EBAD00FC0EB0 /* Store.swift */,
+				CEFC28D42834E32500E47E23 /* Tiler.swift */,
 				CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */,
 				CEF58920284B7E2B0049A81C /* Global.xcassets */,
 				CE2C43A92822D494000007A2 /* Media.xcassets */,
@@ -775,6 +777,7 @@
 				CEF2D740289C1E2700D34CCE /* Global.swift in Sources */,
 				CE77701428A27D9800190D97 /* Create.Editor.swift in Sources */,
 				CE77701028A27D6A00190D97 /* Create.Field.swift in Sources */,
+				CEB170F028A3D22900F10A35 /* Tiler.swift in Sources */,
 				CE00C3AC28A1292E00D5129B /* Session.Flow.swift in Sources */,
 				CE002CBF289C1F8E0010F6F9 /* UNUserNotificationCenter.swift in Sources */,
 				CE00C3A628A1226C00D5129B /* Sidebar.Item.swift in Sources */,
@@ -794,6 +797,7 @@
 				CEAA266C289D435300897FB3 /* Sidebar.Editor.swift in Sources */,
 				CEF2D744289C1F3800D34CCE /* Window.swift in Sources */,
 				CE77701228A27D8500190D97 /* Create.Cell.swift in Sources */,
+				CEB170EF28A3D20A00F10A35 /* Liner.swift in Sources */,
 				CEAA266E289D435F00897FB3 /* Sidebar.Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

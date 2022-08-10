@@ -1,4 +1,5 @@
 import MapKit
+import Coffee
 import Combine
 import Offline
 
@@ -8,14 +9,14 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     let discard = PassthroughSubject<MKPointAnnotation, Never>()
     let type = CurrentValueSubject<_, Never>(Settings.Map.standard)
     let scheme = CurrentValueSubject<_, Never>(Settings.Scheme.auto)
-    private let mode = CurrentValueSubject<NSAppearance?, Never>(nil)
     let interest = CurrentValueSubject<_, Never>(true)
-    private let rotate = CurrentValueSubject<_, Never>(true)
     let follow = CurrentValueSubject<_, Never>(true)
     private var first = true
     private let editable: Bool
     private let position = PassthroughSubject<Void, Never>()
     private let manager = CLLocationManager()
+    private let mode = CurrentValueSubject<NSAppearance?, Never>(nil)
+    private let rotate = CurrentValueSubject<_, Never>(true)
     
     required init?(coder: NSCoder) { nil }
     init(session: Session, editable: Bool) {
@@ -144,7 +145,6 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             let delta = didUpdate.location.map({ $0.coordinate.delta(other: centerCoordinate) }),
             delta > 0.000000015
         else { return }
-        
         position.send()
     }
     
@@ -164,13 +164,14 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             view.canShowCallout = true
             
             if editable {
-//                let button = UIButton(configuration: .plain(), primaryAction: .init { [weak self] _ in
-//                    self?.discard.send(point)
-//                })
-//                button.frame = .init(x: 0, y: 0, width: 34, height: 40)
-//                button.setImage(UIImage(systemName: "xmark.circle.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .secondaryLabel))?.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 16, weight: .light))), for: .normal)
-//
-//                view.leftCalloutAccessoryView = button
+                let button = Button(symbol: "xmark.circle.fill")
+                button
+                    .click
+                    .sink { [weak self] in
+                        self?.discard.send(point)
+                    }
+                    .store(in: &subs)
+                view.leftCalloutAccessoryView = button
             }
             
             return view
@@ -179,16 +180,16 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-//    final func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
-//        switch rendererFor {
-//        case let line as MKMultiPolyline:
-//            let liner = Liner(multiPolyline: line)
-//            liner.strokeColor = .label
-//            return liner
-//        default:
-//            return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
-//        }
-//    }
+    final func mapView(_: MKMapView, rendererFor: MKOverlay) -> MKOverlayRenderer {
+        switch rendererFor {
+        case let line as MKMultiPolyline:
+            let liner = Liner(multiPolyline: line)
+            liner.strokeColor = .labelColor
+            return liner
+        default:
+            return MKTileOverlayRenderer(tileOverlay: rendererFor as! Tiler)
+        }
+    }
     
     func mapView(_: MKMapView, didSelect: MKAnnotationView) {
         follow.value = false
