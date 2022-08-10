@@ -132,6 +132,15 @@ final class Create: NSView, NSTextFieldDelegate {
                 info.attributedStringValue = string
             }
             .store(in: &subs)
+        
+        session
+            .settings
+            .sink { origin in
+                NSPopover().show(content: Settings(session: session, type: builder.type),
+                                 on: origin,
+                                 edge: .minY)
+            }
+            .store(in: &subs)
     }
     
     func controlTextDidChange(_ notification: Notification) {

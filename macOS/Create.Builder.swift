@@ -7,7 +7,7 @@ extension Create {
         let points = CurrentValueSubject<_, Never>([MKPointAnnotation]())
         let route = CurrentValueSubject<_, Never>(Set<Routing>())
         let overflow = CurrentValueSubject<_, Never>(false)
-        private let directions = CurrentValueSubject<_, Never>(Settings.Directions.walking)
+        private let directions = CurrentValueSubject<_, Never>(Offline.Settings.Directions.walking)
         private let long = PassthroughSubject<CLLocationCoordinate2D?, Never>()
         private let point = PassthroughSubject<CLLocationCoordinate2D, Never>()
         

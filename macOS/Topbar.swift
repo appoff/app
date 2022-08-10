@@ -75,16 +75,16 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(search)
         
-        let options = Button(symbol: "square.stack.3d.up")
-        options.toolTip = "Options"
-        options.state = .hidden
-        options
+        let settings = Button(symbol: "square.stack.3d.up")
+        settings.toolTip = "Settings"
+        settings.state = .hidden
+        settings
             .click
             .sink {
-                
+                session.settings.send(settings)
             }
             .store(in: &subs)
-        addSubview(options)
+        addSubview(settings)
         
         let follow = Button(symbol: "location.viewfinder")
         follow.toolTip = "My location"
@@ -112,13 +112,13 @@ final class Topbar: NSView {
         
         save.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         follow.rightAnchor.constraint(equalTo: save.leftAnchor, constant: -15).isActive = true
-        options.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
-        search.rightAnchor.constraint(equalTo: options.leftAnchor, constant: -10).isActive = true
+        settings.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
+        search.rightAnchor.constraint(equalTo: settings.leftAnchor, constant: -10).isActive = true
         config.rightAnchor.constraint(equalTo: search.leftAnchor, constant: -10).isActive = true
         help.rightAnchor.constraint(equalTo: config.leftAnchor, constant: -10).isActive = true
         cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
         
-        [create, scan, cancel, help, config, search, options, follow, save]
+        [create, scan, cancel, help, config, search, settings, follow, save]
             .forEach {
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
@@ -135,7 +135,7 @@ final class Topbar: NSView {
                     help.state = .hidden
                     config.state = .hidden
                     search.state = .hidden
-                    options.state = .hidden
+                    settings.state = .hidden
                     follow.state = .hidden
                     save.state = .hidden
                 case .create:
@@ -145,7 +145,7 @@ final class Topbar: NSView {
                     help.state = .on
                     config.state = .on
                     search.state = .on
-                    options.state = .on
+                    settings.state = .on
                     follow.state = .on
                     save.state = completed ? .on : .off
                 default:
