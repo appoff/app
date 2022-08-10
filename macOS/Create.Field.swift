@@ -1,6 +1,6 @@
 import AppKit
 
-extension Topbar {
+extension Create {
     final class Field: NSTextField {
         private let session: Session
         
@@ -19,6 +19,9 @@ extension Topbar {
             isAutomaticTextCompletionEnabled = false
             placeholderString = "New map"
             maximumNumberOfLines = 1
+            wantsLayer = true
+            layer!.cornerRadius = 8
+            layer!.cornerCurve = .continuous
         }
         
         deinit {
@@ -36,7 +39,7 @@ extension Topbar {
         override func cancelOperation(_: Any?) {
             stringValue = ""
             undoManager?.removeAllActions()
-            window?.makeFirstResponder(nil)
+            window?.makeFirstResponder(window?.contentView)
         }
         
         override func becomeFirstResponder() -> Bool {

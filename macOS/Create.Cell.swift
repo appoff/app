@@ -1,6 +1,6 @@
 import AppKit
 
-extension Topbar {
+extension Create {
     final class Cell: NSTextFieldCell {
         private let editor = Editor()
         

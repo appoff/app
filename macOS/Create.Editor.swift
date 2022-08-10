@@ -1,6 +1,6 @@
 import AppKit
 
-extension Topbar {
+extension Create {
     final class Editor: NSTextView {
         override init(frame: NSRect, textContainer: NSTextContainer?) {
             super.init(frame: frame, textContainer: textContainer)

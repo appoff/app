@@ -2,7 +2,7 @@ import AppKit
 import Coffee
 import Combine
 
-final class Topbar: NSView, NSTextFieldDelegate {
+final class Topbar: NSView {
     private var subs = Set<AnyCancellable>()
     private let session: Session
     
@@ -30,23 +30,6 @@ final class Topbar: NSView, NSTextFieldDelegate {
             }
             .store(in: &subs)
         addSubview(scan)
-        
-        let name = Field(session: session)
-        name.delegate = self
-        name.isHidden = true
-        addSubview(name)
-        
-        let rename = Button(symbol: "character.cursor.ibeam")
-        rename.state = .hidden
-        rename.toolTip = "Change name"
-        rename
-            .click
-            .sink { [weak self] in
-                guard case .create = session.flow.value else { return }
-                self?.window?.makeFirstResponder(name)
-            }
-            .store(in: &subs)
-        addSubview(rename)
         
         let cancel = Button(symbol: "xmark")
         cancel.toolTip = "Cancel new map"
@@ -129,13 +112,6 @@ final class Topbar: NSView, NSTextFieldDelegate {
         create.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         scan.leftAnchor.constraint(equalTo: create.rightAnchor, constant: 10).isActive = true
         
-        rename.leftAnchor.constraint(equalTo: leftAnchor, constant: 160).isActive = true
-        name.leftAnchor.constraint(equalTo: rename.rightAnchor, constant: 8).isActive = true
-        name.rightAnchor.constraint(lessThanOrEqualTo: cancel.leftAnchor, constant: -10).isActive = true
-        let nameWidth = name.widthAnchor.constraint(equalToConstant: 200)
-        nameWidth.priority = .defaultLow
-        nameWidth.isActive = true
-        
         save.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         follow.rightAnchor.constraint(equalTo: save.leftAnchor, constant: -15).isActive = true
         options.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
@@ -144,22 +120,19 @@ final class Topbar: NSView, NSTextFieldDelegate {
         help.rightAnchor.constraint(equalTo: config.leftAnchor, constant: -10).isActive = true
         cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
         
-        [create, scan, rename, name, cancel, help, config, search, options, follow, save]
+        [create, scan, cancel, help, config, search, options, follow, save]
             .forEach {
-                $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
         
         session
             .flow
-            .combineLatest(session.completed.removeDuplicates())
+            .combineLatest(session.ready.removeDuplicates())
             .sink { flow, completed in
                 switch flow {
                 case .main:
                     create.state = .on
                     scan.state = .on
-                    rename.state = .hidden
-                    name.isHidden = true
                     cancel.state = .hidden
                     help.state = .hidden
                     config.state = .hidden
@@ -170,8 +143,6 @@ final class Topbar: NSView, NSTextFieldDelegate {
                 case .create:
                     create.state = .off
                     scan.state = .off
-                    rename.state = .on
-                    name.isHidden = false
                     cancel.state = .on
                     help.state = .on
                     config.state = .on
@@ -182,8 +153,6 @@ final class Topbar: NSView, NSTextFieldDelegate {
                 default:
                     create.state = .off
                     scan.state = .off
-                    rename.state = .hidden
-                    name.isHidden = true
                 }
             }
             .store(in: &subs)
@@ -205,31 +174,9 @@ final class Topbar: NSView, NSTextFieldDelegate {
                 
                 if alert.runModal().rawValue == cancel.tag {
                     session.flow.value = .main
-                    name.stringValue = ""
-                    session.title.value = ""
-                    self?.window?.makeFirstResponder(nil)
+                    self?.window?.makeFirstResponder(self?.window?.contentView)
                 }
             }
             .store(in: &subs)
-    }
-    
-    func controlTextDidChange(_ notification: Notification) {
-        guard let name = notification.object as? Field else { return }
-        session.title.value = name.stringValue
-    }
-    
-    func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
-        switch doCommandBy {
-        case #selector(cancelOperation):
-            window?.makeFirstResponder(nil)
-            return true
-        case #selector(complete),
-            #selector(NSSavePanel.cancel),
-            #selector(insertNewline):
-            window!.makeFirstResponder(window!.contentView)
-            return true
-        default:
-            return false
-        }
     }
 }

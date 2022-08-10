@@ -40,7 +40,7 @@ extension Sidebar {
             stringValue = ""
             undoManager?.removeAllActions()
 //            session.search.send("")
-            window?.makeFirstResponder(nil)
+            window?.makeFirstResponder(window?.contentView)
         }
         
         override func becomeFirstResponder() -> Bool {
