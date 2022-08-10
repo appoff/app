@@ -4,13 +4,13 @@ import Combine
 import Offline
 
 class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
+    final var follow = true
     final var subs = Set<AnyCancellable>()
     let geocoder = CLGeocoder()
     let discard = PassthroughSubject<MKPointAnnotation, Never>()
     let type = CurrentValueSubject<_, Never>(Settings.Map.standard)
     let scheme = CurrentValueSubject<_, Never>(Settings.Scheme.auto)
     let interest = CurrentValueSubject<_, Never>(true)
-    let follow = CurrentValueSubject<_, Never>(true)
     private var first = true
     private let editable: Bool
     private let position = PassthroughSubject<Void, Never>()
@@ -111,37 +111,42 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             }
             .store(in: &subs)
         
+        session
+            .follow
+            .sink { [weak self] in
+                 self?
+                     .selectedAnnotations
+                     .first
+                     .map {
+                         self?.deselectAnnotation($0, animated: true)
+                     }
+
+                switch self?.manager.authorizationStatus {
+                case .denied, .restricted:
+                    NSWorkspace
+                        .shared
+                        .open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Offline_LocationServices")!)
+                case .notDetermined:
+                    self?.first = true
+                    self?.manager.requestAlwaysAuthorization()
+                case .authorizedAlways, .authorizedWhenInUse:
+                    self?.user(span: true)
+                    self?.follow = true
+                default:
+                    break
+                }
+            }
+            .store(in: &subs)
+        
         user(span: true)
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
-    private final func tracker() {
-//        map
-//            .selectedAnnotations
-//            .first
-//            .map {
-//                map.deselectAnnotation($0, animated: true)
-//            }
-//
-//        switch manager.authorizationStatus {
-//        case .denied, .restricted:
-//            UIApplication.shared.settings()
-//        case .notDetermined:
-//            first = true
-//            manager.requestAlwaysAuthorization()
-//        case .authorizedAlways, .authorizedWhenInUse:
-//            user(span: true)
-//            map.follow = true
-//        @unknown default:
-//            break
-//        }
-    }
-    
     final func mapView(_: MKMapView, didUpdate: MKUserLocation) {
         guard
-            follow.value,
+            follow,
             let delta = didUpdate.location.map({ $0.coordinate.delta(other: centerCoordinate) }),
             delta > 0.000000015
         else { return }
@@ -192,7 +197,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_: MKMapView, didSelect: MKAnnotationView) {
-        follow.value = false
+        follow = false
     }
     
     final func locationManagerDidChangeAuthorization(_: CLLocationManager) { }

@@ -87,13 +87,11 @@ final class Topbar: NSView {
         addSubview(options)
         
         let follow = Button(symbol: "location.viewfinder")
-        follow.toolTip = "Follow me"
+        follow.toolTip = "My location"
         follow.state = .hidden
         follow
             .click
-            .sink {
-                
-            }
+            .subscribe(session.follow)
             .store(in: &subs)
         addSubview(follow)
         

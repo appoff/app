@@ -29,7 +29,7 @@ extension Create {
             
             discard
                 .sink { [weak self] in
-                    self?.follow.value = false
+                    self?.follow = false
                     self?.remove(discarded: [$0])
                 }
                 .store(in: &subs)
@@ -56,7 +56,7 @@ extension Create {
             
             point
                 .sink { [weak self] location in
-                    self?.follow.value = false
+                    self?.follow = false
                     self?.selectedAnnotations
                         .first
                         .map {

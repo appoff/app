@@ -132,39 +132,6 @@ final class Create: NSView, NSTextFieldDelegate {
                 info.attributedStringValue = string
             }
             .store(in: &subs)
-        
-        /*
-         HStack(alignment: .bottom, spacing: 0) {
-             Text(builder.points.count.formatted())
-                 .font(.body.monospacedDigit())
-                 .padding(.leading)
-             Text(builder.points.count == 1 ? " marker" : " markers")
-                 .foregroundStyle(.secondary)
-                 .font(.caption)
-             
-             Spacer()
-             
-             if !builder.route.isEmpty {
-                 Text("Distance ")
-                     .font(.caption)
-                     .foregroundStyle(.secondary)
-                     
-                 Text(Measurement(value: builder.route.distance, unit: UnitLength.meters),
-                      format: .measurement(width: .abbreviated))
-                     .font(.callout.monospacedDigit())
-                     
-                 Text("Duration ")
-                     .foregroundStyle(.secondary)
-                     .font(.caption)
-                     .padding(.leading)
-                 
-                 Text(Date(timeIntervalSinceNow: -builder.route.duration) ..< Date.now, format: .timeDuration)
-                     .font(.callout.monospacedDigit())
-                     .padding(.trailing)
-             }
-         }
-         .padding(.vertical, 10)
-         */
     }
     
     func controlTextDidChange(_ notification: Notification) {
