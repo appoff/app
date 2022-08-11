@@ -7,17 +7,20 @@ extension Create {
     final class Settings: NSView {
         private weak var type: CurrentValueSubject<Offline.Settings.Map, Never>!
         private weak var directions: CurrentValueSubject<Offline.Settings.Directions, Never>!
+        private weak var interest: CurrentValueSubject<Bool, Never>!
         private let session: Session
         
         required init?(coder: NSCoder) { nil }
         init(session: Session,
              type: CurrentValueSubject<Offline.Settings.Map, Never>,
-             directions: CurrentValueSubject<Offline.Settings.Directions, Never>) {
+             directions: CurrentValueSubject<Offline.Settings.Directions, Never>,
+             interest: CurrentValueSubject<Bool, Never>) {
             
             self.session = session
             self.type = type
             self.directions = directions
-            super.init(frame: .init(x: 0, y: 0, width: 340, height: 300))
+            self.interest = interest
+            super.init(frame: .init(x: 0, y: 0, width: 340, height: 340))
             
             let title = Text(vibrancy: true)
             title.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .medium)
@@ -65,6 +68,20 @@ extension Create {
             
             let pointsTitle = Text(vibrancy: true)
             pointsTitle.stringValue = "Points of interest"
+            
+            let pointsIcon = NSImageView(image: .init(systemSymbolName: "building.2", accessibilityDescription: nil) ?? .init())
+            pointsIcon.translatesAutoresizingMaskIntoConstraints = false
+            pointsIcon.symbolConfiguration = .init(pointSize: 20, weight: .regular)
+                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+            addSubview(pointsIcon)
+            
+            let pointsSwitch = NSSwitch()
+            pointsSwitch.target = self
+            pointsSwitch.action = #selector(updatePoints)
+            pointsSwitch.translatesAutoresizingMaskIntoConstraints = false
+            pointsSwitch.controlSize = .large
+            pointsSwitch.state = interest.value ? .on : .off
+            addSubview(pointsSwitch)
 
             [typeSegmented, directionsSegmented]
                 .forEach {
@@ -94,11 +111,17 @@ extension Create {
             title.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             title.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
             
-            typeTitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
+            typeTitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 25).isActive = true
             typeSegmented.topAnchor.constraint(equalTo: typeTitle.bottomAnchor, constant: 5).isActive = true
-            firstDivider.topAnchor.constraint(equalTo: typeSegmented.bottomAnchor, constant: 10).isActive = true
+            firstDivider.topAnchor.constraint(equalTo: typeSegmented.bottomAnchor, constant: 20).isActive = true
             directionsTitle.topAnchor.constraint(equalTo: firstDivider.bottomAnchor, constant: 20).isActive = true
             directionsSegmented.topAnchor.constraint(equalTo: directionsTitle.bottomAnchor, constant: 5).isActive = true
+            secondDivider.topAnchor.constraint(equalTo: directionsSegmented.bottomAnchor, constant: 20).isActive = true
+            pointsTitle.topAnchor.constraint(equalTo: secondDivider.bottomAnchor, constant: 30).isActive = true
+            pointsIcon.centerYAnchor.constraint(equalTo: pointsTitle.centerYAnchor).isActive = true
+            pointsIcon.leftAnchor.constraint(equalTo: pointsTitle.rightAnchor, constant: 10).isActive = true
+            pointsSwitch.centerYAnchor.constraint(equalTo: pointsTitle.centerYAnchor).isActive = true
+            pointsSwitch.rightAnchor.constraint(equalTo: rightAnchor, constant: -38).isActive = true
         }
         
         @objc private func updateType(_ segmented: NSSegmentedControl) {
@@ -110,69 +133,13 @@ extension Create {
             guard .init(directions.value.rawValue) != segmented.selectedSegment else { return }
             directions.value = .init(rawValue: .init(segmented.selectedSegment))!
         }
+        
+        @objc private func updatePoints(_ control: NSSwitch) {
+            guard
+                (interest.value && control.state == .off)
+                    || (!interest.value && control.state == .on)
+            else { return }
+            interest.value = control.state == .on
+        }
     }
 }
-/*
- import SwiftUI
- import Offline
-
- extension Create {
-     struct Settings: View {
-         @ObservedObject var builder: Builder
-         
-         var body: some View {
-             Pop(title: "Settings") {
-                 Text("Type")
-                     .font(.callout)
-                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                     .padding(.leading)
-                     .padding(.bottom, 10)
-                 Picker("Type", selection: $builder.type) {
-                     ForEach(Offline.Settings.Map.allCases, id: \.self) {
-                         Text(verbatim: "\($0)".capitalized)
-                             .tag($0)
-                     }
-                 }
-                 .pickerStyle(.segmented)
-                 .padding([.leading, .trailing, .bottom])
-                 
-                 Divider()
-                     .padding(.horizontal)
-                 
-                 Text("Travel mode")
-                     .font(.callout)
-                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                     .padding([.leading, .top])
-                     .padding(.bottom, 10)
-                 Picker("Travel model", selection: $builder.directions) {
-                     Label("Walking", systemImage: "figure.walk")
-                         .tag(Offline.Settings.Directions.walking)
-                     Label("Driving", systemImage: "car")
-                         .tag(Offline.Settings.Directions.driving)
-                 }
-                 .symbolRenderingMode(.hierarchical)
-                 .pickerStyle(.segmented)
-                 .labelStyle(.iconOnly)
-                 .padding([.leading, .trailing, .bottom])
-                 
-                 Divider()
-                     .padding(.horizontal)
-                 
-                 Toggle(isOn: $builder.interest) {
-                     Image(systemName: "building.2")
-                         .font(.system(size: 22, weight: .light))
-                         .frame(width: 45)
-                         .frame(minHeight: 36)
-                     Text("Points of interest")
-                         .font(.callout)
-                 }
-                 .font(.callout)
-                 .padding()
-             }
-             .symbolRenderingMode(.hierarchical)
-             .toggleStyle(SwitchToggleStyle(tint: .secondary))
-         }
-     }
- }
-
- */
