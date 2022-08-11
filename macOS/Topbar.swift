@@ -177,4 +177,8 @@ final class Topbar: NSView {
             }
             .store(in: &subs)
     }
+    
+    override func acceptsFirstMouse(for: NSEvent?) -> Bool {
+        true
+    }
 }

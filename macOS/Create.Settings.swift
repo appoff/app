@@ -6,14 +6,17 @@ import Offline
 extension Create {
     final class Settings: NSView {
         private weak var type: CurrentValueSubject<Offline.Settings.Map, Never>!
+        private weak var directions: CurrentValueSubject<Offline.Settings.Directions, Never>!
         private let session: Session
         
         required init?(coder: NSCoder) { nil }
         init(session: Session,
-             type: CurrentValueSubject<Offline.Settings.Map, Never>) {
+             type: CurrentValueSubject<Offline.Settings.Map, Never>,
+             directions: CurrentValueSubject<Offline.Settings.Directions, Never>) {
             
             self.session = session
             self.type = type
+            self.directions = directions
             super.init(frame: .init(x: 0, y: 0, width: 340, height: 300))
             
             let title = Text(vibrancy: true)
@@ -35,22 +38,35 @@ extension Create {
                     },
                 trackingMode: .selectOne,
                 target: self,
-                action: #selector(update))
+                action: #selector(updateType))
             typeSegmented.translatesAutoresizingMaskIntoConstraints = false
             typeSegmented.controlSize = .large
             typeSegmented.selectedSegment = .init(type.value.rawValue)
             
             let firstDivider = Separator()
             
-            let travelTitle = Text(vibrancy: true)
-            travelTitle.stringValue = "Travel mode"
+            let directionsTitle = Text(vibrancy: true)
+            directionsTitle.stringValue = "Travel mode"
+            
+            let directionsSegmented = NSSegmentedControl(
+                images: ["figure.walk",
+                         "car"]
+                    .compactMap {
+                        .init(systemSymbolName: $0, accessibilityDescription: nil)
+                    },
+                trackingMode: .selectOne,
+                target: self,
+                action: #selector(updateDirections))
+            directionsSegmented.translatesAutoresizingMaskIntoConstraints = false
+            directionsSegmented.controlSize = .large
+            directionsSegmented.selectedSegment = .init(directions.value.rawValue)
             
             let secondDivider = Separator()
             
             let pointsTitle = Text(vibrancy: true)
             pointsTitle.stringValue = "Points of interest"
 
-            [typeSegmented]
+            [typeSegmented, directionsSegmented]
                 .forEach {
                     addSubview($0)
                     
@@ -58,7 +74,7 @@ extension Create {
                     $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
                 }
             
-            [typeTitle, travelTitle, pointsTitle]
+            [typeTitle, directionsTitle, pointsTitle]
                 .forEach {
                     addSubview($0)
                     
@@ -81,12 +97,18 @@ extension Create {
             typeTitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
             typeSegmented.topAnchor.constraint(equalTo: typeTitle.bottomAnchor, constant: 5).isActive = true
             firstDivider.topAnchor.constraint(equalTo: typeSegmented.bottomAnchor, constant: 10).isActive = true
-            travelTitle.topAnchor.constraint(equalTo: firstDivider.bottomAnchor, constant: 20).isActive = true
+            directionsTitle.topAnchor.constraint(equalTo: firstDivider.bottomAnchor, constant: 20).isActive = true
+            directionsSegmented.topAnchor.constraint(equalTo: directionsTitle.bottomAnchor, constant: 5).isActive = true
         }
         
-        @objc private func update(_ segmented: NSSegmentedControl) {
+        @objc private func updateType(_ segmented: NSSegmentedControl) {
             guard .init(type.value.rawValue) != segmented.selectedSegment else { return }
             type.value = .init(rawValue: .init(segmented.selectedSegment))!
+        }
+        
+        @objc private func updateDirections(_ segmented: NSSegmentedControl) {
+            guard .init(directions.value.rawValue) != segmented.selectedSegment else { return }
+            directions.value = .init(rawValue: .init(segmented.selectedSegment))!
         }
     }
 }

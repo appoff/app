@@ -136,7 +136,9 @@ final class Create: NSView, NSTextFieldDelegate {
         session
             .settings
             .sink { origin in
-                NSPopover().show(content: Settings(session: session, type: builder.type),
+                NSPopover().show(content: Settings(session: session,
+                                                   type: builder.type,
+                                                   directions: builder.directions),
                                  on: origin,
                                  edge: .minY)
             }
