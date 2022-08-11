@@ -15,7 +15,8 @@ final class Topbar: NSView {
         create.toolTip = "New map"
         create
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 session.flow.value = .create
             }
             .store(in: &subs)
@@ -25,7 +26,8 @@ final class Topbar: NSView {
         scan.toolTip = "Import map"
         scan
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 session.flow.value = .scan
             }
             .store(in: &subs)
@@ -36,7 +38,8 @@ final class Topbar: NSView {
         cancel.state = .hidden
         cancel
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 session.cancel.send()
             }
             .store(in: &subs)
@@ -47,29 +50,32 @@ final class Topbar: NSView {
         help.state = .hidden
         help
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 
             }
             .store(in: &subs)
         addSubview(help)
         
-        let config = Button(symbol: "slider.horizontal.3")
-        config.toolTip = "config"
-        config.state = .hidden
-        config
+        let options = Button(symbol: "slider.horizontal.3")
+        options.toolTip = "Options"
+        options.state = .hidden
+        options
             .click
-            .sink {
-                
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
+                session.options.send(options)
             }
             .store(in: &subs)
-        addSubview(config)
+        addSubview(options)
         
         let search = Button(symbol: "magnifyingglass")
         search.toolTip = "Find place"
         search.state = .hidden
         search
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 
             }
             .store(in: &subs)
@@ -80,7 +86,8 @@ final class Topbar: NSView {
         settings.state = .hidden
         settings
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 session.settings.send(settings)
             }
             .store(in: &subs)
@@ -91,17 +98,23 @@ final class Topbar: NSView {
         follow.state = .hidden
         follow
             .click
-            .subscribe(session.follow)
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
+                session.follow.send()
+            }
             .store(in: &subs)
         addSubview(follow)
         
         let save = Control.Main(title: "Save")
+        save.color = .labelColor
+        save.text.textColor = .windowBackgroundColor
         save.state = .hidden
         save.toolTip = "Save new map"
         save.widthAnchor.constraint(equalToConstant: 68).isActive = true
         save
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 
             }
             .store(in: &subs)
@@ -112,13 +125,14 @@ final class Topbar: NSView {
         
         save.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         follow.rightAnchor.constraint(equalTo: save.leftAnchor, constant: -15).isActive = true
-        settings.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
-        search.rightAnchor.constraint(equalTo: settings.leftAnchor, constant: -10).isActive = true
-        config.rightAnchor.constraint(equalTo: search.leftAnchor, constant: -10).isActive = true
-        help.rightAnchor.constraint(equalTo: config.leftAnchor, constant: -10).isActive = true
+        search.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
+        settings.rightAnchor.constraint(equalTo: search.leftAnchor, constant: -10).isActive = true
+        
+        options.rightAnchor.constraint(equalTo: settings.leftAnchor, constant: -10).isActive = true
+        help.rightAnchor.constraint(equalTo: options.leftAnchor, constant: -10).isActive = true
         cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
         
-        [create, scan, cancel, help, config, search, settings, follow, save]
+        [create, scan, cancel, help, options, search, settings, follow, save]
             .forEach {
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
@@ -133,7 +147,7 @@ final class Topbar: NSView {
                     scan.state = .on
                     cancel.state = .hidden
                     help.state = .hidden
-                    config.state = .hidden
+                    options.state = .hidden
                     search.state = .hidden
                     settings.state = .hidden
                     follow.state = .hidden
@@ -143,7 +157,7 @@ final class Topbar: NSView {
                     scan.state = .off
                     cancel.state = .on
                     help.state = .on
-                    config.state = .on
+                    options.state = .on
                     search.state = .on
                     settings.state = .on
                     follow.state = .on

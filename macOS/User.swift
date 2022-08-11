@@ -42,11 +42,22 @@ final class User: MKAnnotationView {
         circle.heightAnchor.constraint(equalToConstant: 18).isActive = true
     }
     
-//    override func traitCollectionDidChange(_: UITraitCollection?) {
-//        halo?.fillColor = UIColor.secondaryLabel.cgColor
-//        heading?.fillColor = UIColor.secondaryLabel.cgColor
-//        reanimate()
-//    }
+    override func updateLayer() {
+        super.updateLayer()
+        
+        NSApp
+            .effectiveAppearance
+            .performAsCurrentDrawingAppearance {
+                circle.layer!.backgroundColor = NSColor.labelColor.cgColor
+            }
+        
+        reanimate()
+    }
+    
+    private func reanimate() {
+        halo?.removeAnimation(forKey: "halo")
+        animate()
+    }
     
     private func animate() {
         if halo?.animation(forKey: "halo") == nil {

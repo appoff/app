@@ -11,12 +11,11 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     let type = CurrentValueSubject<_, Never>(Settings.Map.standard)
     let scheme = CurrentValueSubject<_, Never>(Settings.Scheme.auto)
     let interest = CurrentValueSubject<_, Never>(true)
+    let rotate = CurrentValueSubject<_, Never>(true)
     private var first = true
     private let editable: Bool
     private let position = PassthroughSubject<Void, Never>()
     private let manager = CLLocationManager()
-    private let mode = CurrentValueSubject<NSAppearance?, Never>(nil)
-    private let rotate = CurrentValueSubject<_, Never>(true)
     
     required init?(coder: NSCoder) { nil }
     init(session: Session, editable: Bool) {
@@ -70,11 +69,11 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             .sink { [weak self] scheme in
                 switch scheme {
                 case .auto:
-                    self?.mode.value = nil
+                    self?.appearance = nil
                 case .light:
-                    self?.mode.value = .init(named: .aqua)
+                    self?.appearance = .init(named: .aqua)
                 case .dark:
-                    self?.mode.value = .init(named: .darkAqua)
+                    self?.appearance = .init(named: .darkAqua)
                 }
                 
                 guard editable else { return }

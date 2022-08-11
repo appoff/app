@@ -8,15 +8,12 @@ extension Create {
         private weak var type: CurrentValueSubject<Offline.Settings.Map, Never>!
         private weak var directions: CurrentValueSubject<Offline.Settings.Directions, Never>!
         private weak var interest: CurrentValueSubject<Bool, Never>!
-        private let session: Session
         
         required init?(coder: NSCoder) { nil }
-        init(session: Session,
-             type: CurrentValueSubject<Offline.Settings.Map, Never>,
+        init(type: CurrentValueSubject<Offline.Settings.Map, Never>,
              directions: CurrentValueSubject<Offline.Settings.Directions, Never>,
              interest: CurrentValueSubject<Bool, Never>) {
             
-            self.session = session
             self.type = type
             self.directions = directions
             self.interest = interest
@@ -117,7 +114,7 @@ extension Create {
             directionsTitle.topAnchor.constraint(equalTo: firstDivider.bottomAnchor, constant: 20).isActive = true
             directionsSegmented.topAnchor.constraint(equalTo: directionsTitle.bottomAnchor, constant: 5).isActive = true
             secondDivider.topAnchor.constraint(equalTo: directionsSegmented.bottomAnchor, constant: 20).isActive = true
-            pointsTitle.topAnchor.constraint(equalTo: secondDivider.bottomAnchor, constant: 30).isActive = true
+            pointsTitle.topAnchor.constraint(equalTo: secondDivider.bottomAnchor, constant: 25).isActive = true
             pointsIcon.centerYAnchor.constraint(equalTo: pointsTitle.centerYAnchor).isActive = true
             pointsIcon.leftAnchor.constraint(equalTo: pointsTitle.rightAnchor, constant: 10).isActive = true
             pointsSwitch.centerYAnchor.constraint(equalTo: pointsTitle.centerYAnchor).isActive = true

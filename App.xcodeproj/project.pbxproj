@@ -91,6 +91,7 @@
 		CEC51AB928252F85003DA00D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AB828252F85003DA00D /* Session.swift */; };
 		CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABA28252FF3003DA00D /* Session.Flow.swift */; };
 		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
+		CED7FF0F28A514E20008A429 /* Create.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7FF0E28A514E20008A429 /* Create.Options.swift */; };
 		CED82A122848A327003742CC /* Scan.Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A112848A327003742CC /* Scan.Camera.swift */; };
 		CED82A142848A5B0003742CC /* Scan.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A132848A5B0003742CC /* Scan.Status.swift */; };
 		CED82A162848A7C8003742CC /* Scan.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A152848A7C8003742CC /* Scan.Error.swift */; };
@@ -255,6 +256,7 @@
 		CEC51AB828252F85003DA00D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEC51ABA28252FF3003DA00D /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
+		CED7FF0E28A514E20008A429 /* Create.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Options.swift; sourceTree = "<group>"; };
 		CED82A112848A327003742CC /* Scan.Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Camera.swift; sourceTree = "<group>"; };
 		CED82A132848A5B0003742CC /* Scan.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Status.swift; sourceTree = "<group>"; };
 		CED82A152848A7C8003742CC /* Scan.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Error.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				CE77701128A27D8500190D97 /* Create.Cell.swift */,
 				CE77701328A27D9800190D97 /* Create.Editor.swift */,
 				CE77700F28A27D6A00190D97 /* Create.Field.swift */,
+				CED7FF0E28A514E20008A429 /* Create.Options.swift */,
 				CE2025FF28A3F3EA006296A9 /* Create.Settings.swift */,
 				CE00C3AD28A143A300D5129B /* Create.swift */,
 				CE00C3AF28A1466A00D5129B /* Main.swift */,
@@ -776,6 +779,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEAA2668289D42AE00897FB3 /* Sidebar.swift in Sources */,
+				CED7FF0F28A514E20008A429 /* Create.Options.swift in Sources */,
 				CE002CC3289C1FA40010F6F9 /* Copy.swift in Sources */,
 				CEF2D740289C1E2700D34CCE /* Global.swift in Sources */,
 				CE77701428A27D9800190D97 /* Create.Editor.swift in Sources */,

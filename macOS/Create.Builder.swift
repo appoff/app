@@ -66,6 +66,15 @@ extension Create {
                     self?.add(coordinate: location, center: false)
                 }
                 .store(in: &subs)
+            
+            session
+                .current
+                .sink { [weak self] in
+                    guard let self = self else { return }
+                    self.add(coordinate: self.userLocation.location == nil ? self.centerCoordinate : self.userLocation.location!.coordinate,
+                        center: true)
+                }
+                .store(in: &subs)
         }
         
 //        func factory(settings: Settings) -> Factory {
@@ -79,10 +88,6 @@ extension Create {
 //                  settings: settings)
 //        }
         
-        func current() {
-            add(coordinate: userLocation.location == nil ? centerCoordinate : userLocation.location!.coordinate,
-                center: true)
-        }
         
         @MainActor func selected(completion: MKLocalSearchCompletion) async {
             guard
