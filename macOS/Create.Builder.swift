@@ -8,6 +8,7 @@ extension Create {
         let route = CurrentValueSubject<_, Never>(Set<Routing>())
         let overflow = CurrentValueSubject<_, Never>(false)
         let directions = CurrentValueSubject<_, Never>(Offline.Settings.Directions.walking)
+        let select = PassthroughSubject<MKLocalSearchCompletion, Never>()
         private let long = PassthroughSubject<CLLocationCoordinate2D?, Never>()
         private let point = PassthroughSubject<CLLocationCoordinate2D, Never>()
         

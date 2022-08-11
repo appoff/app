@@ -10,9 +10,10 @@ final class Session {
     let cancel = PassthroughSubject<Void, Never>()
     let ready = CurrentValueSubject<_, Never>(false)
     let follow = PassthroughSubject<Void, Never>()
+    let current = PassthroughSubject<Void, Never>()
+    let find = PassthroughSubject<Void, Never>()
     let settings = PassthroughSubject<NSView, Never>()
     let options = PassthroughSubject<NSView, Never>()
-    let current = PassthroughSubject<Void, Never>()
     private var reviewed = false
     private var subs = Set<AnyCancellable>()
     

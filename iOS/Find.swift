@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
 
-struct Search: View {
+struct Find: View {
     let select: (MKLocalSearchCompletion) -> Void
     @StateObject private var field = Field()
     @Environment(\.dismiss) private var dismiss

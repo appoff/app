@@ -9,7 +9,7 @@ final class Create: NSView, NSTextFieldDelegate {
     
     required init?(coder: NSCoder) { nil }
     init(session: Session) {
-        let name = Field(session: session)
+        let name = Field()
         self.name = name
         
         super.init(frame: .zero)
@@ -154,6 +154,13 @@ final class Create: NSView, NSTextFieldDelegate {
                                            rotate: builder.rotate),
                           on: origin,
                           edge: .minY)
+            }
+            .store(in: &subs)
+        
+        session
+            .find
+            .sink {
+                Panel(content: Find(select: builder.select)).makeKeyAndOrderFront(nil)
             }
             .store(in: &subs)
     }

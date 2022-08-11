@@ -201,7 +201,7 @@ struct Create: View {
                         }
                         .padding(.horizontal, 10)
                         .sheet(isPresented: $builder.search) {
-                            Search { item in
+                            Find { item in
                                 Task {
                                     await builder.selected(completion: item)
                                 }

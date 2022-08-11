@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
 
-extension Search {
+extension Find {
     struct Item: View {
         let item: MKLocalSearchCompletion
         let complete: () -> Void

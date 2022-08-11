@@ -1,6 +1,6 @@
 import AppKit
 
-extension Create {
+extension Find {
     final class Field: NSTextField {
         required init?(coder: NSCoder) { nil }
         init() {
@@ -9,7 +9,7 @@ extension Create {
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
             translatesAutoresizingMaskIntoConstraints = false
-            font = .systemFont(ofSize: 14, weight: .regular)
+            font = .systemFont(ofSize: 18, weight: .regular)
             controlSize = .large
             lineBreakMode = .byTruncatingTail
             textColor = .labelColor
@@ -27,10 +27,6 @@ extension Create {
                 .forEach {
                     $0.undoManager?.removeAllActions()
                 }
-        }
-        
-        override var canBecomeKeyView: Bool {
-            false
         }
         
         override func cancelOperation(_: Any?) {
