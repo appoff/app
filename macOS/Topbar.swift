@@ -105,8 +105,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(follow)
         
-        let save = Control.Prominent(title: "Save")
-        save.layer!.cornerRadius = 13
+        let save = Control.Prominent(title: "Save", radius: 13)
         save.color = .labelColor
         save.text.textColor = .windowBackgroundColor
         save.state = .hidden

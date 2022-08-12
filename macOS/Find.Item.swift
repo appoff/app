@@ -3,106 +3,87 @@ import Combine
 import Coffee
 
 extension Find {
-    final class Item: Control {
+    final class Item: NSView {
+        private var subs = Set<AnyCancellable>()
+        
         required init?(coder: NSCoder) { nil }
         init(item: MKLocalSearchCompletion,
              select: PassthroughSubject<MKLocalSearchCompletion, Never>,
              complete: PassthroughSubject<String, Never>) {
             
-            super.init(layer: true)
-        }
-        
-        override func updateLayer() {
-            super.updateLayer()
+            super.init(frame: .zero)
+            translatesAutoresizingMaskIntoConstraints = false
             
-            NSApp
-                .effectiveAppearance
-                .performAsCurrentDrawingAppearance {
-//                    switch state {
-//                    case .highlighted, .pressed, .selected:
-//                        background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
-//                    default:
-//                        background.layer!.backgroundColor = .clear
-//                    }
+            let result = Control.Empty()
+            addSubview(result)
+            
+            let autocomplete = Control.Symbol(symbol: "character.cursor.ibeam", size: 14)
+            addSubview(autocomplete)
+            
+            let string = NSMutableAttributedString()
+            let title = NSMutableAttributedString()
+            title.append(.init(string: item.title,
+                               attributes: [
+                                .font: NSFont.systemFont(
+                                    ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize,
+                                    weight: .regular),
+                                .foregroundColor: NSColor.secondaryLabelColor]))
+            
+            item
+                .titleHighlightRanges
+                .forEach { value in
+                    title.setAttributes([.foregroundColor: NSColor.labelColor,
+                                         .font: NSFont.systemFont(
+                                            ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize,
+                                            weight: .bold)],
+                                        range: value.rangeValue)
                 }
+            
+            string.append(title)
+            
+            if !item.subtitle.isEmpty {
+                string.append(.init(string: "\n"))
+                
+                let subtitle = NSMutableAttributedString()
+                subtitle.append(.init(string: item.title,
+                                      attributes: [
+                                        .font: NSFont.systemFont(
+                                            ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize,
+                                            weight: .regular),
+                                        .foregroundColor: NSColor.secondaryLabelColor]))
+                
+                item
+                    .subtitleHighlightRanges
+                    .forEach { value in
+                        title.setAttributes([.font: NSFont.systemFont(
+                                                ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize,
+                                                weight: .bold)],
+                                            range: value.rangeValue)
+                    }
+                
+                string.append(subtitle)
+            }
+            
+            let text = Text(vibrancy: false)
+            text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            text.attributedStringValue = string
+            addSubview(text)
+            
+            widthAnchor.constraint(equalToConstant: 398).isActive = true
+            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
+            
+            result.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            result.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            result.rightAnchor.constraint(equalTo: autocomplete.leftAnchor).isActive = true
+            result.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            
+            autocomplete.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            autocomplete.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            autocomplete.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            
+            text.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
+            text.rightAnchor.constraint(equalTo: autocomplete.rightAnchor, constant: -10).isActive = true
         }
     }
 }
-
-/*
- import SwiftUI
- import MapKit
-
- extension Find {
-     struct Item: View {
-         let item: MKLocalSearchCompletion
-         let complete: () -> Void
-         let action: () -> Void
-         
-         var body: some View {
-             Button(action: action) {
-                 HStack {
-                     Text(title)
-                     + complement
-                     Spacer()
-                     Button(action: complete) {
-                         Image(systemName: "character.cursor.ibeam")
-                             .font(.system(size: 16, weight: .medium))
-                             .foregroundColor(.primary)
-                             .frame(width: 34, height: 34)
-                             .contentShape(Rectangle())
-                     }
-                 }
-                 .fixedSize(horizontal: false, vertical: true)
-                 .padding(.vertical, 5)
-                 .contentShape(Rectangle())
-             }
-         }
-         
-         private var title: AttributedString {
-             var string = AttributedString(item.title, attributes: .init([
-                 .font: UIFont.preferredFont(forTextStyle: .callout),
-                 .foregroundColor: UIColor.secondaryLabel]))
-             
-             item
-                 .titleHighlightRanges
-                 .forEach { value in
-                     let substring = item.title[item.title.index(item.title.startIndex, offsetBy: value.rangeValue.lowerBound) ..< item.title.index(item.title.startIndex, offsetBy: value.rangeValue.upperBound)]
-                     if let range = string.range(of: substring) {
-                         string[range].foregroundColor = UIColor.label
-                         string[range].font = .callout.bold()
-                     }
-                 }
-             
-             return string
-         }
-         
-         private var complement: Text {
-             if item.subtitle.isEmpty {
-                 return Text("")
-             } else {
-                 return Text("\n")
-                 + Text(subtitle)
-             }
-         }
-         
-         private var subtitle: AttributedString {
-             var string = AttributedString(item.subtitle, attributes: .init([
-                 .font: UIFont.preferredFont(forTextStyle: .footnote),
-                 .foregroundColor: UIColor.secondaryLabel]))
-             
-             item
-                 .subtitleHighlightRanges
-                 .forEach { value in
-                     let substring = item.subtitle[item.subtitle.index(item.subtitle.startIndex, offsetBy: value.rangeValue.lowerBound) ..< item.subtitle.index(item.subtitle.startIndex, offsetBy: value.rangeValue.upperBound)]
-                     if let range = string.range(of: substring) {
-                         string[range].font = .footnote.bold()
-                     }
-                 }
-             
-             return string
-         }
-     }
- }
-
- */
