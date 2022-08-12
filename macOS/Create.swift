@@ -160,7 +160,8 @@ final class Create: NSView, NSTextFieldDelegate {
         session
             .find
             .sink {
-                Panel(content: Find(select: builder.select)).makeKeyAndOrderFront(nil)
+                Panel(content: Find(select: builder.select), texted: true)
+                    .makeKeyAndOrderFront(nil)
             }
             .store(in: &subs)
     }

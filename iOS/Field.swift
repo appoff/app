@@ -57,7 +57,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     
     func textFieldDidChangeSelection(_: UITextField) {
         completer.cancel()
-        completer.queryFragment = field.text!
+        completer.queryFragment = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     var hasText: Bool {

@@ -9,7 +9,7 @@ extension Find {
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
             translatesAutoresizingMaskIntoConstraints = false
-            font = .systemFont(ofSize: 18, weight: .regular)
+            font = .systemFont(ofSize: 16, weight: .regular)
             controlSize = .large
             lineBreakMode = .byTruncatingTail
             textColor = .labelColor
@@ -30,9 +30,8 @@ extension Find {
         }
         
         override func cancelOperation(_: Any?) {
-            stringValue = ""
             undoManager?.removeAllActions()
-            window?.makeFirstResponder(window?.contentView)
+            window?.close()
         }
         
         override func becomeFirstResponder() -> Bool {
