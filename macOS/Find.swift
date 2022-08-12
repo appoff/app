@@ -17,6 +17,8 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
         completer.resultTypes = [.address, .pointOfInterest, .query]
         completer.pointOfInterestFilter = .includingAll
      
+        let complete = PassthroughSubject<String, Never>()
+        
         let magnifier = NSImageView(image: .init(systemSymbolName: "magnifyingglass", accessibilityDescription: nil) ?? .init())
         magnifier.translatesAutoresizingMaskIntoConstraints = false
         magnifier.symbolConfiguration = .init(pointSize: 16, weight: .regular)
@@ -28,7 +30,7 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
         self.field = field
         addSubview(field)
         
-        let xmark = Control.Symbol(symbol: "xmark", size: 14)
+        let xmark = Control.Symbol(symbol: "xmark.circle.fill", size: 20, background: false)
         xmark.state = .off
         xmark
             .click

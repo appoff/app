@@ -11,7 +11,7 @@ final class Topbar: NSView {
         self.session = session
         super.init(frame: .zero)
         
-        let create = Button(symbol: "plus")
+        let create = Control.Button(symbol: "plus")
         create.toolTip = "New map"
         create
             .click
@@ -22,7 +22,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(create)
         
-        let scan = Button(symbol: "square.and.arrow.down")
+        let scan = Control.Button(symbol: "square.and.arrow.down")
         scan.toolTip = "Import map"
         scan
             .click
@@ -33,7 +33,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(scan)
         
-        let cancel = Button(symbol: "xmark")
+        let cancel = Control.Button(symbol: "xmark")
         cancel.toolTip = "Cancel new map"
         cancel.state = .hidden
         cancel
@@ -45,7 +45,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(cancel)
         
-        let help = Button(symbol: "questionmark.circle")
+        let help = Control.Button(symbol: "questionmark.circle")
         help.toolTip = "Help"
         help.state = .hidden
         help
@@ -57,7 +57,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(help)
         
-        let options = Button(symbol: "slider.horizontal.3")
+        let options = Control.Button(symbol: "slider.horizontal.3")
         options.toolTip = "Options"
         options.state = .hidden
         options
@@ -69,7 +69,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(options)
         
-        let find = Button(symbol: "magnifyingglass")
+        let find = Control.Button(symbol: "magnifyingglass")
         find.toolTip = "Find place"
         find.state = .hidden
         find
@@ -81,7 +81,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(find)
         
-        let settings = Button(symbol: "square.stack.3d.up")
+        let settings = Control.Button(symbol: "square.stack.3d.up")
         settings.toolTip = "Settings"
         settings.state = .hidden
         settings
@@ -93,7 +93,7 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(settings)
         
-        let follow = Button(symbol: "location.viewfinder")
+        let follow = Control.Button(symbol: "location.viewfinder")
         follow.toolTip = "My location"
         follow.state = .hidden
         follow
@@ -105,12 +105,12 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(follow)
         
-        let save = Control.Main(title: "Save")
+        let save = Control.Prominent(title: "Save")
+        save.layer!.cornerRadius = 13
         save.color = .labelColor
         save.text.textColor = .windowBackgroundColor
         save.state = .hidden
         save.toolTip = "Save new map"
-        save.widthAnchor.constraint(equalToConstant: 68).isActive = true
         save
             .click
             .sink { [weak self] in
@@ -123,6 +123,8 @@ final class Topbar: NSView {
         create.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         scan.leftAnchor.constraint(equalTo: create.rightAnchor, constant: 10).isActive = true
         
+        save.widthAnchor.constraint(equalToConstant: 68).isActive = true
+        save.heightAnchor.constraint(equalToConstant: 26).isActive = true
         save.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         follow.rightAnchor.constraint(equalTo: save.leftAnchor, constant: -15).isActive = true
         find.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true

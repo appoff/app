@@ -21,7 +21,7 @@ final class Create: NSView, NSTextFieldDelegate {
         name.delegate = self
         addSubview(name)
         
-        let rename = Button(symbol: "character.cursor.ibeam")
+        let rename = Control.Button(symbol: "character.cursor.ibeam")
         rename.toolTip = "Change name"
         rename
             .click

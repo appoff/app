@@ -168,7 +168,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             view.canShowCallout = true
             
             if editable {
-                let button = Button(symbol: "xmark.circle.fill")
+                let button = Control.Symbol(symbol: "xmark", size: 14, background: false)
                 button
                     .click
                     .sink { [weak self] in
