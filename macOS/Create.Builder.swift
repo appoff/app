@@ -76,6 +76,14 @@ extension Create {
                         center: true)
                 }
                 .store(in: &subs)
+            
+            select
+                .sink { [weak self] result in
+                    Task {
+                        await self?.selected(completion: result)
+                    }
+                }
+                .store(in: &subs)
         }
         
 //        func factory(settings: Settings) -> Factory {
@@ -88,24 +96,6 @@ extension Create {
 //                  route: route.value,
 //                  settings: settings)
 //        }
-        
-        
-        @MainActor func selected(completion: MKLocalSearchCompletion) async {
-            guard
-                let response = try? await MKLocalSearch(request: .init(completion: completion)).start(),
-                let item = response.mapItems.first
-            else { return }
-            let point = MKPointAnnotation()
-            point.coordinate = item.placemark.coordinate
-            point.title = item.name
-            point.subtitle = item.placemark.responds(to: #selector(getter: MKAnnotation.title))
-                ? item.placemark.title
-                : item.placemark.responds(to: #selector(getter: MKAnnotation.subtitle))
-                    ? item.placemark.subtitle
-                    : ""
-            sourroundings(coordinate: point.coordinate)
-            add(point: point, center: true)
-        }
         
         override func mouseDown(with: NSEvent) {
             super.mouseDown(with: with)
@@ -304,6 +294,23 @@ extension Create {
         private func coordinates(event: NSEvent) -> CLLocationCoordinate2D {
             convert(convert(event.locationInWindow, from: nil),
                     toCoordinateFrom: self)
+        }
+        
+        @MainActor private func selected(completion: MKLocalSearchCompletion) async {
+            guard
+                let response = try? await MKLocalSearch(request: .init(completion: completion)).start(),
+                let item = response.mapItems.first
+            else { return }
+            let point = MKPointAnnotation()
+            point.coordinate = item.placemark.coordinate
+            point.title = item.name
+            point.subtitle = item.placemark.responds(to: #selector(getter: MKAnnotation.title))
+                ? item.placemark.title
+                : item.placemark.responds(to: #selector(getter: MKAnnotation.subtitle))
+                    ? item.placemark.subtitle
+                    : ""
+            sourroundings(coordinate: point.coordinate)
+            add(point: point, center: true)
         }
     }
 }

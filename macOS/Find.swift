@@ -29,13 +29,15 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
         addSubview(field)
         
         let xmark = Control.Symbol(symbol: "xmark.circle.fill", size: 20, background: false)
-        xmark.state = .off
         xmark
             .click
             .sink { [weak self] in
-                self?.completer.cancel()
-                field.stringValue = ""
-                self?.update()
+                if field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    self?.window?.close()
+                } else {
+                    field.stringValue = ""
+                    self?.update()
+                }
             }
             .store(in: &subs)
         addSubview(xmark)
@@ -97,8 +99,9 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
         
         let complete = PassthroughSubject<String, Never>()
         complete
-            .sink {
+            .sink { [weak self] in
                 field.stringValue = $0
+                self?.update()
             }
             .store(in: &subs)
         
@@ -122,10 +125,7 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
         results.send(completer.results)
     }
     
-    func controlTextDidChange(_ notification: Notification) {
-        guard let field = notification.object as? Field else { return }
-        completer.cancel()
-        completer.queryFragment = field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+    func controlTextDidChange(_: Notification) {
         update()
     }
     
@@ -145,6 +145,12 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
     }
     
     private func update() {
-        xmark.state = field.stringValue.isEmpty ? .off : .on
+        completer.cancel()
+        let string = field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        if string.isEmpty {
+            results.send([])
+        } else {
+            completer.queryFragment = string
+        }
     }
 }
