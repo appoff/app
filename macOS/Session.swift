@@ -14,6 +14,7 @@ final class Session {
     let find = PassthroughSubject<Void, Never>()
     let settings = PassthroughSubject<NSView, Never>()
     let options = PassthroughSubject<NSView, Never>()
+    let help = PassthroughSubject<NSView, Never>()
     private var reviewed = false
     private var subs = Set<AnyCancellable>()
     

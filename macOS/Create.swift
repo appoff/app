@@ -158,6 +158,16 @@ final class Create: NSView, NSTextFieldDelegate {
             .store(in: &subs)
         
         session
+            .help
+            .sink { origin in
+                NSPopover()
+                    .show(content: Help(),
+                          on: origin,
+                          edge: .minY)
+            }
+            .store(in: &subs)
+        
+        session
             .find
             .sink {
                 Panel(content: Find(select: builder.select), texted: true)
