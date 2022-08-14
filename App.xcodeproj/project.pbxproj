@@ -65,6 +65,7 @@
 		CE81D9232823E4B200364029 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D9222823E4B200364029 /* Field.swift */; };
 		CE81D92528242DA900364029 /* Find.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D92428242DA900364029 /* Find.Item.swift */; };
 		CE9400F628A8F7DD00A65F8C /* Create.Overflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9400F528A8F7DD00A65F8C /* Create.Overflow.swift */; };
+		CE9400F828A90F1D00A65F8C /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9400F728A90F1D00A65F8C /* Loading.swift */; };
 		CE979A942827EB1100FC0EB0 /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A932827EB1100FC0EB0 /* App.Delegate.swift */; };
 		CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A952827EB6E00FC0EB0 /* Global.swift */; };
 		CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */; };
@@ -239,6 +240,7 @@
 		CE81D9222823E4B200364029 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		CE81D92428242DA900364029 /* Find.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.Item.swift; sourceTree = "<group>"; };
 		CE9400F528A8F7DD00A65F8C /* Create.Overflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Overflow.swift; sourceTree = "<group>"; };
+		CE9400F728A90F1D00A65F8C /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		CE979A932827EB1100FC0EB0 /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
 		CE979A952827EB6E00FC0EB0 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				CED7FF1228A538C50008A429 /* Find.Field.swift */,
 				CE1994B428A681DE00EF66BA /* Find.Item.swift */,
 				CED7FF1028A537FB0008A429 /* Find.swift */,
+				CE9400F728A90F1D00A65F8C /* Loading.swift */,
 				CE00C3AF28A1466A00D5129B /* Main.swift */,
 				CE00C3B328A150FB00D5129B /* Map.swift */,
 				CE00C3AB28A1292E00D5129B /* Session.Flow.swift */,
@@ -802,6 +805,7 @@
 				CEBD209528A7C72E0071B042 /* Create.Help.swift in Sources */,
 				CEAA2668289D42AE00897FB3 /* Sidebar.swift in Sources */,
 				CED7FF0F28A514E20008A429 /* Create.Options.swift in Sources */,
+				CE9400F828A90F1D00A65F8C /* Loading.swift in Sources */,
 				CED7FF1528A538D20008A429 /* Find.Editor.swift in Sources */,
 				CE002CC3289C1FA40010F6F9 /* Copy.swift in Sources */,
 				CEF2D740289C1E2700D34CCE /* Global.swift in Sources */,

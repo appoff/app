@@ -22,6 +22,9 @@ final class Content: NSVisualEffectView {
                 case .create:
                     view = Create(session: session)
                     self.material = .sidebar
+                case let .loading(factory):
+                    view = Loading(session: session, factory: factory)
+                    self.material = .hudWindow
                 default:
                     view = Main(session: session)
                     self.material = .hudWindow
