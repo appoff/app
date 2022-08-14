@@ -86,16 +86,16 @@ extension Create {
                 .store(in: &subs)
         }
         
-//        func factory(settings: Settings) -> Factory {
-//            .init(header: .init(title: sess.value,
-//                                origin: points.value.first?.title ?? "",
-//                                destination: points.value.last?.title ?? "",
-//                                distance: .init(route.value.distance),
-//                                duration: .init(route.value.duration)),
-//                  points: points.value,
-//                  route: route.value,
-//                  settings: settings)
-//        }
+        func factory(title: String, settings: Offline.Settings) -> Factory {
+            .init(header: .init(title: title,
+                                origin: points.value.first?.title ?? "",
+                                destination: points.value.last?.title ?? "",
+                                distance: .init(route.value.distance),
+                                duration: .init(route.value.duration)),
+                  points: points.value,
+                  route: route.value,
+                  settings: settings)
+        }
         
         override func mouseDown(with: NSEvent) {
             super.mouseDown(with: with)

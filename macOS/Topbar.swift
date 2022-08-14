@@ -114,7 +114,7 @@ final class Topbar: NSView {
             .click
             .sink { [weak self] in
                 self?.window?.makeFirstResponder(self?.window?.contentView)
-                
+                session.save.send()
             }
             .store(in: &subs)
         addSubview(save)

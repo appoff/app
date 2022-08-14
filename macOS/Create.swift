@@ -197,6 +197,35 @@ final class Create: NSView, NSTextFieldDelegate {
                     .makeKeyAndOrderFront(nil)
             }
             .store(in: &subs)
+        
+        session
+            .save
+            .sink { [weak self] in
+                guard
+                    let title = self?.title.value,
+                    builder.points.value.count > 1 && !builder.overflow.value
+                else { return }
+                builder.follow = false
+                
+                Task {
+                    var settings = await cloud.model.settings
+                    if settings.scheme == .auto {
+                        switch builder.scheme.value {
+                        case .light:
+                            settings.scheme = .light
+                        case .dark:
+                            settings.scheme = .dark
+                        default:
+                            break
+                        }
+                    }
+                    
+                    session.flow.value = .loading(builder
+                        .factory(title: title,
+                                 settings: settings))
+                }
+            }
+            .store(in: &subs)
     }
     
     func controlTextDidChange(_ notification: Notification) {

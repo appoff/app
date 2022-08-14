@@ -7,6 +7,7 @@ final class Session {
     let filtered = CurrentValueSubject<[Project], Never>([])
     let search = CurrentValueSubject<_, Never>("")
     let flow = CurrentValueSubject<_, Never>(Flow.main)
+    let save = PassthroughSubject<Void, Never>()
     let cancel = PassthroughSubject<Void, Never>()
     let ready = CurrentValueSubject<_, Never>(false)
     let follow = PassthroughSubject<Void, Never>()
