@@ -40,6 +40,9 @@ final class Create: NSView, NSTextFieldDelegate {
         let secondDivider = Separator()
         addSubview(secondDivider)
         
+        let overflow = Overflow()
+        addSubview(overflow)
+        
         let builder = Builder(session: session)
         addSubview(builder)
         
@@ -61,7 +64,11 @@ final class Create: NSView, NSTextFieldDelegate {
         secondDivider.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         secondDivider.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        builder.topAnchor.constraint(equalTo: secondDivider.bottomAnchor).isActive = true
+        overflow.topAnchor.constraint(equalTo: secondDivider.bottomAnchor).isActive = true
+        overflow.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        overflow.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        builder.topAnchor.constraint(equalTo: overflow.bottomAnchor).isActive = true
         builder.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         builder.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         builder.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
@@ -130,6 +137,22 @@ final class Create: NSView, NSTextFieldDelegate {
                 }
                 
                 info.attributedStringValue = string
+            }
+            .store(in: &subs)
+        
+        builder
+            .overflow
+            .removeDuplicates()
+            .sink { [weak self] in
+                overflow.height.constant = $0 ? 72 : 0
+                
+                NSAnimationContext
+                    .runAnimationGroup {
+                        $0.allowsImplicitAnimation = true
+                        $0.duration = 0.4
+                        $0.timingFunction = .init(name: .easeInEaseOut)
+                        self?.layoutSubtreeIfNeeded()
+                    }
             }
             .store(in: &subs)
         
