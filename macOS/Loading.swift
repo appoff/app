@@ -4,11 +4,107 @@ import Combine
 import Offline
 
 final class Loading: NSView {
+    private var subs = Set<AnyCancellable>()
+    
     required init?(coder: NSCoder) { nil }
     init(session: Session, factory: Factory) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
+        let image = NSImageView(image: .init(named: "Loading") ?? .init())
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentTintColor = .secondaryLabelColor
+        addSubview(image)
+        
+        let base = NSView()
+        base.wantsLayer = true
+        base.translatesAutoresizingMaskIntoConstraints = false
+        base.layer!.backgroundColor = NSColor.unemphasizedSelectedTextBackgroundColor.cgColor
+        base.layer!.cornerRadius = 5
+        addSubview(base)
+        
+        let progress = NSView()
+        progress.wantsLayer = true
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.layer!.backgroundColor = NSColor.labelColor.cgColor
+        progress.layer!.cornerRadius = 7
+        addSubview(progress)
+        
+        let header = Text(vibrancy: false)
+        header.stringValue = "Loading"
+        header.font = .preferredFont(forTextStyle: .title1)
+        header.textColor = .secondaryLabelColor
+        addSubview(header)
+        
+        let title = Text(vibrancy: false)
+        title.stringValue = factory.header.title
+        title.font = .preferredFont(forTextStyle: .title3)
+        title.textColor = .tertiaryLabelColor
+        addSubview(title)
+        
+        let warning = NSImageView(image: .init(systemSymbolName: "exclamationmark.triangle", accessibilityDescription: nil) ?? .init())
+        warning.isHidden = true
+        warning.translatesAutoresizingMaskIntoConstraints = false
+        warning.symbolConfiguration = .init(pointSize: 50, weight: .ultraLight)
+            .applying(.init(hierarchicalColor: .secondaryLabelColor))
+        addSubview(warning)
+        
+        let error = Text(vibrancy: false)
+        error.isHidden = true
+        error.textColor = .secondaryLabelColor
+        error.font = .preferredFont(forTextStyle: .title2)
+        error.stringValue = "Loading failed"
+        addSubview(error)
+        
+        let tryAgain = Control.Prominent(title: "Try again")
+        tryAgain.state = .hidden
+        addSubview(tryAgain)
+        
+        image.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        
+        base.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        base.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        base.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 25).isActive = true
+        
+        progress.leftAnchor.constraint(equalTo: base.leftAnchor).isActive = true
+        progress.centerYAnchor.constraint(equalTo: base.centerYAnchor).isActive = true
+        progress.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        let progressWidth = progress.widthAnchor.constraint(equalToConstant: 0)
+        progressWidth.isActive = true
+        
+        header.topAnchor.constraint(equalTo: progress.bottomAnchor, constant: 42).isActive = true
+        
+        title.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 4).isActive = true
+        
+        warning.topAnchor.constraint(equalTo: header.topAnchor).isActive = true
+        
+        error.topAnchor.constraint(equalTo: warning.bottomAnchor, constant: 20).isActive = true
+        
+        tryAgain.topAnchor.constraint(equalTo: error.bottomAnchor, constant: 40).isActive = true
+        tryAgain.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        tryAgain.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        
+        [image, base, header, title, warning, error, tryAgain]
+            .forEach {
+                $0.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            }
+        
+        factory
+            .fail
+            .sink {
+                header.isHidden = true
+                title.isHidden = true
+                warning.isHidden = false
+                error.isHidden = false
+                tryAgain.state = .on
+            }
+            .store(in: &subs)
+        
+        progressWidth.constant = 70 * 0.5
+    }
+    
+    override var allowsVibrancy: Bool {
+        true
     }
 }
 
