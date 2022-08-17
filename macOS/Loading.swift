@@ -60,6 +60,15 @@ final class Loading: NSView {
         tryAgain.state = .hidden
         addSubview(tryAgain)
         
+        let cancel = Control.Plain(title: "Cancel")
+        cancel
+            .click
+            .sink {
+                session.cancel.send()
+            }
+            .store(in: &subs)
+        addSubview(cancel)
+        
         image.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
         
         base.widthAnchor.constraint(equalToConstant: 70).isActive = true
@@ -84,7 +93,10 @@ final class Loading: NSView {
         tryAgain.widthAnchor.constraint(equalToConstant: 120).isActive = true
         tryAgain.heightAnchor.constraint(equalToConstant: 34).isActive = true
         
-        [image, base, header, title, warning, error, tryAgain]
+        cancel.topAnchor.constraint(equalTo: tryAgain.bottomAnchor, constant: 20).isActive = true
+        cancel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        [image, base, header, title, warning, error, tryAgain, cancel]
             .forEach {
                 $0.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             }
@@ -116,6 +128,10 @@ final class Loading: NSView {
                 }
             }
             .store(in: &subs)
+        
+        Task {
+//            await factory.shoot()
+        }
     }
     
     override var allowsVibrancy: Bool {
