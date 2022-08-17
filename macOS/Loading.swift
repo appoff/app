@@ -100,7 +100,22 @@ final class Loading: NSView {
             }
             .store(in: &subs)
         
-        progressWidth.constant = 70 * 0.5
+        factory
+            .progress
+            .sink {
+                progressWidth.constant = 70 * $0
+            }
+            .store(in: &subs)
+        
+        factory
+            .finished
+            .sink { schema in
+                Task {
+                    await cloud.add(header: factory.header, schema: schema)
+//                    session.flow.value = .created(factory.header)
+                }
+            }
+            .store(in: &subs)
     }
     
     override var allowsVibrancy: Bool {
