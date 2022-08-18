@@ -63,8 +63,23 @@ final class Loading: NSView {
         let cancel = Control.Plain(title: "Cancel")
         cancel
             .click
-            .sink {
-                session.cancel.send()
+            .sink { [weak self] in
+                let alert = NSAlert()
+                alert.alertStyle = .warning
+                alert.icon = .init(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: nil)
+                alert.messageText = "Stop loading map?"
+                
+                let stop = alert.addButton(withTitle: "Stop")
+                let cont = alert.addButton(withTitle: "Continue")
+                stop.hasDestructiveAction = true
+                stop.keyEquivalent = "\r"
+                cont.keyEquivalent = "\u{1b}"
+                
+                if alert.runModal().rawValue == stop.tag {
+                    factory.cancel()
+                    session.flow.value = .main
+                    self?.window?.makeFirstResponder(self?.window?.contentView)
+                }
             }
             .store(in: &subs)
         addSubview(cancel)

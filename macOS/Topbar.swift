@@ -182,6 +182,7 @@ final class Topbar: NSView {
                 
                 let cancel = alert.addButton(withTitle: "Cancel")
                 let cont = alert.addButton(withTitle: "Continue")
+                cancel.hasDestructiveAction = true
                 cancel.keyEquivalent = "\r"
                 cont.keyEquivalent = "\u{1b}"
                 
