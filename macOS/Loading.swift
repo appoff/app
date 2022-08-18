@@ -5,11 +5,15 @@ import Offline
 
 final class Loading: NSView {
     private var subs = Set<AnyCancellable>()
+    private var waiting = false
+    private let timer = Timer.publish(every: 0.02, on: .main, in: .common).autoconnect()
     
     required init?(coder: NSCoder) { nil }
     init(session: Session, factory: Factory) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        
+        var error = false
         
         let image = NSImageView(image: .init(named: "Loading") ?? .init())
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -49,15 +53,24 @@ final class Loading: NSView {
             .applying(.init(hierarchicalColor: .secondaryLabelColor))
         addSubview(warning)
         
-        let error = Text(vibrancy: false)
-        error.isHidden = true
-        error.textColor = .secondaryLabelColor
-        error.font = .preferredFont(forTextStyle: .title2)
-        error.stringValue = "Loading failed"
-        addSubview(error)
+        let fail = Text(vibrancy: false)
+        fail.isHidden = true
+        fail.textColor = .secondaryLabelColor
+        fail.font = .preferredFont(forTextStyle: .title2)
+        fail.stringValue = "Loading failed"
+        addSubview(fail)
         
         let tryAgain = Control.Prominent(title: "Try again")
         tryAgain.state = .hidden
+        tryAgain
+            .click
+            .sink {
+                error = false
+                
+                
+                
+            }
+            .store(in: &subs)
         addSubview(tryAgain)
         
         let cancel = Control.Plain(title: "Cancel")
@@ -102,16 +115,16 @@ final class Loading: NSView {
         
         warning.topAnchor.constraint(equalTo: header.topAnchor).isActive = true
         
-        error.topAnchor.constraint(equalTo: warning.bottomAnchor, constant: 20).isActive = true
+        fail.topAnchor.constraint(equalTo: warning.bottomAnchor, constant: 20).isActive = true
         
-        tryAgain.topAnchor.constraint(equalTo: error.bottomAnchor, constant: 40).isActive = true
+        tryAgain.topAnchor.constraint(equalTo: fail.bottomAnchor, constant: 40).isActive = true
         tryAgain.widthAnchor.constraint(equalToConstant: 120).isActive = true
         tryAgain.heightAnchor.constraint(equalToConstant: 34).isActive = true
         
         cancel.topAnchor.constraint(equalTo: tryAgain.bottomAnchor, constant: 20).isActive = true
         cancel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        [image, base, header, title, warning, error, tryAgain, cancel]
+        [image, base, header, title, warning, fail, tryAgain, cancel]
             .forEach {
                 $0.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             }
@@ -119,10 +132,11 @@ final class Loading: NSView {
         factory
             .fail
             .sink {
+                error = true
                 header.isHidden = true
                 title.isHidden = true
                 warning.isHidden = false
-                error.isHidden = false
+                fail.isHidden = false
                 tryAgain.state = .on
             }
             .store(in: &subs)
@@ -140,6 +154,25 @@ final class Loading: NSView {
                 Task {
                     await cloud.add(header: factory.header, schema: schema)
 //                    session.flow.value = .created(factory.header)
+                }
+            }
+            .store(in: &subs)
+        
+        timer
+            .sink { [weak self] _ in
+                guard
+                    let self = self,
+                    self.waiting,
+                    !error
+                else { return }
+                
+                switch Int.random(in: 0 ..< 80) {
+                case 0:
+                    move()
+                case 1:
+                    shake()
+                default:
+                    break
                 }
             }
             .store(in: &subs)
