@@ -3,6 +3,9 @@ import Coffee
 import Combine
 import Offline
 
+private let rotate = Double.pi / 10
+private let offsetting = Double(5)
+
 final class Loading: NSView {
     private var subs = Set<AnyCancellable>()
     private let timer = Timer.publish(every: 0.02, on: .main, in: .common).autoconnect()
@@ -157,6 +160,20 @@ final class Loading: NSView {
                 }
             }
             .store(in: &subs)
+        
+        /*
+         imageView.setAnchorPoint(anchorPoint: CGPoint(x: 0.5, y: 0.5))
+             // Start animation
+             if imageView.layer?.animationKeys()?.count == 0 || imageView.layer?.animationKeys() == nil {
+                 let rotate = CABasicAnimation(keyPath: "transform.rotation")
+                 rotate.fromValue = 0
+                 rotate.toValue = CGFloat(-1 * .pi * 2.0)
+                 rotate.duration = 2
+                 rotate.repeatCount = Float.infinity
+
+                 imageView.layer?.add(rotate, forKey: "rotation")
+             }
+         */
         
         timer
             .sink { _ in
