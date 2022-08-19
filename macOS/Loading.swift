@@ -5,7 +5,6 @@ import Offline
 
 final class Loading: NSView {
     private var subs = Set<AnyCancellable>()
-    private var waiting = false
     private let timer = Timer.publish(every: 0.02, on: .main, in: .common).autoconnect()
     
     required init?(coder: NSCoder) { nil }
@@ -13,6 +12,7 @@ final class Loading: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
+        var waiting = false
         var error = false
         
         let image = NSImageView(image: .init(named: "Loading") ?? .init())
@@ -159,18 +159,54 @@ final class Loading: NSView {
             .store(in: &subs)
         
         timer
-            .sink { [weak self] _ in
-                guard
-                    let self = self,
-                    self.waiting,
-                    !error
-                else { return }
+            .sink { _ in
+                guard waiting, !error else { return }
                 
                 switch Int.random(in: 0 ..< 80) {
                 case 0:
-                    move()
+                    waiting = false
+                    
+//                    withAnimation(.easeInOut(duration: 0.5)) {
+//                        rotation = rotate
+//                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        withAnimation(.easeInOut(duration: 0.5)) {
+//                            rotation = -rotate
+//                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        withAnimation(.easeInOut(duration: 0.5)) {
+//                            rotation = 0
+//                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        waiting = true
+                    }
                 case 1:
-                    shake()
+                    waiting = false
+                    
+//                    withAnimation(.easeInOut(duration: 0.2)) {
+//                        offset = offsetting
+//                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                        withAnimation(.easeInOut(duration: 0.2)) {
+//                            offset = -offsetting
+//                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+//                        withAnimation(.easeInOut(duration: 0.2)) {
+//                            offset = 0
+//                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        waiting = true
+                    }
                 default:
                     break
                 }
