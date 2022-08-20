@@ -9,7 +9,7 @@ extension Main {
         
         var body: some View {
             Button {
-                withAnimation(.easeInOut(duration: 0.4)) {
+                withAnimation(.easeOut(duration: 0.4)) {
                     session.selected = (project: project, namespace: namespace)
                 }
             } label: {

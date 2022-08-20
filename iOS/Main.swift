@@ -62,7 +62,7 @@ struct Main: View {
                     
                     HStack(spacing: 30) {
                         Button {
-                            withAnimation(.easeInOut(duration: 0.4)) {
+                            withAnimation(.easeOut(duration: 0.4)) {
                                 session.flow = .preferences
                             }
                         } label: {

@@ -215,7 +215,7 @@ class Mapper: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDe
         UIView
             .animate(withDuration: first ? 0 : 1,
                      delay: 0,
-                     options: [.curveEaseInOut, .allowUserInteraction]) { [weak self] in
+                     options: [.curveEaseOut, .allowUserInteraction]) { [weak self] in
                 guard let map = self?.map else { return }
                 
                 let center = map.userLocation.location == nil

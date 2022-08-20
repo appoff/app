@@ -15,7 +15,7 @@ struct Navigate: View {
                         
                     HStack(spacing: 22) {
                         Action(size: 18, symbol: "xmark") {
-                            withAnimation(.easeInOut(duration: 0.4)) {
+                            withAnimation(.easeIn(duration: 0.4)) {
                                 session.flow = .main
                             }
                         }

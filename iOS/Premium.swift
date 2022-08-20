@@ -34,7 +34,7 @@ struct Premium: View {
         
         if size > 0 {
             Button {
-                withAnimation(.easeInOut(duration: 0.4)) {
+                withAnimation(.easeOut(duration: 0.4)) {
                     session.flow = .offload(header)
                 }
             } label: {

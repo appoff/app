@@ -32,7 +32,7 @@ struct Unzip: View {
             
             guard let bufferer = project.bufferer else { return }
             
-            withAnimation(.easeInOut(duration: 0.5)) {
+            withAnimation(.easeOut(duration: 0.5)) {
                 session.flow = .navigate(project.schema!, bufferer)
             }
         }

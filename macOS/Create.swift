@@ -150,7 +150,7 @@ final class Create: NSView, NSTextFieldDelegate {
                     .runAnimationGroup {
                         $0.allowsImplicitAnimation = true
                         $0.duration = 0.4
-                        $0.timingFunction = .init(name: .easeInEaseOut)
+                        $0.timingFunction = .init(name: .easeOut)
                         self?.layoutSubtreeIfNeeded()
                     }
             }

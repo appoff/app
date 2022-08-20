@@ -22,7 +22,7 @@ struct Preferences: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        withAnimation(.easeInOut(duration: 0.4)) {
+                        withAnimation(.easeIn(duration: 0.4)) {
                             session.flow = .main
                         }
                     } label: {

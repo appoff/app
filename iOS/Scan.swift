@@ -99,7 +99,7 @@ struct Scan: View {
                 .padding(.bottom)
                 
                 Button(role: .destructive) {
-                    withAnimation(.easeInOut(duration: 0.4)) {
+                    withAnimation(.easeIn(duration: 0.4)) {
                         status.session.flow = .main
                     }
                 } label: {
@@ -124,7 +124,7 @@ struct Scan: View {
                                 status.camera.session.stopRunning()
                             }
                             
-                            withAnimation(.easeInOut(duration: 0.4)) {
+                            withAnimation(.easeIn(duration: 0.4)) {
                                 status.session.flow = .main
                             }
                         } label: {

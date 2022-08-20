@@ -68,7 +68,7 @@ struct Share: View {
                 Button(role: .destructive) {
                     UIApplication.shared.isIdleTimerDisabled = false
                     
-                    withAnimation(.easeInOut(duration: 0.4)) {
+                    withAnimation(.easeIn(duration: 0.4)) {
                         session.flow = .main
                     }
                 } label: {
@@ -122,7 +122,7 @@ struct Share: View {
             UIGraphicsEndImageContext()
             
             UIApplication.shared.isIdleTimerDisabled = false
-            withAnimation(.easeInOut(duration: 0.4)) {
+            withAnimation(.easeOut(duration: 0.4)) {
                 session.flow = .shared(syncher.header, image)
             }
         } catch {

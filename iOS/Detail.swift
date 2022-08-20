@@ -48,7 +48,7 @@ struct Detail: View {
                         .confirmationDialog("Delete map?", isPresented: $delete) {
                             Button("Cancel", role: .cancel) { }
                             Button("Delete", role: .destructive) {
-                                withAnimation(.easeInOut(duration: 0.35)) {
+                                withAnimation(.easeOut(duration: 0.35)) {
                                     session.flow = .deleted(project.header)
                                 }
                             }
@@ -87,7 +87,7 @@ struct Detail: View {
                 
                 if size > 0 {
                     Button {
-                        withAnimation(.easeInOut(duration: 0.4)) {
+                        withAnimation(.easeOut(duration: 0.4)) {
                             session.flow = .unzip(project)
                         }
                     } label: {
@@ -108,7 +108,7 @@ struct Detail: View {
                         .padding(.bottom)
                     
                     Button {
-                        withAnimation(.easeInOut(duration: 0.4)) {
+                        withAnimation(.easeOut(duration: 0.4)) {
                             session.flow = .download(project.header)
                         }
                     } label: {
@@ -137,14 +137,14 @@ struct Detail: View {
             size = await session.local.size(header: project.header) ?? 0
         }
         .onAppear {
-            withAnimation(.easeInOut(duration: 1)) {
+            withAnimation(.easeOut(duration: 1)) {
                 opacity = 1
             }
         }
     }
     
     private func dismiss() {
-        withAnimation(.easeInOut(duration: 0.4)) {
+        withAnimation(.easeIn(duration: 0.4)) {
             session.selected = nil
         }
     }

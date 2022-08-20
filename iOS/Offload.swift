@@ -66,7 +66,7 @@ struct Offload: View {
                 Button(role: .destructive) {
                     UIApplication.shared.isIdleTimerDisabled = false
                     
-                    withAnimation(.easeInOut(duration: 0.4)) {
+                    withAnimation(.easeIn(duration: 0.4)) {
                         session.flow = .main
                     }
                 } label: {
@@ -102,7 +102,7 @@ struct Offload: View {
             
             UIApplication.shared.isIdleTimerDisabled = false
             
-            withAnimation(.easeInOut(duration: 0.4)) {
+            withAnimation(.easeOut(duration: 0.4)) {
                 session.flow = .offloaded(syncher.header)
             }
         } catch {

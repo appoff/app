@@ -81,7 +81,7 @@ struct Loading: View {
                     UIApplication.shared.isIdleTimerDisabled = false
                     
                     factory.cancel()
-                    withAnimation(.easeInOut(duration: 0.4)) {
+                    withAnimation(.easeOut(duration: 0.4)) {
                         session.flow = .main
                     }
                 }
@@ -109,7 +109,7 @@ struct Loading: View {
             
             Task {
                 await cloud.add(header: factory.header, schema: schema)
-                withAnimation(.easeInOut(duration: 0.4)) {
+                withAnimation(.easeOut(duration: 0.4)) {
                     session.flow = .created(factory.header)
                 }
             }

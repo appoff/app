@@ -24,7 +24,7 @@ struct Create: View {
                         .frame(width: 70)
                         .confirmationDialog("Cancel map", isPresented: $builder.cancel) {
                             Button("Cancel map", role: .destructive) {
-                                withAnimation(.easeInOut(duration: 0.4)) {
+                                withAnimation(.easeOut(duration: 0.4)) {
                                     session.flow = .main
                                 }
                             }
@@ -91,7 +91,7 @@ struct Create: View {
                                     }
                                 }
                                 
-                                withAnimation(.easeIn(duration: 0.4)) {
+                                withAnimation(.easeOut(duration: 0.4)) {
                                     session.flow = .loading(builder.factory(settings: settings))
                                 }
                             }

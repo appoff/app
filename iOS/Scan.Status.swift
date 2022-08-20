@@ -33,7 +33,7 @@ extension Scan {
                     camera.session.stopRunning()
                 }
                 
-                withAnimation(.easeInOut(duration: 0.4)) {
+                withAnimation(.easeOut(duration: 0.4)) {
                     session.flow = .download(header)
                 }
             }

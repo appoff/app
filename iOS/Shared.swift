@@ -47,7 +47,7 @@ struct Shared: View {
                     try? FileManager.default.removeItem(at: url)
                 }
                 
-                withAnimation(.easeInOut(duration: 0.3)) {
+                withAnimation(.easeOut(duration: 0.3)) {
                     session.flow = .main
                 }
             } label: {

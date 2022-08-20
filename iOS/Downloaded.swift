@@ -24,7 +24,7 @@ struct Downloaded: View {
             Spacer()
             
             Button {
-                withAnimation(.easeInOut(duration: 0.3)) {
+                withAnimation(.easeOut(duration: 0.3)) {
                     session.flow = .main
                 }
             } label: {

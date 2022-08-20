@@ -67,7 +67,7 @@ struct Download: View {
                 Button(role: .destructive) {
                     UIApplication.shared.isIdleTimerDisabled = false
                     
-                    withAnimation(.easeInOut(duration: 0.4)) {
+                    withAnimation(.easeOut(duration: 0.4)) {
                         session.flow = .main
                     }
                 } label: {
@@ -96,7 +96,7 @@ struct Download: View {
             
             UIApplication.shared.isIdleTimerDisabled = false
             
-            withAnimation(.easeInOut(duration: 0.4)) {
+            withAnimation(.easeOut(duration: 0.4)) {
                 session.flow = .downloaded(syncher.header)
             }
         } catch {
