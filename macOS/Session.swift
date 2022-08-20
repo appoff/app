@@ -30,21 +30,30 @@ final class Session {
             .store(in: &subs)
         
         
-        Task {
-            let settings = await cloud.model.settings
-            
-            flow.value = .loading(.init(
-                header: .init(title: "hello world",
-                              origin: "some place",
-                              destination: "some other place",
-                              distance: 12466,
-                              duration: 9875),
-                points: [.init(), .init()],
-                route: [.init(origin: .init(),
-                              destination: .init(),
-                              route: .init())],
-                settings: settings))
+        
+        DispatchQueue.main.async {
+            Created(header: .init(title: "hello world",
+                                  origin: "some place",
+                                  destination: "some other place",
+                                  distance: 12466,
+                                  duration: 9875)).makeKeyAndOrderFront(nil)
         }
+        
+//        Task {
+//            let settings = await cloud.model.settings
+//
+//            flow.value = .loading(.init(
+//                header: .init(title: "hello world",
+//                              origin: "some place",
+//                              destination: "some other place",
+//                              distance: 12466,
+//                              duration: 9875),
+//                points: [.init(), .init()],
+//                route: [.init(origin: .init(),
+//                              destination: .init(),
+//                              route: .init())],
+//                settings: settings))
+//        }
     }
     
     func review() {

@@ -92,6 +92,7 @@
 		CEBD209528A7C72E0071B042 /* Create.Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBD209428A7C72E0071B042 /* Create.Help.swift */; };
 		CEBDF1ED282E72BC00601056 /* Main.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF1EC282E72BC00601056 /* Main.Item.swift */; };
 		CEBDF1EF282E82D100601056 /* Info.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF1EE282E82D100601056 /* Info.Item.swift */; };
+		CEBE804728B133B10025CC73 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE804628B133B10025CC73 /* Created.swift */; };
 		CEC51AB928252F85003DA00D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51AB828252F85003DA00D /* Session.swift */; };
 		CEC51ABB28252FF3003DA00D /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABA28252FF3003DA00D /* Session.Flow.swift */; };
 		CEC51ABF28254CD4003DA00D /* Create.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC51ABE28254CD4003DA00D /* Create.Builder.swift */; };
@@ -265,6 +266,7 @@
 		CEBD209428A7C72E0071B042 /* Create.Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Help.swift; sourceTree = "<group>"; };
 		CEBDF1EC282E72BC00601056 /* Main.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.Item.swift; sourceTree = "<group>"; };
 		CEBDF1EE282E82D100601056 /* Info.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Item.swift; sourceTree = "<group>"; };
+		CEBE804628B133B10025CC73 /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		CEC51AB828252F85003DA00D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEC51ABA28252FF3003DA00D /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEC51ABE28254CD4003DA00D /* Create.Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Builder.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				CE9400F528A8F7DD00A65F8C /* Create.Overflow.swift */,
 				CE2025FF28A3F3EA006296A9 /* Create.Settings.swift */,
 				CE00C3AD28A143A300D5129B /* Create.swift */,
+				CEBE804628B133B10025CC73 /* Created.swift */,
 				CED7FF1628A538DF0008A429 /* Find.Cell.swift */,
 				CED7FF1428A538D20008A429 /* Find.Editor.swift */,
 				CED7FF1228A538C50008A429 /* Find.Field.swift */,
@@ -810,6 +813,7 @@
 				CE002CC3289C1FA40010F6F9 /* Copy.swift in Sources */,
 				CEF2D740289C1E2700D34CCE /* Global.swift in Sources */,
 				CE77701428A27D9800190D97 /* Create.Editor.swift in Sources */,
+				CEBE804728B133B10025CC73 /* Created.swift in Sources */,
 				CE77701028A27D6A00190D97 /* Create.Field.swift in Sources */,
 				CEB170F028A3D22900F10A35 /* Tiler.swift in Sources */,
 				CE00C3AC28A1292E00D5129B /* Session.Flow.swift in Sources */,

@@ -158,6 +158,8 @@ final class Loading: NSView {
         factory
             .finished
             .sink { schema in
+                session.review()
+                
                 Task {
                     await cloud.add(header: factory.header, schema: schema)
                     session.flow.value = .main
