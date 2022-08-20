@@ -3,7 +3,7 @@ import Coffee
 import Combine
 import Offline
 
-private let rotation = Double.pi / 20
+private let rotation = Double.pi / 10
 private let offsetting = Double(5)
 
 final class Loading: NSView {
@@ -172,7 +172,7 @@ final class Loading: NSView {
                 image.layer!.anchorPoint = .init(x: 0.5, y: 0)
                 
                 switch Int.random(in: 0 ..< 80) {
-                case 0, 1:
+                case 0:
                     waiting = false
                     self?.animate(rotation: rotation)
                     
@@ -187,23 +187,17 @@ final class Loading: NSView {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         waiting = true
                     }
-                case 10:
+                case 1:
                     waiting = false
                     
-//                    withAnimation(.easeInOut(duration: 0.2)) {
-//                        offset = offsetting
-//                    }
+                    self?.animate(offset: offsetting)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                        withAnimation(.easeInOut(duration: 0.2)) {
-//                            offset = -offsetting
-//                        }
+                        self?.animate(offset: -offsetting)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-//                        withAnimation(.easeInOut(duration: 0.2)) {
-//                            offset = 0
-//                        }
+                        self?.animate(offset: 0)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
@@ -229,6 +223,15 @@ final class Loading: NSView {
     private func animate(rotation: Double) {
         let animation = CABasicAnimation(keyPath: "transform.rotation")
         animation.toValue = rotation
+        animation.duration = 0.5
+        animation.timingFunction = .init(name: .easeInEaseOut)
+        animation.isRemovedOnCompletion = true
+        image.layer!.add(animation, forKey: "transform")
+    }
+    
+    private func animate(offset: Double) {
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.toValue = offset
         animation.duration = 0.5
         animation.timingFunction = .init(name: .easeInEaseOut)
         animation.isRemovedOnCompletion = true
