@@ -3,7 +3,7 @@ import Coffee
 import Combine
 import Offline
 
-private let rotate = Double.pi / 10
+private let rotation = Double.pi / 20
 private let offsetting = Double(5)
 
 final class Loading: NSView {
@@ -16,14 +16,13 @@ final class Loading: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        var waiting = false
+        var waiting = true
         var error = false
         
         let image = NSImageView(image: .init(named: "Loading") ?? .init())
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentTintColor = .secondaryLabelColor
         image.wantsLayer = true
-        image.layer!.anchorPoint = .init(x: 0.5, y: 1)
         addSubview(image)
         self.image = image
         
@@ -105,6 +104,7 @@ final class Loading: NSView {
         addSubview(cancel)
         
         image.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        image.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 51).isActive = true
         
         base.widthAnchor.constraint(equalToConstant: 70).isActive = true
         base.heightAnchor.constraint(equalToConstant: 10).isActive = true
@@ -131,7 +131,7 @@ final class Loading: NSView {
         cancel.topAnchor.constraint(equalTo: tryAgain.bottomAnchor, constant: 20).isActive = true
         cancel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        [image, base, header, title, warning, fail, tryAgain, cancel]
+        [base, header, title, warning, fail, tryAgain, cancel]
             .forEach {
                 $0.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             }
@@ -166,33 +166,28 @@ final class Loading: NSView {
             .store(in: &subs)
         
         timer
-            .sink { _ in
+            .sink { [weak self] _ in
                 guard waiting, !error else { return }
                 
+                image.layer!.anchorPoint = .init(x: 0.5, y: 0)
+                
                 switch Int.random(in: 0 ..< 80) {
-                case 0:
+                case 0, 1:
                     waiting = false
-                    
-//                    withAnimation(.easeInOut(duration: 0.5)) {
-//                        rotation = rotate
-//                    }
+                    self?.animate(rotation: rotation)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        withAnimation(.easeInOut(duration: 0.5)) {
-//                            rotation = -rotate
-//                        }
+                        self?.animate(rotation: -rotation)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        withAnimation(.easeInOut(duration: 0.5)) {
-//                            rotation = 0
-//                        }
+                        self?.animate(rotation: 0)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         waiting = true
                     }
-                case 1:
+                case 10:
                     waiting = false
                     
 //                    withAnimation(.easeInOut(duration: 0.2)) {
@@ -223,19 +218,21 @@ final class Loading: NSView {
         Task {
 //            await factory.shoot()
         }
+        layoutSubtreeIfNeeded()
+        
     }
     
     override var allowsVibrancy: Bool {
         true
     }
     
-    private func animate() {
-        let rotate = CABasicAnimation(keyPath: "transform.rotation")
-        rotate.fromValue = 0
-        rotate.toValue = CGFloat(-1 * .pi * 2.0)
-        rotate.duration = 2
-        rotate.repeatCount = Float.infinity
-        image.layer!.add(rotate, forKey: "transform.rotation")
+    private func animate(rotation: Double) {
+        let animation = CABasicAnimation(keyPath: "transform.rotation")
+        animation.toValue = rotation
+        animation.duration = 0.5
+        animation.timingFunction = .init(name: .easeInEaseOut)
+        animation.isRemovedOnCompletion = true
+        image.layer!.add(animation, forKey: "transform")
     }
 }
 
