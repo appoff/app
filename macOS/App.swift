@@ -17,7 +17,7 @@ import Offline
     func applicationDidFinishLaunching(_: Notification) {
         registerForRemoteNotifications()
         Window(session: session).makeKeyAndOrderFront(nil)
-        
+
         cloud.ready.notify(queue: .main) {
             self.session.loading.value = false
 //            Defaults.start()

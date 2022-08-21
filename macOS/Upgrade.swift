@@ -7,7 +7,7 @@ final class Upgrade: NSView {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
-    init(session: Session) {
+    init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -29,6 +29,8 @@ final class Upgrade: NSView {
         addSubview(text)
         
         let button = Control.Prominent(title: "Get Offline Cloud")
+        button.color = .windowBackgroundColor
+        button.text.textColor = .labelColor
         button.state = .hidden
         button
             .click
@@ -67,6 +69,7 @@ final class Upgrade: NSView {
         
         store
             .status
+            .receive(on: DispatchQueue.main)
             .sink {
                 switch $0 {
                 case .loading:
