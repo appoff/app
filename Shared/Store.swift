@@ -1,9 +1,22 @@
 import StoreKit
-import UserNotifications
 import Combine
+import Offline
 
 final actor Store {
+    enum Status: Equatable {
+        case
+        loading,
+        ready,
+        error(String)
+    }
+    
+    enum Item: String, CaseIterable {
+        case
+        cloud = "app.offline.cloud"
+    }
+    
     nonisolated let status = CurrentValueSubject<Status, Never>(.ready)
+    nonisolated let purchased = PassthroughSubject<Void, Never>()
     private var products = [Item : Product]()
     private var restored = false
     
@@ -37,12 +50,26 @@ final actor Store {
                     status.send(.error("Purchase verification failed."))
                 }
             case .pending:
-                status.send(.ready)
-                await UNUserNotificationCenter.send(message: "Purchase is pending...")
+                status.send(.error("Purchase is pending..."))
             default:
                 status.send(.ready)
             }
-        } catch let error {
+        } catch let storeError as StoreKitError {
+            switch storeError {
+            case .userCancelled:
+                break
+            case .notEntitled:
+                status.send(.error("Can't purchase at this moment"))
+            case .notAvailableInStorefront:
+                status.send(.error("Product not available"))
+            case let .networkError(error):
+                status.send(.error(error.localizedDescription))
+            case let .systemError(error):
+                status.send(.error(error.localizedDescription))
+            default:
+                status.send(.error("Unknown error, try again later"))
+            }
+        } catch {
             status.send(.error(error.localizedDescription))
         }
     }
@@ -70,8 +97,21 @@ final actor Store {
     }
     
     private func process(transaction: Transaction) async {
-        guard let item = Item(rawValue: transaction.productID) else { return }
-        await item.purchased(active: transaction.revocationDate == nil)
+        guard
+            let item = Item(rawValue: transaction.productID),
+            item == .cloud
+        else { return }
+        
+        if transaction.revocationDate == nil {
+            Defaults.cloud = true
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.purchased.send()
+            }
+        } else {
+            Defaults.cloud = false
+        }
+        
         await transaction.finish()
     }
 }

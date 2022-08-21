@@ -5,7 +5,6 @@ struct Preferences: View {
     let session: Session
     @State private var store = false
     @State private var about = false
-    @State private var notifications = false
     @State private var location = false
     
     var body: some View {
@@ -40,9 +39,6 @@ struct Preferences: View {
         .task {
             let status = CLLocationManager().authorizationStatus
             location = status != .denied || status != .notDetermined
-            
-            let settings = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
-            notifications = settings != .notDetermined && settings != .denied
         }
     }
     
@@ -70,28 +66,6 @@ struct Preferences: View {
     
     private var privacy: some View {
         Section("Privacy") {
-            Button {
-                UIApplication.shared.settings()
-            } label: {
-                HStack {
-                    Text("Notifications")
-                        .font(.callout)
-                        .foregroundColor(.primary)
-                    Spacer()
-                    Image(systemName: notifications
-                          ? "checkmark.circle.fill"
-                          : "exclamationmark.triangle.fill")
-                    .symbolRenderingMode(.hierarchical)
-                    .foregroundColor(.primary)
-                    .font(.system(size: 14, weight: .medium))
-                    .frame(width: 22)
-                    Image(systemName: "app.badge")
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundColor(.primary)
-                        .font(.system(size: 16, weight: .light))
-                        .frame(width: 18)
-                }
-            }
             Button {
                 UIApplication.shared.settings()
             } label: {

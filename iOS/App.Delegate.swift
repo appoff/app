@@ -1,16 +1,11 @@
 import StoreKit
 
 extension App {
-    final class Delegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, SKPaymentTransactionObserver {
+    final class Delegate: NSObject, UIApplicationDelegate, SKPaymentTransactionObserver {
         func application(_ application: UIApplication, willFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
             application.registerForRemoteNotifications()
-            UNUserNotificationCenter.current().delegate = self
             SKPaymentQueue.default().add(self)
             return true
-        }
-        
-        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent: UNNotification) async -> UNNotificationPresentationOptions {
-            await center.present(willPresent)
         }
         
         func application(_: UIApplication, didReceiveRemoteNotification: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
@@ -27,14 +22,6 @@ extension App {
         
         func paymentQueue(_: SKPaymentQueue, updatedTransactions: [SKPaymentTransaction]) {
     
-        }
-        
-        func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Data) {
-            
-        }
-        
-        func application(_: UIApplication, didFailToRegisterForRemoteNotificationsWithError: Error) {
-            
         }
     }
 }

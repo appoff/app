@@ -6,8 +6,6 @@ This app is **not** tracking you in anyway, nor sharing any information from you
 
 We make use of Apple's *iCloud* to synchronise your maps across your own devices, but no one else has access to them if you don't share them directly.
 
-If you allow **notifications** these are going to be displayed only for giving feedback on actions you take while using the app, we **don't** want to contact you in anyway and specifically we **don't** want to send you **Push Notifications**.
-
 Whatever you do with this app is up to you and we **don't** want to know about it.
 """
     

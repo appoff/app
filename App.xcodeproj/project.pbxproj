@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE002CBE289C1F7B0010F6F9 /* Offline in Frameworks */ = {isa = PBXBuildFile; productRef = CE002CBD289C1F7B0010F6F9 /* Offline */; };
-		CE002CBF289C1F8E0010F6F9 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */; };
 		CE002CC0289C1F950010F6F9 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A992827EBAD00FC0EB0 /* Store.swift */; };
-		CE002CC1289C1F980010F6F9 /* Store.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */; };
-		CE002CC2289C1F9B0010F6F9 /* Store.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */; };
 		CE002CC3289C1FA40010F6F9 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A1F28490FFA003742CC /* Copy.swift */; };
 		CE00C3A628A1226C00D5129B /* Sidebar.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00C3A528A1226C00D5129B /* Sidebar.Item.swift */; };
 		CE00C3A828A1289100D5129B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE00C3A728A1289100D5129B /* MapKit.framework */; };
@@ -65,14 +62,12 @@
 		CE81D9232823E4B200364029 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D9222823E4B200364029 /* Field.swift */; };
 		CE81D92528242DA900364029 /* Find.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D92428242DA900364029 /* Find.Item.swift */; };
 		CE8EA6F228B2522600F0DF61 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8EA6F128B2522600F0DF61 /* Upgrade.swift */; };
+		CE8EA6F428B27E4800F0DF61 /* Purchased.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8EA6F328B27E4800F0DF61 /* Purchased.swift */; };
 		CE9400F628A8F7DD00A65F8C /* Create.Overflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9400F528A8F7DD00A65F8C /* Create.Overflow.swift */; };
 		CE9400F828A90F1D00A65F8C /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9400F728A90F1D00A65F8C /* Loading.swift */; };
 		CE979A942827EB1100FC0EB0 /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A932827EB1100FC0EB0 /* App.Delegate.swift */; };
 		CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A952827EB6E00FC0EB0 /* Global.swift */; };
-		CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */; };
 		CE979A9A2827EBAD00FC0EB0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A992827EBAD00FC0EB0 /* Store.swift */; };
-		CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */; };
-		CE979A9E2827EBD400FC0EB0 /* Store.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */; };
 		CE979AA22827EF4D00FC0EB0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE979AA12827EF4D00FC0EB0 /* CloudKit.framework */; };
 		CE979AA42827F0EB00FC0EB0 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA32827F0EB00FC0EB0 /* Sheet.swift */; };
 		CE979AA62827F15400FC0EB0 /* Create.Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA52827F15400FC0EB0 /* Create.Settings.swift */; };
@@ -242,14 +237,12 @@
 		CE81D9222823E4B200364029 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		CE81D92428242DA900364029 /* Find.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.Item.swift; sourceTree = "<group>"; };
 		CE8EA6F128B2522600F0DF61 /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
+		CE8EA6F328B27E4800F0DF61 /* Purchased.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchased.swift; sourceTree = "<group>"; };
 		CE9400F528A8F7DD00A65F8C /* Create.Overflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Overflow.swift; sourceTree = "<group>"; };
 		CE9400F728A90F1D00A65F8C /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		CE979A932827EB1100FC0EB0 /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
 		CE979A952827EB6E00FC0EB0 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		CE979A992827EBAD00FC0EB0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Status.swift; sourceTree = "<group>"; };
-		CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Item.swift; sourceTree = "<group>"; };
 		CE979A9F2827EF4A00FC0EB0 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CE979AA12827EF4D00FC0EB0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE979AA32827F0EB00FC0EB0 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
@@ -436,6 +429,7 @@
 				CED82A21284910E6003742CC /* Preferences.Info.swift */,
 				CED82A1D28490DC4003742CC /* Preferences.swift */,
 				CE7647AB2840DF8F004B7C42 /* Premium.swift */,
+				CE8EA6F328B27E4800F0DF61 /* Purchased.swift */,
 				CE50539D284A1D1C001ACCCB /* Purchases.swift */,
 				CED82A112848A327003742CC /* Scan.Camera.swift */,
 				CED82A152848A7C8003742CC /* Scan.Error.swift */,
@@ -464,11 +458,8 @@
 				CED82A1F28490FFA003742CC /* Copy.swift */,
 				CE979A952827EB6E00FC0EB0 /* Global.swift */,
 				CE78C581283CDFB60046FF33 /* Liner.swift */,
-				CE979A9D2827EBD400FC0EB0 /* Store.Item.swift */,
-				CE979A9B2827EBBE00FC0EB0 /* Store.Status.swift */,
 				CE979A992827EBAD00FC0EB0 /* Store.swift */,
 				CEFC28D42834E32500E47E23 /* Tiler.swift */,
-				CE979A972827EB9600FC0EB0 /* UNUserNotificationCenter.swift */,
 				CEF58920284B7E2B0049A81C /* Global.xcassets */,
 				CE2C43A92822D494000007A2 /* Media.xcassets */,
 			);
@@ -743,14 +734,13 @@
 				CED82A122848A327003742CC /* Scan.Camera.swift in Sources */,
 				CE78C582283CDFB60046FF33 /* Liner.swift in Sources */,
 				CE2C43B82822E9AF000007A2 /* UIApplication.swift in Sources */,
-				CE979A9E2827EBD400FC0EB0 /* Store.Item.swift in Sources */,
 				CE502C99282928DC004F16AF /* Loading.swift in Sources */,
 				CE3AF0EE284525AB0016AA02 /* Share.swift in Sources */,
-				CE979A982827EB9600FC0EB0 /* UNUserNotificationCenter.swift in Sources */,
 				CED82A162848A7C8003742CC /* Scan.Error.swift in Sources */,
 				CE7647AC2840DF8F004B7C42 /* Premium.swift in Sources */,
 				CE502C9728291267004F16AF /* Pop.swift in Sources */,
 				CE3AF0EC2844F4530016AA02 /* Offloaded.swift in Sources */,
+				CE8EA6F428B27E4800F0DF61 /* Purchased.swift in Sources */,
 				CE979A9A2827EBAD00FC0EB0 /* Store.swift in Sources */,
 				CE81D91F2823CEDB00364029 /* Action.swift in Sources */,
 				CE979AA42827F0EB00FC0EB0 /* Sheet.swift in Sources */,
@@ -769,7 +759,6 @@
 				CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */,
 				CE5162852846118F007D5D61 /* Shared.swift in Sources */,
 				CEEB863F283CFFA800A9FF13 /* User.swift in Sources */,
-				CE979A9C2827EBBE00FC0EB0 /* Store.Status.swift in Sources */,
 				CED82A1A2848D7D9003742CC /* Create.Help.swift in Sources */,
 				CE979A962827EB6E00FC0EB0 /* Global.swift in Sources */,
 				CEFC28DB2834FFAF00E47E23 /* Mapper.swift in Sources */,
@@ -820,20 +809,17 @@
 				CE77701028A27D6A00190D97 /* Create.Field.swift in Sources */,
 				CEB170F028A3D22900F10A35 /* Tiler.swift in Sources */,
 				CE00C3AC28A1292E00D5129B /* Session.Flow.swift in Sources */,
-				CE002CBF289C1F8E0010F6F9 /* UNUserNotificationCenter.swift in Sources */,
 				CED7FF1328A538C50008A429 /* Find.Field.swift in Sources */,
 				CE00C3A628A1226C00D5129B /* Sidebar.Item.swift in Sources */,
 				CED7FF1128A537FB0008A429 /* Find.swift in Sources */,
 				CEAA267C289D60C700897FB3 /* Topbar.swift in Sources */,
 				CEF2D72B289C194100D34CCE /* App.swift in Sources */,
-				CE002CC1289C1F980010F6F9 /* Store.Status.swift in Sources */,
 				CE00C3AE28A143A300D5129B /* Create.swift in Sources */,
 				CE8EA6F228B2522600F0DF61 /* Upgrade.swift in Sources */,
 				CE00C3B628A15D3D00D5129B /* User.swift in Sources */,
 				CEAA266A289D434700897FB3 /* Sidebar.Field.swift in Sources */,
 				CE002CC0289C1F950010F6F9 /* Store.swift in Sources */,
 				CE00C3B028A1466A00D5129B /* Main.swift in Sources */,
-				CE002CC2289C1F9B0010F6F9 /* Store.Item.swift in Sources */,
 				CEAA267A289D5D5500897FB3 /* Content.swift in Sources */,
 				CEF2D742289C1E3A00D34CCE /* Session.swift in Sources */,
 				CE00C3B428A150FB00D5129B /* Map.swift in Sources */,
