@@ -16,10 +16,13 @@ final class Session {
     let settings = PassthroughSubject<NSView, Never>()
     let options = PassthroughSubject<NSView, Never>()
     let help = PassthroughSubject<NSView, Never>()
+    let premium: CurrentValueSubject<Bool, Never>
     private var reviewed = false
     private var subs = Set<AnyCancellable>()
     
     init() {
+        premium = .init(UserDefaults.standard.value(forKey: "cloud") as? Bool ?? false)
+        
         cloud
             .combineLatest(search) {
                 $0.projects.filtered(search: $1)
@@ -32,7 +35,7 @@ final class Session {
         
         
         DispatchQueue.main.async {
-            Created(header: .init(title: "hello world",
+            Created(session: self, header: .init(title: "hello world",
                                   origin: "some place",
                                   destination: "some other place",
                                   distance: 12466,
