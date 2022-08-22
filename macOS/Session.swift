@@ -16,6 +16,7 @@ final class Session {
     let settings = PassthroughSubject<NSView, Never>()
     let options = PassthroughSubject<NSView, Never>()
     let help = PassthroughSubject<NSView, Never>()
+    let selected = CurrentValueSubject<Project?, Never>(nil)
     let premium: CurrentValueSubject<Bool, Never>
     private var reviewed = false
     private var subs = Set<AnyCancellable>()
@@ -42,14 +43,11 @@ final class Session {
             .store(in: &subs)
         
         
-        
-        DispatchQueue.main.async {
-            Created(session: self, header: .init(title: "hello world",
+        flow.value = .share(.init(title: "hello world",
                                   origin: "some place",
                                   destination: "some other place",
                                   distance: 12466,
-                                  duration: 9875)).makeKeyAndOrderFront(nil)
-        }
+                                  duration: 9875))
         
 //        Task {
 //            let settings = await cloud.model.settings

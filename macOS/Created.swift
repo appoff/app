@@ -9,6 +9,8 @@ final class Created: Notify {
     init(session: Session, header: Header) {
         super.init(size: .init(width: 460, height: 600))
         
+        let move = PassthroughSubject<Void, Never>()
+        
         let base = Vibrant(layer: false)
         contentView!.addSubview(base)
         
@@ -28,13 +30,14 @@ final class Created: Notify {
         subtitle.font = .preferredFont(forTextStyle: .title3)
         subtitle.textColor = .secondaryLabelColor
         subtitle.maximumNumberOfLines = 1
+        subtitle.lineBreakMode = .byTruncatingTail
         base.addSubview(subtitle)
         
         let upgrade = Upgrade()
         upgrade.isHidden = true
         contentView!.addSubview(upgrade)
         
-        let premium = Premium(session: session, header: header)
+        let premium = Premium(session: session, header: header, move: move)
         premium.isHidden = true
         contentView!.addSubview(premium)
         
@@ -74,6 +77,16 @@ final class Created: Notify {
             .sink { purchased in
                 upgrade.isHidden = purchased
                 premium.isHidden = !purchased
+            }
+            .store(in: &subs)
+        
+        move
+            .sink { [weak self] in
+                NSApp
+                    .windows
+                    .first { $0 is Window }?
+                    .orderFrontRegardless()
+                self?.close()
             }
             .store(in: &subs)
     }

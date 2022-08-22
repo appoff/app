@@ -25,6 +25,9 @@ final class Content: NSVisualEffectView {
                 case let .loading(factory):
                     view = Loading(session: session, factory: factory)
                     self.material = .hudWindow
+                case let .share(header):
+                    view = Share(session: session, header: header)
+                    self.material = .hudWindow
                 default:
                     view = Main(session: session)
                     self.material = .hudWindow

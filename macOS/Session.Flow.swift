@@ -1,3 +1,4 @@
+import AppKit
 import Offline
 
 extension Session {
@@ -11,6 +12,7 @@ extension Session {
         offload(Header),
         download(Header),
         share(Header),
+        shared(Header, NSImage),
         navigate(Schema, Bufferer)
     }
 }
