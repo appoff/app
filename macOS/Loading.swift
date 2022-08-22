@@ -67,6 +67,7 @@ final class Loading: NSView {
         addSubview(fail)
         
         let tryAgain = Control.Prominent(title: "Try again")
+        tryAgain.toolTip = "Try loading map again"
         tryAgain.state = .hidden
         tryAgain
             .click
@@ -80,6 +81,7 @@ final class Loading: NSView {
         addSubview(tryAgain)
         
         let cancel = Control.Plain(title: "Cancel")
+        cancel.toolTip = "Cancel loading"
         cancel
             .click
             .sink { [weak self] in

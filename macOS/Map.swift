@@ -169,6 +169,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             
             if editable {
                 let button = Control.Symbol(symbol: "xmark", size: 14, background: false)
+                button.toolTip = "Remove marker"
                 button
                     .click
                     .sink { [weak self] in

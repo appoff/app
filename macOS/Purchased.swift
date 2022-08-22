@@ -36,6 +36,7 @@ final class Purchased: Notify {
         contentView!.addSubview(text)
         
         let accept = Control.Prominent(title: "OK")
+        accept.toolTip = "Accept"
         accept
             .click
             .sink { [weak self] in

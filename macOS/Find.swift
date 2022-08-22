@@ -29,6 +29,7 @@ final class Find: NSView, NSTextFieldDelegate, MKLocalSearchCompleterDelegate {
         addSubview(field)
         
         let xmark = Control.Symbol(symbol: "xmark.circle.fill", size: 20, background: false)
+        xmark.toolTip = "Clear search"
         xmark
             .click
             .sink { [weak self] in

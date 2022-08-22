@@ -25,6 +25,7 @@ extension Find {
             addSubview(result)
             
             let autocomplete = Control.Symbol(symbol: "character.cursor.ibeam", size: 14)
+            autocomplete.toolTip = "Search for a map"
             autocomplete
                 .click
                 .sink {

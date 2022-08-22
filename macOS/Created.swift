@@ -34,7 +34,12 @@ final class Created: Notify {
         upgrade.isHidden = true
         contentView!.addSubview(upgrade)
         
+        let premium = Premium(session: session, header: header)
+        premium.isHidden = true
+        contentView!.addSubview(premium)
+        
         let accept = Control.Prominent(title: "OK")
+        accept.toolTip = "Accept"
         accept
             .click
             .sink { [weak self] in
@@ -43,7 +48,7 @@ final class Created: Notify {
             .store(in: &subs)
         contentView!.addSubview(accept)
         
-        [image, title, subtitle, upgrade, accept]
+        [image, title, subtitle, upgrade, premium, accept]
             .forEach {
                 $0.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
             }
@@ -58,6 +63,7 @@ final class Created: Notify {
         subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5).isActive = true
         subtitle.widthAnchor.constraint(lessThanOrEqualToConstant: 400).isActive = true
         upgrade.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 30).isActive = true
+        premium.topAnchor.constraint(equalTo: upgrade.topAnchor).isActive = true
         
         accept.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -50).isActive = true
         accept.widthAnchor.constraint(equalToConstant: 120).isActive = true
@@ -65,8 +71,9 @@ final class Created: Notify {
         
         session
             .premium
-            .sink { premium in
-                upgrade.isHidden = premium
+            .sink { purchased in
+                upgrade.isHidden = purchased
+                premium.isHidden = !purchased
             }
             .store(in: &subs)
     }

@@ -10,8 +10,6 @@ final class Upgrade: NSView {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-
-        var product: Product?
         
         let image = NSImageView(image: .init(systemSymbolName: "clock", accessibilityDescription: nil) ?? .init())
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -29,18 +27,19 @@ final class Upgrade: NSView {
         addSubview(text)
         
         let button = Control.Prominent(title: "Get Offline Cloud")
+        button.toolTip = "Purchase Offline Cloud"
         button.color = .windowBackgroundColor
         button.text.textColor = .labelColor
         button.state = .hidden
         button
             .click
             .sink {
-                if let product = product {
-                    Task {
+                Task {
+                    if let product = await store.load(item: .cloud) {
                         await store.purchase(product)
+                    } else {
+                        store.status.value = .error("Unable to connect to the App Store, try again later.")
                     }
-                } else {
-                    store.status.value = .error("Unable to connect to the App Store, try again later.")
                 }
             }
             .store(in: &subs)
@@ -102,10 +101,11 @@ final class Upgrade: NSView {
             .store(in: &subs)
         
         Task {
-            product = await store.load(item: .cloud)
-            
-            if let product = product {
-                price.stringValue = "1 time purchase of " + product.displayPrice
+            if let product = await store.load(item: .cloud) {
+                await MainActor
+                    .run {
+                        price.stringValue = "1 time purchase of " + product.displayPrice
+                    }
             }
         }
     }

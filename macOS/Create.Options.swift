@@ -62,6 +62,7 @@ extension Create {
             let secondDivider = Separator()
             
             let location = Control.Prominent(title: "Mark my location")
+            location.toolTip = "Add marker to my location"
             location.text.textColor = .windowBackgroundColor
             location
                 .click
