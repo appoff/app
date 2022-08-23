@@ -16,7 +16,6 @@ final class Session {
     let settings = PassthroughSubject<NSView, Never>()
     let options = PassthroughSubject<NSView, Never>()
     let help = PassthroughSubject<NSView, Never>()
-    let selected = CurrentValueSubject<Project?, Never>(nil)
     let premium: CurrentValueSubject<Bool, Never>
     private var reviewed = false
     private var subs = Set<AnyCancellable>()

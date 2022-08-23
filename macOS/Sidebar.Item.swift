@@ -13,79 +13,50 @@ extension Sidebar {
             let background = Vibrant(layer: true)
             self.background = background
             
-            super.init(layer: true)
-            layer!.masksToBounds = false
+            super.init(layer: false)
+            background.layer!.cornerRadius = 20
             addSubview(background)
             
-//            let separator = Separator()
-//            addSubview(separator)
-//            
-//            let paragraph = NSMutableParagraphStyle()
-//            paragraph.lineBreakMode = .byTruncatingTail
-//            
-//            let string = NSMutableAttributedString()
-//            string.append(.init(string: item.title,
-//                                attributes: [
-//                                    .font: NSFont.preferredFont(forTextStyle: .body),
-//                                    .foregroundColor: NSColor.labelColor,
-//                                    .paragraphStyle: paragraph,
-//                                    .kern: 0.5]))
-//            string.append(.init(string: "\n" + item.feed.provider.title,
-//                                attributes: [
-//                                    .font: NSFont.systemFont(
-//                                        ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize,
-//                                        weight: .regular),
-//                                    .foregroundColor: NSColor.secondaryLabelColor]))
-//            string.append(.init(string: " - ",
-//                                attributes: [
-//                                    .font: NSFont.systemFont(
-//                                        ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize,
-//                                        weight: .light),
-//                                    .foregroundColor: NSColor.secondaryLabelColor]))
-//            string.append(.init(string: item.date.formatted(
-//                .relative(presentation: .named,
-//                          unitsStyle: .wide)),
-//                                attributes: [
-//                                    .font: NSFont.systemFont(
-//                                        ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize,
-//                                        weight: .light),
-//                                    .foregroundColor: NSColor.secondaryLabelColor]))
-//            
-//            let text = Text(vibrancy: true)
-//            text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-//            text.maximumNumberOfLines = 2
-//            text.attributedStringValue = string
-//            addSubview(text)
-//            
-//            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 12).isActive = true
-//            
-//            background.topAnchor.constraint(equalTo: topAnchor).isActive = true
-//            background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//            background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//            background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//            
-//            text.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-//            text.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
-//            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-//            
-//            separator.topAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//            separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//            separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//            separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
-//            
-//            click
-//                .first()
-//                .sink { [weak self] in
-//                    NSApp.activate(ignoringOtherApps: true)
-//                    let window = NSApp
-//                        .windows
-//                        .first { $0 is Window }
-//                    window?.orderFrontRegardless()
-//                    session.provider.value = item.feed.provider
-//                    session.item.value = item
-//                    self?.window?.close()
-//                }
-//                .store(in: &subs)
+            let thumbnail = item
+                .schema
+                .flatMap {
+                    NSImage(data: $0.thumbnail)
+                }
+            ?? NSImage(systemSymbolName: "cloud", accessibilityDescription: nil)
+            ?? .init()
+            
+            let image = NSImageView()
+            image.layer = .init()
+            image.layer!.contentsGravity = .resizeAspectFill
+            image.layer!.contents = thumbnail
+            image.layer!.cornerRadius = background.layer!.cornerRadius
+            image.layer!.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            image.wantsLayer = true
+            image.image = thumbnail
+            image.translatesAutoresizingMaskIntoConstraints = false
+            image.symbolConfiguration = .init(pointSize: 60, weight: .ultraLight)
+                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+            image.imageScaling = .scaleAxesIndependently
+            addSubview(image)
+            
+            widthAnchor.constraint(equalToConstant: 218).isActive = true
+            heightAnchor.constraint(equalToConstant: 160).isActive = true
+            
+            background.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            background.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            background.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            
+            image.topAnchor.constraint(equalTo: background.topAnchor).isActive = true
+            image.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            
+            click
+                .sink {
+                    session.flow.value = .selected(item)
+                }
+                .store(in: &subs)
         }
         
         override func updateLayer() {
@@ -96,11 +67,69 @@ extension Sidebar {
                 .performAsCurrentDrawingAppearance {
                     switch state {
                     case .highlighted, .pressed, .selected:
-                        background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
+                        background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
                     default:
-                        background.layer!.backgroundColor = .clear
+                        background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
                     }
                 }
         }
     }
 }
+
+
+/*
+ 
+ import SwiftUI
+ import Offline
+
+ extension Main {
+     struct Item: View {
+         let session: Session
+         let project: Project
+         @Namespace private var namespace
+         
+         var body: some View {
+             Button {
+                 withAnimation(.easeOut(duration: 0.4)) {
+                     session.selected = (project: project, namespace: namespace)
+                 }
+             } label: {
+                 ZStack {
+                     Rectangle()
+                         .fill(Color(.tertiarySystemBackground))
+                         .matchedGeometryEffect(id: "background", in: namespace)
+                     VStack(spacing: 0) {
+                         if let thumbnail = project.schema.flatMap { UIImage(data: $0.thumbnail) } {
+                             Image(uiImage: thumbnail)
+                                 .resizable()
+                                 .matchedGeometryEffect(id: "image", in: namespace)
+                                 .scaledToFill()
+                                 .aspectRatio(contentMode: .fill)
+                                 .clipped()
+                         } else {
+                             Image(systemName: "cloud")
+                                 .font(.system(size: 60, weight: .ultraLight))
+                                 .matchedGeometryEffect(id: "image", in: namespace)
+                                 .symbolRenderingMode(.hierarchical)
+                                 .foregroundStyle(.secondary)
+                                 .padding(.top, 30)
+                                 .padding(.bottom)
+                         }
+                         Info(header: project.header, size: 0)
+                             .matchedGeometryEffect(id: "info", in: namespace)
+                             .lineLimit(1)
+                             .padding(.bottom, 20)
+                     }
+                 }
+                 .matchedGeometryEffect(id: "card", in: namespace)
+                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                 .shadow(color: .init(white: 0, opacity: 0.1), radius: 8, y: 6)
+             }
+             .buttonStyle(.plain)
+             .padding(.bottom, 10)
+         }
+     }
+ }
+
+ 
+ */

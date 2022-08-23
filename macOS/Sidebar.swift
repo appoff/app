@@ -52,14 +52,14 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         addSubview(separator)
         
         let scroll = Scroll()
-        scroll.contentView.postsBoundsChangedNotifications = false
+        scroll.contentView.postsBoundsChangedNotifications = true
         scroll.contentView.postsFrameChangedNotifications = false
         addSubview(scroll)
         
         let stack = Stack()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
-        stack.spacing = 1
+        stack.spacing = 10
         scroll.documentView!.addSubview(stack)
         
         widthAnchor.constraint(equalToConstant: 220).isActive = true
@@ -82,27 +82,27 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         divider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         divider.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        divider.topAnchor.constraint(equalTo: field.bottomAnchor, constant: 20).isActive = true
         
         separator.topAnchor.constraint(equalTo: topAnchor).isActive = true
         separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         separator.widthAnchor.constraint(equalToConstant: 1).isActive = true
         separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        scroll.topAnchor.constraint(equalTo: topAnchor, constant: 1).isActive = true
+        scroll.topAnchor.constraint(equalTo: divider.bottomAnchor).isActive = true
         scroll.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         scroll.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         scroll.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         scroll.documentView!.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
         
-        stack.topAnchor.constraint(equalTo: scroll.documentView!.topAnchor, constant: 1).isActive = true
+        stack.topAnchor.constraint(equalTo: scroll.documentView!.topAnchor, constant: 20).isActive = true
         stack.leftAnchor.constraint(equalTo: scroll.documentView!.leftAnchor, constant: 1).isActive = true
         stack.widthAnchor.constraint(equalToConstant: 218).isActive = true
         
         session
             .filtered
             .sink { items in
-                print(items.count)
                 stack.setViews(items
                     .map {
                         Item(session: session, item: $0)
@@ -118,23 +118,23 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
 //            }
 //            .store(in: &subs)
         
-//        NotificationCenter
-//            .default
-//            .publisher(for: NSView.boundsDidChangeNotification)
-//            .compactMap {
-//                $0.object as? NSClipView
-//            }
-//            .filter {
-//                $0 == list.contentView
-//            }
-//            .map {
-//                $0.bounds.minY < 10
-//            }
-//            .removeDuplicates()
-//            .sink {
-//                divider.isHidden = $0
-//            }
-//            .store(in: &subs)
+        NotificationCenter
+            .default
+            .publisher(for: NSView.boundsDidChangeNotification)
+            .compactMap {
+                $0.object as? NSClipView
+            }
+            .filter {
+                $0 == scroll.contentView
+            }
+            .map {
+                $0.bounds.minY < 15
+            }
+            .removeDuplicates()
+            .sink {
+                divider.isHidden = $0
+            }
+            .store(in: &subs)
     }
     
     func controlTextDidChange(_ notification: Notification) {

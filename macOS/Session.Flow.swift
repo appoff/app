@@ -7,6 +7,7 @@ extension Session {
         main,
         create,
         scan,
+        selected(Project),
         loading(Factory),
         created(Header),
         unzip(Project),

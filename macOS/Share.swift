@@ -117,9 +117,7 @@ final class Share: NSView {
             .store(in: &subs)
         
         Task {
-            try? await Task.sleep(nanoseconds: 450_000_000)
-            session.selected.value = nil
-            
+            try? await Task.sleep(nanoseconds: 450_000_000)            
             await share()
         }
     }
