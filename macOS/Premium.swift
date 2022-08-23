@@ -7,7 +7,7 @@ final class Premium: NSView {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
-    init(session: Session, header: Header, move: PassthroughSubject<Void, Never>) {
+    init(session: Session, header: Header) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -16,7 +16,6 @@ final class Premium: NSView {
         share
             .click
             .sink {
-                move.send()
                 session.flow.value = .share(header)
             }
             .store(in: &subs)
@@ -26,7 +25,6 @@ final class Premium: NSView {
         offload
             .click
             .sink {
-                move.send()
                 session.flow.value = .offload(header)
             }
             .store(in: &subs)

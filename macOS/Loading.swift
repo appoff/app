@@ -164,7 +164,7 @@ final class Loading: NSView {
                 
                 Task {
                     await cloud.add(header: factory.header, schema: schema)
-                    session.flow.value = .main
+                    session.flow.value = .created(factory.header)
                 }
             }
             .store(in: &subs)
@@ -216,8 +216,6 @@ final class Loading: NSView {
         Task {
             await factory.shoot()
         }
-        
-        factory.fail.send()
     }
     
     override var allowsVibrancy: Bool {

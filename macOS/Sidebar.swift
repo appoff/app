@@ -102,6 +102,7 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         session
             .filtered
             .sink { items in
+                print(items.count)
                 stack.setViews(items
                     .map {
                         Item(session: session, item: $0)

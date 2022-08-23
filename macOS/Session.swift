@@ -41,29 +41,6 @@ final class Session {
                     .makeKeyAndOrderFront(nil)
             }
             .store(in: &subs)
-        
-        
-        flow.value = .share(.init(title: "hello world",
-                                  origin: "some place",
-                                  destination: "some other place",
-                                  distance: 12466,
-                                  duration: 9875))
-        
-//        Task {
-//            let settings = await cloud.model.settings
-//
-//            flow.value = .loading(.init(
-//                header: .init(title: "hello world",
-//                              origin: "some place",
-//                              destination: "some other place",
-//                              distance: 12466,
-//                              duration: 9875),
-//                points: [.init(), .init()],
-//                route: [.init(origin: .init(),
-//                              destination: .init(),
-//                              route: .init())],
-//                settings: settings))
-//        }
     }
     
     func review() {

@@ -8,6 +8,7 @@ extension Session {
         create,
         scan,
         loading(Factory),
+        created(Header),
         unzip(Project),
         offload(Header),
         download(Header),

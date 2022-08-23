@@ -142,6 +142,7 @@ final class Create: NSView, NSTextFieldDelegate {
         
         builder
             .overflow
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] in
                 overflow.height.constant = $0 ? 72 : 0
