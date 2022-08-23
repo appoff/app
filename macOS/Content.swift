@@ -28,6 +28,9 @@ final class Content: NSVisualEffectView {
                 case let .share(header):
                     view = Share(session: session, header: header)
                     self.material = .hudWindow
+                case let .shared(header, image):
+                    view = Shared(session: session, header: header, image: image)
+                    self.material = .sidebar
                 default:
                     view = Main(session: session)
                     self.material = .hudWindow
