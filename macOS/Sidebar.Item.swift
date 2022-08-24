@@ -17,27 +17,26 @@ extension Sidebar {
             background.layer!.cornerRadius = 20
             addSubview(background)
             
-            let thumbnail = item
-                .schema
-                .flatMap {
-                    NSImage(data: $0.thumbnail)
-                }
-            ?? NSImage(systemSymbolName: "cloud", accessibilityDescription: nil)
-            ?? .init()
+            let image: NSView
             
-            let image = NSImageView()
-            image.layer = .init()
-            image.layer!.contentsGravity = .resizeAspectFill
-            image.layer!.contents = thumbnail
-            image.layer!.cornerRadius = background.layer!.cornerRadius
-            image.layer!.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            image.wantsLayer = true
-            image.image = thumbnail
+            if let thumbnail = item.schema.flatMap({ NSImage(data: $0.thumbnail) }) {
+                image = .init()
+                image.layer = .init()
+                image.layer!.contentsGravity = .resizeAspectFill
+                image.layer!.contents = thumbnail
+                image.layer!.cornerRadius = background.layer!.cornerRadius
+                image.layer!.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                image.wantsLayer = true
+                addSubview(image)
+            } else {
+                image = NSImageView(image: NSImage(systemSymbolName: "cloud", accessibilityDescription: nil) ?? .init())
+                (image as! NSImageView).symbolConfiguration = .init(pointSize: 40, weight: .ultraLight)
+                    .applying(.init(hierarchicalColor: .tertiaryLabelColor))
+                (image as! NSImageView).imageScaling = .scaleNone
+                background.addSubview(image)
+            }
+            
             image.translatesAutoresizingMaskIntoConstraints = false
-            image.symbolConfiguration = .init(pointSize: 60, weight: .ultraLight)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
-            image.imageScaling = .scaleAxesIndependently
-            addSubview(image)
             
             widthAnchor.constraint(equalToConstant: 218).isActive = true
             heightAnchor.constraint(equalToConstant: 160).isActive = true
@@ -48,7 +47,7 @@ extension Sidebar {
             background.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
             
             image.topAnchor.constraint(equalTo: background.topAnchor).isActive = true
-            image.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            image.heightAnchor.constraint(equalToConstant: 80).isActive = true
             image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
             image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
             
@@ -69,7 +68,7 @@ extension Sidebar {
                     case .highlighted, .pressed, .selected:
                         background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
                     default:
-                        background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+                        background.layer!.backgroundColor = .clear
                     }
                 }
         }
