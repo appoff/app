@@ -5,11 +5,13 @@ import Offline
 
 extension Sidebar {
     final class Item: Control {
+        let id: UUID
         private weak var background: Vibrant!
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
         init(session: Session, item: Project) {
+            id = item.id
             let background = Vibrant(layer: true)
             self.background = background
             
@@ -54,7 +56,7 @@ extension Sidebar {
             image.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
             image.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             
-            info.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 5).isActive = true
+            info.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
             info.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 10).isActive = true
             info.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -12).isActive = true
             
@@ -65,7 +67,8 @@ extension Sidebar {
             
             click
                 .sink {
-                    session.flow.value = .selected(item)
+                    session.selected.value = item
+                    session.flow.value = .main
                 }
                 .store(in: &subs)
         }

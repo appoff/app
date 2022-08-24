@@ -59,7 +59,7 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         let stack = Stack()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
-        stack.spacing = 10
+        stack.spacing = 0
         scroll.documentView!.addSubview(stack)
         
         widthAnchor.constraint(equalToConstant: 220).isActive = true
@@ -107,6 +107,20 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
                     .map {
                         Item(session: session, item: $0)
                     }, in: .center)
+            }
+            .store(in: &subs)
+        
+        session
+            .selected
+            .sink { selected in
+                stack
+                    .views
+                    .compactMap {
+                        $0 as? Item
+                    }
+                    .forEach {
+                        $0.state = $0.id == selected?.id ? .selected : .on
+                    }
             }
             .store(in: &subs)
         

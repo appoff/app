@@ -22,21 +22,27 @@ final class Content: NSVisualEffectView {
                 case .create:
                     view = Create(session: session)
                     self.material = .sidebar
+                    self.window?.isMovableByWindowBackground = false
                 case let .loading(factory):
                     view = Loading(session: session, factory: factory)
                     self.material = .hudWindow
+                    self.window?.isMovableByWindowBackground = true
                 case let .created(header):
                     view = Created(session: session, header: header)
                     self.material = .menu
+                    self.window?.isMovableByWindowBackground = true
                 case let .share(header):
                     view = Share(session: session, header: header)
                     self.material = .hudWindow
+                    self.window?.isMovableByWindowBackground = true
                 case let .shared(header, image):
                     view = Shared(session: session, header: header, image: image)
                     self.material = .sidebar
+                    self.window?.isMovableByWindowBackground = true
                 default:
                     view = Main(session: session)
                     self.material = .hudWindow
+                    self.window?.isMovableByWindowBackground = true
                 }
                 
                 self.addSubview(view!)
