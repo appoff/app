@@ -97,8 +97,8 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         scroll.documentView!.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
         
         stack.topAnchor.constraint(equalTo: scroll.documentView!.topAnchor, constant: 20).isActive = true
-        stack.leftAnchor.constraint(equalTo: scroll.documentView!.leftAnchor, constant: 1).isActive = true
-        stack.widthAnchor.constraint(equalToConstant: 218).isActive = true
+        stack.leftAnchor.constraint(equalTo: scroll.documentView!.leftAnchor).isActive = true
+        stack.widthAnchor.constraint(equalToConstant: 219).isActive = true
         
         session
             .filtered

@@ -203,9 +203,13 @@ final class Create: NSView, NSTextFieldDelegate {
             .save
             .sink { [weak self] in
                 guard
-                    let title = self?.title.value,
+                    var title = self?.title.value.trimmingCharacters(in: .whitespacesAndNewlines),
                     builder.points.value.count > 1 && !builder.overflow.value
                 else { return }
+                if title.isEmpty {
+                    title = "New map"
+                }
+                
                 builder.follow = false
                 
                 Task {

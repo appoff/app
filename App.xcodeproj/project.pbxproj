@@ -56,6 +56,7 @@
 		CE787181282FEAA10050BD93 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE787180282FEAA10050BD93 /* Detail.swift */; };
 		CE787183282FF7080050BD93 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE787182282FF7080050BD93 /* Info.swift */; };
 		CE78C582283CDFB60046FF33 /* Liner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78C581283CDFB60046FF33 /* Liner.swift */; };
+		CE7B4D5428B62DC000E651A6 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B4D5328B62DC000E651A6 /* Info.swift */; };
 		CE7E701D2844D136008D5CD5 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7E701C2844D136008D5CD5 /* Download.swift */; };
 		CE81D91F2823CEDB00364029 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D91E2823CEDB00364029 /* Action.swift */; };
 		CE81D9212823E0BE00364029 /* Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D9202823E0BE00364029 /* Find.swift */; };
@@ -235,6 +236,7 @@
 		CE787180282FEAA10050BD93 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CE787182282FF7080050BD93 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CE78C581283CDFB60046FF33 /* Liner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Liner.swift; sourceTree = "<group>"; };
+		CE7B4D5328B62DC000E651A6 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CE7E701C2844D136008D5CD5 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		CE81D91E2823CEDB00364029 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		CE81D9202823E0BE00364029 /* Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				CED7FF1228A538C50008A429 /* Find.Field.swift */,
 				CE1994B428A681DE00EF66BA /* Find.Item.swift */,
 				CED7FF1028A537FB0008A429 /* Find.swift */,
+				CE7B4D5328B62DC000E651A6 /* Info.swift */,
 				CE9400F728A90F1D00A65F8C /* Loading.swift */,
 				CE00C3AF28A1466A00D5129B /* Main.swift */,
 				CE00C3B328A150FB00D5129B /* Map.swift */,
@@ -822,6 +825,7 @@
 				CEB170F028A3D22900F10A35 /* Tiler.swift in Sources */,
 				CE00C3AC28A1292E00D5129B /* Session.Flow.swift in Sources */,
 				CED7FF1328A538C50008A429 /* Find.Field.swift in Sources */,
+				CE7B4D5428B62DC000E651A6 /* Info.swift in Sources */,
 				CE00C3A628A1226C00D5129B /* Sidebar.Item.swift in Sources */,
 				CED7FF1128A537FB0008A429 /* Find.swift in Sources */,
 				CEAA267C289D60C700897FB3 /* Topbar.swift in Sources */,
