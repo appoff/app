@@ -37,7 +37,7 @@ extension Sidebar {
             
             image.translatesAutoresizingMaskIntoConstraints = false
 
-            let info = Info(header: item.header, size: 0, oversize: 0)
+            let info = Info(session: session, header: item.header, full: false)
             background.addSubview(info)
             
             let divider = Separator()
