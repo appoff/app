@@ -43,7 +43,7 @@ extension Sidebar {
             let divider = Separator()
             background.addSubview(divider)
             
-            widthAnchor.constraint(equalToConstant: 219).isActive = true
+            widthAnchor.constraint(equalToConstant: 267).isActive = true
             bottomAnchor.constraint(equalTo: divider.bottomAnchor).isActive = true
             
             background.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -52,9 +52,9 @@ extension Sidebar {
             background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             
             image.topAnchor.constraint(equalTo: background.topAnchor, constant: 1).isActive = true
-            image.heightAnchor.constraint(equalToConstant: 80).isActive = true
-            image.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            image.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            image.heightAnchor.constraint(equalToConstant: 269).isActive = true
+            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 1).isActive = true
+            image.rightAnchor.constraint(equalTo: rightAnchor, constant: -1).isActive = true
             
             info.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
             info.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 10).isActive = true

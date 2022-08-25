@@ -68,6 +68,10 @@ final class Info: NSView {
         }
     }
     
+    override var allowsVibrancy: Bool {
+        true
+    }
+    
     private func item(title: String, content: String) -> NSView {
         let base = NSView()
         base.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +100,7 @@ final class Info: NSView {
         
         header.topAnchor.constraint(equalTo: base.topAnchor).isActive = true
         header.leftAnchor.constraint(equalTo: base.leftAnchor).isActive = true
-        header.widthAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
+        header.widthAnchor.constraint(lessThanOrEqualTo: base.widthAnchor).isActive = true
         
         divider.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
         divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
