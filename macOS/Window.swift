@@ -52,7 +52,7 @@ final class Window: NSWindow {
     
     override func cancelOperation(_ sender: Any?) {
         if case .create = session.flow.value {
-            session.cancel.send()
+            session.cancel.send(nil)
         } else {
             super.cancelOperation(sender)
         }

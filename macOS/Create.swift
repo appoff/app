@@ -231,6 +231,28 @@ final class Create: NSView, NSTextFieldDelegate {
                 }
             }
             .store(in: &subs)
+        
+        session
+            .cancel
+            .sink { [weak self] select in
+                let alert = NSAlert()
+                alert.alertStyle = .warning
+                alert.icon = .init(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: nil)
+                alert.messageText = "Cancel map?"
+                
+                let cancel = alert.addButton(withTitle: "Cancel")
+                let cont = alert.addButton(withTitle: "Continue")
+                cancel.hasDestructiveAction = true
+                cancel.keyEquivalent = "\r"
+                cont.keyEquivalent = "\u{1b}"
+                
+                if alert.runModal().rawValue == cancel.tag {
+                    session.selected.value = select
+                    session.flow.value = .main
+                    self?.window?.makeFirstResponder(self?.window?.contentView)
+                }
+            }
+            .store(in: &subs)
     }
     
     func controlTextDidChange(_ notification: Notification) {

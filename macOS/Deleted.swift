@@ -1,9 +1,9 @@
 import AppKit
-import Combine
 import Coffee
+import Combine
 import Offline
 
-final class Created: NSView {
+final class Deleted: NSView {
     private var subs = Set<AnyCancellable>()
 
     required init?(coder: NSCoder) { nil }
@@ -11,16 +11,14 @@ final class Created: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        let image = NSImageView(image: .init(named: "Created") ?? .init())
+        let image = NSImageView(image: .init(named: "Deleted") ?? .init())
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentTintColor = .labelColor
-        addSubview(image)
         
         let title = Text(vibrancy: false)
-        title.stringValue = "Ready"
+        title.stringValue = "Deleted"
         title.font = .preferredFont(forTextStyle: .title1)
         title.textColor = .labelColor
-        addSubview(title)
         
         let subtitle = Text(vibrancy: false)
         subtitle.stringValue = header.title
@@ -28,15 +26,6 @@ final class Created: NSView {
         subtitle.textColor = .secondaryLabelColor
         subtitle.maximumNumberOfLines = 1
         subtitle.lineBreakMode = .byTruncatingTail
-        addSubview(subtitle)
-        
-        let upgrade = Upgrade()
-        upgrade.isHidden = true
-        addSubview(upgrade)
-        
-        let premium = Premium(session: session, header: header)
-        premium.isHidden = true
-        addSubview(premium)
         
         let accept = Control.Plain(title: "Continue")
         accept.toolTip = "Continue"
@@ -46,10 +35,10 @@ final class Created: NSView {
                 session.flow.value = .main
             }
             .store(in: &subs)
-        addSubview(accept)
         
-        [image, title, subtitle, upgrade, premium, accept]
+        [image, title, subtitle, accept]
             .forEach {
+                addSubview($0)
                 $0.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             }
         
@@ -57,19 +46,16 @@ final class Created: NSView {
         title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
         subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5).isActive = true
         subtitle.widthAnchor.constraint(lessThanOrEqualToConstant: 400).isActive = true
-        upgrade.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 30).isActive = true
-        premium.topAnchor.constraint(equalTo: upgrade.topAnchor).isActive = true
         
-        accept.topAnchor.constraint(equalTo: upgrade.bottomAnchor, constant: 50).isActive = true
+        accept.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 50).isActive = true
         accept.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
-        session
-            .premium
-            .sink { purchased in
-                upgrade.isHidden = purchased
-                premium.isHidden = !purchased
-            }
-            .store(in: &subs)
+        Task {
+            session.selected.value = nil
+            
+            await cloud.delete(header: header)
+            session.local.delete(header: header)
+        }
     }
     
     override var allowsVibrancy: Bool {

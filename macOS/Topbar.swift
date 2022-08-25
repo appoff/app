@@ -33,6 +33,20 @@ final class Topbar: NSView {
             .store(in: &subs)
         addSubview(scan)
         
+        let trash = Control.Button(symbol: "trash")
+        trash.color = .systemPink
+        trash.toolTip = "Delete map"
+        trash.state = .hidden
+        trash
+            .click
+            .sink { [weak self] in
+                guard case .main = session.flow.value, session.selected.value != nil else { return }
+                self?.window?.makeFirstResponder(self?.window?.contentView)
+                session.trash.send()
+            }
+            .store(in: &subs)
+        addSubview(trash)
+        
         let cancel = Control.Button(symbol: "xmark")
         cancel.toolTip = "Cancel new map"
         cancel.state = .hidden
@@ -40,7 +54,7 @@ final class Topbar: NSView {
             .click
             .sink { [weak self] in
                 self?.window?.makeFirstResponder(self?.window?.contentView)
-                session.cancel.send()
+                session.cancel.send(nil)
             }
             .store(in: &subs)
         addSubview(cancel)
@@ -133,15 +147,27 @@ final class Topbar: NSView {
         help.rightAnchor.constraint(equalTo: options.leftAnchor, constant: -10).isActive = true
         cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
         
-        [create, scan, cancel, help, options, find, settings, follow, save]
+        trash.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        [create, scan, cancel, help, options, find, settings, follow, save, trash]
             .forEach {
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
         
         session
             .flow
-            .combineLatest(session.ready.removeDuplicates())
-            .sink { flow, completed in
+            .combineLatest(session
+                .premium
+                .removeDuplicates(),
+                           session
+                .selected
+                .removeDuplicates {
+                    $0?.id == $1?.id
+                },
+                           session
+                .ready
+                .removeDuplicates())
+            .sink { flow, premium, selected, completed in
                 switch flow {
                 case .main:
                     create.state = .on
@@ -153,6 +179,7 @@ final class Topbar: NSView {
                     settings.state = .hidden
                     follow.state = .hidden
                     save.state = .hidden
+                    trash.state = selected == nil ? .hidden : .on
                 case .create:
                     create.state = .off
                     scan.state = .off
@@ -163,32 +190,11 @@ final class Topbar: NSView {
                     settings.state = .on
                     follow.state = .on
                     save.state = completed ? .on : .off
+                    trash.state = .hidden
                 default:
                     create.state = .off
                     scan.state = .off
-                }
-            }
-            .store(in: &subs)
-        
-        session
-            .cancel
-            .sink { [weak self] in
-                guard case .create = session.flow.value else { return }
-
-                let alert = NSAlert()
-                alert.alertStyle = .warning
-                alert.icon = .init(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: nil)
-                alert.messageText = "Cancel map?"
-                
-                let cancel = alert.addButton(withTitle: "Cancel")
-                let cont = alert.addButton(withTitle: "Continue")
-                cancel.hasDestructiveAction = true
-                cancel.keyEquivalent = "\r"
-                cont.keyEquivalent = "\u{1b}"
-                
-                if alert.runModal().rawValue == cancel.tag {
-                    session.flow.value = .main
-                    self?.window?.makeFirstResponder(self?.window?.contentView)
+                    trash.state = .hidden
                 }
             }
             .store(in: &subs)

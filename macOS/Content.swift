@@ -39,6 +39,10 @@ final class Content: NSVisualEffectView {
                     view = Shared(session: session, header: header, image: image)
                     self.material = .sidebar
                     self.window?.isMovableByWindowBackground = true
+                case let .deleted(header):
+                    view = Deleted(session: session, header: header)
+                    self.material = .sidebar
+                    self.window?.isMovableByWindowBackground = true
                 default:
                     view = Main(session: session)
                     self.material = .hudWindow

@@ -60,7 +60,7 @@ final class Shared: NSView {
                 $0.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             }
         
-        title.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        title.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 45).isActive = true
         title.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
         
         imageView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true

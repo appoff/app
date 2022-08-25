@@ -54,9 +54,16 @@ extension Sidebar {
             info.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
             
             click
-                .sink {
-                    session.selected.value = item
-                    session.flow.value = .main
+                .sink { [weak self] in
+                    guard self?.state != .selected else { return }
+                    
+                    guard case .create = session.flow.value else {
+                        session.selected.value = item
+                        session.flow.value = .main
+                        return
+                    }
+                    
+                    session.cancel.send(item)
                 }
                 .store(in: &subs)
         }
