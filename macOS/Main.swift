@@ -94,6 +94,22 @@ final class Main: NSView {
                 }
             }
             .store(in: &subs)
+        
+        session
+            .share
+            .sink {
+                guard let selected = session.selected.value else { return }
+                session.flow.value = .share(selected.header)
+            }
+            .store(in: &subs)
+        
+        session
+            .offload
+            .sink {
+                guard let selected = session.selected.value else { return }
+                session.flow.value = .offload(selected.header)
+            }
+            .store(in: &subs)
     }
     
     override var allowsVibrancy: Bool {

@@ -20,7 +20,6 @@ final class Topbar: NSView {
                 session.flow.value = .create
             }
             .store(in: &subs)
-        addSubview(create)
         
         let scan = Control.Button(symbol: "square.and.arrow.down")
         scan.toolTip = "Import map"
@@ -31,12 +30,10 @@ final class Topbar: NSView {
                 session.flow.value = .scan
             }
             .store(in: &subs)
-        addSubview(scan)
         
         let trash = Control.Button(symbol: "trash")
         trash.color = .systemPink
         trash.toolTip = "Delete map"
-        trash.state = .hidden
         trash
             .click
             .sink { [weak self] in
@@ -45,11 +42,9 @@ final class Topbar: NSView {
                 session.trash.send()
             }
             .store(in: &subs)
-        addSubview(trash)
         
         let cancel = Control.Button(symbol: "xmark")
         cancel.toolTip = "Cancel new map"
-        cancel.state = .hidden
         cancel
             .click
             .sink { [weak self] in
@@ -57,11 +52,9 @@ final class Topbar: NSView {
                 session.cancel.send(nil)
             }
             .store(in: &subs)
-        addSubview(cancel)
         
         let help = Control.Button(symbol: "questionmark.circle")
         help.toolTip = "Help"
-        help.state = .hidden
         help
             .click
             .sink { [weak self] in
@@ -69,11 +62,9 @@ final class Topbar: NSView {
                 session.help.send(help)
             }
             .store(in: &subs)
-        addSubview(help)
         
         let options = Control.Button(symbol: "slider.horizontal.3")
         options.toolTip = "Options"
-        options.state = .hidden
         options
             .click
             .sink { [weak self] in
@@ -81,11 +72,9 @@ final class Topbar: NSView {
                 session.options.send(options)
             }
             .store(in: &subs)
-        addSubview(options)
         
         let find = Control.Button(symbol: "magnifyingglass")
         find.toolTip = "Find place"
-        find.state = .hidden
         find
             .click
             .sink { [weak self] in
@@ -93,11 +82,9 @@ final class Topbar: NSView {
                 session.find.send()
             }
             .store(in: &subs)
-        addSubview(find)
         
         let settings = Control.Button(symbol: "square.stack.3d.up")
         settings.toolTip = "Settings"
-        settings.state = .hidden
         settings
             .click
             .sink { [weak self] in
@@ -105,11 +92,9 @@ final class Topbar: NSView {
                 session.settings.send(settings)
             }
             .store(in: &subs)
-        addSubview(settings)
         
         let follow = Control.Button(symbol: "location.viewfinder")
         follow.toolTip = "My location"
-        follow.state = .hidden
         follow
             .click
             .sink { [weak self] in
@@ -117,12 +102,8 @@ final class Topbar: NSView {
                 session.follow.send()
             }
             .store(in: &subs)
-        addSubview(follow)
         
         let save = Control.Prominent(title: "Save", radius: 13)
-        save.color = .labelColor
-        save.text.textColor = .windowBackgroundColor
-        save.state = .hidden
         save.toolTip = "Save new map"
         save
             .click
@@ -131,13 +112,48 @@ final class Topbar: NSView {
                 session.save.send()
             }
             .store(in: &subs)
-        addSubview(save)
+        
+        let share = Control.Prominent(title: "Share")
+        share.toolTip = "Share map"
+        share
+            .click
+            .sink {
+                session.share.send()
+            }
+            .store(in: &subs)
+        
+        let offload = Control.Prominent(title: "Offload")
+        offload.toolTip = "Offload map"
+        offload
+            .click
+            .sink {
+                session.offload.send()
+            }
+            .store(in: &subs)
+        
+        [save, share, offload]
+            .forEach {
+                $0.color = .labelColor
+                $0.text.textColor = .windowBackgroundColor
+                
+                $0.widthAnchor.constraint(equalToConstant: 90).isActive = true
+                $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
+            }
+        
+        [create, scan, cancel, help, options, find, settings, follow, save, trash, share, offload]
+            .forEach {
+                $0.state = .hidden
+                addSubview($0)
+                
+                $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            }
         
         create.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         scan.leftAnchor.constraint(equalTo: create.rightAnchor, constant: 10).isActive = true
         
-        save.widthAnchor.constraint(equalToConstant: 68).isActive = true
-        save.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        share.leftAnchor.constraint(equalTo: scan.rightAnchor, constant: 160).isActive = true
+        offload.leftAnchor.constraint(equalTo: share.rightAnchor, constant: 10).isActive = true
+        
         save.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         follow.rightAnchor.constraint(equalTo: save.leftAnchor, constant: -15).isActive = true
         find.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
@@ -148,11 +164,6 @@ final class Topbar: NSView {
         cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
         
         trash.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        
-        [create, scan, cancel, help, options, find, settings, follow, save, trash]
-            .forEach {
-                $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            }
         
         session
             .flow
@@ -180,9 +191,11 @@ final class Topbar: NSView {
                     follow.state = .hidden
                     save.state = .hidden
                     trash.state = selected == nil ? .hidden : .on
+                    share.state = selected != nil && premium ? .on : .hidden
+                    offload.state = selected != nil && premium ? .on : .hidden
                 case .create:
-                    create.state = .off
-                    scan.state = .off
+                    create.state = .hidden
+                    scan.state = .hidden
                     cancel.state = .on
                     help.state = .on
                     options.state = .on
@@ -191,10 +204,21 @@ final class Topbar: NSView {
                     follow.state = .on
                     save.state = completed ? .on : .off
                     trash.state = .hidden
+                    share.state = .hidden
+                    offload.state = .hidden
                 default:
-                    create.state = .off
-                    scan.state = .off
+                    create.state = .hidden
+                    scan.state = .hidden
+                    cancel.state = .hidden
+                    help.state = .hidden
+                    options.state = .hidden
+                    find.state = .hidden
+                    settings.state = .hidden
+                    follow.state = .hidden
+                    save.state = .hidden
                     trash.state = .hidden
+                    share.state = .hidden
+                    offload.state = .hidden
                 }
             }
             .store(in: &subs)

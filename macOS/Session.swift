@@ -17,6 +17,8 @@ final class Session {
     let settings = PassthroughSubject<NSView, Never>()
     let options = PassthroughSubject<NSView, Never>()
     let help = PassthroughSubject<NSView, Never>()
+    let share = PassthroughSubject<Void, Never>()
+    let offload = PassthroughSubject<Void, Never>()
     let selected = CurrentValueSubject<Project?, Never>(nil)
     let premium: CurrentValueSubject<Bool, Never>
     let local = Local()
