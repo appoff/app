@@ -55,10 +55,10 @@ final class Main: NSView {
                         image.isHidden = false
                     }
                     
-                    info = .init(header: selected.header, size: 0)
+                    info = .init(header: selected.header, size: 0, oversize: 6)
                     self.addSubview(info!)
                     
-                    info!.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 10).isActive = true
+                    info!.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 15).isActive = true
                     info!.leftAnchor.constraint(equalTo: separator.leftAnchor, constant: 10).isActive = true
                     info!.rightAnchor.constraint(equalTo: separator.rightAnchor, constant: -10).isActive = true
                 } else {
