@@ -59,7 +59,7 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         let stack = Stack()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
-        stack.spacing = 0
+        stack.spacing = 1
         scroll.documentView!.addSubview(stack)
         
         widthAnchor.constraint(equalToConstant: 270).isActive = true
@@ -94,9 +94,9 @@ final class Sidebar: NSVisualEffectView, NSTextFieldDelegate {
         scroll.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         scroll.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
-        scroll.documentView!.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
+        scroll.documentView!.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 1).isActive = true
         
-        stack.topAnchor.constraint(equalTo: scroll.documentView!.topAnchor, constant: 20).isActive = true
+        stack.topAnchor.constraint(equalTo: scroll.documentView!.topAnchor, constant: 1).isActive = true
         stack.leftAnchor.constraint(equalTo: scroll.documentView!.leftAnchor).isActive = true
         stack.widthAnchor.constraint(equalToConstant: 269).isActive = true
         

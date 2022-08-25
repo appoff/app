@@ -14,7 +14,7 @@ final class Info: NSView {
         
         let title = Text(vibrancy: false)
         title.stringValue = header.title
-        title.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize + oversize, weight: .medium)
+        title.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize + oversize, weight: .medium)
         title.textColor = .labelColor
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         title.maximumNumberOfLines = 1
@@ -32,7 +32,7 @@ final class Info: NSView {
             }
         
         title.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        origin.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5 + oversize).isActive = true
+        origin.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6 + oversize).isActive = true
         destination.topAnchor.constraint(equalTo: origin.bottomAnchor, constant: 5 + oversize).isActive = true
         
         if full {
