@@ -108,7 +108,7 @@ final class Loading: NSView {
         image.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
         image.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 51).isActive = true
         
-        base.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        base.widthAnchor.constraint(equalToConstant: 160).isActive = true
         base.heightAnchor.constraint(equalToConstant: 10).isActive = true
         base.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 25).isActive = true
         
@@ -153,7 +153,7 @@ final class Loading: NSView {
         factory
             .progress
             .sink {
-                progressWidth.constant = 70 * $0
+                progressWidth.constant = max(160 * $0, 14)
             }
             .store(in: &subs)
         
