@@ -2,6 +2,8 @@ import AppKit
 import Coffee
 import Combine
 
+private let spacing = CGFloat(15)
+
 final class Topbar: NSView {
     private var subs = Set<AnyCancellable>()
     private let session: Session
@@ -10,6 +12,14 @@ final class Topbar: NSView {
     init(session: Session) {
         self.session = session
         super.init(frame: .zero)
+        
+        let title = Text(vibrancy: true)
+        title.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium)
+        title.textColor = .labelColor
+        title.maximumNumberOfLines = 1
+        title.lineBreakMode = .byTruncatingTail
+        title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        addSubview(title)
         
         let create = Control.Button(symbol: "plus")
         create.toolTip = "New map"
@@ -93,6 +103,16 @@ final class Topbar: NSView {
             }
             .store(in: &subs)
         
+        let points = Control.Button(symbol: "arrow.triangle.turn.up.right.circle")
+        points.toolTip = "Directions"
+        points
+            .click
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
+                session.settings.send(settings)
+            }
+            .store(in: &subs)
+        
         let follow = Control.Button(symbol: "location.viewfinder")
         follow.toolTip = "My location"
         follow
@@ -143,6 +163,11 @@ final class Topbar: NSView {
             }
             .store(in: &subs)
         
+        let stack = Stack()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = spacing
+        stack.orientation = .horizontal
+        
         [save, share, offload, open]
             .forEach {
                 $0.widthAnchor.constraint(equalToConstant: 90).isActive = true
@@ -155,31 +180,21 @@ final class Topbar: NSView {
                 $0.text.textColor = .windowBackgroundColor
             }
         
-        [create, scan, cancel, help, options, find, settings, follow, save, trash, share, offload, open]
+        [create, scan, title, stack]
             .forEach {
-                $0.state = .hidden
                 addSubview($0)
-                
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
         
-        create.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        scan.leftAnchor.constraint(equalTo: create.rightAnchor, constant: 10).isActive = true
+        create.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: spacing).isActive = true
+        scan.leftAnchor.constraint(equalTo: create.rightAnchor, constant: spacing).isActive = true
+
+        title.leftAnchor.constraint(equalTo: leftAnchor, constant: 205).isActive = true
+        title.rightAnchor.constraint(lessThanOrEqualTo: stack.leftAnchor, constant: -5).isActive = true
         
-        share.leftAnchor.constraint(equalTo: scan.rightAnchor, constant: 160).isActive = true
-        offload.leftAnchor.constraint(equalTo: share.rightAnchor, constant: 10).isActive = true
-        
-        save.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        follow.rightAnchor.constraint(equalTo: save.leftAnchor, constant: -15).isActive = true
-        find.rightAnchor.constraint(equalTo: follow.leftAnchor, constant: -10).isActive = true
-        settings.rightAnchor.constraint(equalTo: find.leftAnchor, constant: -10).isActive = true
-        
-        options.rightAnchor.constraint(equalTo: settings.leftAnchor, constant: -10).isActive = true
-        help.rightAnchor.constraint(equalTo: options.leftAnchor, constant: -10).isActive = true
-        cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
-        
-        trash.rightAnchor.constraint(equalTo: open.leftAnchor, constant: -15).isActive = true
-        open.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        stack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        stack.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -spacing).isActive = true
         
         session
             .flow
@@ -195,50 +210,27 @@ final class Topbar: NSView {
                 .ready
                 .removeDuplicates())
             .sink { flow, premium, selected, completed in
+                var views = [Control]()
+                
                 switch flow {
                 case .main:
-                    create.state = .on
-                    scan.state = .on
-                    cancel.state = .hidden
-                    help.state = .hidden
-                    options.state = .hidden
-                    find.state = .hidden
-                    settings.state = .hidden
-                    follow.state = .hidden
-                    save.state = .hidden
-                    open.state = selected == nil ? .hidden : .on
-                    trash.state = selected == nil ? .hidden : .on
-                    share.state = selected != nil && premium ? .on : .hidden
-                    offload.state = selected != nil && premium ? .on : .hidden
+                    title.stringValue = ""
+                    if selected != nil {
+                        views = [trash] + (premium ? [share, offload] : []) + [open]
+                    }
                 case .create:
-                    create.state = .on
-                    scan.state = .on
-                    cancel.state = .on
-                    help.state = .on
-                    options.state = .on
-                    find.state = .on
-                    settings.state = .on
-                    follow.state = .on
+                    title.stringValue = "Create map"
                     save.state = completed ? .on : .off
-                    open.state = .hidden
-                    trash.state = .hidden
-                    share.state = .hidden
-                    offload.state = .hidden
+                    views = [cancel, help, options, settings, find, follow, save]
+                case .navigate:
+                    title.stringValue = session.selected.value?.header.title ?? ""
+                    views = [settings, points, follow]
                 default:
-                    create.state = .on
-                    scan.state = .on
-                    cancel.state = .hidden
-                    help.state = .hidden
-                    options.state = .hidden
-                    find.state = .hidden
-                    settings.state = .hidden
-                    follow.state = .hidden
-                    save.state = .hidden
-                    open.state = .hidden
-                    trash.state = .hidden
-                    share.state = .hidden
-                    offload.state = .hidden
+                    title.stringValue = ""
+                    break
                 }
+                
+                stack.setViews(views, in: .center)
             }
             .store(in: &subs)
     }

@@ -3,7 +3,7 @@ import Offline
 
 extension Navigate {
     final class Control: Mapper {
-        @Published var config = false
+        @Published var options = false
         @Published var points = false
         let annotations: [(point: MKPointAnnotation, route: Route?)]
         private let polyline: MKMultiPolyline

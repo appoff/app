@@ -38,6 +38,18 @@ final class Navigate: NSView {
 //                          edge: .minY)
             }
             .store(in: &subs)
+        
+        session
+            .settings
+            .sink { origin in
+//                NSPopover()
+//                    .show(content: Settings(type: builder.type,
+//                                            directions: builder.directions,
+//                                            interest: builder.interest),
+//                          on: origin,
+//                          edge: .minY)
+            }
+            .store(in: &subs)
     }
 }
 

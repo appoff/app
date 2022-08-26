@@ -22,9 +22,9 @@ struct Navigate: View {
                         
                         Action(symbol: "slider.horizontal.3") {
                             control.map.follow = false
-                            control.config = true
+                            control.options = true
                         }
-                        .sheet(isPresented: $control.config) {
+                        .sheet(isPresented: $control.options) {
                             Sheet(rootView: Options(control: control))
                         }
                         

@@ -139,6 +139,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             .store(in: &subs)
         
         user(span: true)
+        position.send()
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
