@@ -113,11 +113,22 @@ final class Topbar: NSView {
             }
             .store(in: &subs)
         
+        let open = Control.Prominent(title: "Open")
+        open.toolTip = "Open map"
+        open
+            .click
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
+                session.open.send()
+            }
+            .store(in: &subs)
+        
         let share = Control.Prominent(title: "Share")
         share.toolTip = "Share map"
         share
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 session.share.send()
             }
             .store(in: &subs)
@@ -126,21 +137,25 @@ final class Topbar: NSView {
         offload.toolTip = "Offload map"
         offload
             .click
-            .sink {
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self?.window?.contentView)
                 session.offload.send()
             }
             .store(in: &subs)
         
-        [save, share, offload]
+        [save, share, offload, open]
             .forEach {
-                $0.color = .labelColor
-                $0.text.textColor = .windowBackgroundColor
-                
                 $0.widthAnchor.constraint(equalToConstant: 90).isActive = true
                 $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
             }
         
-        [create, scan, cancel, help, options, find, settings, follow, save, trash, share, offload]
+        [save, open]
+            .forEach {
+                $0.color = .labelColor
+                $0.text.textColor = .windowBackgroundColor
+            }
+        
+        [create, scan, cancel, help, options, find, settings, follow, save, trash, share, offload, open]
             .forEach {
                 $0.state = .hidden
                 addSubview($0)
@@ -163,7 +178,8 @@ final class Topbar: NSView {
         help.rightAnchor.constraint(equalTo: options.leftAnchor, constant: -10).isActive = true
         cancel.rightAnchor.constraint(equalTo: help.leftAnchor, constant: -10).isActive = true
         
-        trash.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        trash.rightAnchor.constraint(equalTo: open.leftAnchor, constant: -15).isActive = true
+        open.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         session
             .flow
@@ -190,12 +206,13 @@ final class Topbar: NSView {
                     settings.state = .hidden
                     follow.state = .hidden
                     save.state = .hidden
+                    open.state = selected == nil ? .hidden : .on
                     trash.state = selected == nil ? .hidden : .on
                     share.state = selected != nil && premium ? .on : .hidden
                     offload.state = selected != nil && premium ? .on : .hidden
                 case .create:
-                    create.state = .hidden
-                    scan.state = .hidden
+                    create.state = .on
+                    scan.state = .on
                     cancel.state = .on
                     help.state = .on
                     options.state = .on
@@ -203,12 +220,13 @@ final class Topbar: NSView {
                     settings.state = .on
                     follow.state = .on
                     save.state = completed ? .on : .off
+                    open.state = .hidden
                     trash.state = .hidden
                     share.state = .hidden
                     offload.state = .hidden
                 default:
-                    create.state = .hidden
-                    scan.state = .hidden
+                    create.state = .on
+                    scan.state = .on
                     cancel.state = .hidden
                     help.state = .hidden
                     options.state = .hidden
@@ -216,6 +234,7 @@ final class Topbar: NSView {
                     settings.state = .hidden
                     follow.state = .hidden
                     save.state = .hidden
+                    open.state = .hidden
                     trash.state = .hidden
                     share.state = .hidden
                     offload.state = .hidden

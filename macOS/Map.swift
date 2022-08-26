@@ -11,7 +11,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
     let type = CurrentValueSubject<_, Never>(Settings.Map.standard)
     let scheme = CurrentValueSubject<_, Never>(Settings.Scheme.auto)
     let interest = CurrentValueSubject<_, Never>(true)
-    let rotate = CurrentValueSubject<_, Never>(true)
+    let rotate = CurrentValueSubject<_, Never>(false)
     private var first = true
     private let editable: Bool
     private let position = PassthroughSubject<Void, Never>()
@@ -85,6 +85,7 @@ class Map: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             .store(in: &subs)
         
         rotate
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] rotate in
                 self?.isRotateEnabled = rotate

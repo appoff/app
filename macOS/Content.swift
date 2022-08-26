@@ -37,12 +37,20 @@ final class Content: NSVisualEffectView {
                     self.window?.isMovableByWindowBackground = true
                 case let .shared(header, image):
                     view = Shared(session: session, header: header, image: image)
-                    self.material = .sidebar
+                    self.material = .menu
                     self.window?.isMovableByWindowBackground = true
                 case let .deleted(header):
                     view = Deleted(session: session, header: header)
-                    self.material = .sidebar
+                    self.material = .menu
                     self.window?.isMovableByWindowBackground = true
+                case let .unzip(project):
+                    view = Unzip(session: session, project: project)
+                    self.material = .hudWindow
+                    self.window?.isMovableByWindowBackground = true
+                case let .navigate(schema, bufferer):
+                    view = Navigate(session: session, schema: schema, bufferer: bufferer)
+                    self.material = .sidebar
+                    self.window?.isMovableByWindowBackground = false
                 default:
                     view = Main(session: session)
                     self.material = .hudWindow

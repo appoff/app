@@ -10,6 +10,7 @@ final class Tiler: MKTileOverlay {
         self.bufferer = bufferer
         super.init(urlTemplate: nil)
         tileSize = .init(width: size, height: size)
+        canReplaceMapContent = true
     }
     
     override func loadTile(at: MKTileOverlayPath) async throws -> Data {

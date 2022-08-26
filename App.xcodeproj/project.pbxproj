@@ -77,6 +77,9 @@
 		CE979AA62827F15400FC0EB0 /* Create.Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA52827F15400FC0EB0 /* Create.Settings.swift */; };
 		CE979AA82827F21000FC0EB0 /* Create.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA72827F21000FC0EB0 /* Create.Options.swift */; };
 		CE979AAA2827FA3D00FC0EB0 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE979AA92827FA3D00FC0EB0 /* Window.swift */; };
+		CE9D4BED28B8D1270014D98D /* Unzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9D4BEC28B8D1270014D98D /* Unzip.swift */; };
+		CE9D4BEF28B8DACF0014D98D /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9D4BEE28B8DACF0014D98D /* Navigate.swift */; };
+		CE9D4BF128B8DB980014D98D /* Navigate.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9D4BF028B8DB980014D98D /* Navigate.Control.swift */; };
 		CE9EDCC628475A4100CC7ACB /* Scan.Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */; };
 		CE9EF51628424298008169E2 /* Offload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EF51528424298008169E2 /* Offload.swift */; };
 		CEAA2668289D42AE00897FB3 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA2667289D42AE00897FB3 /* Sidebar.swift */; };
@@ -110,7 +113,7 @@
 		CED82A1E28490DC4003742CC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A1D28490DC4003742CC /* Preferences.swift */; };
 		CED82A2028490FFA003742CC /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A1F28490FFA003742CC /* Copy.swift */; };
 		CED82A22284910E6003742CC /* Preferences.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED82A21284910E6003742CC /* Preferences.Info.swift */; };
-		CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE215802836863B0083FC99 /* Navigate.Config.swift */; };
+		CEE215812836863B0083FC99 /* Navigate.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE215802836863B0083FC99 /* Navigate.Options.swift */; };
 		CEE2158328368D230083FC99 /* Navigate.Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2158228368D230083FC99 /* Navigate.Points.swift */; };
 		CEE82CCF284CCD2500228B2D /* Detail.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE82CCE284CCD2500228B2D /* Detail.Item.swift */; };
 		CEEB863F283CFFA800A9FF13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB863E283CFFA800A9FF13 /* User.swift */; };
@@ -259,6 +262,9 @@
 		CE979AA52827F15400FC0EB0 /* Create.Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Settings.swift; sourceTree = "<group>"; };
 		CE979AA72827F21000FC0EB0 /* Create.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.Options.swift; sourceTree = "<group>"; };
 		CE979AA92827FA3D00FC0EB0 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CE9D4BEC28B8D1270014D98D /* Unzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unzip.swift; sourceTree = "<group>"; };
+		CE9D4BEE28B8DACF0014D98D /* Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.swift; sourceTree = "<group>"; };
+		CE9D4BF028B8DB980014D98D /* Navigate.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Control.swift; sourceTree = "<group>"; };
 		CE9EDCC528475A4100CC7ACB /* Scan.Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.Picker.swift; sourceTree = "<group>"; };
 		CE9EF51528424298008169E2 /* Offload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offload.swift; sourceTree = "<group>"; };
 		CEAA2667289D42AE00897FB3 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -289,7 +295,7 @@
 		CED82A1D28490DC4003742CC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		CED82A1F28490FFA003742CC /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 		CED82A21284910E6003742CC /* Preferences.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Info.swift; sourceTree = "<group>"; };
-		CEE215802836863B0083FC99 /* Navigate.Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Config.swift; sourceTree = "<group>"; };
+		CEE215802836863B0083FC99 /* Navigate.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Options.swift; sourceTree = "<group>"; };
 		CEE2158228368D230083FC99 /* Navigate.Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigate.Points.swift; sourceTree = "<group>"; };
 		CEE82CCE284CCD2500228B2D /* Detail.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Item.swift; sourceTree = "<group>"; };
 		CEEB863E283CFFA800A9FF13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -431,8 +437,8 @@
 				CE2C43B32822E4A0000007A2 /* Main.swift */,
 				CE2C43AD2822E071000007A2 /* Map.swift */,
 				CEFC28DA2834FFAF00E47E23 /* Mapper.swift */,
-				CEE215802836863B0083FC99 /* Navigate.Config.swift */,
 				CEFC28D82834F0EA00E47E23 /* Navigate.Control.swift */,
+				CEE215802836863B0083FC99 /* Navigate.Options.swift */,
 				CEE2158228368D230083FC99 /* Navigate.Points.swift */,
 				CEFC28D62834E4A900E47E23 /* Navigate.swift */,
 				CE9EF51528424298008169E2 /* Offload.swift */,
@@ -519,6 +525,8 @@
 				CE9400F728A90F1D00A65F8C /* Loading.swift */,
 				CE00C3AF28A1466A00D5129B /* Main.swift */,
 				CE00C3B328A150FB00D5129B /* Map.swift */,
+				CE9D4BF028B8DB980014D98D /* Navigate.Control.swift */,
+				CE9D4BEE28B8DACF0014D98D /* Navigate.swift */,
 				CE8EA6F728B285F400F0DF61 /* Premium.swift */,
 				CE8EA6F528B2804500F0DF61 /* Purchased.swift */,
 				CE00C3AB28A1292E00D5129B /* Session.Flow.swift */,
@@ -531,6 +539,7 @@
 				CE00C3A528A1226C00D5129B /* Sidebar.Item.swift */,
 				CEAA2667289D42AE00897FB3 /* Sidebar.swift */,
 				CEAA267B289D60C700897FB3 /* Topbar.swift */,
+				CE9D4BEC28B8D1270014D98D /* Unzip.swift */,
 				CE8EA6F128B2522600F0DF61 /* Upgrade.swift */,
 				CE00C3B528A15D3D00D5129B /* User.swift */,
 				CEF2D743289C1F3800D34CCE /* Window.swift */,
@@ -789,7 +798,7 @@
 				CEC51AB928252F85003DA00D /* Session.swift in Sources */,
 				CEFC28D72834E4A900E47E23 /* Navigate.swift in Sources */,
 				CE7E701D2844D136008D5CD5 /* Download.swift in Sources */,
-				CEE215812836863B0083FC99 /* Navigate.Config.swift in Sources */,
+				CEE215812836863B0083FC99 /* Navigate.Options.swift in Sources */,
 				CE81D92528242DA900364029 /* Find.Item.swift in Sources */,
 				CE979AA62827F15400FC0EB0 /* Create.Settings.swift in Sources */,
 				CE3A92C7283E6D8D00D52C2A /* Upgrade.swift in Sources */,
@@ -831,6 +840,7 @@
 				CE7B4D5428B62DC000E651A6 /* Info.swift in Sources */,
 				CE00C3A628A1226C00D5129B /* Sidebar.Item.swift in Sources */,
 				CED7FF1128A537FB0008A429 /* Find.swift in Sources */,
+				CE9D4BF128B8DB980014D98D /* Navigate.Control.swift in Sources */,
 				CEAA267C289D60C700897FB3 /* Topbar.swift in Sources */,
 				CE8EA6F628B2804500F0DF61 /* Purchased.swift in Sources */,
 				CEF2D72B289C194100D34CCE /* App.swift in Sources */,
@@ -841,6 +851,7 @@
 				CE002CC0289C1F950010F6F9 /* Store.swift in Sources */,
 				CE00C3B028A1466A00D5129B /* Main.swift in Sources */,
 				CEAA267A289D5D5500897FB3 /* Content.swift in Sources */,
+				CE9D4BED28B8D1270014D98D /* Unzip.swift in Sources */,
 				CE8EA6F828B285F400F0DF61 /* Premium.swift in Sources */,
 				CEF2D742289C1E3A00D34CCE /* Session.swift in Sources */,
 				CE00C3B428A150FB00D5129B /* Map.swift in Sources */,
@@ -854,6 +865,7 @@
 				CE77701228A27D8500190D97 /* Create.Cell.swift in Sources */,
 				CEB170EF28A3D20A00F10A35 /* Liner.swift in Sources */,
 				CEAA266E289D435F00897FB3 /* Sidebar.Cell.swift in Sources */,
+				CE9D4BEF28B8DACF0014D98D /* Navigate.swift in Sources */,
 				CE1994B528A681DE00EF66BA /* Find.Item.swift in Sources */,
 				CEF1062B28B39488007414EA /* Share.swift in Sources */,
 				CED7FF1728A538DF0008A429 /* Find.Cell.swift in Sources */,

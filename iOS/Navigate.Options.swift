@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Navigate {
-    struct Config: View {
+    struct Options: View {
         @ObservedObject var control: Control
         @Environment(\.dismiss) private var dismiss
         

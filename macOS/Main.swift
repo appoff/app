@@ -16,9 +16,13 @@ final class Main: NSView {
         logo.isHidden = true
         addSubview(logo)
         
+        let divider = Separator()
+        divider.isHidden = true
+        addSubview(divider)
+        
         let scroll = Scroll()
         scroll.isHidden = true
-        scroll.contentView.postsBoundsChangedNotifications = false
+        scroll.contentView.postsBoundsChangedNotifications = true
         scroll.contentView.postsFrameChangedNotifications = false
         addSubview(scroll)
         
@@ -31,7 +35,12 @@ final class Main: NSView {
         logo.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         logo.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        scroll.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        divider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        divider.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        divider.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        
+        scroll.topAnchor.constraint(equalTo: divider.bottomAnchor).isActive = true
         scroll.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         scroll.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         scroll.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -62,12 +71,13 @@ final class Main: NSView {
                         scroll.documentView!.bottomAnchor.constraint(equalTo: upgrade.bottomAnchor, constant: 40).isActive = true
                     }
                     
-                    info!.topAnchor.constraint(equalTo: scroll.topAnchor).isActive = true
+                    info!.topAnchor.constraint(equalTo: scroll.topAnchor, constant: 20).isActive = true
                     info!.leftAnchor.constraint(equalTo: scroll.leftAnchor, constant: 40).isActive = true
                     info!.rightAnchor.constraint(equalTo: scroll.rightAnchor, constant: -40).isActive = true
                 } else {
                     logo.isHidden = false
                     scroll.isHidden = true
+                    divider.isHidden = true
                 }
             }
             .store(in: &subs)
@@ -108,6 +118,32 @@ final class Main: NSView {
             .sink {
                 guard let selected = session.selected.value else { return }
                 session.flow.value = .offload(selected.header)
+            }
+            .store(in: &subs)
+        
+        session
+            .open
+            .sink {
+                guard let selected = session.selected.value else { return }
+                session.flow.value = .unzip(selected)
+            }
+            .store(in: &subs)
+        
+        NotificationCenter
+            .default
+            .publisher(for: NSView.boundsDidChangeNotification)
+            .compactMap {
+                $0.object as? NSClipView
+            }
+            .filter {
+                $0 == scroll.contentView
+            }
+            .map {
+                $0.bounds.minY < 15
+            }
+            .removeDuplicates()
+            .sink {
+                divider.isHidden = $0
             }
             .store(in: &subs)
     }

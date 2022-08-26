@@ -25,7 +25,7 @@ struct Navigate: View {
                             control.config = true
                         }
                         .sheet(isPresented: $control.config) {
-                            Sheet(rootView: Config(control: control))
+                            Sheet(rootView: Options(control: control))
                         }
                         
                         Action(symbol: "arrow.triangle.turn.up.right.circle") {

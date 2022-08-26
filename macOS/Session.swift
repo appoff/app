@@ -20,6 +20,7 @@ final class Session {
     let share = PassthroughSubject<Void, Never>()
     let offload = PassthroughSubject<Void, Never>()
     let selected = CurrentValueSubject<Project?, Never>(nil)
+    let open = PassthroughSubject<Void, Never>()
     let premium: CurrentValueSubject<Bool, Never>
     let local = Local()
     private var reviewed = false
